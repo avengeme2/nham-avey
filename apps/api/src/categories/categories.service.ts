@@ -44,17 +44,18 @@ export class CategoryService {
   }
 
   async countRestaurantsByCategory(category: Category): Promise<number> {
-    const entity = await this.categoryRepo //
+    const entity = await this.categoryRepo
       .createQueryBuilder("category")
       .where("category.id = :id", { id: category.id })
       .loadRelationCountAndMap("category.restaurantCount", "category.restaurants", "restaurant")
+      .cache(true)
       .getOne()
     return entity?.restaurantCount as number
   }
 
   async findAllCategories(): Promise<AllCategoriesOutput> {
-    const categories = await this.categoryRepo.find({ order: { name: "ASC" } })
-    return { ok: true, categories }
+    const categories = await this.categoryRepo.find({ order: { name: "ASC" }, cache: true })
+    return { ok: true, data: categories }
   }
 
   async findCategories(args: PaginationWithSearchArgs): Promise<PaginationCategoriesOutput> {
@@ -66,11 +67,12 @@ export class CategoryService {
     const queryBuilder = this.categoryRepo.createQueryBuilder("category")
     if (searchQuery) queryBuilder.where(`category.name ILIKE :searchQuery`, { searchQuery })
 
-    const matchedCount = await queryBuilder.getCount()
+    const matchedCount = await queryBuilder.cache(true).getCount()
     const categories = await queryBuilder
       .orderBy("category.name", "ASC")
       .skip(skip)
       .take(take) //
+      .cache(true) //
       .getMany() //
 
     const paginatedOutput = new PaginatedRestaurantsOutput(args, matchedCount)

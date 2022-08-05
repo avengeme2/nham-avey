@@ -85,13 +85,13 @@ type AdminUpdateUserOutput {
 }
 
 type AllCategoriesOutput {
-  categories: [Category!]
+  data: [Category!]
   error: String
   ok: Boolean!
 }
 
 type AllCitiesOutput {
-  cities: [City!]
+  data: [City!]
   error: String
   ok: Boolean!
 }
@@ -455,6 +455,7 @@ type Restaurant {
   city: City
   coverImageUrls: [String!]
   createdAt: EnhancedDate!
+  description: String
   id: Float!
   isPromoted: Boolean!
   location: Location
