@@ -208,7 +208,7 @@ export const CustomersPage = () => {
           <Table<TableType<User>>
             className="overflow-x-auto"
             columns={tableColumns}
-            dataSource={data?.adminGetUsers.users || []}
+            dataSource={data?.adminGetUsers.data || []}
             rowKey="id"
             pagination={pagination}
             loading={loading}

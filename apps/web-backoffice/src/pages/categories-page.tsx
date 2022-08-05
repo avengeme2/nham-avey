@@ -10,7 +10,7 @@ import {
 import {
   Category,
   useAdminDeleteCategoryMutation,
-  useGetCategoriesQuery,
+  useCategoriesQuery,
 } from "@nham-avey/common"
 import {
   Button,
@@ -61,7 +61,7 @@ export const CategoriesPage = () => {
     deleteConfirmationVisible: false,
     updateDrawerViewVisible: false,
   })
-  const { data, loading, refetch } = useGetCategoriesQuery({
+  const { data, loading, refetch } = useCategoriesQuery({
     variables: pageState,
     fetchPolicy: "cache-and-network",
   })
@@ -148,7 +148,7 @@ export const CategoriesPage = () => {
                       content: "",
                       onOk: async () =>
                         await deleteCategory({
-                          variables: { categoryId: category.id },
+                          variables: { id: category.id },
                         }),
                     })
                   }}
@@ -167,7 +167,7 @@ export const CategoriesPage = () => {
     return {
       current: pageState.page,
       pageSize: pageState.take,
-      total: data?.getCategories.matchedCount || 0,
+      total: data?.categories.matchedCount || 0,
       showSizeChanger: true,
       onChange: (page, pageSize) => {
         if (pageSize !== pageState.take) {
@@ -230,7 +230,7 @@ export const CategoriesPage = () => {
           <Table<TableType<Category>>
             className="overflow-x-auto"
             columns={tableColumns}
-            dataSource={data?.getCategories.categories || []}
+            dataSource={data?.categories.data || []}
             rowKey="id"
             pagination={pagination}
             loading={loading}

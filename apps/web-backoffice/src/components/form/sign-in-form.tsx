@@ -1,10 +1,10 @@
 import { LockOutlined, MailOutlined } from "@ant-design/icons"
+import { useSignInWithEmailAndPassword } from "@nham-avey/common"
 import { Alert, Button, Form, Input } from "antd"
 import { motion } from "framer-motion"
-import useSignInWithEmailAndPassword from "src/hooks/firebase/use-sign-in-with-email-and-password"
 import firebaseService from "src/services/firebase-service"
 
-const { getErrorMessage } = firebaseService
+const { getErrorMessage, auth } = firebaseService
 
 export const SignInForm = () => {
   const { error, signIn, isLoading: isSigningIn } = useSignInWithEmailAndPassword()
@@ -19,7 +19,7 @@ export const SignInForm = () => {
    * @todo add remember me
    */
   const onSignIn = async ({ email, password }: { email: string; password: string }) => {
-    await signIn({ email, password })
+    await signIn({ email, password, auth })
   }
 
   return (
