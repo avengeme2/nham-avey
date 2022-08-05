@@ -11,7 +11,9 @@
         "outputPath": "dist/apps/web-client"
       },
       "configurations": {
-        "development": {},
+        "development": {
+          "outputPath": "apps/web-client"
+        },
         "production": {}
       }
     },
