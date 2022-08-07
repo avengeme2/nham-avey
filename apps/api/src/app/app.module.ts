@@ -9,6 +9,7 @@ import { TypeOrmModule } from "@nestjs/typeorm"
 import { ApolloServerPluginLandingPageLocalDefault, ApolloServerPluginLandingPageProductionDefault } from "apollo-server-core"
 import { ApolloServer } from "apollo-server-express"
 import { cert } from "firebase-admin/app"
+import * as Joi from "joi"
 import { ApiKeyMiddleware } from "src/auth/api-key.middleware"
 import { AuthMiddleware } from "src/auth/auth.middleware"
 import { AuthModule } from "src/auth/auth.module"
@@ -27,18 +28,21 @@ import { PaymentsModule } from "src/payments/payments.module"
 import { RestaurantsModule } from "src/restaurants/restaurants.module"
 import { TypeormConfigService } from "src/typeorm/typeorm-config.service"
 import { UsersModule } from "src/users/users.module"
-import * as Yup from "yup"
 
 @Module({
   imports: [
     ConfigModule.forRoot({
       load: [configuration],
       isGlobal: true,
-      validationSchema: Yup.object().shape({
-        DATABASE_URL: Yup.string().required(),
-        FIREBASE_STORAGE_BUCKET_URL: Yup.string().required(),
-        DATABASE_LOGGING: Yup.string(),
+      validationSchema: Joi.object({
+        DATABASE_URL: Joi.string().required(),
+        FIREBASE_STORAGE_BUCKET_URL: Joi.string().required(),
+        DATABASE_LOGGING: Joi.string(),
       }),
+      validationOptions: {
+        allowUnknown: true,
+        abortEarly: true,
+      },
     }),
     TypeOrmModule.forRootAsync({ useClass: TypeormConfigService }),
     GraphQLModule.forRootAsync({
