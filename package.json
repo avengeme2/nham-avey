@@ -49,7 +49,7 @@
     "@tanstack/react-query-devtools": "^4.0.10",
     "antd": "^4.22.4",
     "antd-img-crop": "^4.2.4",
-    "apollo-server-express": "^3.10.0",
+    "apollo-server-express": "^3.10.1",
     "axios": "^0.27.2",
     "bcrypt": "^5.0.1",
     "blurhash": "^1.1.5",
