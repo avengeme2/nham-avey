@@ -1,3 +1,4 @@
+/* eslint-disable */
 module.exports = {
   displayName: "web-client",
   preset: "../../jest.preset.ts",
