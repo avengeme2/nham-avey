@@ -22,6 +22,7 @@ import configuration from "src/config/configuration"
 import { DishModule } from "src/dishes/dishes.module"
 import { FileUploadsModule } from "src/file-uploads/file-uploads.module"
 import { FirebaseAdminModule } from "src/firebase-admin/firebase-admin.module"
+import { MorganFormatType, MorganMiddleware } from "src/log/morgan.middleware"
 import { MailModule } from "src/mail/mails.module"
 import { OrdersModule } from "src/orders/orders.module"
 import { PaymentsModule } from "src/payments/payments.module"
@@ -101,6 +102,9 @@ import { UsersModule } from "src/users/users.module"
 })
 export class AppModule implements NestModule {
   configure(consumer: MiddlewareConsumer) {
+    // middleware configs
+    MorganMiddleware.configure(MorganFormatType.Dev)
+
     consumer
       .apply(ApiKeyMiddleware)
       .exclude({ path: SWAGGER_PATH, method: RequestMethod.ALL })
@@ -108,6 +112,8 @@ export class AppModule implements NestModule {
       .forRoutes({ path: "*", method: RequestMethod.ALL })
       .apply(AuthMiddleware)
       .exclude({ path: "graphql", method: RequestMethod.ALL })
+      .forRoutes({ path: "*", method: RequestMethod.ALL })
+      .apply(MorganMiddleware)
       .forRoutes({ path: "*", method: RequestMethod.ALL })
   }
 }
