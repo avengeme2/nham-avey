@@ -1,6 +1,7 @@
 import { Logger, ValidationPipe } from "@nestjs/common"
 import { ConfigService } from "@nestjs/config"
 import { NestFactory } from "@nestjs/core"
+import * as compression from "compression"
 import { AppModule } from "src/app/app.module"
 import { createSwagger } from "src/common/common.helpers"
 
@@ -9,6 +10,7 @@ async function bootstrap() {
   const globalPrefix = "api/v1"
   app.setGlobalPrefix(globalPrefix)
   app.useGlobalPipes(new ValidationPipe({ transform: true }))
+  app.use(compression())
   app.enableCors()
 
   const configService: ConfigService = app.get(ConfigService)

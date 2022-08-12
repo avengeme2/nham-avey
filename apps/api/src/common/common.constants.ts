@@ -10,3 +10,4 @@ export const FILE_KEY = "file"
 export const AUTHORIZATION_HEADER = "authorization"
 
 export const SWAGGER_PATH = "swagger"
+export const GRAPHQL_PATH = "graphql"
