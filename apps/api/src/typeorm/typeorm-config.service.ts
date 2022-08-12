@@ -22,6 +22,7 @@ export class TypeormConfigService implements TypeOrmOptionsFactory {
 
   public createTypeOrmOptions(): TypeOrmModuleOptions {
     const { host, port, database, user, password } = parse(this.config.get<string>("db.url") as string)
+    const isLocalHost = host?.includes("127.0.0.1") || host?.includes("localhost")
 
     return {
       type: "postgres",
@@ -38,9 +39,11 @@ export class TypeormConfigService implements TypeOrmOptionsFactory {
       logging: this.config.get<LoggerOptions>("db.logging"),
       synchronize: false,
       keepConnectionAlive: !this.config.get("isProd"),
-      ssl: {
-        rejectUnauthorized: false, // this should be true outside heroku!
-      },
+      ...(!isLocalHost && {
+        ssl: {
+          rejectUnauthorized: false, // this should be true outside heroku!
+        },
+      }),
       cache: {
         duration: 1500, // override default 1000ms
         type: "redis",
