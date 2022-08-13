@@ -14,14 +14,15 @@ export class SentryInterceptor implements NestInterceptor {
   constructor(private readonly options?: SentryInterceptorOptions) {}
 
   intercept(context: ExecutionContext, next: CallHandler): Observable<any> {
-    // first param would be for events, second is for errors
     return next.handle().pipe(
-      tap(null, (exception: HttpException) => {
-        if (this.shouldReport(exception)) {
-          this.client.instance().withScope(scope => {
-            return this.captureException(context, scope, exception)
-          })
-        }
+      tap({
+        error: (exception: HttpException) => {
+          if (this.shouldReport(exception)) {
+            this.client.instance().withScope(scope => {
+              return this.captureException(context, scope, exception)
+            })
+          }
+        },
       }),
     )
   }
@@ -66,7 +67,6 @@ export class SentryInterceptor implements NestInterceptor {
 
     // If all filters pass, then we do not report
     if (this.options) {
-      // eslint-disable-next-line @typescript-eslint/no-explicit-any
       const opts: SentryInterceptorOptions = this.options
       if (opts.filters) {
         const filters: SentryInterceptorOptionsFilter[] = opts.filters
