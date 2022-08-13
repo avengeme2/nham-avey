@@ -25,6 +25,7 @@ import configuration from "src/config/configuration"
 import { DishModule } from "src/dishes/dishes.module"
 import { FileUploadsModule } from "src/file-uploads/file-uploads.module"
 import { FirebaseAdminModule } from "src/firebase-admin/firebase-admin.module"
+import { ImagesModule } from "src/images/images.module"
 import { MorganFormatType, MorganMiddleware } from "src/log/morgan.middleware"
 import { MailModule } from "src/mail/mails.module"
 import { OrdersModule } from "src/orders/orders.module"
@@ -97,6 +98,7 @@ import { UsersModule } from "src/users/users.module"
     CommonModule,
     PaymentsModule,
     FileUploadsModule,
+    ImagesModule,
   ],
   controllers: [],
   providers: [
