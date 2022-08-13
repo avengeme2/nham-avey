@@ -62,7 +62,13 @@ export const UpdateRestaurantForm = ({
       })
       setLogoImageUrl(initialValue.logoImageUrl as string | undefined)
       setCoverImagesFileList(
-        initialValue.coverImages?.map(image => image.url) as [],
+        initialValue.coverImages?.map((image, idx) => ({
+          uid: image.url,
+          name: `Cover ${idx + 1}`,
+          url: image.url,
+          response: image.url,
+          status: 'done',
+        })) || [],
       )
     }
   }, [form, initialValue])
@@ -181,7 +187,7 @@ export const UpdateRestaurantForm = ({
         <ImgCrop grid rotate quality={1} aspect={16 / 9}>
           <Upload
             listType="picture"
-            className="mb-10"
+            className="mb-10 [&_.ant-upload-list-item-image]:object-contain [&_.ant-upload-list-item-name]:text-left"
             accept="image/*"
             fileList={coverImagesFileList}
             showUploadList={true}
