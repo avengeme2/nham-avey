@@ -29,13 +29,8 @@ export class ImageService {
   }
 
   async saveImage(file: Express.Multer.File, url: string): Promise<Image> {
-    console.time("generate blurhash")
     const blurhash = await this.generateBlurhash(file.buffer)
     const image = this.imageRepo.create({ blurhash, url })
-    console.timeEnd("generate blurhash")
-    console.time("save image")
-    const r = await this.imageRepo.save(image)
-    console.timeEnd("save image")
-    return r
+    return this.imageRepo.save(image)
   }
 }
