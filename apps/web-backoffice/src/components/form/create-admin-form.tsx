@@ -6,7 +6,7 @@ import { Button, Form, Input, Upload } from 'antd'
 import ImgCrop from 'antd-img-crop'
 import { UploadChangeParam } from 'antd/es/upload'
 import { UploadProps } from 'antd/es/upload/interface'
-import { antUIUploadCustomRequest } from 'src/utils/common-utils'
+import { antUploadCustomRequestWithCompression } from 'src/utils/common-utils'
 
 const { useForm } = Form
 
@@ -88,7 +88,7 @@ export const CreateAdminForm = ({
             className="mb-10"
             accept="image/*"
             showUploadList={false}
-            customRequest={antUIUploadCustomRequest}
+            customRequest={antUploadCustomRequestWithCompression}
             onChange={handleLogoImageChange}
           >
             {isUploadingPhoto ? (

@@ -6,7 +6,7 @@ import { Button, Form, Input, Upload } from 'antd'
 import ImgCrop from 'antd-img-crop'
 import { UploadChangeParam } from 'antd/es/upload'
 import { UploadProps } from 'antd/es/upload/interface'
-import { antUIUploadCustomRequest } from 'src/utils/common-utils'
+import { antUploadCustom } from 'src/utils/common-utils'
 
 const { useForm } = Form
 
@@ -69,26 +69,24 @@ export const CreateCategoryForm = ({
       name="user-form"
     >
       <div className="text-center">
-        <ImgCrop grid rotate quality={1} aspect={1}>
-          <Upload
-            listType="picture-card"
-            className="mb-10"
-            accept="image/*"
-            showUploadList={false}
-            customRequest={antUIUploadCustomRequest}
-            onChange={handleCoverImageChange}
-          >
-            {isUploadingPhoto ? (
-              <LoadingOutlined />
-            ) : coverImageUrl ? (
-              <img src={coverImageUrl} alt="avatar" style={{ width: '100%' }} />
-            ) : (
-              <div style={{ marginTop: 8 }}>
-                <PlusOutlined />
-              </div>
-            )}
-          </Upload>
-        </ImgCrop>
+        <Upload
+          listType="picture-card"
+          className="mb-10"
+          accept="image/*"
+          showUploadList={false}
+          customRequest={antUploadCustom}
+          onChange={handleCoverImageChange}
+        >
+          {isUploadingPhoto ? (
+            <LoadingOutlined />
+          ) : coverImageUrl ? (
+            <img src={coverImageUrl} alt="avatar" style={{ width: '100%' }} />
+          ) : (
+            <div style={{ marginTop: 8 }}>
+              <PlusOutlined />
+            </div>
+          )}
+        </Upload>
       </div>
 
       <Form.Item

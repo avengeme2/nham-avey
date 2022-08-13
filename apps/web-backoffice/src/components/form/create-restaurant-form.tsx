@@ -14,7 +14,7 @@ import { UploadChangeParam } from 'antd/es/upload'
 import { UploadProps } from 'antd/es/upload/interface'
 import { DebouncedSelect } from 'src/components/form-elements/DebouncedSelect'
 import { SelectOption } from 'src/typing/common-type'
-import { antUIUploadCustomRequest } from 'src/utils/common-utils'
+import { antUploadCustomRequestWithCompression } from 'src/utils/common-utils'
 
 const { useForm } = Form
 
@@ -141,7 +141,7 @@ export const CreateRestaurantForm = ({
             className="mb-10"
             accept="image/*"
             showUploadList={false}
-            customRequest={antUIUploadCustomRequest}
+            customRequest={antUploadCustomRequestWithCompression}
             onChange={handleLogoImageChange}
           >
             {isUploadingCover ? (
@@ -163,7 +163,7 @@ export const CreateRestaurantForm = ({
             accept="image/*"
             fileList={coverImages}
             showUploadList={true}
-            customRequest={antUIUploadCustomRequest}
+            customRequest={antUploadCustomRequestWithCompression}
             onChange={handleCoverImageChange}
           >
             <div style={{ marginTop: 8 }}>

@@ -17,7 +17,7 @@ import ImgCrop from 'antd-img-crop'
 import { UploadChangeParam } from 'antd/es/upload'
 import { UploadProps } from 'antd/es/upload/interface'
 import { SelectOption } from 'src/typing/common-type'
-import { antUIUploadCustomRequest } from 'src/utils/common-utils'
+import { antUploadCustomRequestWithCompression } from 'src/utils/common-utils'
 
 const { useForm } = Form
 
@@ -167,7 +167,7 @@ export const UpdateRestaurantForm = ({
             className="mb-10"
             accept="image/*"
             showUploadList={false}
-            customRequest={antUIUploadCustomRequest}
+            customRequest={antUploadCustomRequestWithCompression}
             onChange={handleLogoImageChange}
           >
             {isUploadingLogo ? (
@@ -191,7 +191,7 @@ export const UpdateRestaurantForm = ({
             accept="image/*"
             fileList={coverImagesFileList}
             showUploadList={true}
-            customRequest={antUIUploadCustomRequest}
+            customRequest={antUploadCustomRequestWithCompression}
             onChange={handleCoverImageChange}
             onPreview={file => window.open(file.response, '_blank')}
           >
