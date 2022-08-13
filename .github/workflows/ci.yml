@@ -30,7 +30,11 @@ jobs:
       - name: Install dependencies 🔀
         run: npm ci
 
+      - name: Run lint all🔀
+        run: npx nx run-many --target=lint --all
+
       - name: Run build all🔀
+        if: ${{ github.actor != 'dependabot[bot]' }}
         run: npx nx run-many --target=build --all
         env:
           # for web-client
@@ -40,3 +44,8 @@ jobs:
           NEXT_PUBLIC_API_URL: ${{secrets.NEXT_PUBLIC_API_URL}}
           NEXT_PUBLIC_HTTP_GRAPHQL_URI: ${{secrets.NEXT_PUBLIC_HTTP_GRAPHQL_URI}}
           NEXT_PUBLIC_WS_GRAPHQL_URI: ${{secrets.NEXT_PUBLIC_WS_GRAPHQL_URI}}
+
+      # dependabot doesn't have access to secrets in gh action, so it can't build web-client successfully
+      - name: Run build(for dependabot)🔀
+        if: ${{ github.actor == 'dependabot[bot]' }}
+        run: npx nx run-many --target=build --projects=web-backoffice,api
