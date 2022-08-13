@@ -15,9 +15,6 @@ const configs = () => ({
         ? true
         : process.env.DATABASE_LOGGING,
   },
-  log: {
-    level: process.env.LOG_LEVEL,
-  },
   isProd: process.env.NODE_ENV === 'production',
 })
 
