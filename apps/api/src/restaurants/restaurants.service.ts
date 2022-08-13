@@ -7,6 +7,7 @@ import { CategoryRequest } from "src/categories/category.interface"
 import { CityService } from "src/cities/cities.service"
 import { CoreOutput } from "src/common/dtos/output.dto"
 import { PaginationWithSearchArgs } from "src/common/dtos/pagination.dto"
+import { ImageService } from "src/images/images.service"
 import {
   AdminCreateRestaurantInput,
   AdminUpdateRestaurantInput,
@@ -33,6 +34,7 @@ export class RestaurantService {
     private readonly userService: UserService,
     private readonly categoryService: CategoryService,
     private readonly cityService: CityService,
+    private readonly imageService: ImageService,
   ) {}
 
   async findAllRestaurantsSlug(args: AllRestaurantsSlugArgs): Promise<AllRestaurantsSlugOutput> {
@@ -129,20 +131,24 @@ export class RestaurantService {
   }
 
   async createRestaurantByAdmin(admin: DecodedIdToken, input: AdminCreateRestaurantInput): Promise<RestaurantOutput> {
-    const { categories, vendorIds, ...restaurantPayload } = input
+    const { categories, vendorIds, coverImageUrls, ...restaurantPayload } = input
 
     const vendorEntities = await this.userService.findUsersByIds(vendorIds)
 
     if (vendorEntities.length < vendorIds.length) return { ok: false, error: `Cannot Find All Vendors with ids ${vendorIds.join(", ")}` }
 
     const categoryEntities = await this.categoryService.getOrCreateCategories(categories?.map(name => ({ name })) ?? [])
+    const coverImagesEntities = await this.imageService.getOrCreateImages(coverImageUrls || [])
 
     const slug = slugify(restaurantPayload.name, { lower: true })
-    const restaurant = this.restaurantRepo.create({ ...restaurantPayload, slug })
-    restaurant.vendors = vendorEntities
-    restaurant.categories = categoryEntities
+    const restaurant = this.restaurantRepo.create({
+      ...restaurantPayload,
+      slug,
+      coverImages: coverImagesEntities,
+      vendors: vendorEntities,
+      categories: categoryEntities,
+    })
     const saved = await this.restaurantRepo.save(restaurant)
-
     return { ok: true, data: saved }
   }
 

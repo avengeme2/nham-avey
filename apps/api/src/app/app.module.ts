@@ -1,5 +1,5 @@
-import { join } from "path"
 import * as path from "path"
+import { join } from "path"
 
 import { ApolloDriver } from "@nestjs/apollo"
 import { MiddlewareConsumer, Module, NestModule, RequestMethod } from "@nestjs/common"

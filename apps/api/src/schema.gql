@@ -263,6 +263,15 @@ type GetPaymentsOutput {
   payments: [Payment!]
 }
 
+type Image {
+  blurhash: String!
+  createdAt: EnhancedDate!
+  id: Float!
+  restaurant: Restaurant!
+  updatedAt: EnhancedDate!
+  url: String!
+}
+
 type Location {
   createdAt: EnhancedDate!
   id: Float!
@@ -453,7 +462,7 @@ type Restaurant {
   address: String
   categories: [Category!]
   city: City
-  coverImageUrls: [String!]
+  coverImages: [Image!]
   createdAt: EnhancedDate!
   description: String
   id: Float!
@@ -466,7 +475,7 @@ type Restaurant {
   openingHours: OpeningHours
   orders: [Order!]
   promotedUntil: EnhancedDate
-  reviews: Review
+  reviews: [Review!]
   slug: String!
   street: String
   updatedAt: EnhancedDate!
@@ -568,7 +577,6 @@ enum UserRole {
 input VendorCreateRestaurantInput {
   address: String
   categories: [String!]
-  coverImageUrls: [String!]
   logoImageUrl: String
   name: String!
 }
@@ -576,7 +584,6 @@ input VendorCreateRestaurantInput {
 input VendorUpdateRestaurantInput {
   address: String
   categories: [String!]
-  coverImageUrls: [String!]
   logoImageUrl: String
   name: String
   restaurantId: Float!

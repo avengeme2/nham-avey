@@ -4,6 +4,7 @@ import { Category } from "src/categories/category.entity"
 import { City } from "src/cities/city.entity"
 import { CoreEntity } from "src/common/entities/core.entity"
 import { Dish } from "src/dishes/dish.entity"
+import { Image } from "src/images/entities/image.entity"
 import { Location } from "src/locations/location.entity"
 import { Order } from "src/orders/entities/order.entity"
 import { OpeningHours } from "src/restaurants/entities/opening-hours.entity"
@@ -45,10 +46,9 @@ export class Restaurant extends CoreEntity {
   @IsString()
   description: string
 
-  @Field(() => [String], { nullable: true })
-  @Column("varchar", { array: true, nullable: true })
-  @IsString({ each: true })
-  coverImageUrls: string[]
+  @Field(() => [Image], { nullable: true })
+  @OneToMany(() => Image, image => image.restaurant, { nullable: true })
+  coverImages?: Image[]
 
   @Field(() => String, { nullable: true })
   @Column({ nullable: true })
@@ -82,8 +82,8 @@ export class Restaurant extends CoreEntity {
   @RelationId((restaurant: Restaurant) => restaurant.city)
   cityId?: number
 
-  @Field(() => Review, { nullable: true })
-  @OneToMany(() => Review, review => review.restaurant, { nullable: true })
+  @Field(() => [Review], { nullable: true })
+  @OneToMany(() => Review, reveiw => reveiw.restaurant, { nullable: true })
   reviews?: Review[]
 
   @RelationId((restaurant: Restaurant) => restaurant.reviews)
