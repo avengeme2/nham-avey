@@ -11,7 +11,7 @@ export const CategoryCard = ({ category }: CategoryItemProps) => (
     <a className="rounded-2xl p-3 text-center ring-2 ring-base-300 transition-shadow transition-colors ease-in-out hover:bg-orange-50 hover:ring-primary-focus hover:ring-offset-2">
       <img
         src={category.coverImageUrl as string}
-        className="mx-auto h-6 w-6 bg-red-300"
+        className="mx-auto h-6 w-6 bg-red-300 bg-transparent"
         alt=""
       />
       <h6 className="mt-2 text-[13px] font-bold leading-[18px] tracking-[0.1px]">
