@@ -61,7 +61,7 @@
     "clsx": "^1.2.1",
     "compression": "^1.7.4",
     "core-js": "^3.24.0",
-    "daisyui": "^2.22.0",
+    "daisyui": "^2.24.0",
     "debug": "^4.3.4",
     "deepmerge": "^4.2.2",
     "firebase": "^9.9.2",
