@@ -13,7 +13,10 @@ query RestaurantById($id: Int!) {
         slug
         updatedAt
       }
-      coverImageUrls
+      coverImages {
+        url
+        blurhash
+      }
       createdAt
       id
       isPromoted

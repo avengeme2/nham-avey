@@ -16,7 +16,10 @@ fragment FullOrderParts on Order {
 fragment RestaurantParts on Restaurant {
   id
   name
-  coverImageUrls
+  coverImages {
+    blurhash
+    url
+  }
   address
   isPromoted
   logoImageUrl

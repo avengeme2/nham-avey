@@ -31,7 +31,7 @@ export const RestaurantCard = ({ restaurant }: RestaurantCardProps) => {
           <div
             style={
               {
-                "--image-url": `url(${restaurant.coverImageUrls?.[0]})`,
+                "--image-url": `url(${restaurant.coverImages?.[0]?.url})`,
               } as CSSProperties
             }
             className="restaurant-card-image h-full w-full bg-cover object-cover"
