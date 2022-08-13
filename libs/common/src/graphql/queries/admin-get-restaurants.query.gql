@@ -8,6 +8,7 @@ query AdminGetRestaurants($page: Int, $q: String, $take: Int) {
     pageCount
     data {
       address
+      logoImageUrl
       categories {
         restaurantCount
         coverImageUrl

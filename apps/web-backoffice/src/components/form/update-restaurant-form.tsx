@@ -1,19 +1,17 @@
-import React, { useCallback, useEffect, useMemo, useState } from "react"
+import React, { useEffect, useMemo, useState } from "react"
 
 import { LoadingOutlined, PlusOutlined } from "@ant-design/icons"
 import {
   Restaurant,
+  useAdminGetUsersQuery,
   useAdminUpdateRestaurantMutation,
-  useAdminGetUsersLazyQuery,
   useCategoriesQuery,
-  User,
   UserRole,
 } from "@nham-avey/common"
 import { Button, Form, Input, Select, Upload, UploadFile } from "antd"
 import ImgCrop from "antd-img-crop"
 import { UploadChangeParam } from "antd/es/upload"
 import { UploadProps } from "antd/es/upload/interface"
-import { DebouncedSelect } from "src/components/form-elements/DebouncedSelect"
 import { SelectOption } from "src/typing/common-type"
 import { antUIUploadCustomRequest } from "src/utils/common-utils"
 
@@ -39,7 +37,7 @@ export const UpdateRestaurantForm = ({
 }: UpdateRestaurantFormProps) => {
   const [form] = useForm<RestaurantFormValue>()
   const [logoImageUrl, setLogoImageUrl] = useState<string>()
-  const [coverImages, setCoverImages] = useState<UploadFile[]>([])
+  const [coverImagesFileList, setCoverImagesFileList] = useState<UploadFile[]>([])
   const [isUploadingLogo, setIsUploadingLogo] = useState(false)
   const [isUploadingCover, setIsUploadingCover] = useState(false)
 
@@ -57,7 +55,7 @@ export const UpdateRestaurantForm = ({
         })),
       })
       setLogoImageUrl(initialValue.logoImageUrl as string | undefined)
-      setCoverImages(initialValue.coverImages?.map(image => image.url) as [])
+      setCoverImagesFileList(initialValue.coverImages?.map(image => image.url) as [])
     }
   }, [form, initialValue])
 
@@ -73,35 +71,19 @@ export const UpdateRestaurantForm = ({
   }
 
   const handleCoverImageChange: UploadProps["onChange"] = info => {
-    setCoverImages(info.fileList)
+    setCoverImagesFileList(info.fileList)
     if (info.file.status === "uploading") {
       setIsUploadingCover(true)
       return
     }
     if (info.file.status === "done") {
       setIsUploadingCover(false)
-      setLogoImageUrl(info.file.response)
     }
   }
 
-  const [_, { refetch: getVendors }] = useAdminGetUsersLazyQuery()
-
-  const fetchVendor = useCallback(
-    async (search: string): Promise<SelectOption[]> => {
-      const { data } = await getVendors({ take: 10, q: search, role: UserRole.Vendor })
-
-      const { ok, data: users } = data?.adminGetUsers || {}
-      if (ok && users) {
-        return users.map((vendor: User) => ({
-          label: vendor.email,
-          value: vendor.id,
-        }))
-      }
-
-      return []
-    },
-    [getVendors]
-  )
+  const { data: vendorsData } = useAdminGetUsersQuery({
+    variables: { role: UserRole.Vendor },
+  })
 
   const { data: categoriesData } = useCategoriesQuery()
 
@@ -113,6 +95,15 @@ export const UpdateRestaurantForm = ({
       })) || []
     )
   }, [categoriesData])
+
+  const vendorsOptions: SelectOption[] = useMemo(() => {
+    return (
+      vendorsData?.adminGetUsers.data?.map(vendor => ({
+        label: `${vendor.firstName || ""} ${vendor.lastName || ""} ${vendor.email}`,
+        value: vendor.id,
+      })) || []
+    )
+  }, [vendorsData])
 
   const onFinish = async (values: RestaurantFormValue) => {
     const { name, address } = values
@@ -126,13 +117,13 @@ export const UpdateRestaurantForm = ({
             logoImageUrl,
             vendorIds: values.vendors.map(option => option.value.toString()),
             categories: values.categories.map(option => option.value.toString()),
-            coverImageUrls: coverImages?.map(image => image.response),
+            coverImageUrls: coverImagesFileList?.map(file => file.response),
           },
         },
       })
       if (data?.adminUpdateRestaurant.ok) {
         setLogoImageUrl("")
-        setCoverImages([])
+        setCoverImagesFileList([])
         form.resetFields()
       }
     } catch (e) {} // do nothing
@@ -149,6 +140,7 @@ export const UpdateRestaurantForm = ({
       name="update-restaurant"
     >
       <div className="text-center">
+        <h5>Logo</h5>
         <ImgCrop grid rotate quality={1} aspect={1}>
           <Upload
             listType="picture-card"
@@ -158,7 +150,7 @@ export const UpdateRestaurantForm = ({
             customRequest={antUIUploadCustomRequest}
             onChange={handleLogoImageChange}
           >
-            {isUploadingCover ? (
+            {isUploadingLogo ? (
               <LoadingOutlined />
             ) : logoImageUrl ? (
               <img src={logoImageUrl} alt="avatar" style={{ width: "100%" }} />
@@ -175,7 +167,7 @@ export const UpdateRestaurantForm = ({
             listType="picture-card"
             className="mb-10"
             accept="image/*"
-            fileList={coverImages}
+            fileList={coverImagesFileList}
             showUploadList={true}
             customRequest={antUIUploadCustomRequest}
             onChange={handleCoverImageChange}
@@ -210,7 +202,13 @@ export const UpdateRestaurantForm = ({
           },
         ]}
       >
-        <DebouncedSelect mode="multiple" fetchOptions={fetchVendor} />
+        <Select
+          mode="multiple"
+          showSearch
+          labelInValue
+          filterOption={true}
+          options={vendorsOptions}
+        />
       </Form.Item>
 
       <Form.Item

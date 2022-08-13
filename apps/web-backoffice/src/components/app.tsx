@@ -12,7 +12,6 @@ import "src/i18n/i18n"
 
 const logger = _logger.withTag("DefaultApp")
 
-logger.debug(process.env)
 const { auth } = firebaseService
 function App() {
   // const onStateChanged = useCallback(async (user: User | null) => {

@@ -988,7 +988,7 @@ export type AdminGetRestaurantsQueryVariables = Exact<{
 }>;
 
 
-export type AdminGetRestaurantsQuery = { __typename?: 'Query', adminGetRestaurants: { __typename?: 'PaginatedRestaurantsOutput', error?: string | null, hasNext?: boolean | null, hasPrevious?: boolean | null, matchedCount?: number | null, ok: boolean, pageCount?: number | null, data?: Array<{ __typename?: 'Restaurant', address?: string | null, createdAt: any, id: number, isPromoted: boolean, name: string, promotedUntil?: any | null, updatedAt: any, categories?: Array<{ __typename?: 'Category', restaurantCount: number, coverImageUrl?: string | null, createdAt: any, id: number, name: string, slug: string, updatedAt: any }> | null, coverImages?: Array<{ __typename?: 'Image', blurhash: string, url: string }> | null, vendors: Array<{ __typename?: 'User', id: string, firstName?: string | null, lastName?: string | null, email: string, isVerified: boolean, createdAt: any, photoURL?: string | null, roles: Array<UserRole> }> }> | null } };
+export type AdminGetRestaurantsQuery = { __typename?: 'Query', adminGetRestaurants: { __typename?: 'PaginatedRestaurantsOutput', error?: string | null, hasNext?: boolean | null, hasPrevious?: boolean | null, matchedCount?: number | null, ok: boolean, pageCount?: number | null, data?: Array<{ __typename?: 'Restaurant', address?: string | null, logoImageUrl?: string | null, createdAt: any, id: number, isPromoted: boolean, name: string, promotedUntil?: any | null, updatedAt: any, categories?: Array<{ __typename?: 'Category', restaurantCount: number, coverImageUrl?: string | null, createdAt: any, id: number, name: string, slug: string, updatedAt: any }> | null, coverImages?: Array<{ __typename?: 'Image', blurhash: string, url: string }> | null, vendors: Array<{ __typename?: 'User', id: string, firstName?: string | null, lastName?: string | null, email: string, isVerified: boolean, createdAt: any, photoURL?: string | null, roles: Array<UserRole> }> }> | null } };
 
 export type AdminGetUsersQueryVariables = Exact<{
   role?: InputMaybe<UserRole>;
@@ -1670,6 +1670,7 @@ export const AdminGetRestaurantsDocument = gql`
     pageCount
     data {
       address
+      logoImageUrl
       categories {
         restaurantCount
         coverImageUrl

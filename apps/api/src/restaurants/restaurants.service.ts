@@ -249,6 +249,7 @@ export class RestaurantService {
       .leftJoinAndSelect("restaurant.categories", "categories")
       .leftJoinAndSelect("restaurant.orders", "orders")
       .leftJoinAndSelect("restaurant.menu", "menu")
+      .leftJoinAndSelect("restaurant.coverImages", "coverImages")
       .orderBy("restaurant.isPromoted", "DESC")
       .addOrderBy("restaurant.name", "ASC")
 
@@ -289,6 +290,7 @@ export class RestaurantService {
       .leftJoinAndSelect("restaurant.vendors", "vendor")
       .leftJoinAndSelect("restaurant.orders", "orders")
       .leftJoinAndSelect("restaurant.menu", "menu")
+      .leftJoinAndSelect("restaurant.coverImages", "coverImages")
       .orderBy("restaurant.isPromoted", "DESC")
       .addOrderBy("restaurant.name", "ASC")
 
@@ -326,6 +328,7 @@ export class RestaurantService {
       .leftJoinAndSelect("restaurant.vendors", "vendor")
       .leftJoinAndSelect("restaurant.orders", "orders")
       .leftJoinAndSelect("restaurant.menu", "menu")
+      .leftJoinAndSelect("restaurant.coverImages", "coverImages")
       .orderBy("restaurant.isPromoted", "DESC")
       .addOrderBy("restaurant.name", "ASC")
 
