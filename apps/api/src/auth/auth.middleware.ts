@@ -38,7 +38,7 @@ export class AuthMiddleware implements NestMiddleware {
       next()
     } catch (err: any) {
       if (err?.code === "auth/id-token-expired") throw new UnauthorizedException(err, err?.message)
-      throw new InternalServerErrorException(err, (err as Error)?.message)
+      throw new InternalServerErrorException(err, err?.message)
     }
   }
 }
