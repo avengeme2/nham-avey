@@ -57,7 +57,7 @@ export const UpdateRestaurantForm = ({
         })),
       })
       setLogoImageUrl(initialValue.logoImageUrl as string | undefined)
-      setCoverImages(initialValue.coverImageUrls as [])
+      setCoverImages(initialValue.coverImages?.map(image => image.url) as [])
     }
   }, [form, initialValue])
 
