@@ -56,12 +56,12 @@
         "lintFilePatterns": ["apps/web-client/**/*.{ts,tsx,js,jsx}"]
       }
     },
-    "graphql-codegen": {
+    "deploy-to-netlify": {
       "executor": "@nrwl/workspace:run-commands",
       "outputs": [],
       "options": {
-        "command": "graphql-codegen --config codegen.yaml",
-        "cwd": "apps/web-client"
+        "command": "netlify deploy --build --prod",
+        "cwd": "."
       }
     }
   },
