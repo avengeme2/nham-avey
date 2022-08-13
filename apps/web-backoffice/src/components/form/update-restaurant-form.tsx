@@ -5,7 +5,7 @@ import {
   Restaurant,
   useAdminUpdateRestaurantMutation,
   useAdminGetUsersLazyQuery,
-  useGetAllCategoriesQuery,
+  useCategoriesQuery,
   User,
   UserRole,
 } from "@nham-avey/common"
@@ -21,7 +21,7 @@ const { useForm } = Form
 
 export interface RestaurantFormValue {
   name: string
-  address: string
+  address?: string | null
   vendors: SelectOption[]
   categories: SelectOption[]
 }
@@ -90,7 +90,7 @@ export const UpdateRestaurantForm = ({
     async (search: string): Promise<SelectOption[]> => {
       const { data } = await getVendors({ take: 10, q: search, role: UserRole.Vendor })
 
-      const { ok, users } = data?.adminGetUsers || {}
+      const { ok, data: users } = data?.adminGetUsers || {}
       if (ok && users) {
         return users.map((vendor: User) => ({
           label: vendor.email,
@@ -103,11 +103,11 @@ export const UpdateRestaurantForm = ({
     [getVendors]
   )
 
-  const { data: categoriesData } = useGetAllCategoriesQuery()
+  const { data: categoriesData } = useCategoriesQuery()
 
   const categoryOptions: SelectOption[] = useMemo(() => {
     return (
-      categoriesData?.getAllCategories.categories?.map(category => ({
+      categoriesData?.categories.data?.map(category => ({
         label: category.name,
         value: category.name,
       })) || []

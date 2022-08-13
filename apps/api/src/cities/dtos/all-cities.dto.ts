@@ -5,5 +5,5 @@ import { CoreOutput } from "src/common/dtos/output.dto"
 @ObjectType()
 export class AllCitiesOutput extends CoreOutput {
   @Field(type => [City], { nullable: true })
-  readonly cities?: City[]
+  readonly data?: City[]
 }

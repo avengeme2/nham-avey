@@ -1,4 +1,12 @@
-import { CanActivate, ExecutionContext, Inject, Injectable, InternalServerErrorException, UnauthorizedException } from "@nestjs/common"
+import {
+  BadRequestException,
+  CanActivate,
+  ExecutionContext,
+  Inject,
+  Injectable,
+  InternalServerErrorException,
+  UnauthorizedException,
+} from "@nestjs/common"
 import { Reflector } from "@nestjs/core"
 import { GqlExecutionContext } from "@nestjs/graphql"
 import { AuthMiddleware } from "src/auth/auth.middleware"
@@ -22,7 +30,7 @@ export class GraphqlAuthGuard implements CanActivate {
     const gqlContext = GqlExecutionContext.create(context).getContext()
     const authorization = gqlContext[AUTHORIZATION_HEADER]
     if (!authorization) {
-      return false
+      throw new BadRequestException("Authorization Header is Required")
     }
 
     const accessToken = AuthMiddleware.validateAndGetToken(authorization as string)

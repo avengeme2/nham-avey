@@ -2,7 +2,7 @@ query AllCities {
   allCities {
     ok
     error
-    cities {
+    data {
       createdAt
       id
       location {

@@ -124,7 +124,7 @@ export const RestaurantsPage = () => {
             photoUrl={restaurant.logoImageUrl as string}
             blurhash=""
             title={restaurant.name}
-            subTitle={restaurant.address}
+            subTitle={restaurant.address as string | undefined}
           />
         ),
       },
@@ -177,7 +177,7 @@ export const RestaurantsPage = () => {
                       content: "",
                       onOk: async () =>
                         await deleteRestaurant({
-                          variables: { restaurantId: restaurant.id },
+                          variables: { id: restaurant.id },
                         }),
                     })
                   }}
@@ -259,7 +259,7 @@ export const RestaurantsPage = () => {
           <Table<TableType<Restaurant>>
             className="overflow-x-auto"
             columns={tableColumns}
-            dataSource={data?.adminGetRestaurants.restaurants || []}
+            dataSource={data?.adminGetRestaurants.data || []}
             rowKey="id"
             pagination={pagination}
             loading={loading}

@@ -48,6 +48,7 @@ export class CityService {
       .createQueryBuilder("city")
       .where("city.id = :id", { id: city.id })
       .loadRelationCountAndMap("city.restaurantCount", "city.restaurants", "restaurant")
+      .cache(true)
       .getOne()
     return entity?.restaurantCount as number
   }
@@ -56,8 +57,9 @@ export class CityService {
     const cities = await this.cityRepo.find({
       order: { name: "ASC" },
       relations: { location: true },
+      cache: true,
     })
-    return { ok: true, cities }
+    return { ok: true, data: cities }
   }
 
   async findCities(args: PaginationWithSearchArgs): Promise<PaginationCitiesOutput> {
@@ -79,11 +81,12 @@ export class CityService {
         )
         .leftJoinAndSelect("city.location", "location")
 
-    const matchedCount = await queryBuilder.getCount()
+    const matchedCount = await queryBuilder.cache(true).getCount()
     const cities = await queryBuilder
       .orderBy("city.name", "ASC")
       .skip(skip)
       .take(take) //
+      .cache(true)
       .getMany() //
 
     const paginatedOutput = new PaginatedRestaurantsOutput(args, matchedCount)

@@ -1,4 +1,5 @@
 import { join } from "path"
+import * as path from "path"
 
 import { ApolloDriver } from "@nestjs/apollo"
 import { MiddlewareConsumer, Module, NestModule, RequestMethod } from "@nestjs/common"
@@ -9,37 +10,44 @@ import { TypeOrmModule } from "@nestjs/typeorm"
 import { ApolloServerPluginLandingPageLocalDefault, ApolloServerPluginLandingPageProductionDefault } from "apollo-server-core"
 import { ApolloServer } from "apollo-server-express"
 import { cert } from "firebase-admin/app"
+import * as Joi from "joi"
 import { ApiKeyMiddleware } from "src/auth/api-key.middleware"
 import { AuthMiddleware } from "src/auth/auth.middleware"
 import { AuthModule } from "src/auth/auth.module"
 import { CategoryModule } from "src/categories/categories.module"
 import { CityModule } from "src/cities/cities.module"
-import { AUTHORIZATION_HEADER, SWAGGER_PATH } from "src/common/common.constants"
+import { AUTHORIZATION_HEADER, GRAPHQL_PATH, SWAGGER_PATH } from "src/common/common.constants"
 import { CommonModule } from "src/common/common.module"
+import { ResponseTimeMiddleware } from "src/common/middlewares/response-time.middlware"
+import { ServeFaviconMiddleware } from "src/common/middlewares/serve-favicon.middleware"
 import { EnhancedDate } from "src/common/scalar/enhanced-date.scalar"
 import configuration from "src/config/configuration"
 import { DishModule } from "src/dishes/dishes.module"
 import { FileUploadsModule } from "src/file-uploads/file-uploads.module"
 import { FirebaseAdminModule } from "src/firebase-admin/firebase-admin.module"
 import { ImagesModule } from "src/images/images.module"
+import { MorganFormatType, MorganMiddleware } from "src/log/morgan.middleware"
 import { MailModule } from "src/mail/mails.module"
 import { OrdersModule } from "src/orders/orders.module"
 import { PaymentsModule } from "src/payments/payments.module"
 import { RestaurantsModule } from "src/restaurants/restaurants.module"
 import { TypeormConfigService } from "src/typeorm/typeorm-config.service"
 import { UsersModule } from "src/users/users.module"
-import * as Yup from "yup"
 
 @Module({
   imports: [
     ConfigModule.forRoot({
       load: [configuration],
       isGlobal: true,
-      validationSchema: Yup.object().shape({
-        DATABASE_URL: Yup.string().required(),
-        FIREBASE_STORAGE_BUCKET_URL: Yup.string().required(),
-        DATABASE_LOGGING: Yup.string(),
+      validationSchema: Joi.object({
+        DATABASE_URL: Joi.string().required(),
+        FIREBASE_STORAGE_BUCKET_URL: Joi.string().required(),
+        DATABASE_LOGGING: Joi.string(),
       }),
+      validationOptions: {
+        allowUnknown: true,
+        abortEarly: true,
+      },
     }),
     TypeOrmModule.forRootAsync({ useClass: TypeormConfigService }),
     GraphQLModule.forRootAsync({
@@ -99,13 +107,23 @@ import * as Yup from "yup"
 })
 export class AppModule implements NestModule {
   configure(consumer: MiddlewareConsumer) {
+    // middleware configs
+    MorganMiddleware.configure(MorganFormatType.Dev)
+    ServeFaviconMiddleware.configure(path.resolve(__dirname, "assets/favicon.ico"))
+
     consumer
       .apply(ApiKeyMiddleware)
       .exclude({ path: SWAGGER_PATH, method: RequestMethod.ALL })
-      .exclude({ path: "graphql", method: RequestMethod.ALL }) // TODO: remove this line when include api key from the frontend
+      .exclude({ path: GRAPHQL_PATH, method: RequestMethod.ALL }) // TODO: remove this line when include api key from the frontend
       .forRoutes({ path: "*", method: RequestMethod.ALL })
       .apply(AuthMiddleware)
       .exclude({ path: "graphql", method: RequestMethod.ALL })
+      .forRoutes({ path: "*", method: RequestMethod.ALL })
+      .apply(MorganMiddleware)
+      .forRoutes({ path: "*", method: RequestMethod.ALL })
+      .apply(ResponseTimeMiddleware)
+      .forRoutes({ path: "*", method: RequestMethod.ALL })
+      .apply(ServeFaviconMiddleware)
       .forRoutes({ path: "*", method: RequestMethod.ALL })
   }
 }

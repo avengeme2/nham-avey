@@ -10,28 +10,33 @@ jobs:
     runs-on: ubuntu-latest
     steps:
       - name: Checkout 🛎️
-        uses: actions/checkout@v2
+        uses: actions/checkout@v3
         with:
           fetch-depth: 0
 
       - name: Setup Node.js ⚙️
-        uses: actions/setup-node@v2
+        uses: actions/setup-node@v3
         with:
           node-version: "lts/*"
 
       - name: Cache dependencies ⚙️
-        uses: actions/cache@v2
+        uses: actions/cache@v3
         with:
           path: ~/.npm
           key: ${{ runner.os }}-node-${{ hashFiles('**/package-lock.json') }}
           restore-keys: |
             ${{ runner.os }}-node-
 
-      - uses: nrwl/nx-set-shas@v2.2.0
-      - run: npm ci
+      - name: Install dependencies 🔀
+        run: npm ci
 
-      - run: npx nx workspace-lint
-      # - run: npx nx format:check # issues with --base and --head
-      # - run: npx nx affected --target=lint --parallel=3 # issues loading .eslintrc with this command on github action
-      - run: npx nx affected --target=test --parallel=3 --ci --code-coverage
-      - run: npx nx affected --target=build --parallel=3
+      - name: Run build all🔀
+        run: npx nx run-many --target=build --all
+        env:
+          # for web-client
+          NEXT_PUBLIC_CLIENT_FIREBASE_CONFIG_JSON: ${{secrets.NEXT_PUBLIC_CLIENT_FIREBASE_CONFIG_JSON}}
+          NEXT_PUBLIC_API_KEY: ${{secrets.NEXT_PUBLIC_API_KEY}}
+          NEXT_PUBLIC_FIREBASE_VAPID_KEY: ${{secrets.NEXT_PUBLIC_FIREBASE_VAPID_KEY}}
+          NEXT_PUBLIC_API_URL: ${{secrets.NEXT_PUBLIC_API_URL}}
+          NEXT_PUBLIC_HTTP_GRAPHQL_URI: ${{secrets.NEXT_PUBLIC_HTTP_GRAPHQL_URI}}
+          NEXT_PUBLIC_WS_GRAPHQL_URI: ${{secrets.NEXT_PUBLIC_WS_GRAPHQL_URI}}

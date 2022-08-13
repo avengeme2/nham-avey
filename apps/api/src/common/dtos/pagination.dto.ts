@@ -1,4 +1,5 @@
 import { ArgsType, Field, Int, ObjectType } from "@nestjs/graphql"
+import { Min } from "class-validator"
 import { CoreOutput } from "src/common/dtos/output.dto"
 
 interface PaginateOptions {
@@ -13,10 +14,12 @@ const TAKE_DEFAULT_VALUE = 20
 @ArgsType()
 export abstract class PaginationArgs {
   @Field(() => Int, { defaultValue: PAGE_DEFAULT_VALUE })
+  @Min(1)
   // use options getter instead
   private readonly page: number
 
   @Field(() => Int, { defaultValue: TAKE_DEFAULT_VALUE })
+  @Min(1)
   // use options getter instead
   private readonly take: number
 

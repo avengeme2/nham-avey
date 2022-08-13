@@ -105,14 +105,14 @@ export type AdminUpdateUserOutput = {
 
 export type AllCategoriesOutput = {
   __typename?: 'AllCategoriesOutput';
-  categories?: Maybe<Array<Category>>;
+  data?: Maybe<Array<Category>>;
   error?: Maybe<Scalars['String']>;
   ok: Scalars['Boolean'];
 };
 
 export type AllCitiesOutput = {
   __typename?: 'AllCitiesOutput';
-  cities?: Maybe<Array<City>>;
+  data?: Maybe<Array<City>>;
   error?: Maybe<Scalars['String']>;
   ok: Scalars['Boolean'];
 };
@@ -724,6 +724,7 @@ export type Restaurant = {
   city?: Maybe<City>;
   coverImageUrls?: Maybe<Array<Scalars['String']>>;
   createdAt: Scalars['EnhancedDate'];
+  description?: Maybe<Scalars['String']>;
   id: Scalars['Float'];
   isPromoted: Scalars['Boolean'];
   location?: Maybe<Location>;
@@ -994,12 +995,12 @@ export type AdminGetUsersQuery = { __typename?: 'Query', adminGetUsers: { __type
 export type AllCategoriesQueryVariables = Exact<{ [key: string]: never; }>;
 
 
-export type AllCategoriesQuery = { __typename?: 'Query', allCategories: { __typename?: 'AllCategoriesOutput', error?: string | null, ok: boolean, categories?: Array<{ __typename?: 'Category', coverImageUrl?: string | null, createdAt: any, id: number, name: string, restaurantCount: number, slug: string, updatedAt: any }> | null } };
+export type AllCategoriesQuery = { __typename?: 'Query', allCategories: { __typename?: 'AllCategoriesOutput', error?: string | null, ok: boolean, data?: Array<{ __typename?: 'Category', coverImageUrl?: string | null, createdAt: any, id: number, name: string, restaurantCount: number, slug: string, updatedAt: any }> | null } };
 
 export type AllCitiesQueryVariables = Exact<{ [key: string]: never; }>;
 
 
-export type AllCitiesQuery = { __typename?: 'Query', allCities: { __typename?: 'AllCitiesOutput', ok: boolean, error?: string | null, cities?: Array<{ __typename?: 'City', createdAt: any, id: number, name: string, nameInKhmer?: string | null, restaurantCount: number, slug: string, updatedAt: any, location?: { __typename?: 'Location', createdAt: any, id: number, latitude: number, longitude: number, updatedAt: any } | null }> | null } };
+export type AllCitiesQuery = { __typename?: 'Query', allCities: { __typename?: 'AllCitiesOutput', ok: boolean, error?: string | null, data?: Array<{ __typename?: 'City', createdAt: any, id: number, name: string, nameInKhmer?: string | null, restaurantCount: number, slug: string, updatedAt: any, location?: { __typename?: 'Location', createdAt: any, id: number, latitude: number, longitude: number, updatedAt: any } | null }> | null } };
 
 export type AllRestaurantsSlugQueryVariables = Exact<{
   take?: InputMaybe<Scalars['Int']>;
@@ -1768,7 +1769,7 @@ export type AdminGetUsersQueryResult = Apollo.QueryResult<AdminGetUsersQuery, Ad
 export const AllCategoriesDocument = gql`
     query AllCategories {
   allCategories {
-    categories {
+    data {
       coverImageUrl
       createdAt
       id
@@ -1814,7 +1815,7 @@ export const AllCitiesDocument = gql`
   allCities {
     ok
     error
-    cities {
+    data {
       createdAt
       id
       location {

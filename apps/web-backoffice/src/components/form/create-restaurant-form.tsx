@@ -4,7 +4,7 @@ import { LoadingOutlined, PlusOutlined } from "@ant-design/icons"
 import {
   useAdminCreateRestaurantMutation,
   useAdminGetUsersLazyQuery,
-  useGetAllCategoriesQuery,
+  useCategoriesQuery,
   User,
   UserRole,
 } from "@nham-avey/common"
@@ -69,7 +69,7 @@ export const CreateRestaurantForm = ({
     async (search: string): Promise<SelectOption[]> => {
       const { data } = await getVendors({ take: 10, q: search, role: UserRole.Vendor })
 
-      const { ok, users } = data?.adminGetUsers || {}
+      const { ok, data: users } = data?.adminGetUsers || {}
       if (ok && users) {
         return users.map((vendor: User) => ({
           label: vendor.email,
@@ -82,11 +82,11 @@ export const CreateRestaurantForm = ({
     [getVendors]
   )
 
-  const { data: categoriesData } = useGetAllCategoriesQuery()
+  const { data: categoriesData } = useCategoriesQuery()
 
   const categoryOptions: SelectOption[] = useMemo(() => {
     return (
-      categoriesData?.getAllCategories.categories?.map(category => ({
+      categoriesData?.categories.data?.map(category => ({
         label: category.name,
         value: category.name,
       })) || []

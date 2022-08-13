@@ -9,7 +9,7 @@ import { Column, Entity, JoinColumn, OneToMany, OneToOne } from "typeorm"
 @ObjectType()
 @Entity({ name: "cities" })
 export class City extends CoreEntity {
-  @Field(() => String)
+  @Field(type => String)
   @Column()
   @IsString()
   name: string
@@ -19,13 +19,13 @@ export class City extends CoreEntity {
   @IsString()
   slug: string
 
-  @Field(() => String, { nullable: true })
+  @Field(type => String, { nullable: true })
   @Column()
   @IsString()
   @IsOptional()
   nameInKhmer?: string
 
-  @Field(() => Location, { nullable: true })
+  @Field(type => Location, { nullable: true })
   @OneToOne(() => Location, { nullable: true })
   @JoinColumn({ name: "location_id", referencedColumnName: "id" })
   location?: Location
