@@ -28,6 +28,7 @@
     }
   ],
   "rules": {
+    "no-empty": "off",
     "no-console": "error",
     "eqeqeq": ["error", "always"],
     "prefer-const": "error",
@@ -38,6 +39,7 @@
         "varsIgnorePattern": "^_"
       }
     ],
+    "@typescript-eslint/no-explicit-any": "off",
     "import/order": [
       "error",
       {
