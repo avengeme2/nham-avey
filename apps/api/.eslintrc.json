@@ -28,6 +28,7 @@
     }
   ],
   "rules": {
+    "no-empty": "off",
     "no-console": "error",
     "eqeqeq": ["error", "always"],
     "prefer-const": "error",
