@@ -1,7 +1,9 @@
-import { MigrationInterface, QueryRunner } from "typeorm"
+import { MigrationInterface, QueryRunner } from 'typeorm'
 
-export class restaurantCategoryConstraint1658268985719 implements MigrationInterface {
-  name = "restaurantCategoryConstraint1658268985719"
+export class restaurantCategoryConstraint1658268985719
+  implements MigrationInterface
+{
+  name = 'restaurantCategoryConstraint1658268985719'
 
   public async up(queryRunner: QueryRunner): Promise<void> {
     await queryRunner.query(`

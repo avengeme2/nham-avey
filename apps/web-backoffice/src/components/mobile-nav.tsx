@@ -1,11 +1,11 @@
-import { ArrowLeftOutlined } from "@ant-design/icons"
-import { Drawer } from "antd"
-import { Scrollbars } from "react-custom-scrollbars"
-import { Link } from "react-router-dom"
-import Logo from "src/components/logo"
-import MenuContent from "src/components/menu-content"
-import useThemeActions from "src/hooks/redux/use-theme-actions"
-import { useTypedSelector } from "src/hooks/redux/use-typed-selector"
+import { ArrowLeftOutlined } from '@ant-design/icons'
+import { Drawer } from 'antd'
+import { Scrollbars } from 'react-custom-scrollbars'
+import { Link } from 'react-router-dom'
+import Logo from 'src/components/logo'
+import MenuContent from 'src/components/menu-content'
+import useThemeActions from 'src/hooks/redux/use-theme-actions'
+import { useTypedSelector } from 'src/hooks/redux/use-typed-selector'
 
 export const MobileNav = () => {
   const themeState = useTypedSelector(state => state.theme)

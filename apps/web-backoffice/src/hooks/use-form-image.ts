@@ -1,12 +1,12 @@
-import { ComponentProps, useState } from "react"
+import { ComponentProps, useState } from 'react'
 
-import type ImgCrop from "antd-img-crop"
+import type ImgCrop from 'antd-img-crop'
 
 const useFormImage = () => {
   const [photoImage, setPhotoImage] = useState<File | string | undefined>()
-  const [previewUrl, setPreviewUrl] = useState("")
+  const [previewUrl, setPreviewUrl] = useState('')
 
-  const onImageChange: ComponentProps<typeof ImgCrop>["onModalOk"] = result => {
+  const onImageChange: ComponentProps<typeof ImgCrop>['onModalOk'] = result => {
     if (result instanceof File) {
       setPhotoImage(result)
       setPreviewUrl(previous => {

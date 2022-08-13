@@ -1,11 +1,11 @@
-import { Field, InputType, ObjectType } from "@nestjs/graphql"
-import { IsOptional, IsString } from "class-validator"
-import { CoreEntity } from "src/common/entities/core.entity"
-import { Column, Entity } from "typeorm"
+import { Field, InputType, ObjectType } from '@nestjs/graphql'
+import { IsOptional, IsString } from 'class-validator'
+import { CoreEntity } from 'src/common/entities/core.entity'
+import { Column, Entity } from 'typeorm'
 
-@InputType("OpeningHoursInputType", { isAbstract: true })
+@InputType('OpeningHoursInputType', { isAbstract: true })
 @ObjectType()
-@Entity({ name: "opening_hours" })
+@Entity({ name: 'opening_hours' })
 export class OpeningHours extends CoreEntity {
   @Field(() => String, { nullable: true })
   @Column({ nullable: true })

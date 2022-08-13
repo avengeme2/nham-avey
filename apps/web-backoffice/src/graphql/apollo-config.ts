@@ -4,13 +4,13 @@ import {
   createHttpLink,
   InMemoryCache,
   split,
-} from "@apollo/client"
-import { setContext } from "@apollo/client/link/context"
-import { WebSocketLink } from "@apollo/client/link/ws"
-import { getMainDefinition } from "@apollo/client/utilities"
-import { onError } from "@apollo/link-error"
-import { notification } from "antd"
-import firebaseService from "src/services/firebase-service"
+} from '@apollo/client'
+import { setContext } from '@apollo/client/link/context'
+import { WebSocketLink } from '@apollo/client/link/ws'
+import { getMainDefinition } from '@apollo/client/utilities'
+import { onError } from '@apollo/link-error'
+import { notification } from 'antd'
+import firebaseService from 'src/services/firebase-service'
 
 const getBearerToken = async () => {
   try {
@@ -19,8 +19,8 @@ const getBearerToken = async () => {
   } catch (err) {
     // TODO: Setup logger
     // eslint-disable-next-line no-console
-    console.log("Failed to get Bearer Token", err)
-    return ""
+    console.log('Failed to get Bearer Token', err)
+    return ''
   }
 }
 
@@ -29,11 +29,11 @@ const errorLink = onError(({ graphQLErrors, networkError, operation }) => {
     graphQLErrors.forEach(({ message, extensions, path }) => {
       const serverMessage = (extensions as any)?.response?.message
       if (serverMessage) {
-        notification.error({ message: serverMessage, placement: "bottomLeft" })
+        notification.error({ message: serverMessage, placement: 'bottomLeft' })
       }
       // eslint-disable-next-line no-console
       console.log(
-        `[GraphQL error]: Message: ${message}, Operation: ${operation.operationName}, Path: ${path}`
+        `[GraphQL error]: Message: ${message}, Operation: ${operation.operationName}, Path: ${path}`,
       )
     })
   }
@@ -74,11 +74,12 @@ const splitLink = split(
   ({ query }) => {
     const definition = getMainDefinition(query)
     return (
-      definition.kind === "OperationDefinition" && definition.operation === "subscription"
+      definition.kind === 'OperationDefinition' &&
+      definition.operation === 'subscription'
     )
   },
   getWsLink() as WebSocketLink,
-  authMiddleware.concat(httpLink)
+  authMiddleware.concat(httpLink),
 )
 
 export const client = new ApolloClient({

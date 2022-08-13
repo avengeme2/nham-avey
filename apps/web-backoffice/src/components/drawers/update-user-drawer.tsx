@@ -2,13 +2,13 @@ import {
   AdminUpdateUserMutationOptions,
   useAdminUpdateUserMutation,
   User,
-} from "@nham-avey/common"
-import { Drawer } from "antd"
-import UpdateUserForm from "src/components/form/update-user-form"
+} from '@nham-avey/common'
+import { Drawer } from 'antd'
+import UpdateUserForm from 'src/components/form/update-user-form'
 
 interface UpdateUserDrawerProps {
   visible: boolean
-  onCompleted: AdminUpdateUserMutationOptions["onCompleted"]
+  onCompleted: AdminUpdateUserMutationOptions['onCompleted']
   onClose: () => void
   user: User
 }
@@ -33,10 +33,14 @@ export function UpdateUserDrawer({
       title="Update User"
       className="max-w-full"
       contentWrapperStyle={{
-        maxWidth: "100%",
+        maxWidth: '100%',
       }}
     >
-      <UpdateUserForm onSubmit={update} isLoading={isUpdating} initialValue={user} />
+      <UpdateUserForm
+        onSubmit={update}
+        isLoading={isUpdating}
+        initialValue={user}
+      />
     </Drawer>
   )
 }

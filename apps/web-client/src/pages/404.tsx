@@ -1,5 +1,5 @@
-import { NextSeo } from "next-seo"
-import Link from "next/link"
+import { NextSeo } from 'next-seo'
+import Link from 'next/link'
 
 const NotFoundPage = () => (
   <div className="flex h-screen flex-col items-center justify-center">

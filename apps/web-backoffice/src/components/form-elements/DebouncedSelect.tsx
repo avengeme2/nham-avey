@@ -1,20 +1,28 @@
-import React, { useMemo, useRef, useState } from "react"
+import React, { useMemo, useRef, useState } from 'react'
 
-import { Select, Spin } from "antd"
-import type { SelectProps } from "antd/es/select"
-import debounce from "lodash/debounce"
+import { Select, Spin } from 'antd'
+import type { SelectProps } from 'antd/es/select'
+import debounce from 'lodash/debounce'
 
 // eslint-disable-next-line @typescript-eslint/no-explicit-any
 export interface DebounceSelectProps<ValueType = any>
-  extends Omit<SelectProps<ValueType | ValueType[]>, "options" | "children"> {
+  extends Omit<SelectProps<ValueType | ValueType[]>, 'options' | 'children'> {
   fetchOptions: (search: string) => Promise<ValueType[]>
   debounceTimeout?: number
 }
 
 export function DebouncedSelect<
   // eslint-disable-next-line @typescript-eslint/no-explicit-any
-  ValueType extends { key?: string; label: React.ReactNode; value: string | number } = any
->({ fetchOptions, debounceTimeout = 800, ...props }: DebounceSelectProps<ValueType>) {
+  ValueType extends {
+    key?: string
+    label: React.ReactNode
+    value: string | number
+  } = any,
+>({
+  fetchOptions,
+  debounceTimeout = 800,
+  ...props
+}: DebounceSelectProps<ValueType>) {
   const [fetching, setFetching] = useState(false)
   const [options, setOptions] = useState<ValueType[]>([])
   const fetchRef = useRef(0)

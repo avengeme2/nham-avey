@@ -1,9 +1,13 @@
-import { Module, Global, Provider, Type, DynamicModule } from "@nestjs/common"
+import { Module, Global, Provider, Type, DynamicModule } from '@nestjs/common'
 
-import { SENTRY_MODULE_OPTIONS, SENTRY_TOKEN } from "./sentry.constants"
-import { SentryModuleAsyncOptions, SentryOptionsFactory, SentryModuleOptions } from "./sentry.interfaces"
-import { createSentryProviders } from "./sentry.providers"
-import { SentryService } from "./sentry.service"
+import { SENTRY_MODULE_OPTIONS, SENTRY_TOKEN } from './sentry.constants'
+import {
+  SentryModuleAsyncOptions,
+  SentryOptionsFactory,
+  SentryModuleOptions,
+} from './sentry.interfaces'
+import { createSentryProviders } from './sentry.providers'
+import { SentryService } from './sentry.service'
 
 @Global()
 @Module({})
@@ -29,11 +33,17 @@ export class SentryCoreModule {
       exports: [provider, SentryService],
       imports: options.imports,
       module: SentryCoreModule,
-      providers: [...this.createAsyncProviders(options), provider, SentryService],
+      providers: [
+        ...this.createAsyncProviders(options),
+        provider,
+        SentryService,
+      ],
     }
   }
 
-  private static createAsyncProviders(options: SentryModuleAsyncOptions): Provider[] {
+  private static createAsyncProviders(
+    options: SentryModuleAsyncOptions,
+  ): Provider[] {
     if (options.useExisting || options.useFactory) {
       return [this.createAsyncOptionsProvider(options)]
     }
@@ -47,7 +57,9 @@ export class SentryCoreModule {
     ]
   }
 
-  private static createAsyncOptionsProvider(options: SentryModuleAsyncOptions): Provider {
+  private static createAsyncOptionsProvider(
+    options: SentryModuleAsyncOptions,
+  ): Provider {
     if (options.useFactory) {
       return {
         inject: options.inject || [],
@@ -55,10 +67,13 @@ export class SentryCoreModule {
         useFactory: options.useFactory,
       }
     }
-    const inject = [(options.useClass || options.useExisting) as Type<SentryOptionsFactory>]
+    const inject = [
+      (options.useClass || options.useExisting) as Type<SentryOptionsFactory>,
+    ]
     return {
       provide: SENTRY_MODULE_OPTIONS,
-      useFactory: async (optionsFactory: SentryOptionsFactory) => await optionsFactory.createSentryModuleOptions(),
+      useFactory: async (optionsFactory: SentryOptionsFactory) =>
+        await optionsFactory.createSentryModuleOptions(),
       inject,
     }
   }

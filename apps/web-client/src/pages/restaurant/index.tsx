@@ -1,16 +1,16 @@
-import { useState } from "react"
+import { useState } from 'react'
 
-import { NextSeo } from "next-seo"
-import Link from "next/link"
-import { useRouter } from "next/router"
-import { useForm } from "react-hook-form"
+import { NextSeo } from 'next-seo'
+import Link from 'next/link'
+import { useRouter } from 'next/router'
+import { useForm } from 'react-hook-form'
 
 import {
   Restaurant,
   useCategoriesQuery,
   useRestaurantsQuery,
-} from "@nham-avey/common"
-import RestaurantCard from "src/components/cards/restaurant-card"
+} from '@nham-avey/common'
+import RestaurantCard from 'src/components/cards/restaurant-card'
 
 interface PageState {
   page: number
@@ -21,7 +21,7 @@ interface PageState {
 const pageState: PageState = {
   page: 1,
   take: 2,
-  q: "",
+  q: '',
 }
 
 const RestaurantsPage = () => {
@@ -47,7 +47,7 @@ const RestaurantsPage = () => {
   const onSearchSubmit = () => {
     const { searchTerm } = getValues()
     router.push({
-      pathname: "/restaurant/search",
+      pathname: '/restaurant/search',
       search: `?term=${searchTerm}`,
     })
   }
@@ -60,7 +60,7 @@ const RestaurantsPage = () => {
         className="flex w-full items-center justify-center bg-gray-800 py-40"
       >
         <input
-          {...register("searchTerm", {
+          {...register('searchTerm', {
             required: true,
             min: 3,
           })}

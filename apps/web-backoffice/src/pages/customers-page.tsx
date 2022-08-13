@@ -1,4 +1,4 @@
-import { ChangeEventHandler, useCallback, useMemo, useState } from "react"
+import { ChangeEventHandler, useCallback, useMemo, useState } from 'react'
 
 import {
   DeleteOutlined,
@@ -6,13 +6,13 @@ import {
   ExclamationCircleOutlined,
   ReloadOutlined,
   SearchOutlined,
-} from "@ant-design/icons"
+} from '@ant-design/icons'
 import {
   useAdminDeleteUserMutation,
   useAdminGetUsersQuery,
   User,
   UserRole,
-} from "@nham-avey/common"
+} from '@nham-avey/common'
 import {
   Button,
   Card,
@@ -23,14 +23,14 @@ import {
   TablePaginationConfig,
   Tooltip,
   Typography,
-} from "antd"
-import { ColumnsType } from "antd/lib/table/interface"
-import { Helmet } from "react-helmet-async"
-import AvatarInfo from "src/components/avatar-info"
-import UpdateUserDrawer from "src/components/drawers/update-user-drawer"
-import { APP_NAME } from "src/config/app-config"
-import { TableType } from "src/typing/common-type"
-import { useDebouncedCallback } from "use-debounce"
+} from 'antd'
+import { ColumnsType } from 'antd/lib/table/interface'
+import { Helmet } from 'react-helmet-async'
+import AvatarInfo from 'src/components/avatar-info'
+import UpdateUserDrawer from 'src/components/drawers/update-user-drawer'
+import { APP_NAME } from 'src/config/app-config'
+import { TableType } from 'src/typing/common-type'
+import { useDebouncedCallback } from 'use-debounce'
 
 const { confirm } = Modal
 
@@ -53,7 +53,7 @@ export const CustomersPage = () => {
   const [pageState, setPageState] = useState<UserPageState>({
     page: 1,
     take: 10,
-    q: "",
+    q: '',
     role: UserRole.Customer,
   })
   const [userActionState, setUserActionState] = useState<UserActionState>({
@@ -63,7 +63,7 @@ export const CustomersPage = () => {
   })
   const { data, loading, refetch } = useAdminGetUsersQuery({
     variables: pageState,
-    fetchPolicy: "cache-and-network",
+    fetchPolicy: 'cache-and-network',
   })
 
   const openUpdateDrawer = useCallback((restaurant: User) => {
@@ -85,9 +85,9 @@ export const CustomersPage = () => {
   const [deleteUser] = useAdminDeleteUserMutation({
     onCompleted: async () => {
       notification.success({
-        message: "Success",
-        description: "User deleted successfully",
-        placement: "bottomLeft",
+        message: 'Success',
+        description: 'User deleted successfully',
+        placement: 'bottomLeft',
       })
       await refetch(pageState)
       setUserActionState(prevState => ({
@@ -100,18 +100,18 @@ export const CustomersPage = () => {
   const tableColumns = useMemo<ColumnsType<User>>(
     () => [
       {
-        title: "Basic Info",
+        title: 'Basic Info',
         render: (_, user) => (
           <AvatarInfo
             photoUrl={user.photoURL as string}
             blurhash=""
-            title={`${user.firstName ?? ""} ${user.lastName ?? ""}`}
+            title={`${user.firstName ?? ''} ${user.lastName ?? ''}`}
             subTitle={user.email}
           />
         ),
       },
       {
-        title: "Actions",
+        title: 'Actions',
         render: (_, user) => {
           return (
             <div className="flex flex-wrap gap-1">
@@ -128,9 +128,11 @@ export const CustomersPage = () => {
                   icon={<DeleteOutlined />}
                   onClick={() => {
                     confirm({
-                      title: `Do you want to delete ${user.firstName || "this User"}?`,
+                      title: `Do you want to delete ${
+                        user.firstName || 'this User'
+                      }?`,
                       icon: <ExclamationCircleOutlined />,
-                      content: "",
+                      content: '',
                       onOk: async () =>
                         await deleteUser({
                           variables: { userId: user.id },
@@ -145,7 +147,7 @@ export const CustomersPage = () => {
         },
       },
     ],
-    [deleteUser, openUpdateDrawer]
+    [deleteUser, openUpdateDrawer],
   )
 
   const pagination: TablePaginationConfig = useMemo(() => {
@@ -184,7 +186,7 @@ export const CustomersPage = () => {
   return (
     <div className="flex h-full flex-col">
       <Typography.Title>Customers</Typography.Title>
-      <Card bodyStyle={{ padding: "0px", height: "100%" }} className="h-full">
+      <Card bodyStyle={{ padding: '0px', height: '100%' }} className="h-full">
         <Helmet title={PAGE_TITLE} />
         <div className="h-full">
           <div className="flex gap-2 px-4 py-8">

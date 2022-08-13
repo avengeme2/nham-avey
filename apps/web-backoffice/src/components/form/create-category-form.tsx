@@ -1,12 +1,12 @@
-import React, { useState } from "react"
+import React, { useState } from 'react'
 
-import { LoadingOutlined, PlusOutlined } from "@ant-design/icons"
-import { useAdminCreateCategoryMutation } from "@nham-avey/common"
-import { Button, Form, Input, Upload } from "antd"
-import ImgCrop from "antd-img-crop"
-import { UploadChangeParam } from "antd/es/upload"
-import { UploadProps } from "antd/es/upload/interface"
-import { antUIUploadCustomRequest } from "src/utils/common-utils"
+import { LoadingOutlined, PlusOutlined } from '@ant-design/icons'
+import { useAdminCreateCategoryMutation } from '@nham-avey/common'
+import { Button, Form, Input, Upload } from 'antd'
+import ImgCrop from 'antd-img-crop'
+import { UploadChangeParam } from 'antd/es/upload'
+import { UploadProps } from 'antd/es/upload/interface'
+import { antUIUploadCustomRequest } from 'src/utils/common-utils'
 
 const { useForm } = Form
 
@@ -19,17 +19,22 @@ export interface CreateCategoryFormProps {
   isLoading: boolean
 }
 
-export const CreateCategoryForm = ({ onSubmit, isLoading }: CreateCategoryFormProps) => {
+export const CreateCategoryForm = ({
+  onSubmit,
+  isLoading,
+}: CreateCategoryFormProps) => {
   const [form] = useForm<CreateCategoryFormValue>()
   const [coverImageUrl, setCoverImageUrl] = useState<string | null>(null)
   const [isUploadingPhoto, setIsUploadingPhoto] = useState(false)
 
-  const handleCoverImageChange: UploadProps["onChange"] = (info: UploadChangeParam) => {
-    if (info.file.status === "uploading") {
+  const handleCoverImageChange: UploadProps['onChange'] = (
+    info: UploadChangeParam,
+  ) => {
+    if (info.file.status === 'uploading') {
       setIsUploadingPhoto(true)
       return
     }
-    if (info.file.status === "done") {
+    if (info.file.status === 'done') {
       setIsUploadingPhoto(false)
       setCoverImageUrl(info.file.response)
     }
@@ -76,7 +81,7 @@ export const CreateCategoryForm = ({ onSubmit, isLoading }: CreateCategoryFormPr
             {isUploadingPhoto ? (
               <LoadingOutlined />
             ) : coverImageUrl ? (
-              <img src={coverImageUrl} alt="avatar" style={{ width: "100%" }} />
+              <img src={coverImageUrl} alt="avatar" style={{ width: '100%' }} />
             ) : (
               <div style={{ marginTop: 8 }}>
                 <PlusOutlined />
@@ -92,7 +97,7 @@ export const CreateCategoryForm = ({ onSubmit, isLoading }: CreateCategoryFormPr
         rules={[
           {
             required: true,
-            message: "Name is required!",
+            message: 'Name is required!',
           },
         ]}
       >

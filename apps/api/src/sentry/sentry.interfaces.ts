@@ -1,7 +1,7 @@
-import { ConsoleLoggerOptions } from "@nestjs/common"
-import { ModuleMetadata, Type } from "@nestjs/common/interfaces"
-import { SeverityLevel } from "@sentry/node"
-import { Integration, Options } from "@sentry/types"
+import { ConsoleLoggerOptions } from '@nestjs/common'
+import { ModuleMetadata, Type } from '@nestjs/common/interfaces'
+import { SeverityLevel } from '@sentry/node'
+import { Integration, Options } from '@sentry/types'
 
 export interface SentryCloseOptions {
   enabled: boolean
@@ -9,23 +9,28 @@ export interface SentryCloseOptions {
   timeout?: number
 }
 
-export type SentryModuleOptions = Omit<Options, "integrations"> & {
+export type SentryModuleOptions = Omit<Options, 'integrations'> & {
   integrations?: Integration[]
   close?: SentryCloseOptions
 } & ConsoleLoggerOptions
 
 export interface SentryOptionsFactory {
-  createSentryModuleOptions(): Promise<SentryModuleOptions> | SentryModuleOptions
+  createSentryModuleOptions():
+    | Promise<SentryModuleOptions>
+    | SentryModuleOptions
 }
 
-export interface SentryModuleAsyncOptions extends Pick<ModuleMetadata, "imports"> {
+export interface SentryModuleAsyncOptions
+  extends Pick<ModuleMetadata, 'imports'> {
   inject?: any[]
   useClass?: Type<SentryOptionsFactory>
   useExisting?: Type<SentryOptionsFactory>
-  useFactory?: (...args: any[]) => Promise<SentryModuleOptions> | SentryModuleOptions
+  useFactory?: (
+    ...args: any[]
+  ) => Promise<SentryModuleOptions> | SentryModuleOptions
 }
 
-export type SentryTransaction = boolean | "path" | "methodPath" | "handler"
+export type SentryTransaction = boolean | 'path' | 'methodPath' | 'handler'
 
 export interface SentryFilterFunction {
   (exception: any): boolean
@@ -46,7 +51,7 @@ export interface SentryInterceptorOptions {
   // https://github.com/getsentry/sentry-javascript/blob/master/packages/node/src/handlers.ts#L163
   request?: boolean
   serverName?: boolean
-  transaction?: boolean | "path" | "methodPath" | "handler" // https://github.com/getsentry/sentry-javascript/blob/master/packages/node/src/handlers.ts#L16
+  transaction?: boolean | 'path' | 'methodPath' | 'handler' // https://github.com/getsentry/sentry-javascript/blob/master/packages/node/src/handlers.ts#L16
   user?: boolean | string[]
   version?: boolean
 }

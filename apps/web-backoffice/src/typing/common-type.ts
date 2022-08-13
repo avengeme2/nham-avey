@@ -4,8 +4,8 @@ export type Optional<T> = T | any
 export type TableType<T> = Optional<T>
 
 export enum Order {
-  ASC = "ASC",
-  DESC = "DESC",
+  ASC = 'ASC',
+  DESC = 'DESC',
 }
 
 export interface SelectOption {

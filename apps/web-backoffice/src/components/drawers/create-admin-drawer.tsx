@@ -1,13 +1,13 @@
 import {
   AdminCreateAdminMutationOptions,
   useAdminCreateAdminMutation,
-} from "@nham-avey/common"
-import { Drawer } from "antd"
-import CreateAdminForm from "src/components/form/create-admin-form"
+} from '@nham-avey/common'
+import { Drawer } from 'antd'
+import CreateAdminForm from 'src/components/form/create-admin-form'
 
 interface CreateAdminDrawerProps {
   visible: boolean
-  onCompleted: AdminCreateAdminMutationOptions["onCompleted"]
+  onCompleted: AdminCreateAdminMutationOptions['onCompleted']
   onClose: () => void
 }
 
@@ -30,7 +30,7 @@ export function CreateAdminDrawer({
       title="Create Admin"
       className="max-w-full"
       contentWrapperStyle={{
-        maxWidth: "100%",
+        maxWidth: '100%',
       }}
     >
       <CreateAdminForm onSubmit={create} isLoading={isCreating} />

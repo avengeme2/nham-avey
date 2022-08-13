@@ -1,16 +1,26 @@
-import { Field, InputType, ObjectType } from "@nestjs/graphql"
-import { IsOptional, IsString } from "class-validator"
-import { Category } from "src/categories/category.entity"
-import { City } from "src/cities/city.entity"
-import { CoreEntity } from "src/common/entities/core.entity"
-import { Dish } from "src/dishes/dish.entity"
-import { Image } from "src/images/entities/image.entity"
-import { Location } from "src/locations/location.entity"
-import { Order } from "src/orders/entities/order.entity"
-import { OpeningHours } from "src/restaurants/entities/opening-hours.entity"
-import { Review } from "src/restaurants/entities/review.entity"
-import { User } from "src/users/entities/user.entity"
-import { Column, Entity, JoinColumn, JoinTable, ManyToMany, ManyToOne, OneToMany, OneToOne, RelationId } from "typeorm"
+import { Field, InputType, ObjectType } from '@nestjs/graphql'
+import { IsOptional, IsString } from 'class-validator'
+import { Category } from 'src/categories/category.entity'
+import { City } from 'src/cities/city.entity'
+import { CoreEntity } from 'src/common/entities/core.entity'
+import { Dish } from 'src/dishes/dish.entity'
+import { Image } from 'src/images/entities/image.entity'
+import { Location } from 'src/locations/location.entity'
+import { Order } from 'src/orders/entities/order.entity'
+import { OpeningHours } from 'src/restaurants/entities/opening-hours.entity'
+import { Review } from 'src/restaurants/entities/review.entity'
+import { User } from 'src/users/entities/user.entity'
+import {
+  Column,
+  Entity,
+  JoinColumn,
+  JoinTable,
+  ManyToMany,
+  ManyToOne,
+  OneToMany,
+  OneToOne,
+  RelationId,
+} from 'typeorm'
 
 /**
  * @todo add additional info like this
@@ -27,9 +37,9 @@ import { Column, Entity, JoinColumn, JoinTable, ManyToMany, ManyToOne, OneToMany
  *   //   ]
  *   // },
  */
-@InputType("RestaurantInputType", { isAbstract: true })
+@InputType('RestaurantInputType', { isAbstract: true })
 @ObjectType()
-@Entity({ name: "restaurants" })
+@Entity({ name: 'restaurants' })
 export class Restaurant extends CoreEntity {
   @Field(() => String)
   @Column()
@@ -42,7 +52,7 @@ export class Restaurant extends CoreEntity {
   slug: string
 
   @Field(type => String, { nullable: true })
-  @Column({ nullable: true, type: "varchar", length: 255 })
+  @Column({ nullable: true, type: 'varchar', length: 255 })
   @IsString()
   description: string
 
@@ -76,7 +86,7 @@ export class Restaurant extends CoreEntity {
 
   @Field(() => City, { nullable: true })
   @ManyToOne(() => City, city => city.restaurants, { nullable: true })
-  @JoinColumn({ name: "city_id", referencedColumnName: "id" })
+  @JoinColumn({ name: 'city_id', referencedColumnName: 'id' })
   city?: City
 
   @RelationId((restaurant: Restaurant) => restaurant.city)
@@ -91,7 +101,7 @@ export class Restaurant extends CoreEntity {
 
   @Field(() => Location, { nullable: true })
   @OneToOne(() => Location, { nullable: true })
-  @JoinColumn({ name: "location_id", referencedColumnName: "id" })
+  @JoinColumn({ name: 'location_id', referencedColumnName: 'id' })
   location?: Location
 
   @Field(() => String, { nullable: true })
@@ -102,24 +112,27 @@ export class Restaurant extends CoreEntity {
 
   @Field(() => OpeningHours, { nullable: true })
   @OneToOne(() => OpeningHours, { nullable: true })
-  @JoinColumn({ name: "opening_hours_id", referencedColumnName: "id" })
+  @JoinColumn({ name: 'opening_hours_id', referencedColumnName: 'id' })
   openingHours?: OpeningHours
 
   @Field(() => [Category], { nullable: true })
-  @ManyToMany(type => Category, category => category.restaurants, { nullable: true, onDelete: "SET NULL" })
+  @ManyToMany(type => Category, category => category.restaurants, {
+    nullable: true,
+    onDelete: 'SET NULL',
+  })
   @JoinTable({
-    name: "restaurant_categories",
-    joinColumn: { name: "restaurant_id", referencedColumnName: "id" },
-    inverseJoinColumn: { name: "category_id", referencedColumnName: "id" },
+    name: 'restaurant_categories',
+    joinColumn: { name: 'restaurant_id', referencedColumnName: 'id' },
+    inverseJoinColumn: { name: 'category_id', referencedColumnName: 'id' },
   })
   categories: Category[]
 
   @Field(() => [User])
   @ManyToMany(type => User, user => user.restaurants, { nullable: false })
   @JoinTable({
-    name: "restaurant_vendors",
-    joinColumn: { name: "restaurant_id", referencedColumnName: "id" },
-    inverseJoinColumn: { name: "vendor_id", referencedColumnName: "id" },
+    name: 'restaurant_vendors',
+    joinColumn: { name: 'restaurant_id', referencedColumnName: 'id' },
+    inverseJoinColumn: { name: 'vendor_id', referencedColumnName: 'id' },
   })
   vendors: User[]
 
@@ -139,6 +152,6 @@ export class Restaurant extends CoreEntity {
   isPromoted: boolean
 
   @Field(() => Date, { nullable: true })
-  @Column({ nullable: true, type: "timestamptz" })
+  @Column({ nullable: true, type: 'timestamptz' })
   promotedUntil: Date | null
 }

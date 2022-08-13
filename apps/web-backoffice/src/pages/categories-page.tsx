@@ -1,4 +1,4 @@
-import { ChangeEventHandler, useCallback, useMemo, useState } from "react"
+import { ChangeEventHandler, useCallback, useMemo, useState } from 'react'
 
 import {
   DeleteOutlined,
@@ -6,12 +6,12 @@ import {
   ExclamationCircleOutlined,
   ReloadOutlined,
   SearchOutlined,
-} from "@ant-design/icons"
+} from '@ant-design/icons'
 import {
   Category,
   useAdminDeleteCategoryMutation,
   useCategoriesQuery,
-} from "@nham-avey/common"
+} from '@nham-avey/common'
 import {
   Button,
   Card,
@@ -22,15 +22,15 @@ import {
   TablePaginationConfig,
   Tooltip,
   Typography,
-} from "antd"
-import { ColumnsType } from "antd/lib/table/interface"
-import { Helmet } from "react-helmet-async"
-import AvatarInfo from "src/components/avatar-info"
-import CreateCategoryDrawer from "src/components/drawers/create-category-drawer"
-import UpdateCategoryDrawer from "src/components/drawers/update-category-drawer"
-import { APP_NAME } from "src/config/app-config"
-import { TableType } from "src/typing/common-type"
-import { useDebouncedCallback } from "use-debounce"
+} from 'antd'
+import { ColumnsType } from 'antd/lib/table/interface'
+import { Helmet } from 'react-helmet-async'
+import AvatarInfo from 'src/components/avatar-info'
+import CreateCategoryDrawer from 'src/components/drawers/create-category-drawer'
+import UpdateCategoryDrawer from 'src/components/drawers/update-category-drawer'
+import { APP_NAME } from 'src/config/app-config'
+import { TableType } from 'src/typing/common-type'
+import { useDebouncedCallback } from 'use-debounce'
 
 const { confirm } = Modal
 
@@ -53,7 +53,7 @@ export const CategoriesPage = () => {
   const [pageState, setPageState] = useState<CategoryPageState>({
     page: 1,
     take: 10,
-    q: "",
+    q: '',
   })
   const [userActionState, setUserActionState] = useState<UserActionState>({
     selectedCategory: null,
@@ -63,7 +63,7 @@ export const CategoriesPage = () => {
   })
   const { data, loading, refetch } = useCategoriesQuery({
     variables: pageState,
-    fetchPolicy: "cache-and-network",
+    fetchPolicy: 'cache-and-network',
   })
 
   const openCreateDrawer = useCallback(() => {
@@ -100,9 +100,9 @@ export const CategoriesPage = () => {
   const [deleteCategory] = useAdminDeleteCategoryMutation({
     onCompleted: async () => {
       notification.success({
-        message: "Success",
-        description: "Category deleted successfully",
-        placement: "bottomLeft",
+        message: 'Success',
+        description: 'Category deleted successfully',
+        placement: 'bottomLeft',
       })
       await refetch(pageState)
       setUserActionState(prevState => ({
@@ -115,7 +115,7 @@ export const CategoriesPage = () => {
   const tableColumns = useMemo<ColumnsType<Category>>(
     () => [
       {
-        title: "Basic Info",
+        title: 'Basic Info',
         render: (_, category) => (
           <AvatarInfo
             photoUrl={category.coverImageUrl as string}
@@ -126,7 +126,7 @@ export const CategoriesPage = () => {
         ),
       },
       {
-        title: "Actions",
+        title: 'Actions',
         render: (_, category) => {
           return (
             <div className="flex flex-wrap gap-1">
@@ -145,7 +145,7 @@ export const CategoriesPage = () => {
                     confirm({
                       title: `Do you want to delete ${category.name}?`,
                       icon: <ExclamationCircleOutlined />,
-                      content: "",
+                      content: '',
                       onOk: async () =>
                         await deleteCategory({
                           variables: { id: category.id },
@@ -160,7 +160,7 @@ export const CategoriesPage = () => {
         },
       },
     ],
-    [deleteCategory, openUpdateDrawer]
+    [deleteCategory, openUpdateDrawer],
   )
 
   const pagination: TablePaginationConfig = useMemo(() => {
@@ -199,7 +199,7 @@ export const CategoriesPage = () => {
   return (
     <div className="flex h-full flex-col">
       <Typography.Title>Categories</Typography.Title>
-      <Card bodyStyle={{ padding: "0px", height: "100%" }} className="h-full">
+      <Card bodyStyle={{ padding: '0px', height: '100%' }} className="h-full">
         <Helmet title={PAGE_TITLE} />
         <div className="h-full">
           <div className="flex gap-2 px-4 py-8">
@@ -222,7 +222,11 @@ export const CategoriesPage = () => {
             {/* grow fill the full width */}
             <div className="grow" aria-hidden />
 
-            <Button type="primary" onClick={openCreateDrawer} className="min-w-[6rem]">
+            <Button
+              type="primary"
+              onClick={openCreateDrawer}
+              className="min-w-[6rem]"
+            >
               New
             </Button>
           </div>

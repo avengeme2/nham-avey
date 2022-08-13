@@ -1,8 +1,8 @@
-import { useCallback, useEffect, useMemo } from "react"
+import { useCallback, useEffect, useMemo } from 'react'
 
-import { QueryResult } from "@apollo/client"
-import clsx from "clsx"
-import { NextSeo } from "next-seo"
+import { QueryResult } from '@apollo/client'
+import clsx from 'clsx'
+import { NextSeo } from 'next-seo'
 
 import {
   Restaurant,
@@ -12,15 +12,15 @@ import {
   useCategoriesQuery,
   useRestaurantsQuery,
   useScrollPosition,
-} from "@nham-avey/common"
-import CategoryCard from "src/components/cards/category-card"
-import { MemoedRestaurantCards as RestaurantCards } from "src/components/cards/restaurant-cards"
-import { AuthedLayout } from "src/components/layout/authed-layout"
-import { APP_NAME, DEFAULT_PAGE_STATE } from "src/constants/common-constants"
+} from '@nham-avey/common'
+import CategoryCard from 'src/components/cards/category-card'
+import { MemoedRestaurantCards as RestaurantCards } from 'src/components/cards/restaurant-cards'
+import { AuthedLayout } from 'src/components/layout/authed-layout'
+import { APP_NAME, DEFAULT_PAGE_STATE } from 'src/constants/common-constants'
 import {
   PageState,
   useRestaurantPageStateContext,
-} from "src/context/restaurant-page-state-context"
+} from 'src/context/restaurant-page-state-context'
 
 export const CATEGORIES_VARIABLES = { ...DEFAULT_PAGE_STATE, page: 1, take: 6 } // take only top 6
 
@@ -42,7 +42,7 @@ const HomePage = () => {
   } = useRestaurantsQuery({
     variables: DEFAULT_PAGE_STATE,
     notifyOnNetworkStatusChange: true,
-    nextFetchPolicy: "cache-and-network",
+    nextFetchPolicy: 'cache-and-network',
   })
 
   const handleScroll = useCallback(
@@ -110,7 +110,7 @@ const HomePage = () => {
           const updatedData: QueryResult<
             RestaurantsQuery,
             RestaurantsQueryVariables
-          >["data"] = {
+          >['data'] = {
             restaurants: {
               ...fetchMoreResult.restaurants,
               data: [
@@ -159,14 +159,14 @@ const HomePage = () => {
           <div className="mb-16 text-center">
             <button
               className={clsx(
-                "w-30 btn btn-active btn-sm h-10 hover:shadow-lg",
+                'w-30 btn btn-active btn-sm h-10 hover:shadow-lg',
                 {
-                  "loading btn-ghost": isLoadingRestaurant,
+                  'loading btn-ghost': isLoadingRestaurant,
                 },
               )}
               onClick={handleLoadMore}
             >
-              {isLoadingRestaurant ? "Loading" : "Load More"}
+              {isLoadingRestaurant ? 'Loading' : 'Load More'}
             </button>
           </div>
         )}

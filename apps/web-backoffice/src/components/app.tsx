@@ -1,16 +1,14 @@
-import { useMemo } from "react"
+import { useMemo } from 'react'
 
-import { useFirebaseAuthState } from "@nham-avey/common"
-import { useRoutes } from "react-router-dom"
-import LoadingIndicator from "src/components/loading-indicator"
-import authRoutes from "src/routes/auth-routes"
-import defaultAppRoutes from "src/routes/default-app-routes"
-import firebaseService from "src/services/firebase-service"
-import _logger from "src/utils/logger-utils"
+import { useFirebaseAuthState } from '@nham-avey/common'
+import { useRoutes } from 'react-router-dom'
+import LoadingIndicator from 'src/components/loading-indicator'
+import authRoutes from 'src/routes/auth-routes'
+import defaultAppRoutes from 'src/routes/default-app-routes'
+import firebaseService from 'src/services/firebase-service'
+import _logger from 'src/utils/logger-utils'
 
-import "src/i18n/i18n"
-
-const logger = _logger.withTag("DefaultApp")
+import 'src/i18n/i18n'
 
 const { auth } = firebaseService
 function App() {
@@ -34,7 +32,7 @@ function App() {
 
   const isLoading = useMemo(
     () => isLoadingFirebaseUser || isLoadingCurrentUser,
-    [isLoadingFirebaseUser, isLoadingCurrentUser]
+    [isLoadingFirebaseUser, isLoadingCurrentUser],
   )
 
   if (isLoading) return <LoadingIndicator cover="page" size={54} />

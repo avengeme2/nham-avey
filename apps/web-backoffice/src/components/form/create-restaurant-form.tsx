@@ -1,20 +1,20 @@
-import React, { useCallback, useMemo, useState } from "react"
+import React, { useCallback, useMemo, useState } from 'react'
 
-import { LoadingOutlined, PlusOutlined } from "@ant-design/icons"
+import { LoadingOutlined, PlusOutlined } from '@ant-design/icons'
 import {
   useAdminCreateRestaurantMutation,
   useAdminGetUsersLazyQuery,
   useCategoriesQuery,
   User,
   UserRole,
-} from "@nham-avey/common"
-import { Button, Form, Input, Select, Upload, UploadFile } from "antd"
-import ImgCrop from "antd-img-crop"
-import { UploadChangeParam } from "antd/es/upload"
-import { UploadProps } from "antd/es/upload/interface"
-import { DebouncedSelect } from "src/components/form-elements/DebouncedSelect"
-import { SelectOption } from "src/typing/common-type"
-import { antUIUploadCustomRequest } from "src/utils/common-utils"
+} from '@nham-avey/common'
+import { Button, Form, Input, Select, Upload, UploadFile } from 'antd'
+import ImgCrop from 'antd-img-crop'
+import { UploadChangeParam } from 'antd/es/upload'
+import { UploadProps } from 'antd/es/upload/interface'
+import { DebouncedSelect } from 'src/components/form-elements/DebouncedSelect'
+import { SelectOption } from 'src/typing/common-type'
+import { antUIUploadCustomRequest } from 'src/utils/common-utils'
 
 const { useForm } = Form
 
@@ -40,24 +40,26 @@ export const CreateRestaurantForm = ({
   const [isUploadingLogo, setIsUploadingLogo] = useState(false)
   const [isUploadingCover, setIsUploadingCover] = useState(false)
 
-  const handleLogoImageChange: UploadProps["onChange"] = (info: UploadChangeParam) => {
-    if (info.file.status === "uploading") {
+  const handleLogoImageChange: UploadProps['onChange'] = (
+    info: UploadChangeParam,
+  ) => {
+    if (info.file.status === 'uploading') {
       setIsUploadingLogo(true)
       return
     }
-    if (info.file.status === "done") {
+    if (info.file.status === 'done') {
       setIsUploadingLogo(false)
       setLogoImageUrl(info.file.response)
     }
   }
 
-  const handleCoverImageChange: UploadProps["onChange"] = info => {
+  const handleCoverImageChange: UploadProps['onChange'] = info => {
     setCoverImages(info.fileList)
-    if (info.file.status === "uploading") {
+    if (info.file.status === 'uploading') {
       setIsUploadingCover(true)
       return
     }
-    if (info.file.status === "done") {
+    if (info.file.status === 'done') {
       setIsUploadingCover(false)
       setLogoImageUrl(info.file.response)
     }
@@ -67,7 +69,11 @@ export const CreateRestaurantForm = ({
 
   const fetchVendor = useCallback(
     async (search: string): Promise<SelectOption[]> => {
-      const { data } = await getVendors({ take: 10, q: search, role: UserRole.Vendor })
+      const { data } = await getVendors({
+        take: 10,
+        q: search,
+        role: UserRole.Vendor,
+      })
 
       const { ok, data: users } = data?.adminGetUsers || {}
       if (ok && users) {
@@ -79,7 +85,7 @@ export const CreateRestaurantForm = ({
 
       return []
     },
-    [getVendors]
+    [getVendors],
   )
 
   const { data: categoriesData } = useCategoriesQuery()
@@ -103,13 +109,15 @@ export const CreateRestaurantForm = ({
             address,
             logoImageUrl,
             vendorIds: values.vendors.map(option => option.value.toString()),
-            categories: values.categories.map(option => option.value.toString()),
+            categories: values.categories.map(option =>
+              option.value.toString(),
+            ),
             coverImageUrls: coverImages?.map(image => image.response),
           },
         },
       })
       if (data?.adminCreateRestaurant.ok) {
-        setLogoImageUrl("")
+        setLogoImageUrl('')
         setCoverImages([])
         form.resetFields()
       }
@@ -139,7 +147,7 @@ export const CreateRestaurantForm = ({
             {isUploadingCover ? (
               <LoadingOutlined />
             ) : logoImageUrl ? (
-              <img src={logoImageUrl} alt="avatar" style={{ width: "100%" }} />
+              <img src={logoImageUrl} alt="avatar" style={{ width: '100%' }} />
             ) : (
               <div style={{ marginTop: 8 }}>
                 <PlusOutlined />
@@ -171,7 +179,7 @@ export const CreateRestaurantForm = ({
         rules={[
           {
             required: true,
-            message: "Please input name",
+            message: 'Please input name',
           },
         ]}
       >
@@ -184,7 +192,7 @@ export const CreateRestaurantForm = ({
         rules={[
           {
             required: true,
-            message: "Please Select Vendors",
+            message: 'Please Select Vendors',
           },
         ]}
       >
@@ -197,7 +205,7 @@ export const CreateRestaurantForm = ({
         rules={[
           {
             required: true,
-            message: "Category is Required",
+            message: 'Category is Required',
           },
         ]}
       >
@@ -216,7 +224,7 @@ export const CreateRestaurantForm = ({
         rules={[
           {
             required: true,
-            message: "Incorrect email format",
+            message: 'Incorrect email format',
           },
         ]}
       >

@@ -1,7 +1,9 @@
-import { MigrationInterface, QueryRunner } from "typeorm"
+import { MigrationInterface, QueryRunner } from 'typeorm'
 
-export class removeEmailUniqueConstraint1658464919668 implements MigrationInterface {
-  name = "removeEmailUniqueConstraint1658464919668"
+export class removeEmailUniqueConstraint1658464919668
+  implements MigrationInterface
+{
+  name = 'removeEmailUniqueConstraint1658464919668'
 
   public async up(queryRunner: QueryRunner): Promise<void> {
     await queryRunner.query(`

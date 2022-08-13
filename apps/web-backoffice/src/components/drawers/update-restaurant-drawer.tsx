@@ -2,14 +2,14 @@ import {
   AdminUpdateRestaurantMutationOptions,
   Restaurant,
   useAdminUpdateRestaurantMutation,
-} from "@nham-avey/common"
-import { Drawer } from "antd"
-import UpdateRestaurantForm from "src/components/form/update-restaurant-form"
+} from '@nham-avey/common'
+import { Drawer } from 'antd'
+import UpdateRestaurantForm from 'src/components/form/update-restaurant-form'
 
 interface UpdateRestaurantDrawerProps {
   restaurant: Restaurant | null
   visible: boolean
-  onCompleted: AdminUpdateRestaurantMutationOptions["onCompleted"]
+  onCompleted: AdminUpdateRestaurantMutationOptions['onCompleted']
   onClose: () => void
 }
 
@@ -33,7 +33,7 @@ export function UpdateRestaurantDrawer({
       title="Update Restaurant"
       className="max-w-full"
       contentWrapperStyle={{
-        maxWidth: "100%",
+        maxWidth: '100%',
       }}
     >
       <UpdateRestaurantForm

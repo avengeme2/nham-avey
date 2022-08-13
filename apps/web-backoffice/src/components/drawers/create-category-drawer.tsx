@@ -1,13 +1,13 @@
 import {
   AdminCreateCategoryMutationOptions,
   useAdminCreateCategoryMutation,
-} from "@nham-avey/common"
-import { Drawer } from "antd"
-import CreateCategoryForm from "src/components/form/create-category-form"
+} from '@nham-avey/common'
+import { Drawer } from 'antd'
+import CreateCategoryForm from 'src/components/form/create-category-form'
 
 interface CreateCategoryDrawerProps {
   visible: boolean
-  onCompleted: AdminCreateCategoryMutationOptions["onCompleted"]
+  onCompleted: AdminCreateCategoryMutationOptions['onCompleted']
   onClose: () => void
 }
 
@@ -30,7 +30,7 @@ export function CreateCategoryDrawer({
       title="Create Category"
       className="max-w-full"
       contentWrapperStyle={{
-        maxWidth: "100%",
+        maxWidth: '100%',
       }}
     >
       <CreateCategoryForm onSubmit={create} isLoading={isCreating} />

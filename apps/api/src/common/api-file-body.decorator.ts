@@ -1,7 +1,13 @@
-import { applyDecorators } from "@nestjs/common"
-import { ApiBody, ApiExtraModels, getSchemaPath } from "@nestjs/swagger"
+import { applyDecorators } from '@nestjs/common'
+import { ApiBody, ApiExtraModels, getSchemaPath } from '@nestjs/swagger'
 
-export const ApiFileBody = ({ key, required }: { key: string; required: boolean }) => {
+export const ApiFileBody = ({
+  key,
+  required,
+}: {
+  key: string
+  required: boolean
+}) => {
   // use empty class to make swagger work properly
   const extraModel = class File {}
 
@@ -12,8 +18,8 @@ export const ApiFileBody = ({ key, required }: { key: string; required: boolean 
         allOf: [{ $ref: getSchemaPath(extraModel) }],
         properties: {
           [key]: {
-            type: "string",
-            format: "binary",
+            type: 'string',
+            format: 'binary',
           },
         },
         required: required ? [key] : [],

@@ -1,5 +1,5 @@
-import { Transition } from "@headlessui/react"
-import Link from "next/link"
+import { Transition } from '@headlessui/react'
+import Link from 'next/link'
 
 interface MobileMenuProps {
   isOpen: boolean

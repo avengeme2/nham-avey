@@ -1,12 +1,12 @@
-import React, { useEffect, useState } from "react"
+import React, { useEffect, useState } from 'react'
 
-import { LoadingOutlined, PlusOutlined } from "@ant-design/icons"
-import { useAdminCreateAdminMutation, User } from "@nham-avey/common"
-import { Button, Form, Input, Upload } from "antd"
-import ImgCrop from "antd-img-crop"
-import { UploadChangeParam } from "antd/es/upload"
-import { UploadProps } from "antd/es/upload/interface"
-import { antUIUploadCustomRequest } from "src/utils/common-utils"
+import { LoadingOutlined, PlusOutlined } from '@ant-design/icons'
+import { useAdminCreateAdminMutation, User } from '@nham-avey/common'
+import { Button, Form, Input, Upload } from 'antd'
+import ImgCrop from 'antd-img-crop'
+import { UploadChangeParam } from 'antd/es/upload'
+import { UploadProps } from 'antd/es/upload/interface'
+import { antUIUploadCustomRequest } from 'src/utils/common-utils'
 
 const { useForm } = Form
 
@@ -38,12 +38,14 @@ export const CreateAdminForm = ({
     }
   }, [form, initialValue])
 
-  const handleLogoImageChange: UploadProps["onChange"] = (info: UploadChangeParam) => {
-    if (info.file.status === "uploading") {
+  const handleLogoImageChange: UploadProps['onChange'] = (
+    info: UploadChangeParam,
+  ) => {
+    if (info.file.status === 'uploading') {
       setIsUploadingPhoto(true)
       return
     }
-    if (info.file.status === "done") {
+    if (info.file.status === 'done') {
       setIsUploadingPhoto(false)
       setPhotoURL(info.file.response)
     }
@@ -92,7 +94,7 @@ export const CreateAdminForm = ({
             {isUploadingPhoto ? (
               <LoadingOutlined />
             ) : photoURL ? (
-              <img src={photoURL} alt="avatar" style={{ width: "100%" }} />
+              <img src={photoURL} alt="avatar" style={{ width: '100%' }} />
             ) : (
               <div style={{ marginTop: 8 }}>
                 <PlusOutlined />
@@ -108,7 +110,7 @@ export const CreateAdminForm = ({
         rules={[
           {
             required: true,
-            message: "First Name is required!",
+            message: 'First Name is required!',
           },
         ]}
       >
@@ -121,7 +123,7 @@ export const CreateAdminForm = ({
         rules={[
           {
             required: true,
-            message: "Last Name is required!",
+            message: 'Last Name is required!',
           },
         ]}
       >
@@ -133,12 +135,12 @@ export const CreateAdminForm = ({
         name="email"
         rules={[
           {
-            type: "email",
-            message: "The input is not valid E-mail!",
+            type: 'email',
+            message: 'The input is not valid E-mail!',
           },
           {
             required: true,
-            message: "Please input your E-mail!",
+            message: 'Please input your E-mail!',
           },
         ]}
       >

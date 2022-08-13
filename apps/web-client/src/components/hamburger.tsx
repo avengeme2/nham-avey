@@ -1,6 +1,6 @@
-import React from "react"
+import React from 'react'
 
-import { motion, Transition, SVGMotionProps } from "framer-motion"
+import { motion, Transition, SVGMotionProps } from 'framer-motion'
 
 interface HamburgerButtonProps extends SVGMotionProps<any> {
   isOpen?: boolean
@@ -13,11 +13,11 @@ const Hamburger = ({
   isOpen = false,
   width = 18,
   height = 18,
-  color = "#0B1521",
+  color = '#0B1521',
   transition,
   ...props
 }: HamburgerButtonProps) => {
-  const variant = isOpen ? "opened" : "closed"
+  const variant = isOpen ? 'opened' : 'closed'
   const top = {
     closed: {
       rotate: 0,
@@ -49,8 +49,8 @@ const Hamburger = ({
   const lineProps = {
     stroke: color,
     strokeWidth: 2,
-    vectorEffect: "non-scaling-stroke",
-    initial: "closed",
+    vectorEffect: 'non-scaling-stroke',
+    initial: 'closed',
     animate: variant,
     transition,
   }
@@ -94,7 +94,7 @@ const Hamburger = ({
         x2="4"
         y1="3"
         y2="3"
-        style={{ originX: "2px" }}
+        style={{ originX: '2px' }}
         variants={bottom}
         {...(isOpen && xFullLength)}
         {...lineProps}

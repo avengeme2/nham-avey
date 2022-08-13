@@ -1,7 +1,7 @@
-import { MigrationInterface, QueryRunner } from "typeorm"
+import { MigrationInterface, QueryRunner } from 'typeorm'
 
 export class locationLngLatAsFloat1658607935337 implements MigrationInterface {
-  name = "locationLngLatAsFloat1658607935337"
+  name = 'locationLngLatAsFloat1658607935337'
 
   public async up(queryRunner: QueryRunner): Promise<void> {
     await queryRunner.query(`

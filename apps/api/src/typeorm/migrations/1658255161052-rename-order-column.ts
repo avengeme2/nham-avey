@@ -1,7 +1,7 @@
-import { MigrationInterface, QueryRunner } from "typeorm"
+import { MigrationInterface, QueryRunner } from 'typeorm'
 
 export class renameOrderColumn1658255161052 implements MigrationInterface {
-  name = "renameOrderColumn1658255161052"
+  name = 'renameOrderColumn1658255161052'
 
   public async up(queryRunner: QueryRunner): Promise<void> {
     await queryRunner.query(`

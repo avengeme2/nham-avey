@@ -1,13 +1,21 @@
-import { Inject, Injectable, ConsoleLogger, OnApplicationShutdown } from "@nestjs/common"
-import * as Sentry from "@sentry/node"
-import { ClientOptions, Client } from "@sentry/types"
+import {
+  Inject,
+  Injectable,
+  ConsoleLogger,
+  OnApplicationShutdown,
+} from '@nestjs/common'
+import * as Sentry from '@sentry/node'
+import { ClientOptions, Client } from '@sentry/types'
 
-import { SENTRY_MODULE_OPTIONS } from "./sentry.constants"
-import { SentryModuleOptions } from "./sentry.interfaces"
+import { SENTRY_MODULE_OPTIONS } from './sentry.constants'
+import { SentryModuleOptions } from './sentry.interfaces'
 
 @Injectable()
-export class SentryService extends ConsoleLogger implements OnApplicationShutdown {
-  app = "@ntegral/nestjs-sentry: "
+export class SentryService
+  extends ConsoleLogger
+  implements OnApplicationShutdown
+{
+  app = '@ntegral/nestjs-sentry: '
   private static serviceInstance: SentryService
   constructor(
     @Inject(SENTRY_MODULE_OPTIONS)
@@ -26,16 +34,20 @@ export class SentryService extends ConsoleLogger implements OnApplicationShutdow
           onFatalError: async err => {
             // console.error('uncaughtException, not cool!')
             // console.error(err);
-            if (err.name === "SentryError") {
+            if (err.name === 'SentryError') {
               // eslint-disable-next-line no-console
               console.log(err)
             } else {
-              ;(Sentry.getCurrentHub().getClient<Client<ClientOptions>>() as Client<ClientOptions>).captureException(err)
+              ;(
+                Sentry.getCurrentHub().getClient<
+                  Client<ClientOptions>
+                >() as Client<ClientOptions>
+              ).captureException(err)
               process.exit(1)
             }
           },
         }),
-        new Sentry.Integrations.OnUnhandledRejection({ mode: "warn" }),
+        new Sentry.Integrations.OnUnhandledRejection({ mode: 'warn' }),
         ...integrations,
       ],
     })
@@ -55,12 +67,12 @@ export class SentryService extends ConsoleLogger implements OnApplicationShutdow
       asBreadcrumb
         ? Sentry.addBreadcrumb({
             message,
-            level: "log",
+            level: 'log',
             data: {
               context,
             },
           })
-        : Sentry.captureMessage(message, "log")
+        : Sentry.captureMessage(message, 'log')
     } catch (err) {}
   }
 
@@ -68,7 +80,7 @@ export class SentryService extends ConsoleLogger implements OnApplicationShutdow
     message = `${this.app} ${message}`
     try {
       super.error(message, trace, context)
-      Sentry.captureMessage(message, "error")
+      Sentry.captureMessage(message, 'error')
     } catch (err) {}
   }
 
@@ -79,12 +91,12 @@ export class SentryService extends ConsoleLogger implements OnApplicationShutdow
       asBreadcrumb
         ? Sentry.addBreadcrumb({
             message,
-            level: "warning",
+            level: 'warning',
             data: {
               context,
             },
           })
-        : Sentry.captureMessage(message, "warning")
+        : Sentry.captureMessage(message, 'warning')
     } catch (err) {}
   }
 
@@ -95,12 +107,12 @@ export class SentryService extends ConsoleLogger implements OnApplicationShutdow
       asBreadcrumb
         ? Sentry.addBreadcrumb({
             message,
-            level: "debug",
+            level: 'debug',
             data: {
               context,
             },
           })
-        : Sentry.captureMessage(message, "debug")
+        : Sentry.captureMessage(message, 'debug')
     } catch (err) {}
   }
 
@@ -111,12 +123,12 @@ export class SentryService extends ConsoleLogger implements OnApplicationShutdow
       asBreadcrumb
         ? Sentry.addBreadcrumb({
             message,
-            level: "info",
+            level: 'info',
             data: {
               context,
             },
           })
-        : Sentry.captureMessage(message, "info")
+        : Sentry.captureMessage(message, 'info')
     } catch (err) {}
   }
 

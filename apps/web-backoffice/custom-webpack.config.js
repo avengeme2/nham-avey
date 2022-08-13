@@ -1,4 +1,6 @@
-const ReactRefreshPlugin = require("@pmmmwh/react-refresh-webpack-plugin")
+/* eslint-disable */
+
+const ReactRefreshPlugin = require('@pmmmwh/react-refresh-webpack-plugin')
 
 // Copy from node_modules/@nrwl/react/plugins/webpack with "@nrwl/react": "14.4.3"
 // https://github.com/nrwl/nx/blob/master/packages/react/plugins/webpack.ts
@@ -12,7 +14,7 @@ function getWebpackConfig(config, context) {
         issuer: /\.(js|ts|md)x?$/,
         use: [
           {
-            loader: require.resolve("@svgr/webpack"),
+            loader: require.resolve('@svgr/webpack'),
             options: {
               svgo: false,
               titleProp: true,
@@ -20,10 +22,10 @@ function getWebpackConfig(config, context) {
             },
           },
           {
-            loader: require.resolve("url-loader"),
+            loader: require.resolve('url-loader'),
             options: {
               limit: 10000, // 10kB
-              name: "[name].[hash:7].[ext]",
+              name: '[name].[hash:7].[ext]',
               esModule: false,
             },
           },
@@ -33,10 +35,10 @@ function getWebpackConfig(config, context) {
       {
         use: [
           {
-            loader: require.resolve("url-loader"),
+            loader: require.resolve('url-loader'),
             options: {
               limit: 10000, // 10kB
-              name: "[name].[hash:7].[ext]",
+              name: '[name].[hash:7].[ext]',
             },
           },
         ],
@@ -49,13 +51,13 @@ function getWebpackConfig(config, context) {
     test: /\.less$/i,
     use: [
       {
-        loader: "less-loader", // compiles Less to CSS
+        loader: 'less-loader', // compiles Less to CSS
         options: {
           lessOptions: {
             modifyVars: {
-              "primary-color": "#1DA57A",
-              "link-color": "#1DA57A",
-              "border-radius-base": "8px",
+              'primary-color': '#1DA57A',
+              'link-color': '#1DA57A',
+              'border-radius-base': '8px',
             },
             javascriptEnabled: true,
           },
@@ -65,16 +67,18 @@ function getWebpackConfig(config, context) {
   })
   /***** modifying **/
 
-  if (config.mode === "development" && config["devServer"]?.hot) {
+  if (config.mode === 'development' && config['devServer']?.hot) {
     // add `react-refresh/babel` to babel loader plugin
     const babelLoader = config.module.rules.find(
-      rule => typeof rule !== "string" && rule.loader?.toString().includes("babel-loader")
+      rule =>
+        typeof rule !== 'string' &&
+        rule.loader?.toString().includes('babel-loader'),
     )
-    if (babelLoader && typeof babelLoader !== "string") {
-      babelLoader.options["plugins"] = [
-        ...(babelLoader.options["plugins"] || []),
+    if (babelLoader && typeof babelLoader !== 'string') {
+      babelLoader.options['plugins'] = [
+        ...(babelLoader.options['plugins'] || []),
         [
-          require.resolve("react-refresh/babel"),
+          require.resolve('react-refresh/babel'),
           {
             skipEnvCheck: true,
           },

@@ -1,35 +1,35 @@
-import { lazy } from "react"
+import { lazy } from 'react'
 
-import { Navigate, RouteObject } from "react-router-dom"
+import { Navigate, RouteObject } from 'react-router-dom'
 
-const AdminsPage = lazy(() => import("src/pages/admins-page"))
-const VendorsPage = lazy(() => import("src/pages/vendors-page"))
-const CustomersPage = lazy(() => import("src/pages/customers-page"))
-const DriversPage = lazy(() => import("src/pages/drivers-page"))
+const AdminsPage = lazy(() => import('src/pages/admins-page'))
+const VendorsPage = lazy(() => import('src/pages/vendors-page'))
+const CustomersPage = lazy(() => import('src/pages/customers-page'))
+const DriversPage = lazy(() => import('src/pages/drivers-page'))
 
 const userRoutes: RouteObject[] = [
   {
-    path: "",
+    path: '',
     element: <Navigate to="admins" />,
   },
   {
-    path: "admins",
+    path: 'admins',
     element: <AdminsPage />,
   },
   {
-    path: "vendors",
+    path: 'vendors',
     element: <VendorsPage />,
   },
   {
-    path: "customers",
+    path: 'customers',
     element: <CustomersPage />,
   },
   {
-    path: "drivers",
+    path: 'drivers',
     element: <DriversPage />,
   },
   {
-    path: "*",
+    path: '*',
     element: <Navigate to="customers" />,
   },
 ]

@@ -2,13 +2,13 @@ import {
   AdminUpdateCategoryMutationOptions,
   useAdminUpdateCategoryMutation,
   Category,
-} from "@nham-avey/common"
-import { Drawer } from "antd"
-import UpdateCategoryForm from "src/components/form/update-category-form"
+} from '@nham-avey/common'
+import { Drawer } from 'antd'
+import UpdateCategoryForm from 'src/components/form/update-category-form'
 
 interface UpdateCategoryDrawerProps {
   visible: boolean
-  onCompleted: AdminUpdateCategoryMutationOptions["onCompleted"]
+  onCompleted: AdminUpdateCategoryMutationOptions['onCompleted']
   onClose: () => void
   category: Category | null
 }
@@ -33,7 +33,7 @@ export function UpdateCategoryDrawer({
       title="Update Category"
       className="max-w-full"
       contentWrapperStyle={{
-        maxWidth: "100%",
+        maxWidth: '100%',
       }}
     >
       <UpdateCategoryForm

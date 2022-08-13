@@ -5,12 +5,12 @@ import {
   SetStateAction,
   useContext,
   useState,
-} from "react"
+} from 'react'
 
-import { QueryResult } from "@apollo/client"
+import { QueryResult } from '@apollo/client'
 
-import { RestaurantsQuery, RestaurantsQueryVariables } from "@nham-avey/common"
-import { DEFAULT_PAGE_STATE } from "src/constants/common-constants"
+import { RestaurantsQuery, RestaurantsQueryVariables } from '@nham-avey/common'
+import { DEFAULT_PAGE_STATE } from 'src/constants/common-constants'
 
 export interface PageState {
   page: number
@@ -21,7 +21,7 @@ export interface PageState {
 type RestaurantData = QueryResult<
   RestaurantsQuery,
   RestaurantsQueryVariables
->["data"]
+>['data']
 
 interface RestaurantPageState {
   pageState: PageState
@@ -65,7 +65,7 @@ export const useRestaurantPageStateContext = () => {
   const context = useContext(RestaurantPageStateContext)
   if (!context) {
     throw new Error(
-      "useRestaurantPageStateContext must be used within a RestaurantPageStateContext",
+      'useRestaurantPageStateContext must be used within a RestaurantPageStateContext',
     )
   }
   return context

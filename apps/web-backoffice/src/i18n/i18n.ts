@@ -1,9 +1,9 @@
-import i18n from "i18next"
-import languageDetector from "i18next-browser-languagedetector"
-import { initReactI18next } from "react-i18next"
+import i18n from 'i18next'
+import languageDetector from 'i18next-browser-languagedetector'
+import { initReactI18next } from 'react-i18next'
 
-import en from "./translations/en"
-import km from "./translations/km"
+import en from './translations/en'
+import km from './translations/km'
 
 const resources = {
   en: { translation: en },
@@ -16,7 +16,7 @@ i18n
   .init({
     resources,
     keySeparator: false,
-    fallbackLng: "en",
+    fallbackLng: 'en',
     react: {
       useSuspense: true,
     },

@@ -4,17 +4,17 @@ import {
   InMemoryCache,
   NormalizedCacheObject,
   split,
-} from "@apollo/client"
-import { setContext } from "@apollo/client/link/context"
-import { WebSocketLink } from "@apollo/client/link/ws"
-import { getMainDefinition } from "@apollo/client/utilities"
-import merge from "deepmerge"
-import isEqual from "lodash-es/isEqual"
+} from '@apollo/client'
+import { setContext } from '@apollo/client/link/context'
+import { WebSocketLink } from '@apollo/client/link/ws'
+import { getMainDefinition } from '@apollo/client/utilities'
+import merge from 'deepmerge'
+import isEqual from 'lodash-es/isEqual'
 
-import firebaseServices from "src/services/firebase-services"
-import { isClient } from "src/utils/common-utils"
+import firebaseServices from 'src/services/firebase-services'
+import { isClient } from 'src/utils/common-utils'
 
-export const APOLLO_STATE_PROP_NAME = "__APOLLO_STATE__"
+export const APOLLO_STATE_PROP_NAME = '__APOLLO_STATE__'
 
 let apolloClient: ApolloClient<NormalizedCacheObject> | undefined
 
@@ -25,8 +25,8 @@ const getBearerToken = async () => {
   } catch (err) {
     // TODO: Setup logger
     // eslint-disable-next-line no-console
-    console.log("Failed to get Bearer Token", err)
-    return ""
+    console.log('Failed to get Bearer Token', err)
+    return ''
   }
 }
 
@@ -64,8 +64,8 @@ const splitLink = isClient
       ({ query }) => {
         const definition = getMainDefinition(query)
         return (
-          definition.kind === "OperationDefinition" &&
-          definition.operation === "subscription"
+          definition.kind === 'OperationDefinition' &&
+          definition.operation === 'subscription'
         )
       },
       getWsLink() as WebSocketLink,

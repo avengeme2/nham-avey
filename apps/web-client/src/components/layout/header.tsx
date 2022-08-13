@@ -1,12 +1,12 @@
-import { useState } from "react"
+import { useState } from 'react'
 
-import { useFirebaseAuthState, useMeQuery } from "@nham-avey/common"
-import ProfileLinkButton from "src/components/buttons/profile-link-button"
-import { Hamburger } from "src/components/hamburger"
-import LogoLink from "src/components/links/logo-link"
-import LargeScreenMenu from "src/components/menu/large-screen-menu"
-import SmallScreenMenu from "src/components/menu/small-screen-menu"
-import firebaseServices from "src/services/firebase-services"
+import { useFirebaseAuthState, useMeQuery } from '@nham-avey/common'
+import ProfileLinkButton from 'src/components/buttons/profile-link-button'
+import { Hamburger } from 'src/components/hamburger'
+import LogoLink from 'src/components/links/logo-link'
+import LargeScreenMenu from 'src/components/menu/large-screen-menu'
+import SmallScreenMenu from 'src/components/menu/small-screen-menu'
+import firebaseServices from 'src/services/firebase-services'
 
 const { auth } = firebaseServices
 
@@ -35,7 +35,7 @@ export const Header = () => {
           >
             <Hamburger
               isOpen={isExpanded}
-              transition={{ type: "spring", stiffness: 260, damping: 20 }}
+              transition={{ type: 'spring', stiffness: 260, damping: 20 }}
             />
           </button>
         </div>

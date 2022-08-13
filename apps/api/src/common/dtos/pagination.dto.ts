@@ -1,6 +1,6 @@
-import { ArgsType, Field, Int, ObjectType } from "@nestjs/graphql"
-import { Min } from "class-validator"
-import { CoreOutput } from "src/common/dtos/output.dto"
+import { ArgsType, Field, Int, ObjectType } from '@nestjs/graphql'
+import { Min } from 'class-validator'
+import { CoreOutput } from 'src/common/dtos/output.dto'
 
 interface PaginateOptions {
   page: number

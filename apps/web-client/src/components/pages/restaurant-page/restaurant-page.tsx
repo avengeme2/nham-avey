@@ -1,17 +1,17 @@
-import React from "react"
+import React from 'react'
 
-import { Tab } from "@headlessui/react"
-import clsx from "clsx"
-import { AnimatePresence, motion } from "framer-motion"
-import { NextSeo } from "next-seo"
-import { useRouter } from "next/router"
+import { Tab } from '@headlessui/react'
+import clsx from 'clsx'
+import { AnimatePresence, motion } from 'framer-motion'
+import { NextSeo } from 'next-seo'
+import { useRouter } from 'next/router'
 
-import { Restaurant, useRestaurantBySlugQuery } from "@nham-avey/common"
-import DishCard from "src/components/cards/dish-card"
-import { AuthedLayout } from "src/components/layout/authed-layout"
-import RestaurantInfo from "src/components/pages/restaurant-page/restaurant-info"
-import RestaurantMap from "src/components/pages/restaurant-page/restaurant-map"
-import { APP_NAME } from "src/constants/common-constants"
+import { Restaurant, useRestaurantBySlugQuery } from '@nham-avey/common'
+import DishCard from 'src/components/cards/dish-card'
+import { AuthedLayout } from 'src/components/layout/authed-layout'
+import RestaurantInfo from 'src/components/pages/restaurant-page/restaurant-info'
+import RestaurantMap from 'src/components/pages/restaurant-page/restaurant-map'
+import { APP_NAME } from 'src/constants/common-constants'
 
 export const RestaurantPage = () => {
   const { query } = useRouter()
@@ -161,12 +161,12 @@ export const RestaurantPage = () => {
       <div className="container mx-auto mt-10 px-4 lg:px-8">
         <Tab.Group>
           <Tab.List className="flex gap-5">
-            {["Menu", "Review"].map(item => (
+            {['Menu', 'Review'].map(item => (
               <Tab
                 key={item}
                 className={({ selected }) =>
-                  clsx("h5 outline-none", {
-                    "text-gray-400": !selected,
+                  clsx('h5 outline-none', {
+                    'text-gray-400': !selected,
                   })
                 }
               >
@@ -186,16 +186,16 @@ export const RestaurantPage = () => {
                     opacity: 0,
                     transition: {
                       duration: 0.5,
-                      ease: "linear",
-                      when: "beforeChildren",
+                      ease: 'linear',
+                      when: 'beforeChildren',
                     },
                   },
                   show: {
                     opacity: 1,
                     transition: {
                       duration: 0.5,
-                      ease: "linear",
-                      when: "beforeChildren",
+                      ease: 'linear',
+                      when: 'beforeChildren',
                     },
                   },
                 }}
@@ -230,16 +230,16 @@ export const RestaurantPage = () => {
                     opacity: 0,
                     transition: {
                       duration: 0.5,
-                      ease: "linear",
-                      when: "beforeChildren",
+                      ease: 'linear',
+                      when: 'beforeChildren',
                     },
                   },
                   show: {
                     opacity: 1,
                     transition: {
                       duration: 0.5,
-                      ease: "linear",
-                      when: "beforeChildren",
+                      ease: 'linear',
+                      when: 'beforeChildren',
                     },
                   },
                 }}

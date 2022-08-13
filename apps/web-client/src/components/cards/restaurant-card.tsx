@@ -1,13 +1,13 @@
-import { CSSProperties, MouseEventHandler, useState } from "react"
+import { CSSProperties, MouseEventHandler, useState } from 'react'
 
 import {
   ClockIcon,
   StarIcon as StarIconOutline,
-} from "@heroicons/react/outline"
-import { StarIcon as StarIconSolid } from "@heroicons/react/solid"
-import Link from "next/link"
+} from '@heroicons/react/outline'
+import { StarIcon as StarIconSolid } from '@heroicons/react/solid'
+import Link from 'next/link'
 
-import { Restaurant } from "@nham-avey/common"
+import { Restaurant } from '@nham-avey/common'
 
 interface RestaurantCardProps {
   restaurant: Restaurant
@@ -31,7 +31,7 @@ export const RestaurantCard = ({ restaurant }: RestaurantCardProps) => {
           <div
             style={
               {
-                "--image-url": `url(${restaurant.coverImages?.[0]?.url})`,
+                '--image-url': `url(${restaurant.coverImages?.[0]?.url})`,
               } as CSSProperties
             }
             className="restaurant-card-image h-full w-full bg-cover object-cover"
@@ -53,7 +53,7 @@ export const RestaurantCard = ({ restaurant }: RestaurantCardProps) => {
                     className="h-4"
                     src={
                       firstCategory?.iconUrl ||
-                      "https://storage.googleapis.com/nham-avey-dev.appspot.com/fb00b8f3-4c8b-4f8f-b4ef-a752b90d2af5.png"
+                      'https://storage.googleapis.com/nham-avey-dev.appspot.com/fb00b8f3-4c8b-4f8f-b4ef-a752b90d2af5.png'
                     }
                     alt=""
                   />

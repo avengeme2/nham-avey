@@ -1,14 +1,14 @@
-import { yupResolver } from "@hookform/resolvers/yup"
-import clsx from "clsx"
-import { NextSeo } from "next-seo"
-import Link from "next/link"
-import { useForm } from "react-hook-form"
-import * as yup from "yup"
+import { yupResolver } from '@hookform/resolvers/yup'
+import clsx from 'clsx'
+import { NextSeo } from 'next-seo'
+import Link from 'next/link'
+import { useForm } from 'react-hook-form'
+import * as yup from 'yup'
 
-import { useSignInWithEmailAndPassword } from "@nham-avey/common"
-import { FormError } from "src/components/form-error"
-import useRedirectOnAuthed from "src/hooks/use-redirect-on-authed"
-import firebaseService from "src/services/firebase-services"
+import { useSignInWithEmailAndPassword } from '@nham-avey/common'
+import { FormError } from 'src/components/form-error'
+import useRedirectOnAuthed from 'src/hooks/use-redirect-on-authed'
+import firebaseService from 'src/services/firebase-services'
 
 const schema = yup.object().shape({
   email: yup.string().email().required(),
@@ -23,7 +23,7 @@ interface LoginForm {
 const { auth } = firebaseService
 
 const LoginPage = () => {
-  useRedirectOnAuthed(auth, "/")
+  useRedirectOnAuthed(auth, '/')
   const {
     register,
     getValues,
@@ -59,7 +59,7 @@ const LoginPage = () => {
             </label>
             <input
               id="email"
-              {...register("email")}
+              {...register('email')}
               type="email"
               placeholder="Email"
               className="input input-primary w-full"
@@ -76,7 +76,7 @@ const LoginPage = () => {
               <span className="label-text">Your Password</span>
             </label>
             <input
-              {...register("password")}
+              {...register('password')}
               id="password"
               type="password"
               className="input input-primary w-full"
@@ -89,7 +89,7 @@ const LoginPage = () => {
           </div>
 
           <button
-            className={clsx("btn btn-primary", {
+            className={clsx('btn btn-primary', {
               loading: isSigningIn,
             })}
           >

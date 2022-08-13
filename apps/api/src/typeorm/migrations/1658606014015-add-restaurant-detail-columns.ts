@@ -1,7 +1,9 @@
-import { MigrationInterface, QueryRunner } from "typeorm"
+import { MigrationInterface, QueryRunner } from 'typeorm'
 
-export class addRestaurantDetailColumns1658606014015 implements MigrationInterface {
-  name = "addRestaurantDetailColumns1658606014015"
+export class addRestaurantDetailColumns1658606014015
+  implements MigrationInterface
+{
+  name = 'addRestaurantDetailColumns1658606014015'
 
   public async up(queryRunner: QueryRunner): Promise<void> {
     await queryRunner.query(`

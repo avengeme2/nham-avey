@@ -52,6 +52,7 @@
         "varsIgnorePattern": "^_"
       }
     ],
+    "@typescript-eslint/no-explicit-any": "off",
     "react/jsx-curly-brace-presence": ["error", "never"],
     "react/react-in-jsx-scope": "off",
     "react-hooks/rules-of-hooks": "error",
@@ -79,6 +80,7 @@
     "import/first": "error",
     "import/newline-after-import": "error",
     "import/no-duplicates": "error",
-    "jsx-a11y/anchor-is-valid": "off"
+    "jsx-a11y/anchor-is-valid": "off",
+    "@next/next/no-img-element": "off"
   }
 }

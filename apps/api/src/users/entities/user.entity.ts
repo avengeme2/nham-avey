@@ -1,23 +1,29 @@
-import { Field, InputType, ObjectType, registerEnumType } from "@nestjs/graphql"
-import { IsBoolean, IsEmail, IsEnum, IsString, IsOptional } from "class-validator"
-import { CoreWithoutIdEntity } from "src/common/entities/core.entity"
-import { Order } from "src/orders/entities/order.entity"
-import { Payment } from "src/payments/payment.entity"
-import { Restaurant } from "src/restaurants/entities/restaurant.entity"
-import { Column, Entity, ManyToMany, OneToMany, PrimaryColumn } from "typeorm"
+import { Field, InputType, ObjectType, registerEnumType } from '@nestjs/graphql'
+import {
+  IsBoolean,
+  IsEmail,
+  IsEnum,
+  IsString,
+  IsOptional,
+} from 'class-validator'
+import { CoreWithoutIdEntity } from 'src/common/entities/core.entity'
+import { Order } from 'src/orders/entities/order.entity'
+import { Payment } from 'src/payments/payment.entity'
+import { Restaurant } from 'src/restaurants/entities/restaurant.entity'
+import { Column, Entity, ManyToMany, OneToMany, PrimaryColumn } from 'typeorm'
 
 export enum UserRole {
-  Admin = "Admin",
-  Customer = "Customer",
-  Vendor = "Vendor",
-  Driver = "Driver",
+  Admin = 'Admin',
+  Customer = 'Customer',
+  Vendor = 'Vendor',
+  Driver = 'Driver',
 }
 
-registerEnumType(UserRole, { name: "UserRole" })
+registerEnumType(UserRole, { name: 'UserRole' })
 
-@InputType("UserInputType", { isAbstract: true })
+@InputType('UserInputType', { isAbstract: true })
 @ObjectType()
-@Entity({ name: "users" })
+@Entity({ name: 'users' })
 export class User extends CoreWithoutIdEntity {
   @PrimaryColumn()
   @Field(() => String)
@@ -49,8 +55,8 @@ export class User extends CoreWithoutIdEntity {
   @Field(type => [UserRole])
   @IsEnum(UserRole, { each: true })
   @Column({
-    enumName: "user_role",
-    type: "enum",
+    enumName: 'user_role',
+    type: 'enum',
     enum: UserRole,
     array: true,
     default: [UserRole.Customer],

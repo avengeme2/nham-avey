@@ -1,15 +1,15 @@
-import { ReactNode } from "react"
+import { ReactNode } from 'react'
 
-import { ApolloProvider } from "@apollo/client/react"
-import { QueryClient, QueryClientProvider } from "@tanstack/react-query"
-import { ReactQueryDevtools } from "@tanstack/react-query-devtools"
-import { ConfigProvider as AntConfigProvider } from "antd"
-import { HelmetProvider } from "react-helmet-async"
-import { Provider as ReduxProvider } from "react-redux"
-import { BrowserRouter } from "react-router-dom"
-import AudioAlertContextProvider from "src/context/AudioAlertContext"
-import { client } from "src/graphql/apollo-config"
-import store from "src/redux/store"
+import { ApolloProvider } from '@apollo/client/react'
+import { QueryClient, QueryClientProvider } from '@tanstack/react-query'
+import { ReactQueryDevtools } from '@tanstack/react-query-devtools'
+import { ConfigProvider as AntConfigProvider } from 'antd'
+import { HelmetProvider } from 'react-helmet-async'
+import { Provider as ReduxProvider } from 'react-redux'
+import { BrowserRouter } from 'react-router-dom'
+import AudioAlertContextProvider from 'src/context/AudioAlertContext'
+import { client } from 'src/graphql/apollo-config'
+import store from 'src/redux/store'
 
 // Create a client
 const queryClient = new QueryClient({

@@ -1,7 +1,9 @@
-import { MigrationInterface, QueryRunner } from "typeorm"
+import { MigrationInterface, QueryRunner } from 'typeorm'
 
-export class removeDefaultFromRestaurantSlug1658606132687 implements MigrationInterface {
-  name = "removeDefaultFromRestaurantSlug1658606132687"
+export class removeDefaultFromRestaurantSlug1658606132687
+  implements MigrationInterface
+{
+  name = 'removeDefaultFromRestaurantSlug1658606132687'
 
   public async up(queryRunner: QueryRunner): Promise<void> {
     await queryRunner.query(`

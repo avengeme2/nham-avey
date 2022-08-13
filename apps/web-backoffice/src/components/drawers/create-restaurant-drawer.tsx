@@ -1,13 +1,13 @@
 import {
   AdminCreateRestaurantMutationOptions,
   useAdminCreateRestaurantMutation,
-} from "@nham-avey/common"
-import { Drawer } from "antd"
-import CreateRestaurantForm from "src/components/form/create-restaurant-form"
+} from '@nham-avey/common'
+import { Drawer } from 'antd'
+import CreateRestaurantForm from 'src/components/form/create-restaurant-form'
 
 interface CreateRestaurantDrawerProps {
   visible: boolean
-  onCompleted: AdminCreateRestaurantMutationOptions["onCompleted"]
+  onCompleted: AdminCreateRestaurantMutationOptions['onCompleted']
   onClose: () => void
 }
 
@@ -30,7 +30,7 @@ export function CreateRestaurantDrawer({
       title="Create Restaurant"
       className="max-w-full"
       contentWrapperStyle={{
-        maxWidth: "100%",
+        maxWidth: '100%',
       }}
     >
       <CreateRestaurantForm onSubmit={create} isLoading={isCreating} />

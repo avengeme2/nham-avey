@@ -1,24 +1,34 @@
-import { LockOutlined, MailOutlined } from "@ant-design/icons"
-import { useSignInWithEmailAndPassword } from "@nham-avey/common"
-import { Alert, Button, Form, Input } from "antd"
-import { motion } from "framer-motion"
-import firebaseService from "src/services/firebase-service"
+import { LockOutlined, MailOutlined } from '@ant-design/icons'
+import { useSignInWithEmailAndPassword } from '@nham-avey/common'
+import { Alert, Button, Form, Input } from 'antd'
+import { motion } from 'framer-motion'
+import firebaseService from 'src/services/firebase-service'
 
 const { getErrorMessage, auth } = firebaseService
 
 export const SignInForm = () => {
-  const { error, signIn, isLoading: isSigningIn } = useSignInWithEmailAndPassword()
+  const {
+    error,
+    signIn,
+    isLoading: isSigningIn,
+  } = useSignInWithEmailAndPassword()
 
   const initialCredential = {
-    email: "",
-    password: "",
+    email: '',
+    password: '',
   }
 
   /**
    * @todo fix unmount memory leak
    * @todo add remember me
    */
-  const onSignIn = async ({ email, password }: { email: string; password: string }) => {
+  const onSignIn = async ({
+    email,
+    password,
+  }: {
+    email: string
+    password: string
+  }) => {
     await signIn({ email, password, auth })
   }
 
@@ -35,11 +45,11 @@ export const SignInForm = () => {
         rules={[
           {
             required: true,
-            message: "Please input your email",
+            message: 'Please input your email',
           },
           {
-            type: "email",
-            message: "Please enter a validate email!",
+            type: 'email',
+            message: 'Please enter a validate email!',
           },
         ]}
       >
@@ -51,7 +61,7 @@ export const SignInForm = () => {
         rules={[
           {
             required: true,
-            message: "Please input your password",
+            message: 'Please input your password',
           },
         ]}
       >
@@ -64,7 +74,11 @@ export const SignInForm = () => {
           marginBottom: error ? 20 : 0,
         }}
       >
-        <Alert type="error" showIcon message={error && getErrorMessage(error)} />
+        <Alert
+          type="error"
+          showIcon
+          message={error && getErrorMessage(error)}
+        />
       </motion.div>
       <Form.Item>
         <Button type="primary" htmlType="submit" block loading={isSigningIn}>

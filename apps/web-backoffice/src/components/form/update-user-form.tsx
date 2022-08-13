@@ -1,13 +1,13 @@
-import React, { useEffect, useMemo, useState } from "react"
+import React, { useEffect, useMemo, useState } from 'react'
 
-import { LoadingOutlined, PlusOutlined } from "@ant-design/icons"
-import { useAdminUpdateUserMutation, User, UserRole } from "@nham-avey/common"
-import { Button, Form, Input, Select, Upload } from "antd"
-import ImgCrop from "antd-img-crop"
-import { UploadChangeParam } from "antd/es/upload"
-import { UploadProps } from "antd/es/upload/interface"
-import { SelectOption } from "src/typing/common-type"
-import { antUIUploadCustomRequest } from "src/utils/common-utils"
+import { LoadingOutlined, PlusOutlined } from '@ant-design/icons'
+import { useAdminUpdateUserMutation, User, UserRole } from '@nham-avey/common'
+import { Button, Form, Input, Select, Upload } from 'antd'
+import ImgCrop from 'antd-img-crop'
+import { UploadChangeParam } from 'antd/es/upload'
+import { UploadProps } from 'antd/es/upload/interface'
+import { SelectOption } from 'src/typing/common-type'
+import { antUIUploadCustomRequest } from 'src/utils/common-utils'
 
 const { useForm } = Form
 
@@ -44,12 +44,14 @@ export const UpdateUserForm = ({
     }
   }, [form, initialValue])
 
-  const handleLogoImageChange: UploadProps["onChange"] = (info: UploadChangeParam) => {
-    if (info.file.status === "uploading") {
+  const handleLogoImageChange: UploadProps['onChange'] = (
+    info: UploadChangeParam,
+  ) => {
+    if (info.file.status === 'uploading') {
       setIsUploadingPhoto(true)
       return
     }
-    if (info.file.status === "done") {
+    if (info.file.status === 'done') {
       setIsUploadingPhoto(false)
       setPhotoURL(info.file.response)
     }
@@ -62,7 +64,7 @@ export const UpdateUserForm = ({
       { label: UserRole.Driver, value: UserRole.Driver },
       { label: UserRole.Customer, value: UserRole.Customer },
     ],
-    []
+    [],
   )
 
   const onFinish = async (values: UpdateUserFormValue) => {
@@ -109,7 +111,7 @@ export const UpdateUserForm = ({
             {isUploadingPhoto ? (
               <LoadingOutlined />
             ) : photoURL ? (
-              <img src={photoURL} alt="avatar" style={{ width: "100%" }} />
+              <img src={photoURL} alt="avatar" style={{ width: '100%' }} />
             ) : (
               <div style={{ marginTop: 8 }}>
                 <PlusOutlined />
@@ -125,7 +127,7 @@ export const UpdateUserForm = ({
         rules={[
           {
             required: true,
-            message: "First Name is required!",
+            message: 'First Name is required!',
           },
         ]}
       >
@@ -138,7 +140,7 @@ export const UpdateUserForm = ({
         rules={[
           {
             required: true,
-            message: "Last Name is required!",
+            message: 'Last Name is required!',
           },
         ]}
       >
@@ -151,7 +153,7 @@ export const UpdateUserForm = ({
         rules={[
           {
             required: true,
-            message: "Email is required!",
+            message: 'Email is required!',
           },
         ]}
       >
@@ -164,7 +166,7 @@ export const UpdateUserForm = ({
         rules={[
           {
             required: true,
-            message: "Role",
+            message: 'Role',
           },
         ]}
       >

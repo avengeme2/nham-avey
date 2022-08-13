@@ -1,12 +1,12 @@
-import { Field, InputType, ObjectType } from "@nestjs/graphql"
-import { IsString } from "class-validator"
-import { CoreEntity } from "src/common/entities/core.entity"
-import { Restaurant } from "src/restaurants/entities/restaurant.entity"
-import { Column, Entity, ManyToMany } from "typeorm"
+import { Field, InputType, ObjectType } from '@nestjs/graphql'
+import { IsString } from 'class-validator'
+import { CoreEntity } from 'src/common/entities/core.entity'
+import { Restaurant } from 'src/restaurants/entities/restaurant.entity'
+import { Column, Entity, ManyToMany } from 'typeorm'
 
-@InputType("CategoryInputType", { isAbstract: true })
+@InputType('CategoryInputType', { isAbstract: true })
 @ObjectType()
-@Entity({ name: "categories" })
+@Entity({ name: 'categories' })
 export class Category extends CoreEntity {
   @Field(type => String)
   @Column()

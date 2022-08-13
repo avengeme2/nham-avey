@@ -1,14 +1,21 @@
-import { Global, Module, DynamicModule, Provider } from "@nestjs/common"
-import { apps } from "firebase-admin"
-import { App, initializeApp } from "firebase-admin/app"
-import { FirebaseAuthenticationService } from "src/firebase-admin/services/firebase-admin-authentication.service"
-import { FirebaseMessagingService } from "src/firebase-admin/services/firebase-admin-messaging.service"
-import { FirebaseStorageService } from "src/firebase-admin/services/firebase-admin-storage.service"
+import { Global, Module, DynamicModule, Provider } from '@nestjs/common'
+import { apps } from 'firebase-admin'
+import { App, initializeApp } from 'firebase-admin/app'
+import { FirebaseAuthenticationService } from 'src/firebase-admin/services/firebase-admin-authentication.service'
+import { FirebaseMessagingService } from 'src/firebase-admin/services/firebase-admin-messaging.service'
+import { FirebaseStorageService } from 'src/firebase-admin/services/firebase-admin-storage.service'
 
-import { FIREBASE_ADMIN_MODULE_OPTIONS } from "./firebase-admin.constant"
-import { FirebaseAdminModuleAsyncOptions, FirebaseAdminModuleOptions } from "./firebase-admin.interface"
+import { FIREBASE_ADMIN_MODULE_OPTIONS } from './firebase-admin.constant'
+import {
+  FirebaseAdminModuleAsyncOptions,
+  FirebaseAdminModuleOptions,
+} from './firebase-admin.interface'
 
-const PROVIDERS = [FirebaseAuthenticationService, FirebaseMessagingService, FirebaseStorageService]
+const PROVIDERS = [
+  FirebaseAuthenticationService,
+  FirebaseMessagingService,
+  FirebaseStorageService,
+]
 const EXPORTS = [...PROVIDERS]
 
 @Global()
@@ -60,7 +67,8 @@ export class FirebaseAdminCoreModule {
     return PROVIDERS.map<Provider>(ProviderService => ({
       provide: ProviderService,
       useFactory: (options: FirebaseAdminModuleOptions) => {
-        const app = apps.length === 0 ? initializeApp(options) : (apps[0] as App)
+        const app =
+          apps.length === 0 ? initializeApp(options) : (apps[0] as App)
         return new ProviderService(app)
       },
       inject: [FIREBASE_ADMIN_MODULE_OPTIONS],

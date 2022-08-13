@@ -1,6 +1,6 @@
-import Link from "next/link"
+import Link from 'next/link'
 
-import { Category } from "@nham-avey/common"
+import { Category } from '@nham-avey/common'
 
 interface CategoryItemProps {
   category: Category

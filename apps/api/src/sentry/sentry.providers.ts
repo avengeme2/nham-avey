@@ -1,8 +1,8 @@
-import { Provider } from "@nestjs/common"
+import { Provider } from '@nestjs/common'
 
-import { SENTRY_TOKEN } from "./sentry.constants"
-import { SentryModuleOptions } from "./sentry.interfaces"
-import { SentryService } from "./sentry.service"
+import { SENTRY_TOKEN } from './sentry.constants'
+import { SentryModuleOptions } from './sentry.interfaces'
+import { SentryService } from './sentry.service'
 
 export function createSentryProviders(options: SentryModuleOptions): Provider {
   return {

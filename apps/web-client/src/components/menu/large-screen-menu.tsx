@@ -1,5 +1,5 @@
-import { ChevronDownIcon } from "@heroicons/react/outline"
-import Link from "next/link"
+import { ChevronDownIcon } from '@heroicons/react/outline'
+import Link from 'next/link'
 
 export const LargeScreenMenu = () => {
   return (

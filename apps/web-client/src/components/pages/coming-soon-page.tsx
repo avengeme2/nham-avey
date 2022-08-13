@@ -1,5 +1,5 @@
-import { NextSeo } from "next-seo"
-import Link from "next/link"
+import { NextSeo } from 'next-seo'
+import Link from 'next/link'
 
 export const ComingSoonPage = () => (
   <div className="flex h-screen flex-col items-center justify-center">

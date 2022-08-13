@@ -1,13 +1,13 @@
-import { Injectable } from "@nestjs/common"
-import { InjectRepository } from "@nestjs/typeorm"
-import { DecodedIdToken, UserRecord } from "firebase-admin/auth"
-import slugify from "slugify"
-import { CategoryService } from "src/categories/categories.service"
-import { CategoryRequest } from "src/categories/category.interface"
-import { CityService } from "src/cities/cities.service"
-import { CoreOutput } from "src/common/dtos/output.dto"
-import { PaginationWithSearchArgs } from "src/common/dtos/pagination.dto"
-import { ImageService } from "src/images/images.service"
+import { Injectable } from '@nestjs/common'
+import { InjectRepository } from '@nestjs/typeorm'
+import { DecodedIdToken, UserRecord } from 'firebase-admin/auth'
+import slugify from 'slugify'
+import { CategoryService } from 'src/categories/categories.service'
+import { CategoryRequest } from 'src/categories/category.interface'
+import { CityService } from 'src/cities/cities.service'
+import { CoreOutput } from 'src/common/dtos/output.dto'
+import { PaginationWithSearchArgs } from 'src/common/dtos/pagination.dto'
+import { ImageService } from 'src/images/images.service'
 import {
   AdminCreateRestaurantInput,
   AdminUpdateRestaurantInput,
@@ -19,12 +19,15 @@ import {
   RestaurantOutput,
   VendorCreateRestaurantInput,
   VendorUpdateRestaurantInput,
-} from "src/restaurants/dtos"
-import { AllRestaurantsSlugArgs, AllRestaurantsSlugOutput } from "src/restaurants/dtos/all-restaurants-slug.dto"
-import { Restaurant } from "src/restaurants/entities/restaurant.entity"
-import { UserRole } from "src/users/entities/user.entity"
-import { UserService } from "src/users/users.service"
-import { Any, Repository } from "typeorm"
+} from 'src/restaurants/dtos'
+import {
+  AllRestaurantsSlugArgs,
+  AllRestaurantsSlugOutput,
+} from 'src/restaurants/dtos/all-restaurants-slug.dto'
+import { Restaurant } from 'src/restaurants/entities/restaurant.entity'
+import { UserRole } from 'src/users/entities/user.entity'
+import { UserService } from 'src/users/users.service'
+import { Any, Repository } from 'typeorm'
 
 @Injectable()
 export class RestaurantService {
@@ -37,11 +40,13 @@ export class RestaurantService {
     private readonly imageService: ImageService,
   ) {}
 
-  async findAllRestaurantsSlug(args: AllRestaurantsSlugArgs): Promise<AllRestaurantsSlugOutput> {
+  async findAllRestaurantsSlug(
+    args: AllRestaurantsSlugArgs,
+  ): Promise<AllRestaurantsSlugOutput> {
     const { take } = args
     const queryBuilder = this.restaurantRepo //
-      .createQueryBuilder("restaurant")
-      .select("restaurant.slug", "slug")
+      .createQueryBuilder('restaurant')
+      .select('restaurant.slug', 'slug')
 
     const allCount = await queryBuilder.getCount()
     if (take) {
@@ -56,23 +61,25 @@ export class RestaurantService {
     }
   }
 
-  async findRestaurantsByCategorySlug(args: PaginationCategoryRestaurantsArgs): Promise<PaginatedCategoryRestaurantsOutput> {
+  async findRestaurantsByCategorySlug(
+    args: PaginationCategoryRestaurantsArgs,
+  ): Promise<PaginatedCategoryRestaurantsOutput> {
     const {
       pageOptions: { take, skip },
       slug,
     } = args
     const category = await this.categoryService.getCategoryBySlug(slug)
-    if (!category) return { ok: false, error: "[App] Category not found" }
+    if (!category) return { ok: false, error: '[App] Category not found' }
 
     const queryBuilder = await this.restaurantRepo
-      .createQueryBuilder("restaurant")
-      .leftJoinAndSelect("restaurant.categories", "category")
-      .leftJoinAndSelect("restaurant.vendors", "vendor")
+      .createQueryBuilder('restaurant')
+      .leftJoinAndSelect('restaurant.categories', 'category')
+      .leftJoinAndSelect('restaurant.vendors', 'vendor')
       .where(`category.id = :categoryId`, { categoryId: category.id })
 
     const matchedCount = await queryBuilder.getCount()
     const restaurants = await queryBuilder //
-      .orderBy("restaurant.isPromoted", "DESC")
+      .orderBy('restaurant.isPromoted', 'DESC')
       .take(take)
       .skip(skip)
       .getMany()
@@ -85,23 +92,25 @@ export class RestaurantService {
     }
   }
 
-  async findRestaurantsByCitySlug(args: PaginationCityRestaurantsArgs): Promise<PaginatedCityRestaurantsOutput> {
+  async findRestaurantsByCitySlug(
+    args: PaginationCityRestaurantsArgs,
+  ): Promise<PaginatedCityRestaurantsOutput> {
     const {
       pageOptions: { take, skip },
       slug,
     } = args
     const city = await this.cityService.getCityBySlug(slug)
-    if (!city) return { ok: false, error: "[App] City not found" }
+    if (!city) return { ok: false, error: '[App] City not found' }
 
     const queryBuilder = await this.restaurantRepo
-      .createQueryBuilder("restaurant")
-      .leftJoinAndSelect("restaurant.city", "city")
+      .createQueryBuilder('restaurant')
+      .leftJoinAndSelect('restaurant.city', 'city')
       .where(`city.id = :cityId`, { cityId: city.id })
-      .leftJoinAndSelect("restaurant.vendors", "vendor")
+      .leftJoinAndSelect('restaurant.vendors', 'vendor')
 
     const matchedCount = await queryBuilder.getCount()
     const restaurants = await queryBuilder //
-      .orderBy("restaurant.isPromoted", "DESC")
+      .orderBy('restaurant.isPromoted', 'DESC')
       .take(take)
       .skip(skip)
       .getMany()
@@ -114,15 +123,24 @@ export class RestaurantService {
     }
   }
 
-  async createRestaurantByVendor(vendorId: UserRecord["uid"], input: VendorCreateRestaurantInput): Promise<RestaurantOutput> {
+  async createRestaurantByVendor(
+    vendorId: UserRecord['uid'],
+    input: VendorCreateRestaurantInput,
+  ): Promise<RestaurantOutput> {
     const { categories, ...restaurantPayload } = input
     const vendorEntity = await this.userService.findUserById(vendorId)
 
-    if (!vendorEntity) return { ok: false, error: `Vendor with id ${vendorId} not found` }
+    if (!vendorEntity)
+      return { ok: false, error: `Vendor with id ${vendorId} not found` }
 
-    const categoryEntities = await this.categoryService.getOrCreateCategories(categories?.map(name => ({ name })) ?? [])
+    const categoryEntities = await this.categoryService.getOrCreateCategories(
+      categories?.map(name => ({ name })) ?? [],
+    )
     const slug = slugify(restaurantPayload.name, { lower: true })
-    const restaurant = this.restaurantRepo.create({ ...restaurantPayload, slug })
+    const restaurant = this.restaurantRepo.create({
+      ...restaurantPayload,
+      slug,
+    })
     restaurant.vendors = [vendorEntity]
     restaurant.categories = categoryEntities
 
@@ -130,36 +148,58 @@ export class RestaurantService {
     return { ok: true, data: restaurant }
   }
 
-  async createRestaurantByAdmin(admin: DecodedIdToken, input: AdminCreateRestaurantInput): Promise<RestaurantOutput> {
-    const { categories, vendorIds, coverImageUrls, ...restaurantPayload } = input
+  async createRestaurantByAdmin(
+    admin: DecodedIdToken,
+    input: AdminCreateRestaurantInput,
+  ): Promise<RestaurantOutput> {
+    const { categories, vendorIds, coverImageUrls, ...restaurantPayload } =
+      input
 
     const vendorEntities = await this.userService.findUsersByIds(vendorIds)
+    if (vendorEntities.length < vendorIds.length)
+      return {
+        ok: false,
+        error: `Cannot Find All Vendors with ids ${vendorIds.join(', ')}`,
+      }
 
-    if (vendorEntities.length < vendorIds.length) return { ok: false, error: `Cannot Find All Vendors with ids ${vendorIds.join(", ")}` }
-
-    const categoryEntities = await this.categoryService.getOrCreateCategories(categories?.map(name => ({ name })) ?? [])
-    const coverImagesEntities = await this.imageService.getOrCreateImages(coverImageUrls || [])
+    const categoryEntities = await this.categoryService.getOrCreateCategories(
+      categories?.map(name => ({ name })) ?? [],
+    )
+    const coverImagesEntities = await this.imageService.getOrCreateImages(
+      coverImageUrls || [],
+    )
 
     const slug = slugify(restaurantPayload.name, { lower: true })
+
     const restaurant = this.restaurantRepo.create({
       ...restaurantPayload,
       slug,
-      coverImages: coverImagesEntities,
       vendors: vendorEntities,
       categories: categoryEntities,
+      coverImages: coverImagesEntities,
     })
     const saved = await this.restaurantRepo.save(restaurant)
     return { ok: true, data: saved }
   }
 
-  async updateRestaurantByVendor(vendorId: UserRecord["uid"], input: VendorUpdateRestaurantInput): Promise<RestaurantOutput> {
+  async updateRestaurantByVendor(
+    vendorId: UserRecord['uid'],
+    input: VendorUpdateRestaurantInput,
+  ): Promise<RestaurantOutput> {
     const { restaurantId, categories, ...restaurantPayload } = input
     const restaurant = await this.restaurantRepo.findOneBy({ id: restaurantId })
-    if (!restaurant) return { ok: false, error: "[App] Restaurant not found" }
-    if (!restaurant.vendorIds?.includes(vendorId)) return { ok: false, error: "[App] You can't update a restaurant that you don't own" }
+    if (!restaurant) return { ok: false, error: '[App] Restaurant not found' }
+    if (!restaurant.vendorIds?.includes(vendorId))
+      return {
+        ok: false,
+        error: "[App] You can't update a restaurant that you don't own",
+      }
 
-    const categoryRequests: CategoryRequest[] = categories?.map(name => ({ name })) ?? []
-    const categoryEntities = await this.categoryService.getOrCreateCategories(categoryRequests)
+    const categoryRequests: CategoryRequest[] =
+      categories?.map(name => ({ name })) ?? []
+    const categoryEntities = await this.categoryService.getOrCreateCategories(
+      categoryRequests,
+    )
     await this.restaurantRepo.save({
       id: restaurantId,
       ...restaurantPayload,
@@ -168,16 +208,24 @@ export class RestaurantService {
     return { ok: true }
   }
 
-  async updateRestaurantByAdmin(input: AdminUpdateRestaurantInput): Promise<RestaurantOutput> {
-    const { restaurantId, categories, vendorIds, ...restaurantPayload } = input
+  async updateRestaurantByAdmin(
+    input: AdminUpdateRestaurantInput,
+  ): Promise<RestaurantOutput> {
+    const {
+      restaurantId,
+      categories,
+      vendorIds,
+      coverImageUrls,
+      ...restaurantPayload
+    } = input
 
     const existing = await this.restaurantRepo.findOne({
       where: { id: restaurantId },
-      relations: ["vendors"],
+      relations: ['vendors'],
     })
 
     if (!existing) {
-      return { ok: false, error: "[App] Restaurant not found" }
+      return { ok: false, error: '[App] Restaurant not found' }
     }
 
     const restaurant = Object.assign(existing, restaurantPayload)
@@ -185,49 +233,74 @@ export class RestaurantService {
     if (vendorIds) {
       const vendorEntities = await this.userService.findUsersByIds(vendorIds)
       if (vendorEntities.length < vendorIds.length) {
-        throw new Error(`Cannot Find All Vendors with ids ${vendorIds.join(", ")}`)
-      } else if (!vendorEntities.some(vendor => vendor.roles.includes(UserRole.Vendor))) {
-        throw new Error(`Users with ids ${vendorIds.join(", ")} includes non-vendor`)
+        throw new Error(
+          `Cannot Find All Vendors with ids ${vendorIds.join(', ')}`,
+        )
+      } else if (
+        !vendorEntities.some(vendor => vendor.roles.includes(UserRole.Vendor))
+      ) {
+        throw new Error(
+          `Users with ids ${vendorIds.join(', ')} includes non-vendor`,
+        )
       }
       restaurant.vendors = vendorEntities
     }
 
-    restaurant.categories = await this.categoryService.getOrCreateCategories(categories?.map(name => ({ name })) ?? [])
+    restaurant.categories = await this.categoryService.getOrCreateCategories(
+      categories?.map(name => ({ name })) ?? [],
+    )
+    restaurant.coverImages = await this.imageService.getOrCreateImages(
+      coverImageUrls || [],
+    )
 
-    await this.restaurantRepo.save(restaurant)
+    const saved = await this.restaurantRepo.save(restaurant)
     return {
       ok: true,
+      data: saved,
     }
   }
 
-  async deleteRestaurant(decodedIdToken: DecodedIdToken, restaurantId: Restaurant["id"]): Promise<CoreOutput> {
+  async deleteRestaurant(
+    decodedIdToken: DecodedIdToken,
+    restaurantId: Restaurant['id'],
+  ): Promise<CoreOutput> {
     const restaurant = await this.restaurantRepo.findOneBy({ id: restaurantId })
-    if (!restaurant) return { ok: false, error: "[App] Restaurant not found" }
-    if (!decodedIdToken.roles.includes(UserRole.Admin) || !restaurant.vendorIds?.includes(decodedIdToken.uid))
-      return { ok: false, error: "[App] You can't delete a restaurant that you don't own" }
+    if (!restaurant) return { ok: false, error: '[App] Restaurant not found' }
+    if (
+      !decodedIdToken.roles.includes(UserRole.Admin) ||
+      !restaurant.vendorIds?.includes(decodedIdToken.uid)
+    )
+      return {
+        ok: false,
+        error: "[App] You can't delete a restaurant that you don't own",
+      }
 
     await this.restaurantRepo.delete(restaurantId)
     return { ok: true }
   }
 
-  async findRestaurantById(id: Restaurant["id"]): Promise<RestaurantOutput> {
+  async findRestaurantById(id: Restaurant['id']): Promise<RestaurantOutput> {
     const restaurant = await this.restaurantRepo.findOneBy({ id })
-    if (!restaurant) return { ok: false, error: "[App] Restaurant not found" }
+    if (!restaurant) return { ok: false, error: '[App] Restaurant not found' }
     return { ok: true, data: restaurant }
   }
 
-  async findRestaurantBySlug(slug: Restaurant["slug"]): Promise<RestaurantOutput> {
+  async findRestaurantBySlug(
+    slug: Restaurant['slug'],
+  ): Promise<RestaurantOutput> {
     const restaurant = await this.restaurantRepo.findOneBy({ slug })
-    if (!restaurant) return { ok: false, error: "[App] Restaurant not found" }
+    if (!restaurant) return { ok: false, error: '[App] Restaurant not found' }
     return { ok: true, data: restaurant }
   }
 
-  async findRestaurantsByAdmin(args: PaginationWithSearchArgs): Promise<PaginatedRestaurantsOutput> {
+  async findRestaurantsByAdmin(
+    args: PaginationWithSearchArgs,
+  ): Promise<PaginatedRestaurantsOutput> {
     const {
       searchQuery,
       pageOptions: { skip, take },
     } = args
-    const queryBuilder = this.restaurantRepo.createQueryBuilder("restaurant")
+    const queryBuilder = this.restaurantRepo.createQueryBuilder('restaurant')
 
     if (searchQuery)
       queryBuilder.andWhere(
@@ -244,14 +317,14 @@ export class RestaurantService {
     queryBuilder
       .skip(skip)
       .take(take)
-      .leftJoinAndSelect("restaurant.categories", "category")
-      .leftJoinAndSelect("restaurant.vendors", "vendor")
-      .leftJoinAndSelect("restaurant.categories", "categories")
-      .leftJoinAndSelect("restaurant.orders", "orders")
-      .leftJoinAndSelect("restaurant.menu", "menu")
-      .leftJoinAndSelect("restaurant.coverImages", "coverImages")
-      .orderBy("restaurant.isPromoted", "DESC")
-      .addOrderBy("restaurant.name", "ASC")
+      .leftJoinAndSelect('restaurant.categories', 'category')
+      .leftJoinAndSelect('restaurant.vendors', 'vendor')
+      .leftJoinAndSelect('restaurant.categories', 'categories')
+      .leftJoinAndSelect('restaurant.orders', 'orders')
+      .leftJoinAndSelect('restaurant.menu', 'menu')
+      .leftJoinAndSelect('restaurant.coverImages', 'coverImages')
+      .orderBy('restaurant.isPromoted', 'DESC')
+      .addOrderBy('restaurant.name', 'ASC')
 
     const restaurants = await queryBuilder.getMany()
     const paginatedOutput = new PaginatedRestaurantsOutput(args, matchedCount)
@@ -261,13 +334,16 @@ export class RestaurantService {
     }
   }
 
-  async findRestaurantsByVendor(vendorId: UserRecord["uid"], args: PaginationWithSearchArgs): Promise<PaginatedRestaurantsOutput> {
+  async findRestaurantsByVendor(
+    vendorId: UserRecord['uid'],
+    args: PaginationWithSearchArgs,
+  ): Promise<PaginatedRestaurantsOutput> {
     const {
       searchQuery,
       pageOptions: { skip, take },
     } = args
 
-    const queryBuilder = this.restaurantRepo.createQueryBuilder("restaurant")
+    const queryBuilder = this.restaurantRepo.createQueryBuilder('restaurant')
 
     queryBuilder.where(`restaurant.vendorId = :vendorId`, { vendorId })
 
@@ -286,13 +362,13 @@ export class RestaurantService {
     queryBuilder
       .skip(skip)
       .take(take)
-      .leftJoinAndSelect("restaurant.categories", "category")
-      .leftJoinAndSelect("restaurant.vendors", "vendor")
-      .leftJoinAndSelect("restaurant.orders", "orders")
-      .leftJoinAndSelect("restaurant.menu", "menu")
-      .leftJoinAndSelect("restaurant.coverImages", "coverImages")
-      .orderBy("restaurant.isPromoted", "DESC")
-      .addOrderBy("restaurant.name", "ASC")
+      .leftJoinAndSelect('restaurant.categories', 'category')
+      .leftJoinAndSelect('restaurant.vendors', 'vendor')
+      .leftJoinAndSelect('restaurant.orders', 'orders')
+      .leftJoinAndSelect('restaurant.menu', 'menu')
+      .leftJoinAndSelect('restaurant.coverImages', 'coverImages')
+      .orderBy('restaurant.isPromoted', 'DESC')
+      .addOrderBy('restaurant.name', 'ASC')
 
     const restaurants = await queryBuilder.getMany()
     const paginatedOutput = new PaginatedRestaurantsOutput(args, matchedCount)
@@ -302,12 +378,14 @@ export class RestaurantService {
     }
   }
 
-  async findRestaurants(args: PaginationWithSearchArgs): Promise<PaginatedRestaurantsOutput> {
+  async findRestaurants(
+    args: PaginationWithSearchArgs,
+  ): Promise<PaginatedRestaurantsOutput> {
     const {
       pageOptions: { take, skip },
       searchQuery,
     } = args
-    const queryBuilder = this.restaurantRepo.createQueryBuilder("restaurant")
+    const queryBuilder = this.restaurantRepo.createQueryBuilder('restaurant')
 
     if (searchQuery) {
       queryBuilder.where(
@@ -324,13 +402,13 @@ export class RestaurantService {
     queryBuilder
       .skip(skip)
       .take(take)
-      .leftJoinAndSelect("restaurant.categories", "category")
-      .leftJoinAndSelect("restaurant.vendors", "vendor")
-      .leftJoinAndSelect("restaurant.orders", "orders")
-      .leftJoinAndSelect("restaurant.menu", "menu")
-      .leftJoinAndSelect("restaurant.coverImages", "coverImages")
-      .orderBy("restaurant.isPromoted", "DESC")
-      .addOrderBy("restaurant.name", "ASC")
+      .leftJoinAndSelect('restaurant.categories', 'category')
+      .leftJoinAndSelect('restaurant.vendors', 'vendor')
+      .leftJoinAndSelect('restaurant.orders', 'orders')
+      .leftJoinAndSelect('restaurant.menu', 'menu')
+      .leftJoinAndSelect('restaurant.coverImages', 'coverImages')
+      .orderBy('restaurant.isPromoted', 'DESC')
+      .addOrderBy('restaurant.name', 'ASC')
 
     const restaurants = await queryBuilder.getMany()
     const paginatedOutput = new PaginatedRestaurantsOutput(args, matchedCount)
@@ -340,16 +418,19 @@ export class RestaurantService {
     }
   }
 
-  async findRestaurantByIdAndVendorId(vendorId: UserRecord["uid"], restaurantId: Restaurant["id"]): Promise<RestaurantOutput> {
+  async findRestaurantByIdAndVendorId(
+    vendorId: UserRecord['uid'],
+    restaurantId: Restaurant['id'],
+  ): Promise<RestaurantOutput> {
     const restaurant = await this.restaurantRepo.findOne({
       where: {
         id: restaurantId,
         vendorIds: Any([vendorId]),
       },
-      relations: ["menu", "orders"],
+      relations: ['menu', 'orders'],
     })
 
-    if (!restaurant) return { ok: false, error: "[App] Restaurant not found" }
+    if (!restaurant) return { ok: false, error: '[App] Restaurant not found' }
 
     return { ok: true, data: restaurant }
   }

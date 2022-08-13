@@ -1,11 +1,11 @@
-import { HttpService } from "@nestjs/axios"
-import { Injectable } from "@nestjs/common"
-import { InjectRepository } from "@nestjs/typeorm"
-import { encode } from "blurhash"
-import { firstValueFrom } from "rxjs"
-import * as sharp from "sharp"
-import { Image } from "src/images/entities/image.entity"
-import { Repository } from "typeorm"
+import { HttpService } from '@nestjs/axios'
+import { Injectable } from '@nestjs/common'
+import { InjectRepository } from '@nestjs/typeorm'
+import { encode } from 'blurhash'
+import { firstValueFrom } from 'rxjs'
+import * as sharp from 'sharp'
+import { Image } from 'src/images/entities/image.entity'
+import { Repository } from 'typeorm'
 
 @Injectable()
 export class ImageService {
@@ -15,11 +15,13 @@ export class ImageService {
     private readonly httpService: HttpService,
   ) {}
 
-  private async generateBlurhashFromBuffer(imageFileBuffer: Buffer): Promise<string> {
+  private async generateBlurhashFromBuffer(
+    imageFileBuffer: Buffer,
+  ): Promise<string> {
     const componentX = 4
     const componentY = 4
     const { data: forBlurhash, info } = await sharp(imageFileBuffer)
-      .flatten({ background: "#FFFFFF" })
+      .flatten({ background: '#FFFFFF' })
       .resize(componentX * 5, componentY * 5, {
         fit: sharp.fit.cover,
       })
@@ -28,13 +30,21 @@ export class ImageService {
       .ensureAlpha()
       .toBuffer({ resolveWithObject: true })
 
-    return encode(new Uint8ClampedArray(forBlurhash), info.width, info.height, componentX, componentY)
+    return encode(
+      new Uint8ClampedArray(forBlurhash),
+      info.width,
+      info.height,
+      componentX,
+      componentY,
+    )
   }
 
   private async generateBlurhashFromURL(url: string): Promise<string> {
-    const observable = this.httpService.get(url, { responseType: "arraybuffer" })
+    const observable = this.httpService.get(url, {
+      responseType: 'arraybuffer',
+    })
     const { data } = await firstValueFrom(observable)
-    const buffer = Buffer.from(data, "utf-8")
+    const buffer = Buffer.from(data, 'utf-8')
     return this.generateBlurhashFromBuffer(buffer)
   }
 

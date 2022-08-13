@@ -1,8 +1,8 @@
 /* eslint-disable @typescript-eslint/no-var-requires */
-const withBundleAnalyzer = require("@next/bundle-analyzer")({
-  enabled: process.env.ANALYZE === "true",
+const withBundleAnalyzer = require('@next/bundle-analyzer')({
+  enabled: process.env.ANALYZE === 'true',
 })
-const withNx = require("@nrwl/next/plugins/with-nx")
+const withNx = require('@nrwl/next/plugins/with-nx')
 
 /**
  * @type {import('@nrwl/next/plugins/with-nx').WithNxOptions}

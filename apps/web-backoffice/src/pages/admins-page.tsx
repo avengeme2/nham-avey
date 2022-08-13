@@ -1,4 +1,4 @@
-import { ChangeEventHandler, useCallback, useMemo, useState } from "react"
+import { ChangeEventHandler, useCallback, useMemo, useState } from 'react'
 
 import {
   DeleteOutlined,
@@ -6,13 +6,13 @@ import {
   ExclamationCircleOutlined,
   ReloadOutlined,
   SearchOutlined,
-} from "@ant-design/icons"
+} from '@ant-design/icons'
 import {
   useAdminDeleteUserMutation,
   useAdminGetUsersQuery,
   User,
   UserRole,
-} from "@nham-avey/common"
+} from '@nham-avey/common'
 import {
   Button,
   Card,
@@ -23,15 +23,15 @@ import {
   TablePaginationConfig,
   Tooltip,
   Typography,
-} from "antd"
-import { ColumnsType } from "antd/lib/table/interface"
-import { Helmet } from "react-helmet-async"
-import AvatarInfo from "src/components/avatar-info"
-import CreateAdminDrawer from "src/components/drawers/create-admin-drawer"
-import UpdateUserDrawer from "src/components/drawers/update-user-drawer"
-import { APP_NAME } from "src/config/app-config"
-import { TableType } from "src/typing/common-type"
-import { useDebouncedCallback } from "use-debounce"
+} from 'antd'
+import { ColumnsType } from 'antd/lib/table/interface'
+import { Helmet } from 'react-helmet-async'
+import AvatarInfo from 'src/components/avatar-info'
+import CreateAdminDrawer from 'src/components/drawers/create-admin-drawer'
+import UpdateUserDrawer from 'src/components/drawers/update-user-drawer'
+import { APP_NAME } from 'src/config/app-config'
+import { TableType } from 'src/typing/common-type'
+import { useDebouncedCallback } from 'use-debounce'
 
 const { confirm } = Modal
 
@@ -55,7 +55,7 @@ export const AdminsPage = () => {
   const [pageState, setPageState] = useState<UserPageState>({
     page: 1,
     take: 10,
-    q: "",
+    q: '',
     role: UserRole.Admin,
   })
   const [userActionState, setUserActionState] = useState<UserActionState>({
@@ -66,7 +66,7 @@ export const AdminsPage = () => {
   })
   const { data, loading, refetch } = useAdminGetUsersQuery({
     variables: pageState,
-    fetchPolicy: "cache-and-network",
+    fetchPolicy: 'cache-and-network',
   })
 
   const openCreateDrawer = useCallback(() => {
@@ -103,9 +103,9 @@ export const AdminsPage = () => {
   const [deleteUser] = useAdminDeleteUserMutation({
     onCompleted: async () => {
       notification.success({
-        message: "Success",
-        description: "User deleted successfully",
-        placement: "bottomLeft",
+        message: 'Success',
+        description: 'User deleted successfully',
+        placement: 'bottomLeft',
       })
       await refetch(pageState)
       setUserActionState(prevState => ({
@@ -118,18 +118,18 @@ export const AdminsPage = () => {
   const tableColumns = useMemo<ColumnsType<User>>(
     () => [
       {
-        title: "Basic Info",
+        title: 'Basic Info',
         render: (_, user) => (
           <AvatarInfo
             photoUrl={user.photoURL as string}
             blurhash=""
-            title={`${user.firstName ?? ""} ${user.lastName ?? ""}`}
+            title={`${user.firstName ?? ''} ${user.lastName ?? ''}`}
             subTitle={user.email}
           />
         ),
       },
       {
-        title: "Actions",
+        title: 'Actions',
         render: (_, user) => {
           return (
             <div className="flex flex-wrap gap-1">
@@ -146,9 +146,11 @@ export const AdminsPage = () => {
                   icon={<DeleteOutlined />}
                   onClick={() => {
                     confirm({
-                      title: `Do you want to delete ${user.firstName || "this User"}?`,
+                      title: `Do you want to delete ${
+                        user.firstName || 'this User'
+                      }?`,
                       icon: <ExclamationCircleOutlined />,
-                      content: "",
+                      content: '',
                       onOk: async () =>
                         await deleteUser({
                           variables: { userId: user.id },
@@ -163,7 +165,7 @@ export const AdminsPage = () => {
         },
       },
     ],
-    [deleteUser, openUpdateDrawer]
+    [deleteUser, openUpdateDrawer],
   )
 
   const pagination: TablePaginationConfig = useMemo(() => {
@@ -202,7 +204,7 @@ export const AdminsPage = () => {
   return (
     <div className="flex h-full flex-col">
       <Typography.Title>Admins</Typography.Title>
-      <Card bodyStyle={{ padding: "0px", height: "100%" }} className="h-full">
+      <Card bodyStyle={{ padding: '0px', height: '100%' }} className="h-full">
         <Helmet title={PAGE_TITLE} />
         <div className="h-full">
           <div className="flex gap-2 px-4 py-8">
@@ -225,7 +227,11 @@ export const AdminsPage = () => {
             {/* grow fill the full width */}
             <div className="grow" aria-hidden />
 
-            <Button type="primary" onClick={openCreateDrawer} className="min-w-[6rem]">
+            <Button
+              type="primary"
+              onClick={openCreateDrawer}
+              className="min-w-[6rem]"
+            >
               New
             </Button>
           </div>

@@ -1,8 +1,8 @@
-import React from "react"
+import React from 'react'
 
-import { ClockIcon } from "@heroicons/react/outline"
+import { ClockIcon } from '@heroicons/react/outline'
 
-import { Restaurant } from "@nham-avey/common"
+import { Restaurant } from '@nham-avey/common'
 
 export interface RestaurantIntoProps {
   restaurant: Restaurant

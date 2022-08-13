@@ -1,9 +1,9 @@
-import { useEffect } from "react"
+import { useEffect } from 'react'
 
-import { NextSeo } from "next-seo"
-import { useRouter } from "next/router"
+import { NextSeo } from 'next-seo'
+import { useRouter } from 'next/router'
 
-import { useRestaurantsLazyQuery } from "@nham-avey/common"
+import { useRestaurantsLazyQuery } from '@nham-avey/common'
 
 interface PageState {
   page: number
@@ -14,7 +14,7 @@ interface PageState {
 const pageState: PageState = {
   page: 1,
   take: 2,
-  q: "",
+  q: '',
 }
 
 /**
@@ -30,7 +30,7 @@ const SearchPage = () => {
     if (!isReady || loading) return
 
     if (!term) {
-      router.replace("/")
+      router.replace('/')
       return
     }
     getRestaurants({

@@ -26,7 +26,9 @@ export const DishOption = ({
     // eslint-disable-next-line jsx-a11y/click-events-have-key-events,jsx-a11y/no-static-element-interactions
     <span
       onClick={onClick}
-      className={`flex items-center border ${isSelected ? "border-gray-800" : ""}`}
+      className={`flex items-center border ${
+        isSelected ? 'border-gray-800' : ''
+      }`}
     >
       <h6 className="mr-2">{name}</h6>
       {extra && <h6 className="text-sm opacity-75">(${extra})</h6>}

@@ -1,7 +1,7 @@
-import { memo } from "react"
+import { memo } from 'react'
 
-import { Restaurant } from "@nham-avey/common"
-import RestaurantCard from "src/components/cards/restaurant-card"
+import { Restaurant } from '@nham-avey/common'
+import RestaurantCard from 'src/components/cards/restaurant-card'
 
 interface RestaurantCardsProps {
   restaurants: Restaurant[]

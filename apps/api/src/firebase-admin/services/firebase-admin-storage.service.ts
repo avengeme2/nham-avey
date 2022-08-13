@@ -1,7 +1,7 @@
-import { Bucket } from "@google-cloud/storage"
-import { Injectable } from "@nestjs/common"
-import { App } from "firebase-admin/app"
-import { getStorage } from "firebase-admin/storage"
+import { Bucket } from '@google-cloud/storage'
+import { Injectable } from '@nestjs/common'
+import { App } from 'firebase-admin/app'
+import { getStorage } from 'firebase-admin/storage'
 
 @Injectable()
 export class FirebaseStorageService {
@@ -9,7 +9,7 @@ export class FirebaseStorageService {
 
   get storage() {
     if (!this.app) {
-      throw new Error("Firebase instance is undefined.")
+      throw new Error('Firebase instance is undefined.')
     }
     return getStorage(this.app)
   }

@@ -1,8 +1,8 @@
-import React from "react"
+import React from 'react'
 
-import GoogleMapReact from "google-map-react"
+import GoogleMapReact from 'google-map-react'
 
-import LocationMarker from "src/components/pages/restaurant-page/location-marker"
+import LocationMarker from 'src/components/pages/restaurant-page/location-marker'
 
 const defaultProps = {
   center: {
@@ -16,7 +16,7 @@ export const RestaurantMap = () => {
   return (
     <div className="h-full w-full">
       <GoogleMapReact
-        bootstrapURLKeys={{ key: "" }}
+        bootstrapURLKeys={{ key: '' }}
         defaultCenter={defaultProps.center}
         defaultZoom={defaultProps.zoom}
       >

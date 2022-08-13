@@ -1,7 +1,7 @@
-import { isBlurhashValid } from "blurhash"
-import { Blurhash } from "react-blurhash"
-import { ErrorBoundary } from "react-error-boundary"
-import ErrorFallback from "src/components/error-fallback"
+import { isBlurhashValid } from 'blurhash'
+import { Blurhash } from 'react-blurhash'
+import { ErrorBoundary } from 'react-error-boundary'
+import ErrorFallback from 'src/components/error-fallback'
 
 interface BlurhashPlaceholderProps {
   blurhash?: string
@@ -9,7 +9,7 @@ interface BlurhashPlaceholderProps {
 }
 
 const DefaultBlurhashPlaceholder = ({
-  blurhash = "",
+  blurhash = '',
   size = 35,
 }: BlurhashPlaceholderProps) => {
   if (!blurhash || !isBlurhashValid(blurhash)) {

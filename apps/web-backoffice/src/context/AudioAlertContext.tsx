@@ -1,4 +1,4 @@
-import { createContext, ReactNode, useContext, useRef } from "react"
+import { createContext, ReactNode, useContext, useRef } from 'react'
 
 interface AudioAlertContext {
   playAlert: () => Promise<void>
@@ -9,7 +9,7 @@ const AudioAlertContext = createContext<AudioAlertContext>({
 })
 
 const AudioAlertContextProvider = ({ children }: { children: ReactNode }) => {
-  const audio = useRef(new Audio("/assets/sounds/alert.mp3"))
+  const audio = useRef(new Audio('/assets/sounds/alert.mp3'))
 
   return (
     <AudioAlertContext.Provider
@@ -26,7 +26,7 @@ export const useAudioAlertContext = () => {
   const context = useContext(AudioAlertContext)
   if (!context) {
     throw new Error(
-      "useAudioAlertContext must be used within a AudioAlertContextProvider"
+      'useAudioAlertContext must be used within a AudioAlertContextProvider',
     )
   }
   return context

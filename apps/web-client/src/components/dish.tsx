@@ -1,6 +1,6 @@
-import { ReactNode } from "react"
+import { ReactNode } from 'react'
 
-import { DishOption } from "@nham-avey/common"
+import { DishOption } from '@nham-avey/common'
 
 interface DishProps {
   id?: number
@@ -43,20 +43,20 @@ export const Dish = ({
   return (
     <div
       className={`cursor-pointer border px-8 py-4 transition-all ${
-        isSelected ? "border-gray-800" : "hover:border-gray-800"
+        isSelected ? 'border-gray-800' : 'hover:border-gray-800'
       }`}
     >
       <div className="mb-5">
         <h3 className="flex items-center text-lg font-medium">
-          {name}{" "}
+          {name}{' '}
           {orderStarted && (
             <button
               className={`ml-3 py-1 px-3 text-sm text-white  focus:outline-none ${
-                isSelected ? "bg-red-500" : " bg-lime-600"
+                isSelected ? 'bg-red-500' : ' bg-lime-600'
               }`}
               onClick={onClick}
             >
-              {isSelected ? "Remove" : "Add"}
+              {isSelected ? 'Remove' : 'Add'}
             </button>
           )}
         </h3>

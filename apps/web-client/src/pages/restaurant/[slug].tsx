@@ -1,4 +1,4 @@
-import { GetStaticPropsContext } from "next"
+import { GetStaticPropsContext } from 'next'
 
 import {
   AllRestaurantsSlugDocument,
@@ -7,9 +7,9 @@ import {
   RestaurantBySlugDocument,
   RestaurantBySlugQuery,
   RestaurantBySlugQueryVariables,
-} from "@nham-avey/common"
-import RestaurantPage from "src/components/pages/restaurant-page/restaurant-page"
-import { addApolloState, initializeApollo } from "src/graphql/apollo-config"
+} from '@nham-avey/common'
+import RestaurantPage from 'src/components/pages/restaurant-page/restaurant-page'
+import { addApolloState, initializeApollo } from 'src/graphql/apollo-config'
 
 export const getStaticProps = async ({ params }: GetStaticPropsContext) => {
   const apolloClient = initializeApollo()
@@ -20,7 +20,7 @@ export const getStaticProps = async ({ params }: GetStaticPropsContext) => {
   >({
     query: RestaurantBySlugDocument,
     variables: { slug: params?.slug as string },
-    fetchPolicy: "network-only",
+    fetchPolicy: 'network-only',
   })
 
   return addApolloState(apolloClient, {
@@ -36,7 +36,7 @@ export const getStaticPaths = async () => {
     AllRestaurantsSlugQueryVariables
   >({
     query: AllRestaurantsSlugDocument,
-    fetchPolicy: "no-cache",
+    fetchPolicy: 'no-cache',
   })
 
   const paths =
@@ -44,7 +44,7 @@ export const getStaticPaths = async () => {
       params: { slug: slug },
     })) || []
 
-  return { paths, fallback: "blocking" }
+  return { paths, fallback: 'blocking' }
 }
 
 export default RestaurantPage

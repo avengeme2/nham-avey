@@ -1,7 +1,7 @@
-import React, { CSSProperties } from "react"
+import React, { CSSProperties } from 'react'
 
-import { PlusIcon } from "@heroicons/react/solid"
-import Link from "next/link"
+import { PlusIcon } from '@heroicons/react/solid'
+import Link from 'next/link'
 
 export const DishCard = () => {
   return (
@@ -12,7 +12,7 @@ export const DishCard = () => {
             <div
               style={
                 {
-                  "--image-url": `url(https://source.unsplash.com/random/?food,dish)`,
+                  '--image-url': `url(https://source.unsplash.com/random/?food,dish)`,
                 } as CSSProperties
               }
               className="restaurant-card-image h-full w-full rounded-2xl bg-cover object-cover"

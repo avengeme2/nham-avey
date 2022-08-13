@@ -1,8 +1,14 @@
-import { Inject, Injectable, InternalServerErrorException, NestMiddleware, UnauthorizedException } from "@nestjs/common"
-import { NextFunction, Request, Response } from "express"
-import { DecodedIdToken } from "firebase-admin/auth"
-import { FirebaseAuthenticationService } from "src/firebase-admin/services/firebase-admin-authentication.service"
-import { UserRole } from "src/users/entities/user.entity"
+import {
+  Inject,
+  Injectable,
+  InternalServerErrorException,
+  NestMiddleware,
+  UnauthorizedException,
+} from '@nestjs/common'
+import { NextFunction, Request, Response } from 'express'
+import { DecodedIdToken } from 'firebase-admin/auth'
+import { FirebaseAuthenticationService } from 'src/firebase-admin/services/firebase-admin-authentication.service'
+import { UserRole } from 'src/users/entities/user.entity'
 
 export interface UserClaims extends DecodedIdToken {
   roles?: UserRole[]
@@ -20,7 +26,9 @@ export class AuthMiddleware implements NestMiddleware {
   public static validateAndGetToken(bearerToken: string): string {
     const match = bearerToken.match(/^Bearer (.*)$/)
     if (!match || match.length < 2) {
-      throw new UnauthorizedException("Invalid Authorization token - Token does not match Bearer schema")
+      throw new UnauthorizedException(
+        'Invalid Authorization token - Token does not match Bearer schema',
+      )
     }
     return match[1]
   }
@@ -32,12 +40,17 @@ export class AuthMiddleware implements NestMiddleware {
     }
 
     try {
-      const accessToken = AuthMiddleware.validateAndGetToken(authorization as string)
-      const decodedIdToken = await this.firebaseAuthService.auth.verifyIdToken(accessToken)
+      const accessToken = AuthMiddleware.validateAndGetToken(
+        authorization as string,
+      )
+      const decodedIdToken = await this.firebaseAuthService.auth.verifyIdToken(
+        accessToken,
+      )
       req.user = decodedIdToken
       next()
     } catch (err: any) {
-      if (err?.code === "auth/id-token-expired") throw new UnauthorizedException(err, err?.message)
+      if (err?.code === 'auth/id-token-expired')
+        throw new UnauthorizedException(err, err?.message)
       throw new InternalServerErrorException(err, err?.message)
     }
   }

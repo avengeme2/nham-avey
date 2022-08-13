@@ -1,12 +1,12 @@
-import React, { useEffect, useState } from "react"
+import React, { useEffect, useState } from 'react'
 
-import { LoadingOutlined, PlusOutlined } from "@ant-design/icons"
-import { Category, useAdminUpdateCategoryMutation } from "@nham-avey/common"
-import { Button, Form, Input, Upload } from "antd"
-import ImgCrop from "antd-img-crop"
-import { UploadChangeParam } from "antd/es/upload"
-import { UploadProps } from "antd/es/upload/interface"
-import { antUIUploadCustomRequest } from "src/utils/common-utils"
+import { LoadingOutlined, PlusOutlined } from '@ant-design/icons'
+import { Category, useAdminUpdateCategoryMutation } from '@nham-avey/common'
+import { Button, Form, Input, Upload } from 'antd'
+import ImgCrop from 'antd-img-crop'
+import { UploadChangeParam } from 'antd/es/upload'
+import { UploadProps } from 'antd/es/upload/interface'
+import { antUIUploadCustomRequest } from 'src/utils/common-utils'
 
 const { useForm } = Form
 
@@ -38,12 +38,14 @@ export const UpdateCategoryForm = ({
     }
   }, [form, initialValue])
 
-  const handleLogoImageChange: UploadProps["onChange"] = (info: UploadChangeParam) => {
-    if (info.file.status === "uploading") {
+  const handleLogoImageChange: UploadProps['onChange'] = (
+    info: UploadChangeParam,
+  ) => {
+    if (info.file.status === 'uploading') {
       setIsUploadingCover(true)
       return
     }
-    if (info.file.status === "done") {
+    if (info.file.status === 'done') {
       setIsUploadingCover(false)
       setCoverImageUrl(info.file.response)
     }
@@ -89,7 +91,7 @@ export const UpdateCategoryForm = ({
             {isUploadingCover ? (
               <LoadingOutlined />
             ) : coverImageUrl ? (
-              <img src={coverImageUrl} alt="avatar" style={{ width: "100%" }} />
+              <img src={coverImageUrl} alt="avatar" style={{ width: '100%' }} />
             ) : (
               <div style={{ marginTop: 8 }}>
                 <PlusOutlined />
@@ -105,7 +107,7 @@ export const UpdateCategoryForm = ({
         rules={[
           {
             required: true,
-            message: "Name is required!",
+            message: 'Name is required!',
           },
         ]}
       >

@@ -1,6 +1,6 @@
-import createDebug from "debug"
+import createDebug from 'debug'
 
-const APPID = "NHAM_AVEY_BO"
+const APPID = 'NHAM_AVEY_BO'
 
 const createLogger = () => {
   const base = createDebug(APPID)
@@ -9,8 +9,8 @@ const createLogger = () => {
   base.log = console.log.bind(console)
 
   //creates new debug instance with extended namespace
-  const debug = base.extend("debug")
-  const error = base.extend("error")
+  const debug = base.extend('debug')
+  const error = base.extend('error')
 
   return {
     log: base,
@@ -25,8 +25,8 @@ const createLogger = () => {
 }
 
 // Auto-enable all logs on Dev env
-if (process.env.NODE_ENV === "development") {
-  const envDebug = localStorage.getItem("debug")
+if (process.env.NODE_ENV === 'development') {
+  const envDebug = localStorage.getItem('debug')
   if (!envDebug) createDebug.enable(`${APPID}:*`)
 }
 

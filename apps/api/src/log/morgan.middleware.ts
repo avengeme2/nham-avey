@@ -1,25 +1,34 @@
-import { Injectable, NestMiddleware } from "@nestjs/common"
-import { Request, Response, NextFunction } from "express"
-import * as morgan from "morgan"
+import { Injectable, NestMiddleware } from '@nestjs/common'
+import { Request, Response, NextFunction } from 'express'
+import * as morgan from 'morgan'
 
 export enum MorganFormatType {
-  Combined = "combined",
-  Common = "common",
-  Dev = "dev",
-  Short = "short",
-  Tiny = "tiny",
+  Combined = 'combined',
+  Common = 'common',
+  Dev = 'dev',
+  Short = 'short',
+  Tiny = 'tiny',
 }
 
-export type MorganFormat = MorganFormatType | string | morgan.FormatFn<Request, Response>
+export type MorganFormat =
+  | MorganFormatType
+  | string
+  | morgan.FormatFn<Request, Response>
 
 @Injectable()
 export class MorganMiddleware implements NestMiddleware {
-  public static configure(format: MorganFormat, opts: morgan.Options<Request, Response> = {}) {
+  public static configure(
+    format: MorganFormat,
+    opts: morgan.Options<Request, Response> = {},
+  ) {
     this.format = format
     this.options = opts
   }
 
-  public static token(name: string, callback: morgan.TokenCallbackFn<Request, Response>): morgan.Morgan<Request, Response> {
+  public static token(
+    name: string,
+    callback: morgan.TokenCallbackFn<Request, Response>,
+  ): morgan.Morgan<Request, Response> {
     return morgan.token(name, callback)
   }
 
@@ -28,9 +37,14 @@ export class MorganMiddleware implements NestMiddleware {
 
   use(req: Request, res: Response, next: NextFunction) {
     if (MorganMiddleware.format) {
-      morgan(MorganMiddleware.format as morgan.FormatFn<Request, Response>, MorganMiddleware.options)(req, res, next)
+      morgan(
+        MorganMiddleware.format as morgan.FormatFn<Request, Response>,
+        MorganMiddleware.options,
+      )(req, res, next)
     } else {
-      throw new Error("MorganMiddleware must be configured with a logger format.")
+      throw new Error(
+        'MorganMiddleware must be configured with a logger format.',
+      )
     }
   }
 }

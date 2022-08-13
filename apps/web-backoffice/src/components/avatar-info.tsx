@@ -1,5 +1,5 @@
-import clsx from "clsx"
-import LazyAvatar from "src/components/lazy-avatar"
+import clsx from 'clsx'
+import LazyAvatar from 'src/components/lazy-avatar'
 
 interface AvatarInfoProps {
   title: string
@@ -18,8 +18,8 @@ export const AvatarInfo = ({
 }: AvatarInfoProps) => {
   return (
     <div
-      className={clsx("flex h-16 items-center", {
-        "flex-row-reverse": reverse,
+      className={clsx('flex h-16 items-center', {
+        'flex-row-reverse': reverse,
       })}
     >
       <div className="rounded-full ring-2 ring-offset-2">
@@ -32,8 +32,8 @@ export const AvatarInfo = ({
         />
       </div>
       <div
-        className={clsx("mx-2", {
-          "text-right": reverse,
+        className={clsx('mx-2', {
+          'text-right': reverse,
         })}
       >
         <div>

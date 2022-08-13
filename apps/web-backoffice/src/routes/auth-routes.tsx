@@ -1,14 +1,14 @@
-import { lazy } from "react"
+import { lazy } from 'react'
 
-import { RouteObject, Navigate } from "react-router-dom"
-import AuthLayout from "src/components/layout/auth-layout"
-import { AUTH_PREFIX_PATH } from "src/config/app-config"
+import { RouteObject, Navigate } from 'react-router-dom'
+import AuthLayout from 'src/components/layout/auth-layout'
+import { AUTH_PREFIX_PATH } from 'src/config/app-config'
 
-const SignInPage = lazy(() => import("src/pages/sign-in-page"))
+const SignInPage = lazy(() => import('src/pages/sign-in-page'))
 
 const authRoutes: RouteObject[] = [
   {
-    path: "*",
+    path: '*',
     element: <Navigate to={AUTH_PREFIX_PATH} />,
   },
   {
@@ -16,16 +16,16 @@ const authRoutes: RouteObject[] = [
     element: <AuthLayout />,
     children: [
       {
-        path: "",
+        path: '',
         element: <Navigate to="sign-in" />,
       },
       {
-        path: "sign-in",
+        path: 'sign-in',
         element: <SignInPage />,
       },
       {
-        path: "*",
-        element: "404", // TODO
+        path: '*',
+        element: '404', // TODO
       },
     ],
   },

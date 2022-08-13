@@ -1,4 +1,4 @@
-import { LocationMarkerIcon } from "@heroicons/react/solid"
+import { LocationMarkerIcon } from '@heroicons/react/solid'
 
 export interface LocationMarkerProps {
   lat?: number

@@ -1,7 +1,7 @@
-import { Avatar } from "antd"
-import initials from "initials"
-import { LazyLoadImage } from "react-lazy-load-image-component"
-import BlurhashPlaceholder from "src/components/blurhash-placeholder"
+import { Avatar } from 'antd'
+import initials from 'initials'
+import { LazyLoadImage } from 'react-lazy-load-image-component'
+import BlurhashPlaceholder from 'src/components/blurhash-placeholder'
 
 interface LazyAvatarProps {
   photoUrl?: string
@@ -14,8 +14,8 @@ interface LazyAvatarProps {
 const LazyAvatar = ({
   photoUrl,
   alt,
-  blurhash = "",
-  name = "",
+  blurhash = '',
+  name = '',
   size = 35,
 }: LazyAvatarProps) => {
   if (photoUrl)

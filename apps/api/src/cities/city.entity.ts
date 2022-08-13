@@ -1,13 +1,13 @@
-import { Field, InputType, ObjectType } from "@nestjs/graphql"
-import { IsOptional, IsString } from "class-validator"
-import { CoreEntity } from "src/common/entities/core.entity"
-import { Location } from "src/locations/location.entity"
-import { Restaurant } from "src/restaurants/entities/restaurant.entity"
-import { Column, Entity, JoinColumn, OneToMany, OneToOne } from "typeorm"
+import { Field, InputType, ObjectType } from '@nestjs/graphql'
+import { IsOptional, IsString } from 'class-validator'
+import { CoreEntity } from 'src/common/entities/core.entity'
+import { Location } from 'src/locations/location.entity'
+import { Restaurant } from 'src/restaurants/entities/restaurant.entity'
+import { Column, Entity, JoinColumn, OneToMany, OneToOne } from 'typeorm'
 
-@InputType("CityInputType", { isAbstract: true })
+@InputType('CityInputType', { isAbstract: true })
 @ObjectType()
-@Entity({ name: "cities" })
+@Entity({ name: 'cities' })
 export class City extends CoreEntity {
   @Field(type => String)
   @Column()
@@ -27,10 +27,12 @@ export class City extends CoreEntity {
 
   @Field(type => Location, { nullable: true })
   @OneToOne(() => Location, { nullable: true })
-  @JoinColumn({ name: "location_id", referencedColumnName: "id" })
+  @JoinColumn({ name: 'location_id', referencedColumnName: 'id' })
   location?: Location
 
-  @OneToMany(() => Restaurant, restaurant => restaurant.city, { nullable: true })
+  @OneToMany(() => Restaurant, restaurant => restaurant.city, {
+    nullable: true,
+  })
   restaurants?: Restaurant[]
 
   // non-column field for custom query
