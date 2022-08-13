@@ -1,4 +1,4 @@
-name: CI
+name: CI Old
 on:
   push:
     branches:
@@ -27,8 +27,11 @@ jobs:
           restore-keys: |
             ${{ runner.os }}-node-
 
-      - name: Install dependencies 🔀
-        run: npm ci
+      - uses: nrwl/nx-set-shas@v2.2.0
+      - run: npm ci
 
-      - name: Run build all🔀
-        run: npx nx run-many --target=build --all
+      - run: npx nx workspace-lint
+      # - run: npx nx format:check # issues with --base and --head
+      # - run: npx nx affected --target=lint --parallel=3 # issues loading .eslintrc with this command on github action
+      - run: npx nx affected --target=test --parallel=3 --ci --code-coverage
+      - run: npx nx affected --target=build --parallel=3
