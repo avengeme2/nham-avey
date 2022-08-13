@@ -1,4 +1,4 @@
-name: Deploy BO to Netlify
+name: Deploy Web BO to Netlify
 
 on:
   workflow_dispatch:

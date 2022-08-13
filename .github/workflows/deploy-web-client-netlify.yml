@@ -1,0 +1,43 @@
+name: Deploy Web Client to Netlify
+
+on:
+  workflow_dispatch:
+
+jobs:
+  build-and-deploy:
+    runs-on: ubuntu-latest
+    steps:
+      - name: Checkout 🛎️
+        uses: actions/checkout@v3
+
+      - name: Setup Node.js ⚙️
+        uses: actions/setup-node@v3
+        with:
+          node-version: 'lts/*'
+
+      - name: Cache dependencies ⚙️
+        uses: actions/cache@v3
+        with:
+          path: ~/.npm
+          key: ${{ runner.os }}-node-${{ hashFiles('**/package-lock.json') }}
+          restore-keys: |
+            ${{ runner.os }}-node-
+
+      - name: Buidl And Deploy to Netlify 🔀
+        uses: jsmrcaga/action-netlify-deploy@v1.1.0
+        with:
+          build_directory: dist/apps/web-client/.next
+          install_command: npm i
+          build_command: nx run web-client:build
+          node_version: --lts
+          NETLIFY_AUTH_TOKEN: ${{ secrets.NETLIFY_AUTH_TOKEN }}
+          NETLIFY_SITE_ID: ${{ secrets.CLIENT_NETLIFY_SITE_ID }}
+          NETLIFY_DEPLOY_MESSAGE: "Deploy from GitHub Actions v${{ github.ref }}"
+          NETLIFY_DEPLOY_TO_PROD: true
+        env:
+          NEXT_PUBLIC_CLIENT_FIREBASE_CONFIG_JSON: ${{secrets.NEXT_PUBLIC_CLIENT_FIREBASE_CONFIG_JSON}}
+          NEXT_PUBLIC_API_KEY: ${{secrets.NEXT_PUBLIC_API_KEY}}
+          NEXT_PUBLIC_FIREBASE_VAPID_KEY: ${{secrets.NEXT_PUBLIC_FIREBASE_VAPID_KEY}}
+          NEXT_PUBLIC_API_URL: ${{secrets.NEXT_PUBLIC_API_URL}}
+          NEXT_PUBLIC_HTTP_GRAPHQL_URI: ${{secrets.NEXT_PUBLIC_HTTP_GRAPHQL_URI}}
+          NEXT_PUBLIC_WS_GRAPHQL_URI: ${{secrets.NEXT_PUBLIC_WS_GRAPHQL_URI}}

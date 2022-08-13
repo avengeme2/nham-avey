@@ -21,6 +21,7 @@
 *.ini text eol=lf
 *.inc text eol=lf
 *.php text eol=lf
+*.toml text eol=lf
 .htaccess text eol=lf
 
 # These files are binary and should be left untouched
