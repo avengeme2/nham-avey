@@ -1,11 +1,14 @@
-import { Injectable } from "@nestjs/common"
+import { Injectable, Logger } from "@nestjs/common"
 import { getFileExtension } from "src/common/common.helpers"
 import { FirebaseStorageService } from "src/firebase-admin/services/firebase-admin-storage.service"
+import { ImageService } from "src/images/images.service"
 import { v4 as uuidv4 } from "uuid"
 
 @Injectable()
 export class FileUploadsService {
-  constructor(private storageService: FirebaseStorageService) {}
+  private readonly logger = new Logger(FileUploadsService.name)
+  constructor(private readonly storageService: FirebaseStorageService, private readonly imageService: ImageService) {}
+
   async upload(file: Express.Multer.File): Promise<string> {
     const fileName = `${uuidv4()}.${getFileExtension(file.originalname)}`
     const contentType = file.mimetype
@@ -17,6 +20,14 @@ export class FileUploadsService {
       contentType,
       public: true,
     })
-    return bucketFile.publicUrl()
+
+    const publicUrl = bucketFile.publicUrl()
+    if (contentType.startsWith("image/")) {
+      this.imageService.saveImage(file, publicUrl).catch(err => {
+        this.logger.error(err?.message)
+      })
+    }
+
+    return publicUrl
   }
 }

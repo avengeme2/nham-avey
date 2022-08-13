@@ -3,6 +3,7 @@ import { DataSource } from "typeorm"
 import { SnakeNamingStrategy } from "typeorm-naming-strategies"
 
 const { host, port, database, user, password } = parse(process.env.DATABASE_URL as string)
+const isLocalHost = host?.includes("127.0.0.1") || host?.includes("localhost")
 
 export const connectionSource = new DataSource({
   type: "postgres",
@@ -18,7 +19,9 @@ export const connectionSource = new DataSource({
   migrationsTableName: "migrations",
   entities: [`${__dirname}/../../**/**.entity{.ts,.js}`],
   migrations: [`${__dirname}/migrations/**/*{.ts,.js}`],
-  ssl: {
-    rejectUnauthorized: false, // TODO: this should be true outside heroku!
-  },
+  ...(!isLocalHost && {
+    ssl: {
+      rejectUnauthorized: false, // this should be true outside heroku!
+    },
+  }),
 })
