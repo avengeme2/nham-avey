@@ -28,6 +28,8 @@ jobs:
           rm package-lock.json
           npm i
           npm update
+          npm i
+          npm i
 
       - name: Create Commit 💌
         run: |
