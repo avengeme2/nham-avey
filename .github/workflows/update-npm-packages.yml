@@ -10,7 +10,7 @@ jobs:
   upgrade-packages:
     name: Upgrade packages
 
-    runs-on: macos-latest
+    runs-on: ubuntu-latest
 
     steps:
       - name: Checkout 🛎️
@@ -19,7 +19,7 @@ jobs:
       - name: Set up Node.js ⚙️
         uses: actions/setup-node@v3
         with:
-          node-version: "lts/*"
+          node-version: "16.17"
           check-latest: true
 
 
