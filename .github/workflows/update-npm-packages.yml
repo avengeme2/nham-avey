@@ -19,16 +19,21 @@ jobs:
       - name: Set up Node.js ⚙️
         uses: actions/setup-node@v3
         with:
-          node-version: "16.17"
+          node-version: 'lts/*'
           check-latest: true
+
+      - name: Cache dependencies ⚙️
+        uses: actions/cache@v3
+        with:
+          path: ~/.npm
+          key: ${{ runner.os }}-node-${{ hashFiles('**/package-lock.json') }}
+          restore-keys: |
+            ${{ runner.os }}-node-
 
 
       - name: Upgrade packages 🔀
         run: |
-          rm package-lock.json
-          npm i
           npm update
-          npm i
           npm i
 
       - name: Create Commit 💌
