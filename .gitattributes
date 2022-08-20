@@ -31,6 +31,10 @@
 .lintstagedrc text eol=lf
 .prettierignore text eol=lf
 .prettierrc text eol=lf
+.env.example text eol=lf
+.eslintignore text eol=lf
+.eslintrc text eol=lf
+yarn.lock text eol=lf
 Procfile text eol=lf
 
 # These files are binary and should be left untouched
