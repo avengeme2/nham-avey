@@ -30,7 +30,6 @@ jobs:
           restore-keys: |
             ${{ runner.os }}-node-
 
-
       - name: Upgrade packages 🔀
         run: |
           npm update
