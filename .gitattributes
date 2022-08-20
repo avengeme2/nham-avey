@@ -20,10 +20,18 @@
 *.yaml text eol=lf
 *.txt text eol=lf
 *.ini text eol=lf
+*.md text eol=lf
 *.inc text eol=lf
 *.php text eol=lf
 *.toml text eol=lf
 .htaccess text eol=lf
+.editorconfig text eol=lf
+.gitattributes text eol=lf
+.gitignore text eol=lf
+.lintstagedrc text eol=lf
+.prettierignore text eol=lf
+.prettierrc text eol=lf
+Procfile text eol=lf
 
 # These files are binary and should be left untouched
 # (binary is a macro for -text -diff)
