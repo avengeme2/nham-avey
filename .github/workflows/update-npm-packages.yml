@@ -32,7 +32,7 @@ jobs:
 
       - name: Upgrade packages 🔀
         run: |
-          npm update
+          rm package-lock.json
           npm i
 
       - name: Create Commit 💌
