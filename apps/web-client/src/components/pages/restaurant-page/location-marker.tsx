@@ -1,4 +1,4 @@
-import { LocationMarkerIcon } from '@heroicons/react/solid'
+import { MapPinIcon } from '@heroicons/react/24/solid'
 
 export interface LocationMarkerProps {
   lat?: number
@@ -6,7 +6,7 @@ export interface LocationMarkerProps {
 }
 
 export const LocationMarker = (_props: LocationMarkerProps) => (
-  <LocationMarkerIcon className="h-10 w-10 text-primary" />
+  <MapPinIcon className="h-10 w-10 text-primary" />
 )
 
 export default LocationMarker
