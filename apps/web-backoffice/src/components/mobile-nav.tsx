@@ -1,6 +1,6 @@
 import { ArrowLeftOutlined } from '@ant-design/icons'
 import { Drawer } from 'antd'
-import { Scrollbars } from 'react-custom-scrollbars'
+import { Scrollbars } from 'react-custom-scrollbars-2'
 import { Link } from 'react-router-dom'
 import Logo from 'src/components/logo'
 import MenuContent from 'src/components/menu-content'
