@@ -1,5 +1,5 @@
 import { Layout } from 'antd'
-import { Scrollbars } from 'react-custom-scrollbars'
+import { Scrollbars } from 'react-custom-scrollbars-2'
 import { SIDE_NAV_WIDTH } from 'src/constants/theme-constants'
 import { useTypedSelector } from 'src/hooks/redux/use-typed-selector'
 
