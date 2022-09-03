@@ -1,6 +1,8 @@
+import { HttpService } from '@nestjs/axios'
 import { Inject, Injectable } from '@nestjs/common'
 import axios from 'axios'
-import * as FormData from 'form-data'
+import FormData from 'form-data'
+import { firstValueFrom } from 'rxjs'
 import { CONFIG_OPTIONS } from 'src/common/common.constants'
 import { IEmailVar, IMailModuleOptions } from 'src/mail/mail.interfaces'
 
@@ -8,6 +10,7 @@ import { IEmailVar, IMailModuleOptions } from 'src/mail/mail.interfaces'
 export class MailService {
   constructor(
     @Inject(CONFIG_OPTIONS) private readonly options: IMailModuleOptions,
+    private readonly httpService: HttpService,
   ) {}
 
   async sendEmail(
@@ -46,5 +49,13 @@ export class MailService {
       { key: 'code', value: code },
       { key: 'username', value: email },
     ])
+  }
+
+  async isDisposable(email: string): Promise<boolean> {
+    const result = this.httpService.get('https://disposable.debounce.io', {
+      params: { email },
+    })
+    const { data } = await firstValueFrom(result)
+    return Promise.resolve(true)
   }
 }
