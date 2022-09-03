@@ -109,14 +109,6 @@
         "command": "ts-node --project tsconfig.app.json -r tsconfig-paths/register ../../node_modules/typeorm/cli migration:revert -d src/typeorm/seeds.data-source.ts",
         "cwd": "apps/api"
       }
-    },
-    "generate-erd": {
-      "executor": "@nrwl/workspace:run-commands",
-      "outputs": [],
-      "options": {
-        "command": "ts-node --project tsconfig.app.json -r tsconfig-paths/register ../../node_modules/.bin/erdia er -d src/typeorm/migrations.data-source.ts -o table.pdf",
-        "cwd": "apps/api"
-      }
     }
   },
   "tags": []
