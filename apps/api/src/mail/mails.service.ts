@@ -1,7 +1,7 @@
 import { HttpService } from '@nestjs/axios'
 import { Inject, Injectable } from '@nestjs/common'
 import axios from 'axios'
-import FormData from 'form-data'
+import * as FormData from 'form-data'
 import { firstValueFrom } from 'rxjs'
 import { CONFIG_OPTIONS } from 'src/common/common.constants'
 import { IEmailVar, IMailModuleOptions } from 'src/mail/mail.interfaces'

@@ -10,8 +10,7 @@
     "noImplicitAny": false, // for graphql unused args hint e.g @Resolver(of => Category) where of is any and unused
     "baseUrl": "./",
     "strictPropertyInitialization": false,
-    "resolveJsonModule": true,
-    "esModuleInterop": true
+    "resolveJsonModule": true
   },
   "exclude": ["jest.config.ts", "**/*.spec.ts", "**/*.test.ts"],
   "include": ["**/*.ts", "src/db/data-source"]
