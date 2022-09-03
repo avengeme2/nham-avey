@@ -157,6 +157,7 @@
     "autoprefixer": "10.4.8",
     "babel-jest": "28.1.3",
     "cypress": "^10.2.0",
+    "erdia": "^2.1.1",
     "eslint": "~8.15.0",
     "eslint-config-next": "12.2.5",
     "eslint-config-prettier": "8.5.0",
