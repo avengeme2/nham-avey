@@ -154,4 +154,10 @@ export class Restaurant extends CoreEntity {
   @Field(() => Date, { nullable: true })
   @Column({ nullable: true, type: 'timestamptz' })
   promotedUntil: Date | null
+
+  @Field(() => String, { nullable: true })
+  @Column({ nullable: true })
+  @IsString()
+  @IsOptional()
+  phone?: string
 }
