@@ -85,6 +85,14 @@
         "command": "ts-node --project tsconfig.app.json -r tsconfig-paths/register ../../node_modules/typeorm/cli schema:drop -d src/typeorm/data-source.ts",
         "cwd": "apps/api"
       }
+    },
+    "generate-erd": {
+      "executor": "@nrwl/workspace:run-commands",
+      "outputs": [],
+      "options": {
+        "command": "ts-node --project tsconfig.app.json -r tsconfig-paths/register ../../node_modules/.bin/erdia er -d src/typeorm/data-source.ts -o table.pdf",
+        "cwd": "apps/api"
+      }
     }
   },
   "tags": []
