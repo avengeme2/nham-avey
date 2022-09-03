@@ -55,7 +55,7 @@ export class MailService {
     const result = this.httpService.get('https://disposable.debounce.io', {
       params: { email },
     })
-    const { data } = await firstValueFrom(result)
+    const { data: _ } = await firstValueFrom(result)
     return Promise.resolve(true)
   }
 }
