@@ -1,0 +1,146 @@
+[
+  {
+    "name": "Battambang Municipality",
+    "slug": "battambang-municipality",
+    "nameInKhmer": "ក្រុងបាត់ដំបង",
+    "location": { "latitude": 13.10271, "longitude": 103.19822 }
+  },
+  {
+    "name": "Kampong Cham Municipality",
+    "slug": "kampong-cham-municipality",
+    "nameInKhmer": "ក្រុងកំពង់ចាម",
+    "location": { "latitude": 11.99339, "longitude": 105.4635 }
+  },
+  {
+    "name": "Kampong Chhnang Municipality",
+    "slug": "kampong-chhnang-municipality",
+    "nameInKhmer": "ក្រុងកំពង់ឆ្នាំង",
+    "location": { "latitude": 12.25, "longitude": 104.66667 }
+  },
+  {
+    "name": "Chbar Mon Municipality",
+    "slug": "chbar-mon-municipality",
+    "nameInKhmer": "ក្រុងច្បារមន",
+    "location": { "latitude": 11.45332, "longitude": 104.52085 }
+  },
+  {
+    "name": "Stueng Saen Municipality",
+    "slug": "stueng-saen-municipality",
+    "nameInKhmer": "ក្រុងស្ទឹងសែន",
+    "location": { "latitude": 12.71112, "longitude": 104.88873 }
+  },
+  {
+    "name": "Kampot Municipality",
+    "slug": "kampot-municipality",
+    "nameInKhmer": "ក្រុងកំពត",
+    "location": { "latitude": 10.61041, "longitude": 104.18145 }
+  },
+  {
+    "name": "Khemara Phoumin Municipality",
+    "slug": "khemara-phoumin-municipality",
+    "nameInKhmer": "ក្រុងខេមរភូមិន្ទ",
+    "location": { "latitude": 11.61531, "longitude": 102.9838 }
+  },
+  {
+    "name": "Kracheh Municipality",
+    "slug": "kracheh-municipality",
+    "nameInKhmer": "ក្រុងក្រចេះ",
+    "location": { "latitude": 12.48811, "longitude": 106.01879 }
+  },
+  {
+    "name": "Kaeb Municipality",
+    "slug": "kaeb-municipality",
+    "nameInKhmer": "ក្រុងកែប",
+    "location": { "latitude": 10.48291, "longitude": 104.31672 }
+  },
+  {
+    "name": "Saen Monourom Municipality",
+    "slug": "saen-monourom-municipality",
+    "nameInKhmer": "ក្រុងសែនមនោរម្យ",
+    "location": { "latitude": 13.48784, "longitude": 106.98158 }
+  },
+  {
+    "name": "Pailin Municipality",
+    "slug": "pailin-municipality",
+    "nameInKhmer": "ក្រុងប៉ៃលិន",
+    "location": { "latitude": 12.84895, "longitude": 102.60928 }
+  },
+  {
+    "name": "Serei Saophoan Municipality",
+    "slug": "serei-saophoan-municipality",
+    "nameInKhmer": "ក្រុងសិរីសោភ័ណ",
+    "location": { "latitude": 13.65611, "longitude": 102.5625 }
+  },
+  {
+    "name": "Phnom Penh Capital",
+    "slug": "phnom-penh-capital",
+    "nameInKhmer": "រាជធានីភ្នំពេញ",
+    "location": { "latitude": 11.56245, "longitude": 104.91601 }
+  },
+  {
+    "name": "Prey Veng Municipality",
+    "slug": "prey-veng-municipality",
+    "nameInKhmer": "ក្រុងព្រៃវែង",
+    "location": { "latitude": 11.48682, "longitude": 105.32533 }
+  },
+  {
+    "name": "Pursat Municipality",
+    "slug": "pursat-municipality",
+    "nameInKhmer": "ក្រុងពោធិ៍សាត់",
+    "location": { "latitude": 12.53878, "longitude": 103.9192 }
+  },
+  {
+    "name": "Samraong Municipality",
+    "slug": "samraong-municipality",
+    "nameInKhmer": "ក្រុងសំរោង",
+    "location": { "latitude": 14.18175, "longitude": 103.51761 }
+  },
+  {
+    "name": "Siem Reap Municipality",
+    "slug": "siem-reap-municipality",
+    "nameInKhmer": "ក្រុងសៀមរាប",
+    "location": { "latitude": 13.36179, "longitude": 103.86056 }
+  },
+  {
+    "name": "Preah Sihanouk Municipality",
+    "slug": "preah-sihanouk-municipality",
+    "nameInKhmer": "ក្រុងព្រះសីហនុ",
+    "location": { "latitude": 10.60932, "longitude": 103.52958 }
+  },
+  {
+    "name": "Stueng Traeng Municipality",
+    "slug": "stueng-traeng-municipality",
+    "nameInKhmer": "ក្រុងស្ទឹងត្រែង",
+    "location": { "latitude": 13.52586, "longitude": 105.9683 }
+  },
+  {
+    "name": "Svay Rieng Municipality",
+    "slug": "svay-rieng-municipality",
+    "nameInKhmer": "ក្រុងស្វាយរៀង",
+    "location": { "latitude": 11.08785, "longitude": 105.79935 }
+  },
+  {
+    "name": "Ta Khmau Municipality",
+    "slug": "ta-khmau-municipality",
+    "nameInKhmer": "ក្រុងតាខ្មៅ",
+    "location": { "latitude": 11.48333, "longitude": 104.95 }
+  },
+  {
+    "name": "Doun Kaev Municipality",
+    "slug": "doun-kaev-municipality",
+    "nameInKhmer": "ក្រុងដូនកែវ",
+    "location": { "latitude": 10.99081, "longitude": 104.78498 }
+  },
+  {
+    "name": "Preah Vihear Municipality",
+    "slug": "preah-vihear-municipality",
+    "nameInKhmer": "ក្រុងព្រះវិហារ",
+    "location": { "latitude": 13.80731, "longitude": 104.98046 }
+  },
+  {
+    "name": "Suong Municipality",
+    "slug": "suong-municipality",
+    "nameInKhmer": "ក្រុងសួង",
+    "location": { "latitude": 11.8891, "longitude": 105.876 }
+  }
+]

@@ -50,7 +50,7 @@
       "executor": "@nrwl/workspace:run-commands",
       "outputs": [],
       "options": {
-        "command": "ts-node --project tsconfig.app.json -r tsconfig-paths/register ../../node_modules/typeorm/cli migration:generate --pretty -d src/typeorm/data-source.ts src/typeorm/migrations/{args.name}",
+        "command": "ts-node --project tsconfig.app.json -r tsconfig-paths/register ../../node_modules/typeorm/cli migration:generate --pretty -d src/typeorm/migrations.data-source.ts src/typeorm/migrations/{args.name}",
         "cwd": "apps/api"
       }
     },
@@ -58,7 +58,7 @@
       "executor": "@nrwl/workspace:run-commands",
       "outputs": [],
       "options": {
-        "command": "ts-node --project tsconfig.app.json -r tsconfig-paths/register ../../node_modules/typeorm/cli migration:create -d src/typeorm/data-source.ts src/typeorm/migrations/{args.name}",
+        "command": "ts-node --project tsconfig.app.json -r tsconfig-paths/register ../../node_modules/typeorm/cli migration:create src/typeorm/migrations/{args.name}",
         "cwd": "apps/api"
       }
     },
@@ -66,7 +66,7 @@
       "executor": "@nrwl/workspace:run-commands",
       "outputs": [],
       "options": {
-        "command": "ts-node --project tsconfig.app.json -r tsconfig-paths/register ../../node_modules/typeorm/cli migration:run -d src/typeorm/data-source.ts",
+        "command": "ts-node --project tsconfig.app.json -r tsconfig-paths/register ../../node_modules/typeorm/cli migration:run -d src/typeorm/migrations.data-source.ts",
         "cwd": "apps/api"
       }
     },
@@ -74,7 +74,7 @@
       "executor": "@nrwl/workspace:run-commands",
       "outputs": [],
       "options": {
-        "command": "ts-node --project tsconfig.app.json -r tsconfig-paths/register ../../node_modules/typeorm/cli migration:revert -d src/typeorm/data-source.ts",
+        "command": "ts-node --project tsconfig.app.json -r tsconfig-paths/register ../../node_modules/typeorm/cli migration:revert -d src/typeorm/migrations.data-source.ts",
         "cwd": "apps/api"
       }
     },
@@ -82,7 +82,31 @@
       "executor": "@nrwl/workspace:run-commands",
       "outputs": [],
       "options": {
-        "command": "ts-node --project tsconfig.app.json -r tsconfig-paths/register ../../node_modules/typeorm/cli schema:drop -d src/typeorm/data-source.ts",
+        "command": "ts-node --project tsconfig.app.json -r tsconfig-paths/register ../../node_modules/typeorm/cli schema:drop -d src/typeorm/migrations.data-source.ts",
+        "cwd": "apps/api"
+      }
+    },
+    "create-seed": {
+      "executor": "@nrwl/workspace:run-commands",
+      "outputs": [],
+      "options": {
+        "command": "ts-node --project tsconfig.app.json -r tsconfig-paths/register ../../node_modules/typeorm/cli migration:create src/typeorm/seeds/{args.name}",
+        "cwd": "apps/api"
+      }
+    },
+    "run-seed": {
+      "executor": "@nrwl/workspace:run-commands",
+      "outputs": [],
+      "options": {
+        "command": "ts-node --project tsconfig.app.json -r tsconfig-paths/register ../../node_modules/typeorm/cli migration:run -d src/typeorm/seeds.data-source.ts",
+        "cwd": "apps/api"
+      }
+    },
+    "revert-seed": {
+      "executor": "@nrwl/workspace:run-commands",
+      "outputs": [],
+      "options": {
+        "command": "ts-node --project tsconfig.app.json -r tsconfig-paths/register ../../node_modules/typeorm/cli migration:revert -d src/typeorm/seeds.data-source.ts",
         "cwd": "apps/api"
       }
     },
@@ -90,7 +114,7 @@
       "executor": "@nrwl/workspace:run-commands",
       "outputs": [],
       "options": {
-        "command": "ts-node --project tsconfig.app.json -r tsconfig-paths/register ../../node_modules/.bin/erdia er -d src/typeorm/data-source.ts -o table.pdf",
+        "command": "ts-node --project tsconfig.app.json -r tsconfig-paths/register ../../node_modules/.bin/erdia er -d src/typeorm/migrations.data-source.ts -o table.pdf",
         "cwd": "apps/api"
       }
     }
