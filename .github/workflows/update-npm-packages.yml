@@ -32,7 +32,7 @@ jobs:
 
       - name: Upgrade packages 🔀
         run: |
-          rm package-lock.json
+          rm -f package-lock.json
           npm i
           npm i
 
