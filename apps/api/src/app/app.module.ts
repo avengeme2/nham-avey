@@ -132,9 +132,9 @@ export class AppModule implements NestModule {
 
     consumer
       .apply(ApiKeyMiddleware)
+      .exclude({ path: 'favicon.ico', method: RequestMethod.GET })
       .exclude({ path: SWAGGER_PATH, method: RequestMethod.ALL })
       .exclude({ path: GRAPHQL_PATH, method: RequestMethod.ALL }) // TODO: remove this line when include api key from the frontend
-      .exclude({ path: 'favicon.ico', method: RequestMethod.GET })
       .forRoutes({ path: '*', method: RequestMethod.ALL })
       .apply(AuthMiddleware)
       .exclude({ path: 'graphql', method: RequestMethod.ALL })
