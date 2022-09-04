@@ -27,12 +27,17 @@ export class PaymentService {
     { transactionId, restaurantId }: CreatePaymentInput,
   ): Promise<CreatePaymentOutput> {
     const restaurant = await this.restaurants.findOneBy({ id: restaurantId })
-    if (!restaurant) return { ok: false, error: '[App] Restaurant not found' }
-    if (!restaurant.vendorIds?.includes(vendorId))
+    if (!restaurant) {
+      return { ok: false, error: '[App] Restaurant not found' }
+    }
+    if (!restaurant.vendorIds?.includes(vendorId)) {
       return { ok: false, error: "[App] You can't do this" }
+    }
 
     const vendorEntity = (await this.userService.findUserById(vendorId)) as User
-    if (!vendorEntity) return { ok: false, error: '[App] Vendor deleted' }
+    if (!vendorEntity) {
+      return { ok: false, error: '[App] Vendor deleted' }
+    }
 
     const payment = this.payments.create({
       transactionId,
@@ -53,7 +58,9 @@ export class PaymentService {
 
   async getPayments(vendorId: string): Promise<GetPaymentsOutput> {
     const vendor = await this.userService.findUserById(vendorId)
-    if (!vendor) return { ok: false, error: '[App] Vendor not found' }
+    if (!vendor) {
+      return { ok: false, error: '[App] Vendor not found' }
+    }
 
     const payments = await this.payments.findBy({ user: Equal(vendor) })
     return { ok: true, payments }

@@ -51,27 +51,28 @@ export class UserService {
     return user !== null
   }
 
-  private async createUser(entityLike: DeepPartial<User>): Promise<User> {
+  private createUser(entityLike: DeepPartial<User>): Promise<User> {
     const userEntity = this.userRepo.create(entityLike)
     return this.userRepo.save(userEntity)
   }
 
-  async findUserById(id: string) {
+  findUserById(id: string) {
     return this.userRepo.findOneBy({ id })
   }
 
-  async findUsersByIds(ids: string[]) {
+  findUsersByIds(ids: string[]) {
     return this.userRepo.findBy({ id: In(ids) })
   }
 
   async signUpVendor(input: SignUpAccountInput): Promise<SignUpAccountOutput> {
     const { lastName, photoURL, firstName, email } = input
     const existing = await this.checkIfUserExistByEmail(input.email)
-    if (existing)
+    if (existing) {
       return {
         ok: false,
         error: `[App] User with email ${input.email} already exist!`,
       }
+    }
 
     const firebaseUser = await this.createFirebaseUser(input, {
       roles: [UserRole.Vendor],
@@ -94,11 +95,12 @@ export class UserService {
   async signUpDriver(input: SignUpAccountInput): Promise<SignUpAccountOutput> {
     const { lastName, photoURL, firstName, email } = input
     const existing = await this.checkIfUserExistByEmail(email)
-    if (existing)
+    if (existing) {
       return {
         ok: false,
         error: `[App] User with email ${email} already exist!`,
       }
+    }
 
     const firebaseUser = await this.createFirebaseUser(input, {
       roles: [UserRole.Driver],
@@ -123,11 +125,12 @@ export class UserService {
   ): Promise<SignUpAccountOutput> {
     const { email, photoURL, firstName, lastName } = input
     const existing = await this.checkIfUserExistByEmail(email)
-    if (existing)
+    if (existing) {
       return {
         ok: false,
         error: `[App] User with email ${email} already exist!`,
       }
+    }
 
     const firebaseUser = await this.createFirebaseUser(input, {
       roles: [UserRole.Customer],
@@ -150,11 +153,12 @@ export class UserService {
   async createAdmin(input: CreateAccountInput): Promise<CreateAccountOutput> {
     const { email, photoURL, firstName, lastName } = input
     const existing = await this.checkIfUserExistByEmail(email)
-    if (existing)
+    if (existing) {
       return {
         ok: false,
         error: '[App] There is a user with that email already!',
       }
+    }
 
     const firebaseUser = await this.createFirebaseUser(input, {
       roles: [UserRole.Admin],
@@ -176,7 +180,9 @@ export class UserService {
     { email }: UpdateProfileInput,
   ): Promise<UpdateProfileOutput> {
     const user = await this.userRepo.findOneBy({ id: id })
-    if (!user) return { ok: false, error: '[App] User not found' }
+    if (!user) {
+      return { ok: false, error: '[App] User not found' }
+    }
 
     if (email) {
       user.email = email
@@ -197,7 +203,7 @@ export class UserService {
     } = args
     const queryBuilder = this.userRepo.createQueryBuilder('user')
 
-    if (searchQuery)
+    if (searchQuery) {
       queryBuilder.where(
         `
                 user.email ILIKE :searchQuery
@@ -209,7 +215,10 @@ export class UserService {
            `,
         { searchQuery },
       )
-    if (role) queryBuilder.andWhere(`:role = ANY(user.roles)`, { role })
+    }
+    if (role) {
+      queryBuilder.andWhere(`:role = ANY(user.roles)`, { role })
+    }
 
     const matchedCount = await queryBuilder.getCount()
 
@@ -240,8 +249,9 @@ export class UserService {
   ): Promise<AdminUpdateUserOutput> {
     const { userId } = input
     const existing = await this.userRepo.findOneBy({ id: userId })
-    if (!existing)
+    if (!existing) {
       return { ok: false, error: `[App] User with id ${userId} not found!` }
+    }
 
     const user = Object.assign(existing, input)
     await this.userRepo.save(user)

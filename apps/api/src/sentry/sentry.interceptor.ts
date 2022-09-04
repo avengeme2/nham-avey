@@ -72,8 +72,12 @@ export class SentryInterceptor implements NestInterceptor {
 
     scope.setExtra('req', data.request)
 
-    if (data.extra) scope.setExtras(data.extra)
-    if (data.user) scope.setUser(data.user)
+    if (data.extra) {
+      scope.setExtras(data.extra)
+    }
+    if (data.user) {
+      scope.setUser(data.user)
+    }
 
     this.client.instance().captureException(exception)
   }
@@ -100,7 +104,9 @@ export class SentryInterceptor implements NestInterceptor {
   }
 
   private shouldReport(exception: unknown) {
-    if (this.options && !this.options.filters) return true
+    if (this.options && !this.options.filters) {
+      return true
+    }
 
     // If all filters pass, then we do not report
     if (this.options) {

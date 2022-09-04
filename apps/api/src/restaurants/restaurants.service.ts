@@ -69,7 +69,9 @@ export class RestaurantService {
       slug,
     } = args
     const category = await this.categoryService.getCategoryBySlug(slug)
-    if (!category) return { ok: false, error: '[App] Category not found' }
+    if (!category) {
+      return { ok: false, error: '[App] Category not found' }
+    }
 
     const queryBuilder = await this.restaurantRepo
       .createQueryBuilder('restaurant')
@@ -100,7 +102,9 @@ export class RestaurantService {
       slug,
     } = args
     const city = await this.cityService.getCityBySlug(slug)
-    if (!city) return { ok: false, error: '[App] City not found' }
+    if (!city) {
+      return { ok: false, error: '[App] City not found' }
+    }
 
     const queryBuilder = await this.restaurantRepo
       .createQueryBuilder('restaurant')
@@ -130,8 +134,9 @@ export class RestaurantService {
     const { categories, ...restaurantPayload } = input
     const vendorEntity = await this.userService.findUserById(vendorId)
 
-    if (!vendorEntity)
+    if (!vendorEntity) {
       return { ok: false, error: `Vendor with id ${vendorId} not found` }
+    }
 
     const categoryEntities = await this.categoryService.getOrCreateCategories(
       categories?.map(name => ({ name })) ?? [],
@@ -156,11 +161,12 @@ export class RestaurantService {
       input
 
     const vendorEntities = await this.userService.findUsersByIds(vendorIds)
-    if (vendorEntities.length < vendorIds.length)
+    if (vendorEntities.length < vendorIds.length) {
       return {
         ok: false,
         error: `Cannot Find All Vendors with ids ${vendorIds.join(', ')}`,
       }
+    }
 
     const categoryEntities = await this.categoryService.getOrCreateCategories(
       categories?.map(name => ({ name })) ?? [],
@@ -188,12 +194,15 @@ export class RestaurantService {
   ): Promise<RestaurantOutput> {
     const { restaurantId, categories, ...restaurantPayload } = input
     const restaurant = await this.restaurantRepo.findOneBy({ id: restaurantId })
-    if (!restaurant) return { ok: false, error: '[App] Restaurant not found' }
-    if (!restaurant.vendorIds?.includes(vendorId))
+    if (!restaurant) {
+      return { ok: false, error: '[App] Restaurant not found' }
+    }
+    if (!restaurant.vendorIds?.includes(vendorId)) {
       return {
         ok: false,
         error: "[App] You can't update a restaurant that you don't own",
       }
+    }
 
     const categoryRequests: CategoryRequest[] =
       categories?.map(name => ({ name })) ?? []
@@ -265,15 +274,18 @@ export class RestaurantService {
     restaurantId: Restaurant['id'],
   ): Promise<CoreOutput> {
     const restaurant = await this.restaurantRepo.findOneBy({ id: restaurantId })
-    if (!restaurant) return { ok: false, error: '[App] Restaurant not found' }
+    if (!restaurant) {
+      return { ok: false, error: '[App] Restaurant not found' }
+    }
     if (
       !decodedIdToken.roles.includes(UserRole.Admin) ||
       !restaurant.vendorIds?.includes(decodedIdToken.uid)
-    )
+    ) {
       return {
         ok: false,
         error: "[App] You can't delete a restaurant that you don't own",
       }
+    }
 
     await this.restaurantRepo.delete(restaurantId)
     return { ok: true }
@@ -281,7 +293,9 @@ export class RestaurantService {
 
   async findRestaurantById(id: Restaurant['id']): Promise<RestaurantOutput> {
     const restaurant = await this.restaurantRepo.findOneBy({ id })
-    if (!restaurant) return { ok: false, error: '[App] Restaurant not found' }
+    if (!restaurant) {
+      return { ok: false, error: '[App] Restaurant not found' }
+    }
     return { ok: true, data: restaurant }
   }
 
@@ -289,7 +303,9 @@ export class RestaurantService {
     slug: Restaurant['slug'],
   ): Promise<RestaurantOutput> {
     const restaurant = await this.restaurantRepo.findOneBy({ slug })
-    if (!restaurant) return { ok: false, error: '[App] Restaurant not found' }
+    if (!restaurant) {
+      return { ok: false, error: '[App] Restaurant not found' }
+    }
     return { ok: true, data: restaurant }
   }
 
@@ -302,7 +318,7 @@ export class RestaurantService {
     } = args
     const queryBuilder = this.restaurantRepo.createQueryBuilder('restaurant')
 
-    if (searchQuery)
+    if (searchQuery) {
       queryBuilder.andWhere(
         `
             restaurant.name ILIKE :searchQuery
@@ -311,6 +327,7 @@ export class RestaurantService {
           `,
         { searchQuery },
       )
+    }
 
     const matchedCount = await queryBuilder.getCount()
 
@@ -347,7 +364,7 @@ export class RestaurantService {
 
     queryBuilder.where(`restaurant.vendorId = :vendorId`, { vendorId })
 
-    if (searchQuery)
+    if (searchQuery) {
       queryBuilder.andWhere(
         `
         restaurant.name ILIKE :searchQuery
@@ -356,6 +373,7 @@ export class RestaurantService {
         `,
         { searchQuery },
       )
+    }
 
     const matchedCount = await queryBuilder.getCount()
 
@@ -430,7 +448,9 @@ export class RestaurantService {
       relations: ['menu', 'orders'],
     })
 
-    if (!restaurant) return { ok: false, error: '[App] Restaurant not found' }
+    if (!restaurant) {
+      return { ok: false, error: '[App] Restaurant not found' }
+    }
 
     return { ok: true, data: restaurant }
   }

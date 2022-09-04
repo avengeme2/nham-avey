@@ -28,6 +28,8 @@
     }
   ],
   "rules": {
+    "curly": ["error", "all"],
+    "require-await": "error",
     "no-empty": "off",
     "no-console": "error",
     "eqeqeq": ["error", "always"],

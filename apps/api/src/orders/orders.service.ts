@@ -6,7 +6,7 @@ import {
   NEW_ORDER_UPDATE,
   NEW_PENDING_ORDER,
   PUB_SUB,
-} from 'src/common/common.constants'
+} from 'src/common/constants/common.constants'
 import { Dish } from 'src/dishes/dish.entity'
 import {
   CreateOrderInput,
@@ -43,18 +43,23 @@ export class OrderService {
     { restaurantId, items }: CreateOrderInput,
   ): Promise<CreateOrderOutput> {
     const customer = await this.userService.findUserById(customerId)
-    if (!customer)
+    if (!customer) {
       return { ok: false, error: '[App] Cannot get Customer details' }
+    }
 
     const restaurant = await this.restaurants.findOneBy({ id: restaurantId })
-    if (!restaurant) return { ok: false, error: '[App] Restaurant not found' }
+    if (!restaurant) {
+      return { ok: false, error: '[App] Restaurant not found' }
+    }
 
     let finalOrderPrice = 0
     const orderItems: OrderItem[] = []
 
     for (const item of items) {
       const dish = await this.dishes.findOneBy({ id: item.dishId })
-      if (!dish) return { ok: false, error: '[App] Dish not found' }
+      if (!dish) {
+        return { ok: false, error: '[App] Dish not found' }
+      }
 
       let dishFinalPrice = dish.price
       for (const itemOption of item.options) {
@@ -62,9 +67,9 @@ export class OrderService {
           dishOption => dishOption.name === itemOption.name,
         )
         if (dishOption) {
-          if (dishOption.extra)
+          if (dishOption.extra) {
             dishFinalPrice = dishFinalPrice + dishOption.extra
-          else {
+          } else {
             const dishOptionChoice = dishOption.choices?.find(
               optionChoice => optionChoice.name === itemOption.choice,
             )
@@ -110,7 +115,9 @@ export class OrderService {
     { status }: GetOrdersInput,
   ): Promise<GetOrdersOutput> {
     const user = await this.userService.findUserById(userId)
-    if (!user) return { ok: false, error: '[App] Cannot get User details' }
+    if (!user) {
+      return { ok: false, error: '[App] Cannot get User details' }
+    }
 
     let orders: Order[] = []
 
@@ -137,7 +144,9 @@ export class OrderService {
       })
       orders = restaurants.map(restaurant => restaurant.orders).flat()
 
-      if (status) orders = orders.filter(order => order.status === status)
+      if (status) {
+        orders = orders.filter(order => order.status === status)
+      }
     }
 
     return { ok: true, orders }
@@ -145,15 +154,21 @@ export class OrderService {
 
   private canSeeOrder(user: User, order: Order): boolean {
     let canSee = true
-    if (user.roles.includes(UserRole.Customer) && order.customerId !== user.id)
+    if (
+      user.roles.includes(UserRole.Customer) &&
+      order.customerId !== user.id
+    ) {
       canSee = false
-    if (user.roles.includes(UserRole.Driver) && order.driverId !== user.id)
+    }
+    if (user.roles.includes(UserRole.Driver) && order.driverId !== user.id) {
       canSee = false
+    }
     if (
       user.roles.includes(UserRole.Vendor) &&
       !order.restaurant?.vendorIds?.includes(user.id)
-    )
+    ) {
       canSee = false
+    }
 
     return canSee
   }
@@ -163,15 +178,20 @@ export class OrderService {
     { id }: GetOrderInput,
   ): Promise<GetOrderOutput> {
     const user = await this.userService.findUserById(userId)
-    if (!user) return { ok: false, error: '[App] Cannot get User details' }
+    if (!user) {
+      return { ok: false, error: '[App] Cannot get User details' }
+    }
     const order = await this.orders.findOne({
       where: { id },
       relations: ['restaurant'],
     })
 
-    if (!order) return { ok: false, error: '[App] Order not found' }
-    if (!this.canSeeOrder(user, order))
+    if (!order) {
+      return { ok: false, error: '[App] Order not found' }
+    }
+    if (!this.canSeeOrder(user, order)) {
       return { ok: false, error: "[App] You can't see that" }
+    }
     return { ok: true, order }
   }
 
@@ -180,37 +200,49 @@ export class OrderService {
     { id: orderId, status }: EditOrderInput,
   ): Promise<EditOrderOutput> {
     const user = await this.userService.findUserById(userId)
-    if (!user) return { ok: false, error: '[App] Cannot get User details' }
+    if (!user) {
+      return { ok: false, error: '[App] Cannot get User details' }
+    }
 
     const order = await this.orders.findOneBy({ id: orderId })
-    if (!order) return { ok: false, error: '[App] Order not found' }
+    if (!order) {
+      return { ok: false, error: '[App] Order not found' }
+    }
 
-    if (!this.canSeeOrder(user, order))
+    if (!this.canSeeOrder(user, order)) {
       return { ok: false, error: "[App] You can't see that" }
+    }
 
     let canEdit = true
-    if (user.roles.includes(UserRole.Customer)) canEdit = false
+    if (user.roles.includes(UserRole.Customer)) {
+      canEdit = false
+    }
     if (
       user.roles.includes(UserRole.Vendor) &&
       status !== OrderStatus.Cooking &&
       status !== OrderStatus.Cooked
-    )
+    ) {
       canEdit = false
+    }
     if (
       user.roles.includes(UserRole.Driver) &&
       status !== OrderStatus.PickedUp &&
       status !== OrderStatus.Delivered
-    )
+    ) {
       canEdit = false
-    if (!canEdit) return { ok: false, error: "[App] You can't do that" }
+    }
+    if (!canEdit) {
+      return { ok: false, error: "[App] You can't do that" }
+    }
 
     await this.orders.save({ id: orderId, status })
 
     const newOrder = { ...order, status }
-    if (user.roles.includes(UserRole.Vendor) && status === OrderStatus.Cooked)
+    if (user.roles.includes(UserRole.Vendor) && status === OrderStatus.Cooked) {
       await this.pubSub.publish(NEW_COOKED_ORDER, {
         cookedOrders: newOrder,
       })
+    }
 
     await this.pubSub.publish(NEW_ORDER_UPDATE, { orderUpdates: newOrder })
     return { ok: true }
@@ -221,9 +253,12 @@ export class OrderService {
     { id: orderId }: TakeOrderInput,
   ): Promise<TakeOrderOutput> {
     const order = await this.orders.findOneBy({ id: orderId })
-    if (!order) return { ok: false, error: '[App] Order not found' }
-    if (order.driver)
+    if (!order) {
+      return { ok: false, error: '[App] Order not found' }
+    }
+    if (order.driver) {
       return { ok: false, error: '[App] This order already has a driver' }
+    }
 
     await this.orders.save({
       id: orderId,

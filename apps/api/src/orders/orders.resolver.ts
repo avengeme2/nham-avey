@@ -9,7 +9,7 @@ import {
   NEW_ORDER_UPDATE,
   NEW_PENDING_ORDER,
   PUB_SUB,
-} from 'src/common/common.constants'
+} from 'src/common/constants/common.constants'
 import {
   CreateOrderInput,
   CreateOrderOutput,
@@ -32,7 +32,7 @@ export class OrderResolver {
 
   @Mutation(() => CreateOrderOutput)
   @Roles(UserRole.Customer)
-  async createOrder(
+  createOrder(
     @GraphqlAuthUser() decodedIdToken: DecodedIdToken,
     @Args('input') createOrderInput: CreateOrderInput,
   ): Promise<CreateOrderOutput> {
@@ -41,7 +41,7 @@ export class OrderResolver {
 
   @Query(() => GetOrdersOutput)
   @Roles(UserRole.Customer, UserRole.Admin, UserRole.Vendor, UserRole.Driver)
-  async getOrders(
+  getOrders(
     @GraphqlAuthUser() decodedIdToken: DecodedIdToken,
     @Args('input') getOrdersInput: GetOrdersInput,
   ): Promise<GetOrdersOutput> {
@@ -49,7 +49,7 @@ export class OrderResolver {
   }
 
   @Query(() => GetOrderOutput)
-  async getOrder(
+  getOrder(
     @GraphqlAuthUser() decodedIdToken: DecodedIdToken,
     @Args('input') getOrderInput: GetOrderInput,
   ): Promise<GetOrderOutput> {
@@ -57,7 +57,7 @@ export class OrderResolver {
   }
 
   @Mutation(() => EditOrderOutput)
-  async updateOrder(
+  updateOrder(
     @GraphqlAuthUser() decodedIdToken: DecodedIdToken,
     @Args('input') editOrderInput: EditOrderInput,
   ): Promise<EditOrderOutput> {

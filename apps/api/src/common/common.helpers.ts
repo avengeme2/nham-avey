@@ -6,7 +6,7 @@ import {
   API_KEY_HEADER,
   API_KEY_NAME,
   SWAGGER_PATH,
-} from 'src/common/common.constants'
+} from 'src/common/constants/common.constants'
 
 export const createSwagger = async (app: INestApplication) => {
   const css = await readFile(

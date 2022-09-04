@@ -44,9 +44,7 @@ export class CategoryService {
     return category
   }
 
-  async getOrCreateCategories(
-    requests: CategoryRequest[],
-  ): Promise<Category[]> {
+  getOrCreateCategories(requests: CategoryRequest[]): Promise<Category[]> {
     return Promise.all<Category>(
       requests.map(request => this.getOrCreateCategory(request)),
     )
@@ -83,8 +81,9 @@ export class CategoryService {
     } = args
 
     const queryBuilder = this.categoryRepo.createQueryBuilder('category')
-    if (searchQuery)
+    if (searchQuery) {
       queryBuilder.where(`category.name ILIKE :searchQuery`, { searchQuery })
+    }
 
     const matchedCount = await queryBuilder.cache(true).getCount()
     const categories = await queryBuilder
@@ -103,7 +102,9 @@ export class CategoryService {
     categoryId: number,
   ): Promise<CoreOutput> {
     const existing = await this.categoryRepo.findOneBy({ id: categoryId })
-    if (!existing) return { ok: false, error: '[App] Category not found' }
+    if (!existing) {
+      return { ok: false, error: '[App] Category not found' }
+    }
     existing.deletedBy = adminId
     const saved = await this.categoryRepo.save(existing)
     await this.categoryRepo.softDelete({ id: saved.id })
@@ -128,7 +129,9 @@ export class CategoryService {
   ): Promise<AdminUpdateCategoryOutput> {
     const { categoryId, ...updatePayload } = input
     const existing = await this.categoryRepo.findOneBy({ id: categoryId })
-    if (!existing) return { ok: false, error: '[App] Category not found' }
+    if (!existing) {
+      return { ok: false, error: '[App] Category not found' }
+    }
 
     const slug = slugify(updatePayload.name || existing.name, { lower: true })
     const category = Object.assign(existing, updatePayload)

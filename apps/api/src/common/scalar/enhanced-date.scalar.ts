@@ -13,7 +13,9 @@ export class EnhancedDate implements CustomScalar<Date, Date | string | null> {
   }
 
   parseValue(inputValue: unknown): Date {
-    if (inputValue instanceof Date) return inputValue
+    if (inputValue instanceof Date) {
+      return inputValue
+    }
     return new Date(inputValue as string)
   }
 

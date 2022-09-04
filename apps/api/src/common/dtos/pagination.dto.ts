@@ -44,7 +44,9 @@ export abstract class PaginationWithSearchArgs extends PaginationArgs {
   private readonly q: string | null
 
   get searchQuery() {
-    if (this.q) return `%${this.q.trim()}%`
+    if (this.q) {
+      return `%${this.q.trim()}%`
+    }
     return null
   }
 }

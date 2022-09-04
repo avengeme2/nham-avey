@@ -474,6 +474,7 @@ type Restaurant {
   neighborhood: String
   openingHours: OpeningHours
   orders: [Order!]
+  phone: String
   promotedUntil: EnhancedDate
   reviews: [Review!]
   slug: String!

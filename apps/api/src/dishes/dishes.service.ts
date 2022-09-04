@@ -24,9 +24,12 @@ export class DishService {
       id: input.restaurantId,
     })
 
-    if (!restaurant) return { ok: false, error: '[App] Restaurant not found' }
-    if (!restaurant.vendorIds?.includes(vendorId))
+    if (!restaurant) {
+      return { ok: false, error: '[App] Restaurant not found' }
+    }
+    if (!restaurant.vendorIds?.includes(vendorId)) {
       return { ok: false, error: "[App] You can't do that" }
+    }
 
     await this.dishRepo.save(
       this.dishRepo.create({ ...input, restaurant, createdAt: vendorId }),
@@ -44,7 +47,9 @@ export class DishService {
       id: restaurantId,
     })
 
-    if (!restaurant) return { ok: false, error: '[App] Restaurant not found' }
+    if (!restaurant) {
+      return { ok: false, error: '[App] Restaurant not found' }
+    }
     await this.dishRepo.save(
       this.dishRepo.create({ ...input, restaurant, createdBy: adminId }),
     )
@@ -60,9 +65,12 @@ export class DishService {
       relations: ['restaurant'],
     })
 
-    if (!dish) return { ok: false, error: '[App] Dish not found' }
-    if (!dish.restaurant.vendorIds?.includes(vendorId))
+    if (!dish) {
+      return { ok: false, error: '[App] Dish not found' }
+    }
+    if (!dish.restaurant.vendorIds?.includes(vendorId)) {
       return { ok: false, error: "[App] You can't do that" }
+    }
 
     await this.dishRepo.save([
       { id: input.dishId, ...input, updatedBy: vendorId },
@@ -79,7 +87,9 @@ export class DishService {
       id: dishId,
     })
 
-    if (!existing) return { ok: false, error: '[App] Dish not found' }
+    if (!existing) {
+      return { ok: false, error: '[App] Dish not found' }
+    }
     const dish = Object.assign(existing, input)
     dish.updatedBy = adminId
 
@@ -100,9 +110,12 @@ export class DishService {
       },
     })
 
-    if (!existing) return { ok: false, error: '[App] Dish not found' }
-    if (!existing.restaurant.vendorIds?.includes(vendorId))
+    if (!existing) {
+      return { ok: false, error: '[App] Dish not found' }
+    }
+    if (!existing.restaurant.vendorIds?.includes(vendorId)) {
       return { ok: false, error: "[App] You can't do that" }
+    }
 
     existing.deletedBy = vendorId
     const saved = await this.dishRepo.save(existing)
@@ -119,7 +132,9 @@ export class DishService {
       relations: ['restaurant'],
     })
 
-    if (!existing) return { ok: false, error: '[App] Dish not found' }
+    if (!existing) {
+      return { ok: false, error: '[App] Dish not found' }
+    }
 
     existing.deletedBy = adminId
     const saved = await this.dishRepo.save(existing)

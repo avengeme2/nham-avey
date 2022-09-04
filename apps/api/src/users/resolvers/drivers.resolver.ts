@@ -7,7 +7,7 @@ export class DriverResolver {
   constructor(private readonly userService: UserService) {}
 
   @Mutation(returns => SignUpAccountOutput)
-  async driverSignUp(
+  driverSignUp(
     @Args('input') input: SignUpAccountInput,
   ): Promise<SignUpAccountOutput> {
     return this.userService.signUpDriver(input)

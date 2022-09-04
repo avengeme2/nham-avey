@@ -39,9 +39,9 @@ export class CityService {
     return city
   }
 
-  async getOrCreateCities(requests: CityRequest[]): Promise<City[]> {
+  getOrCreateCities(requests: CityRequest[]): Promise<City[]> {
     return Promise.all<City>(
-      requests.map(async request => this.getOrCreateCity(request)),
+      requests.map(request => this.getOrCreateCity(request)),
     )
   }
 
@@ -77,7 +77,7 @@ export class CityService {
     } = args
 
     const queryBuilder = this.cityRepo.createQueryBuilder('city')
-    if (searchQuery)
+    if (searchQuery) {
       queryBuilder
         .where(
           `
@@ -88,6 +88,7 @@ export class CityService {
           { searchQuery },
         )
         .leftJoinAndSelect('city.location', 'location')
+    }
 
     const matchedCount = await queryBuilder.cache(true).getCount()
     const cities = await queryBuilder
@@ -106,7 +107,9 @@ export class CityService {
     cityId: number,
   ): Promise<CoreOutput> {
     const existing = await this.cityRepo.findOneBy({ id: cityId })
-    if (!existing) return { ok: false, error: '[App] City not found' }
+    if (!existing) {
+      return { ok: false, error: '[App] City not found' }
+    }
     existing.deletedBy = adminId
     const saved = await this.cityRepo.save(existing)
     await this.cityRepo.softDelete({ id: saved.id })
@@ -131,7 +134,9 @@ export class CityService {
   ): Promise<AdminUpdateCityOutput> {
     const { cityId, ...updatePayload } = input
     const existing = await this.cityRepo.findOneBy({ id: cityId })
-    if (!existing) return { ok: false, error: '[App] City not found' }
+    if (!existing) {
+      return { ok: false, error: '[App] City not found' }
+    }
 
     const slug = slugify(updatePayload.name || existing.name, { lower: true })
     const city = Object.assign(existing, updatePayload)

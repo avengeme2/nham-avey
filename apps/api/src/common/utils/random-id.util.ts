@@ -59,7 +59,9 @@ export const customRandom = (alphabet, defaultSize, getRandom) => {
       while (i--) {
         // Adding `|| ''` refuses a random byte that exceeds the alphabet size.
         id += alphabet[bytes[i] & mask] || ''
-        if (id.length === size) return id
+        if (id.length === size) {
+          return id
+        }
       }
     }
   }

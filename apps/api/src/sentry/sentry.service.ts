@@ -31,7 +31,7 @@ export class SentryService
       ...sentryOptions,
       integrations: [
         new Sentry.Integrations.OnUncaughtException({
-          onFatalError: async err => {
+          onFatalError: err => {
             // console.error('uncaughtException, not cool!')
             // console.error(err);
             if (err.name === 'SentryError') {

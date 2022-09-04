@@ -6,13 +6,13 @@ import {
 } from '@nestjs/common'
 import { ConfigService } from '@nestjs/config'
 import { NextFunction, Request, Response } from 'express'
-import { API_KEY_HEADER } from 'src/common/common.constants'
+import { API_KEY_HEADER } from 'src/common/constants/common.constants'
 
 @Injectable()
 export class ApiKeyMiddleware implements NestMiddleware {
   constructor(private configService: ConfigService) {}
 
-  async use(req: Request, res: Response, next: NextFunction) {
+  use(req: Request, res: Response, next: NextFunction) {
     const serverApiKey = this.configService.get('serverApiKey')
     const apiKey = req.headers[API_KEY_HEADER]
     if (!apiKey) {

@@ -19,7 +19,7 @@ export class AdminResolver {
 
   @Roles(UserRole.Admin)
   @Mutation(returns => CreateAccountOutput)
-  async adminCreateAdmin(
+  adminCreateAdmin(
     @Args('input') input: CreateAccountInput,
   ): Promise<CreateAccountOutput> {
     return this.userService.createAdmin(input)
@@ -27,15 +27,13 @@ export class AdminResolver {
 
   @Roles(UserRole.Admin)
   @Mutation(returns => DeleteAccountOutput)
-  async adminDeleteUser(
-    @Args() { userId }: UserArgs,
-  ): Promise<DeleteAccountOutput> {
+  adminDeleteUser(@Args() { userId }: UserArgs): Promise<DeleteAccountOutput> {
     return this.userService.deleteUser(userId)
   }
 
   @Roles(UserRole.Admin)
   @Mutation(returns => AdminUpdateUserOutput)
-  async adminUpdateUser(
+  adminUpdateUser(
     @Args('input') input: AdminUpdateUserInput,
   ): Promise<AdminUpdateUserOutput> {
     return this.userService.updateUserByAdmin(input)

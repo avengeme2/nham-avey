@@ -48,7 +48,7 @@ export class ImageService {
     return this.generateBlurhashFromBuffer(buffer)
   }
 
-  async getOrCreateImages(imageUrls: string[]): Promise<Image[]> {
+  getOrCreateImages(imageUrls: string[]): Promise<Image[]> {
     return Promise.all<Image>(
       imageUrls.map(async url => {
         const image = await this.imageRepo.findOneBy({ url })

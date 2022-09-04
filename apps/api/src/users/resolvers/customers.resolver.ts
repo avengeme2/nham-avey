@@ -7,7 +7,7 @@ export class CustomerResolver {
   constructor(private readonly userService: UserService) {}
 
   @Mutation(returns => SignUpAccountOutput)
-  async customerSignUp(
+  customerSignUp(
     @Args('input') input: SignUpAccountInput,
   ): Promise<SignUpAccountOutput> {
     return this.userService.signUpCustomer(input)

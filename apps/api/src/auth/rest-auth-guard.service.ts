@@ -15,7 +15,7 @@ export class RestAuthGuard implements CanActivate {
   private readonly firebaseAuthService: FirebaseAuthenticationService
   constructor(private readonly reflector: Reflector) {}
 
-  async canActivate(context: ExecutionContext) {
+  canActivate(context: ExecutionContext) {
     const roles = this.reflector.get<UserRole[]>('roles', context.getHandler())
     if (!roles?.length) {
       return true

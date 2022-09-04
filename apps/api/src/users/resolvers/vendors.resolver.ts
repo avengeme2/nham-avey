@@ -7,7 +7,7 @@ export class VendorResolver {
   constructor(private readonly userService: UserService) {}
 
   @Mutation(returns => SignUpAccountOutput)
-  async vendorSignUp(
+  vendorSignUp(
     @Args('input') input: SignUpAccountInput,
   ): Promise<SignUpAccountOutput> {
     return this.userService.signUpVendor(input)

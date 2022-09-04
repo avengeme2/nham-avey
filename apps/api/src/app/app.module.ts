@@ -23,12 +23,12 @@ import { AuthMiddleware } from 'src/auth/auth.middleware'
 import { AuthModule } from 'src/auth/auth.module'
 import { CategoryModule } from 'src/categories/categories.module'
 import { CityModule } from 'src/cities/cities.module'
+import { CommonModule } from 'src/common/common.module'
 import {
   AUTHORIZATION_HEADER,
   GRAPHQL_PATH,
   SWAGGER_PATH,
-} from 'src/common/common.constants'
-import { CommonModule } from 'src/common/common.module'
+} from 'src/common/constants/common.constants'
 import { ResponseTimeMiddleware } from 'src/common/middlewares/response-time.middlware'
 import { ServeFaviconMiddleware } from 'src/common/middlewares/serve-favicon.middleware'
 import { EnhancedDate } from 'src/common/scalar/enhanced-date.scalar'
@@ -134,6 +134,7 @@ export class AppModule implements NestModule {
       .apply(ApiKeyMiddleware)
       .exclude({ path: SWAGGER_PATH, method: RequestMethod.ALL })
       .exclude({ path: GRAPHQL_PATH, method: RequestMethod.ALL }) // TODO: remove this line when include api key from the frontend
+      .exclude({ path: 'favicon.ico', method: RequestMethod.GET })
       .forRoutes({ path: '*', method: RequestMethod.ALL })
       .apply(AuthMiddleware)
       .exclude({ path: 'graphql', method: RequestMethod.ALL })

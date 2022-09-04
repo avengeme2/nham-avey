@@ -10,7 +10,7 @@ import {
 import { Reflector } from '@nestjs/core'
 import { GqlExecutionContext } from '@nestjs/graphql'
 import { AuthMiddleware } from 'src/auth/auth.middleware'
-import { AUTHORIZATION_HEADER } from 'src/common/common.constants'
+import { AUTHORIZATION_HEADER } from 'src/common/constants/common.constants'
 import { FirebaseAuthenticationService } from 'src/firebase-admin/services/firebase-admin-authentication.service'
 import { UserRole } from 'src/users/entities/user.entity'
 
@@ -46,8 +46,9 @@ export class GraphqlAuthGuard implements CanActivate {
         false
       )
     } catch (err: any) {
-      if (err?.code === 'auth/id-token-expired')
+      if (err?.code === 'auth/id-token-expired') {
         throw new UnauthorizedException(err, err?.message)
+      }
       throw new InternalServerErrorException(err, (err as Error)?.message)
     }
   }
