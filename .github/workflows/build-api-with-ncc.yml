@@ -1,0 +1,44 @@
+name: Build api with ncc
+
+on:
+  push:
+    branches:
+      - main
+  workflow_dispatch:
+
+jobs:
+  build-and-push-to-build-api-branch:
+    runs-on: ubuntu-latest
+    steps:
+      - name: Checkout 🛎️
+        uses: actions/checkout@v3
+
+      - name: Setup Node.js ⚙️
+        uses: actions/setup-node@v3
+        with:
+          node-version: 'lts/*'
+
+      - name: Cache dependencies ⚙️
+        uses: actions/cache@v3
+        with:
+          path: ~/.npm
+          key: ${{ runner.os }}-node-${{ hashFiles('**/package-lock.json') }}
+          restore-keys: |
+            ${{ runner.os }}-node-
+
+      - name: Install dependencies 🔀
+        run: npm ci && npm i -g @vercel/ncc
+
+      - name: Run build 🔀
+        run: |
+          npx nx run api:build
+          ncc build dist/apps/api/main.js -o out --debug
+
+      - name: Create Commit 💌
+        run: |
+          git config user.name "${{ github.actor }}"
+          git config user.email "${{ github.actor }}@users.noreply.github.com"
+          git checkout --orphan build-api
+          git add -A
+          git commit -m "Build with ncc" --no-verify
+          git push origin build-api -f
