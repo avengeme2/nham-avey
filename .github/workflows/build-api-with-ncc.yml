@@ -34,12 +34,13 @@ jobs:
           npx nx run api:build
           ncc build dist/apps/api/main.js -o out --debug
 
-      - name: Create Commit 💌
+      - name: Create Commit and push to build-api branch 💌
         run: |
           git config user.name "${{ github.actor }}"
           git config user.email "${{ github.actor }}@users.noreply.github.com"
           git branch -D build-api &>/dev/null || true
           git checkout --orphan build-api
+          git rm --cached -r .
           git add out
           git commit -m "Build with ncc" --no-verify
           git push origin build-api -f
