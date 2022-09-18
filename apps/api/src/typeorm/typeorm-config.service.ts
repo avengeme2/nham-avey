@@ -63,10 +63,8 @@ export class TypeormConfigService implements TypeOrmOptionsFactory {
       }),
       cache: {
         duration: 1500, // override default 1000ms
-        type: 'redis',
-        options: {
-          url: this.config.get('REDIS_URL'),
-        },
+        type: 'ioredis',
+        options: this.config.get('REDIS_URL'),
       },
     }
   }
