@@ -10,7 +10,7 @@
     "plugin:@typescript-eslint/recommended",
     "plugin:prettier/recommended"
   ],
-  "ignorePatterns": ["!**/*", "**/__generated__/**"],
+  "ignorePatterns": ["!**/*", "**/__generated__/**", "**/.next/**"],
   "settings": {
     "react": {
       "version": "detect"
@@ -26,7 +26,10 @@
     {
       "files": ["*.ts", "*.tsx", "*.js", "*.jsx"],
       "rules": {
-        "@next/next/no-html-link-for-pages": ["error", "apps/web-client/src/pages"]
+        "@next/next/no-html-link-for-pages": [
+          "error",
+          "apps/web-client/src/pages"
+        ]
       }
     },
     {

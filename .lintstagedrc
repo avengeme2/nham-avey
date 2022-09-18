@@ -1,3 +1,6 @@
 {
-  "*.{js,jsx,ts,tsx,json,mdx}": "npx nx affected --target=lint --all --fix=true"
+  "*": [
+    "npx nx@latest affected:lint --fix --files",
+    "npx nx@latest format:write --files"
+  ]
 }

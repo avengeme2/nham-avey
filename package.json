@@ -8,7 +8,6 @@
     "test": "nx test",
     "serve-client": "nx run web-client:serve",
     "serve-bo": "nx run web-backoffice:serve",
-    "heroku-postbuild": "nx build api --prod",
     "prepare": "husky install"
   },
   "fig": {
