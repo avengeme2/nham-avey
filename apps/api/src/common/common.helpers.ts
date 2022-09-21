@@ -9,12 +9,9 @@ import {
 } from 'src/common/constants/common.constants'
 
 export const createSwagger = async (app: INestApplication) => {
-  const css = await readFile(
-    'apps/api/src/assets/swagger-ui-theme-material.css',
-    {
-      encoding: 'utf-8',
-    },
-  )
+  const css = await readFile('assets/swagger-ui-theme-material.css', {
+    encoding: 'utf-8',
+  })
 
   const swaggerConfig = new DocumentBuilder()
     .setTitle('Nham Avey API Documentation')
