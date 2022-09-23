@@ -1,4 +1,5 @@
 import { readFile } from 'fs/promises'
+import { join } from 'path'
 
 import { INestApplication } from '@nestjs/common'
 import { DocumentBuilder, SwaggerModule } from '@nestjs/swagger'
@@ -8,11 +9,26 @@ import {
   SWAGGER_PATH,
 } from 'src/common/constants/common.constants'
 
-export const createSwagger = async (app: INestApplication) => {
-  const css = await readFile('assets/swagger-ui-theme-material.css', {
-    encoding: 'utf-8',
-  })
+const getSwaggerCss = async () => {
+  try {
+    return await readFile(
+      join(process.cwd(), 'assets/swagger-ui-theme-material.css'),
+      {
+        encoding: 'utf-8',
+      },
+    )
+  } catch (error) {
+    return readFile(
+      join(process.cwd(), 'apps/api/src/assets/swagger-ui-theme-material.css'),
+      {
+        encoding: 'utf-8',
+      },
+    )
+  }
+}
 
+export const createSwagger = async (app: INestApplication) => {
+  const css = await getSwaggerCss()
   const swaggerConfig = new DocumentBuilder()
     .setTitle('Nham Avey API Documentation')
     .setDescription('')
