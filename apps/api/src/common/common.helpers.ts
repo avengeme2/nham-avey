@@ -12,14 +12,17 @@ import {
 const getSwaggerCss = async () => {
   try {
     return await readFile(
-      join(process.cwd(), 'assets/swagger-ui-theme-material.css'),
+      join(process.cwd(), 'assets/swagger-ui-theme-amplication.css'),
       {
         encoding: 'utf-8',
       },
     )
   } catch (error) {
     return readFile(
-      join(process.cwd(), 'apps/api/src/assets/swagger-ui-theme-material.css'),
+      join(
+        process.cwd(),
+        'apps/api/src/assets/swagger-ui-theme-amplication.css',
+      ),
       {
         encoding: 'utf-8',
       },
