@@ -1,4 +1,4 @@
-name: Upgrade NPM packages
+name: Sync NPM packages
 
 on:
   push:
