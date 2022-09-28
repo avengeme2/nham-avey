@@ -1,9 +1,9 @@
 name: Sync NPM packages
 
 on:
-  push:
-    branches:
-      - 'dependabot/**'
+#   push:
+#     branches:
+#       - 'dependabot/**'
   workflow_dispatch:
 
 jobs:
