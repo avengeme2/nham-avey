@@ -1,10 +1,10 @@
-name: Upgrade NPM packages
+name: Upgrade NPM packages with pr
 
 on:
-  push:
-    branches:
-      - 'dependabot/**'
   workflow_dispatch:
+
+  schedule:
+    - cron: "0 0 * * *"
 
 jobs:
   upgrade-packages:
@@ -36,11 +36,17 @@ jobs:
           npm i
           npm i
 
-      - name: Create Commit and Push 💌
+      - name: Create Commit 💌
         run: |
           git config user.name "${{ github.actor }}"
           git config user.email "${{ github.actor }}@users.noreply.github.com"
           git add -A
           git commit -m "build(deps): upgrade NPM packages (automated)" --no-verify
-          git push origin ${{ github.head_ref || github.ref_name }}
 
+      - name: Create PR 🔀
+        uses: peter-evans/create-pull-request@v4
+        with:
+          title: "build(deps): Upgrade NPM packages (automated)"
+          branch: "build-deps-upgrade-npm-packages-automated"
+          commit-message: "build(deps): upgrade NPM packages (automated)"
+          labels: "dependencies"
