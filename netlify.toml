@@ -1,6 +1,0 @@
-[[plugins]]
-  package = "@netlify/plugin-nextjs"
-
-[build]
-  publish = "dist/apps/web-client/.next"
-  command = "npx nx run web-client:build"
