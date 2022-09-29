@@ -1,11 +1,12 @@
 import { Injectable } from '@nestjs/common'
 import { InjectRepository } from '@nestjs/typeorm'
 import { UserRecord } from 'firebase-admin/auth'
-import { CoreOutput } from 'src/common/dtos/output.dto'
-import { Dish } from 'src/dishes/dish.entity'
-import { CreateDishInput, DishOutput, UpdateDishInput } from 'src/dishes/dto'
-import { Restaurant } from 'src/restaurants/entities/restaurant.entity'
 import { Repository } from 'typeorm'
+
+import { CoreOutput } from '../common/dtos/output.dto'
+import { Restaurant } from '../restaurants/entities/restaurant.entity'
+import { Dish } from './dish.entity'
+import { CreateDishInput, DishOutput, UpdateDishInput } from './dto'
 
 @Injectable()
 export class DishService {

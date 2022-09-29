@@ -6,9 +6,10 @@ import { useForm } from 'react-hook-form'
 import * as yup from 'yup'
 
 import { useSignInWithEmailAndPassword } from '@nham-avey/common'
-import { FormError } from 'src/components/form-error'
-import useRedirectOnAuthed from 'src/hooks/use-redirect-on-authed'
-import firebaseService from 'src/services/firebase-services'
+
+import { FormError } from '../components/form-error'
+import { useRedirectOnAuthed } from '../hooks/use-redirect-on-authed'
+import firebaseService from '../services/firebase-services'
 
 const schema = yup.object().shape({
   email: yup.string().email().required(),

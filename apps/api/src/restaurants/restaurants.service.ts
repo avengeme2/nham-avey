@@ -2,12 +2,16 @@ import { Injectable } from '@nestjs/common'
 import { InjectRepository } from '@nestjs/typeorm'
 import { DecodedIdToken, UserRecord } from 'firebase-admin/auth'
 import slugify from 'slugify'
-import { CategoryService } from 'src/categories/categories.service'
-import { CategoryRequest } from 'src/categories/category.interface'
-import { CityService } from 'src/cities/cities.service'
-import { CoreOutput } from 'src/common/dtos/output.dto'
-import { PaginationWithSearchArgs } from 'src/common/dtos/pagination.dto'
-import { ImageService } from 'src/images/images.service'
+import { Any, Repository } from 'typeorm'
+
+import { CategoryService } from '../categories/categories.service'
+import { CategoryRequest } from '../categories/category.interface'
+import { CityService } from '../cities/cities.service'
+import { CoreOutput } from '../common/dtos/output.dto'
+import { PaginationWithSearchArgs } from '../common/dtos/pagination.dto'
+import { ImageService } from '../images/images.service'
+import { UserRole } from '../users/entities/user.entity'
+import { UserService } from '../users/users.service'
 import {
   AdminCreateRestaurantInput,
   AdminUpdateRestaurantInput,
@@ -19,15 +23,12 @@ import {
   RestaurantOutput,
   VendorCreateRestaurantInput,
   VendorUpdateRestaurantInput,
-} from 'src/restaurants/dtos'
+} from './dtos'
 import {
   AllRestaurantsSlugArgs,
   AllRestaurantsSlugOutput,
-} from 'src/restaurants/dtos/all-restaurants-slug.dto'
-import { Restaurant } from 'src/restaurants/entities/restaurant.entity'
-import { UserRole } from 'src/users/entities/user.entity'
-import { UserService } from 'src/users/users.service'
-import { Any, Repository } from 'typeorm'
+} from './dtos/all-restaurants-slug.dto'
+import { Restaurant } from './entities/restaurant.entity'
 
 @Injectable()
 export class RestaurantService {

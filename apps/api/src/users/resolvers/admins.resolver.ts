@@ -1,6 +1,7 @@
 import { Args, Mutation, Query, Resolver } from '@nestjs/graphql'
-import { Roles } from 'src/auth/role.decorator'
-import { UserRole } from 'src/users/entities/user.entity'
+
+import { Roles } from '../../auth/role.decorator'
+import { UserRole } from '../entities/user.entity'
 import {
   AdminUpdateUserInput,
   AdminUpdateUserOutput,
@@ -10,8 +11,8 @@ import {
   PaginatedUsersOutput,
   PaginationUserArgs,
   UserArgs,
-} from 'src/users/users.dto'
-import { UserService } from 'src/users/users.service'
+} from '../users.dto'
+import { UserService } from '../users.service'
 
 @Resolver()
 export class AdminResolver {

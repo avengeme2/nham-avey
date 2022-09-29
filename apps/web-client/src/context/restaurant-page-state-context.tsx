@@ -10,7 +10,8 @@ import {
 import { QueryResult } from '@apollo/client'
 
 import { RestaurantsQuery, RestaurantsQueryVariables } from '@nham-avey/common'
-import { DEFAULT_PAGE_STATE } from 'src/constants/common-constants'
+
+import { DEFAULT_PAGE_STATE } from '../constants/common-constants'
 
 export interface PageState {
   page: number

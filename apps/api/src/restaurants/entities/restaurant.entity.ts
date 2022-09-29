@@ -1,15 +1,5 @@
 import { Field, InputType, ObjectType } from '@nestjs/graphql'
 import { IsOptional, IsString } from 'class-validator'
-import { Category } from 'src/categories/category.entity'
-import { City } from 'src/cities/city.entity'
-import { CoreEntity } from 'src/common/entities/core.entity'
-import { Dish } from 'src/dishes/dish.entity'
-import { Image } from 'src/images/entities/image.entity'
-import { Location } from 'src/locations/location.entity'
-import { Order } from 'src/orders/entities/order.entity'
-import { OpeningHours } from 'src/restaurants/entities/opening-hours.entity'
-import { Review } from 'src/restaurants/entities/review.entity'
-import { User } from 'src/users/entities/user.entity'
 import {
   Column,
   Entity,
@@ -21,6 +11,17 @@ import {
   OneToOne,
   RelationId,
 } from 'typeorm'
+
+import { Category } from '../../categories/category.entity'
+import { City } from '../../cities/city.entity'
+import { CoreEntity } from '../../common/entities/core.entity'
+import { Dish } from '../../dishes/dish.entity'
+import { Image } from '../../images/entities/image.entity'
+import { Location } from '../../locations/location.entity'
+import { Order } from '../../orders/entities/order.entity'
+import { User } from '../../users/entities/user.entity'
+import { OpeningHours } from './opening-hours.entity'
+import { Review } from './review.entity'
 
 /**
  * @todo add additional info like this

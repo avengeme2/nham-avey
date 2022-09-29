@@ -1,7 +1,7 @@
 import { ReactNode } from 'react'
 
-import Footer from 'src/components/layout/footer'
-import { Header } from 'src/components/layout/header'
+import { Footer } from './footer'
+import { Header } from './header'
 
 interface AuthedLayoutProps {
   children: ReactNode

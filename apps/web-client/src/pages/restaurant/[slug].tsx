@@ -8,8 +8,9 @@ import {
   RestaurantBySlugQuery,
   RestaurantBySlugQueryVariables,
 } from '@nham-avey/common'
-import RestaurantPage from 'src/components/pages/restaurant-page/restaurant-page'
-import { addApolloState, initializeApollo } from 'src/graphql/apollo-config'
+
+import { RestaurantPage } from '../../components/pages/restaurant-page/restaurant-page'
+import { addApolloState, initializeApollo } from '../../graphql/apollo-config'
 
 export const getStaticProps = async ({ params }: GetStaticPropsContext) => {
   const apolloClient = initializeApollo()

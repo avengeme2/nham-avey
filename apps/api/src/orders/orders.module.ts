@@ -1,12 +1,13 @@
 import { Module } from '@nestjs/common'
 import { TypeOrmModule } from '@nestjs/typeorm'
-import { Dish } from 'src/dishes/dish.entity'
-import { OrderItem } from 'src/orders/entities/order-item.entity'
-import { Order } from 'src/orders/entities/order.entity'
-import { OrderResolver } from 'src/orders/orders.resolver'
-import { OrderService } from 'src/orders/orders.service'
-import { Restaurant } from 'src/restaurants/entities/restaurant.entity'
-import { UsersModule } from 'src/users/users.module'
+
+import { Dish } from '../dishes/dish.entity'
+import { Restaurant } from '../restaurants/entities/restaurant.entity'
+import { UsersModule } from '../users/users.module'
+import { OrderItem } from './entities/order-item.entity'
+import { Order } from './entities/order.entity'
+import { OrderResolver } from './orders.resolver'
+import { OrderService } from './orders.service'
 
 @Module({
   imports: [

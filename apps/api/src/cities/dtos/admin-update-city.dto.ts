@@ -6,8 +6,9 @@ import {
   PartialType,
   PickType,
 } from '@nestjs/graphql'
-import { City } from 'src/cities/city.entity'
-import { CoreOutput } from 'src/common/dtos/output.dto'
+
+import { CoreOutput } from '../../common/dtos/output.dto'
+import { City } from '../city.entity'
 
 @InputType()
 export class AdminUpdateCityInput extends PartialType(

@@ -4,8 +4,9 @@ import {
   Injectable,
   PipeTransform,
 } from '@nestjs/common'
-import { getFileExtension } from 'src/common/common.helpers'
-import { imageExtensions } from 'src/common/constants/image-extension.constant'
+
+import { getFileExtension } from '../common.helpers'
+import { imageExtensions } from '../constants/image-extension.constant'
 
 const DEFAULT_MAX_FILE_SIZE = 10 * 1024 * 1024
 

@@ -10,7 +10,8 @@ import {
   useCategoriesQuery,
   useRestaurantsQuery,
 } from '@nham-avey/common'
-import RestaurantCard from 'src/components/cards/restaurant-card'
+
+import { RestaurantCard } from '../../components/cards/restaurant-card'
 
 interface PageState {
   page: number

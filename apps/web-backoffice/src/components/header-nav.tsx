@@ -2,10 +2,10 @@ import { MenuFoldOutlined, MenuUnfoldOutlined } from '@ant-design/icons'
 import { Grid, Layout } from 'antd'
 import Clock from 'react-live-clock'
 import { Link } from 'react-router-dom'
-import Logo from 'src/components/logo'
-import useThemeActions from 'src/hooks/redux/use-theme-actions'
-import { useTypedSelector } from 'src/hooks/redux/use-typed-selector'
 
+import { useThemeActions } from '../hooks/redux/use-theme-actions'
+import { useTypedSelector } from '../hooks/redux/use-typed-selector'
+import { Logo } from './logo'
 import { NavProfile } from './nav-profile'
 
 const { Header } = Layout

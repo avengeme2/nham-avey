@@ -4,7 +4,8 @@ import {
   Category,
 } from '@nham-avey/common'
 import { Drawer } from 'antd'
-import UpdateCategoryForm from 'src/components/form/update-category-form'
+
+import { UpdateCategoryForm } from '../form/update-category-form'
 
 interface UpdateCategoryDrawerProps {
   visible: boolean

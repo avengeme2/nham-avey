@@ -3,7 +3,8 @@ import {
   useAdminCreateRestaurantMutation,
 } from '@nham-avey/common'
 import { Drawer } from 'antd'
-import CreateRestaurantForm from 'src/components/form/create-restaurant-form'
+
+import { CreateRestaurantForm } from '../form/create-restaurant-form'
 
 interface CreateRestaurantDrawerProps {
   visible: boolean

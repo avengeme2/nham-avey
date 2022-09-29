@@ -1,9 +1,10 @@
 import { Module } from '@nestjs/common'
 import { TypeOrmModule } from '@nestjs/typeorm'
-import { Dish } from 'src/dishes/dish.entity'
-import { DishResolver } from 'src/dishes/dishes.resolver'
-import { DishService } from 'src/dishes/dishes.service'
-import { Restaurant } from 'src/restaurants/entities/restaurant.entity'
+
+import { Restaurant } from '../restaurants/entities/restaurant.entity'
+import { Dish } from './dish.entity'
+import { DishResolver } from './dishes.resolver'
+import { DishService } from './dishes.service'
 
 @Module({
   imports: [TypeOrmModule.forFeature([Dish, Restaurant])],

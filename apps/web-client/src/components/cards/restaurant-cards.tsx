@@ -1,7 +1,8 @@
 import { memo } from 'react'
 
 import { Restaurant } from '@nham-avey/common'
-import RestaurantCard from 'src/components/cards/restaurant-card'
+
+import { RestaurantCard } from './restaurant-card'
 
 interface RestaurantCardsProps {
   restaurants: Restaurant[]

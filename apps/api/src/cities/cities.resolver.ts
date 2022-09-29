@@ -8,10 +8,15 @@ import {
   Resolver,
 } from '@nestjs/graphql'
 import { DecodedIdToken } from 'firebase-admin/auth'
-import { GraphqlAuthUser } from 'src/auth/graphql-auth-user.decorator'
-import { Roles } from 'src/auth/role.decorator'
-import { CityService } from 'src/cities/cities.service'
-import { City } from 'src/cities/city.entity'
+
+import { GraphqlAuthUser } from '../auth/graphql-auth-user.decorator'
+import { Roles } from '../auth/role.decorator'
+import { IdArg } from '../common/dtos/id.dto'
+import { CoreOutput } from '../common/dtos/output.dto'
+import { PaginationWithSearchArgs } from '../common/dtos/pagination.dto'
+import { UserRole } from '../users/entities/user.entity'
+import { CityService } from './cities.service'
+import { City } from './city.entity'
 import {
   PaginationCitiesOutput,
   AdminCreateCityOutput,
@@ -19,11 +24,7 @@ import {
   AdminUpdateCityOutput,
   AllCitiesOutput,
   AdminUpdateCityInput,
-} from 'src/cities/dtos'
-import { IdArg } from 'src/common/dtos/id.dto'
-import { CoreOutput } from 'src/common/dtos/output.dto'
-import { PaginationWithSearchArgs } from 'src/common/dtos/pagination.dto'
-import { UserRole } from 'src/users/entities/user.entity'
+} from './dtos'
 
 @Resolver(of => City)
 export class CityResolver {

@@ -12,9 +12,10 @@ import { Button, Form, Input, Select, Upload, UploadFile } from 'antd'
 import ImgCrop from 'antd-img-crop'
 import { UploadChangeParam } from 'antd/es/upload'
 import { UploadProps } from 'antd/es/upload/interface'
-import { DebouncedSelect } from 'src/components/form-elements/DebouncedSelect'
-import { SelectOption } from 'src/typing/common-type'
-import { antUploadCustomRequestWithCompression } from 'src/utils/common-utils'
+
+import { SelectOption } from '../../typing/common-type'
+import { antUploadCustomRequestWithCompression } from '../../utils/common-utils'
+import { DebouncedSelect } from '../form-elements/DebouncedSelect'
 
 const { useForm } = Form
 

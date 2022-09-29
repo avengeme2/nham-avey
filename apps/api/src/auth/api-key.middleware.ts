@@ -6,7 +6,8 @@ import {
 } from '@nestjs/common'
 import { ConfigService } from '@nestjs/config'
 import { NextFunction, Request, Response } from 'express'
-import { API_KEY_HEADER } from 'src/common/constants/common.constants'
+
+import { API_KEY_HEADER } from '../common/constants/common.constants'
 
 @Injectable()
 export class ApiKeyMiddleware implements NestMiddleware {

@@ -1,7 +1,8 @@
 import { Avatar } from 'antd'
 import initials from 'initials'
 import { LazyLoadImage } from 'react-lazy-load-image-component'
-import BlurhashPlaceholder from 'src/components/blurhash-placeholder'
+
+import { BlurhashPlaceholder } from './blurhash-placeholder'
 
 interface LazyAvatarProps {
   photoUrl?: string
@@ -11,7 +12,7 @@ interface LazyAvatarProps {
   size?: number
 }
 
-const LazyAvatar = ({
+export const LazyAvatar = ({
   photoUrl,
   alt,
   blurhash = '',

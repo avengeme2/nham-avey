@@ -7,12 +7,13 @@ import {
   PickType,
 } from '@nestjs/graphql'
 import { MinLength } from 'class-validator'
-import { CoreOutput } from 'src/common/dtos/output.dto'
+
+import { CoreOutput } from '../common/dtos/output.dto'
 import {
   PaginationOutput,
   PaginationWithSearchArgs,
-} from 'src/common/dtos/pagination.dto'
-import { User, UserRole } from 'src/users/entities/user.entity'
+} from '../common/dtos/pagination.dto'
+import { User, UserRole } from './entities/user.entity'
 
 @ArgsType()
 export class PaginationUserArgs extends PaginationWithSearchArgs {

@@ -2,8 +2,8 @@ import { lazy } from 'react'
 
 import { Navigate, RouteObject } from 'react-router-dom'
 
-const RestaurantsPage = lazy(() => import('src/pages/restaurants-page'))
-const CategoriesPage = lazy(() => import('src/pages/categories-page'))
+const RestaurantsPage = lazy(() => import('../pages/restaurants-page'))
+const CategoriesPage = lazy(() => import('../pages/categories-page'))
 
 const restaurantRoute: RouteObject[] = [
   {

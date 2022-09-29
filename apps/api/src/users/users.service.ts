@@ -1,8 +1,11 @@
 import { Injectable } from '@nestjs/common'
 import { InjectRepository } from '@nestjs/typeorm'
 import { CreateRequest, UserRecord } from 'firebase-admin/auth'
-import { FirebaseAuthenticationService } from 'src/firebase-admin/services/firebase-admin-authentication.service'
-import { User, UserRole } from 'src/users/entities/user.entity'
+import { In, Repository } from 'typeorm'
+import { DeepPartial } from 'typeorm/common/DeepPartial'
+
+import { FirebaseAuthenticationService } from '../firebase-admin/services/firebase-admin-authentication.service'
+import { User, UserRole } from './entities/user.entity'
 import {
   AdminUpdateUserInput,
   AdminUpdateUserOutput,
@@ -15,9 +18,7 @@ import {
   SignUpAccountOutput,
   UpdateProfileInput,
   UpdateProfileOutput,
-} from 'src/users/users.dto'
-import { In, Repository } from 'typeorm'
-import { DeepPartial } from 'typeorm/common/DeepPartial'
+} from './users.dto'
 
 @Injectable()
 export class UserService {

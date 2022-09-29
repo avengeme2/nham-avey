@@ -1,9 +1,10 @@
 import { Field, InputType, ObjectType } from '@nestjs/graphql'
 import { IsOptional, IsString } from 'class-validator'
-import { CoreEntity } from 'src/common/entities/core.entity'
-import { Location } from 'src/locations/location.entity'
-import { Restaurant } from 'src/restaurants/entities/restaurant.entity'
 import { Column, Entity, JoinColumn, OneToMany, OneToOne } from 'typeorm'
+
+import { CoreEntity } from '../common/entities/core.entity'
+import { Location } from '../locations/location.entity'
+import { Restaurant } from '../restaurants/entities/restaurant.entity'
 
 @InputType('CityInputType', { isAbstract: true })
 @ObjectType()

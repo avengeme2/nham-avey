@@ -10,7 +10,8 @@ import { WebSocketLink } from '@apollo/client/link/ws'
 import { getMainDefinition } from '@apollo/client/utilities'
 import { onError } from '@apollo/link-error'
 import { notification } from 'antd'
-import firebaseService from 'src/services/firebase-service'
+
+import firebaseService from '../services/firebase-service'
 
 const getBearerToken = async () => {
   try {

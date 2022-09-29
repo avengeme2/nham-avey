@@ -1,6 +1,7 @@
 import { Field, ObjectType } from '@nestjs/graphql'
-import { CoreOutput } from 'src/common/dtos/output.dto'
-import { Dish } from 'src/dishes/dish.entity'
+
+import { CoreOutput } from '../../common/dtos/output.dto'
+import { Dish } from '../dish.entity'
 
 @ObjectType()
 export class DishOutput extends CoreOutput {

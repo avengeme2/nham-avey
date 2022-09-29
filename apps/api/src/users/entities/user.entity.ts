@@ -6,11 +6,12 @@ import {
   IsString,
   IsOptional,
 } from 'class-validator'
-import { CoreWithoutIdEntity } from 'src/common/entities/core.entity'
-import { Order } from 'src/orders/entities/order.entity'
-import { Payment } from 'src/payments/payment.entity'
-import { Restaurant } from 'src/restaurants/entities/restaurant.entity'
 import { Column, Entity, ManyToMany, OneToMany, PrimaryColumn } from 'typeorm'
+
+import { CoreWithoutIdEntity } from '../../common/entities/core.entity'
+import { Order } from '../../orders/entities/order.entity'
+import { Payment } from '../../payments/payment.entity'
+import { Restaurant } from '../../restaurants/entities/restaurant.entity'
 
 export enum UserRole {
   Admin = 'Admin',

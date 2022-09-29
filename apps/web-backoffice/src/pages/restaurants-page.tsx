@@ -28,12 +28,13 @@ import {
 import { ColumnsType } from 'antd/lib/table/interface'
 import moment from 'moment'
 import { Helmet } from 'react-helmet-async'
-import AvatarInfo from 'src/components/avatar-info'
-import CreateRestaurantDrawer from 'src/components/drawers/create-restaurant-drawer'
-import UpdateRestaurantDrawer from 'src/components/drawers/update-restaurant-drawer'
-import { APP_NAME } from 'src/config/app-config'
-import { TableType } from 'src/typing/common-type'
 import { useDebouncedCallback } from 'use-debounce'
+
+import { AvatarInfo } from '../components/avatar-info'
+import { CreateRestaurantDrawer } from '../components/drawers/create-restaurant-drawer'
+import { UpdateRestaurantDrawer } from '../components/drawers/update-restaurant-drawer'
+import { APP_NAME } from '../config/app-config'
+import { TableType } from '../typing/common-type'
 
 const { confirm } = Modal
 

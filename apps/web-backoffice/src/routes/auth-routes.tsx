@@ -1,12 +1,13 @@
 import { lazy } from 'react'
 
 import { RouteObject, Navigate } from 'react-router-dom'
-import AuthLayout from 'src/components/layout/auth-layout'
-import { AUTH_PREFIX_PATH } from 'src/config/app-config'
 
-const SignInPage = lazy(() => import('src/pages/sign-in-page'))
+import { AuthLayout } from '../components/layout/auth-layout'
+import { AUTH_PREFIX_PATH } from '../config/app-config'
 
-const authRoutes: RouteObject[] = [
+const SignInPage = lazy(() => import('../pages/sign-in-page'))
+
+export const authRoutes: RouteObject[] = [
   {
     path: '*',
     element: <Navigate to={AUTH_PREFIX_PATH} />,

@@ -1,4 +1,4 @@
-import { ThemeState } from 'src/redux/slice/theme-slice'
+import { ThemeState } from '../redux/slice/theme-slice'
 
 export const APP_NAME = 'Nham Avey BO'
 export const APP_PREFIX_PATH = 'app'

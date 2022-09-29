@@ -3,7 +3,8 @@ import {
   useAdminCreateAdminMutation,
 } from '@nham-avey/common'
 import { Drawer } from 'antd'
-import CreateAdminForm from 'src/components/form/create-admin-form'
+
+import { CreateAdminForm } from '../form/create-admin-form'
 
 interface CreateAdminDrawerProps {
   visible: boolean

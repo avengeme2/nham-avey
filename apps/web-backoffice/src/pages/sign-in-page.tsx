@@ -1,9 +1,10 @@
 import { Col, Row } from 'antd'
 import Lottie from 'lottie-react'
 import { Helmet } from 'react-helmet-async'
-import adminLottie from 'src/assets/lottie/66374-lottie-admin.json'
-import { SignInForm } from 'src/components/form/sign-in-form'
-import { APP_NAME } from 'src/config/app-config'
+
+import adminLottie from '../assets/lottie/66374-lottie-admin.json'
+import { SignInForm } from '../components/form/sign-in-form'
+import { APP_NAME } from '../config/app-config'
 
 const PAGE_TITLE = `${APP_NAME} - Login`
 

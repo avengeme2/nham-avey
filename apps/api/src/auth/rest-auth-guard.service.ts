@@ -5,9 +5,10 @@ import {
   Injectable,
 } from '@nestjs/common'
 import { Reflector } from '@nestjs/core'
-import { RequestWithUser } from 'src/auth/auth.middleware'
-import { FirebaseAuthenticationService } from 'src/firebase-admin/services/firebase-admin-authentication.service'
-import { UserRole } from 'src/users/entities/user.entity'
+
+import { FirebaseAuthenticationService } from '../firebase-admin/services/firebase-admin-authentication.service'
+import { UserRole } from '../users/entities/user.entity'
+import { RequestWithUser } from './auth.middleware'
 
 @Injectable()
 export class RestAuthGuard implements CanActivate {

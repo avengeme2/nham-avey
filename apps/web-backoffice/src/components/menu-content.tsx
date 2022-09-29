@@ -4,11 +4,12 @@ import { QuestionOutlined, UserOutlined } from '@ant-design/icons'
 import { Grid, Menu } from 'antd'
 import { ItemType } from 'antd/lib/menu/hooks/useItems'
 import { useNavigate } from 'react-router-dom'
-import useThemeActions from 'src/hooks/redux/use-theme-actions'
+
+import { useThemeActions } from '../hooks/redux/use-theme-actions'
 
 const { useBreakpoint } = Grid
 
-const MenuContent = () => {
+export const MenuContent = () => {
   const navigate = useNavigate()
   const breakpoint = useBreakpoint()
   const { toggleMobileNav } = useThemeActions()

@@ -4,8 +4,9 @@ import { InjectRepository } from '@nestjs/typeorm'
 import { encode } from 'blurhash'
 import { firstValueFrom } from 'rxjs'
 import * as sharp from 'sharp'
-import { Image } from 'src/images/entities/image.entity'
 import { Repository } from 'typeorm'
+
+import { Image } from './entities/image.entity'
 
 @Injectable()
 export class ImageService {

@@ -1,12 +1,13 @@
 import { Args, Mutation, Resolver } from '@nestjs/graphql'
 import { DecodedIdToken } from 'firebase-admin/auth'
-import { GraphqlAuthUser } from 'src/auth/graphql-auth-user.decorator'
-import { Roles } from 'src/auth/role.decorator'
-import { IdArg } from 'src/common/dtos/id.dto'
-import { CoreOutput } from 'src/common/dtos/output.dto'
-import { DishService } from 'src/dishes/dishes.service'
-import { DishOutput, CreateDishInput, UpdateDishInput } from 'src/dishes/dto'
-import { UserRole } from 'src/users/entities/user.entity'
+
+import { GraphqlAuthUser } from '../auth/graphql-auth-user.decorator'
+import { Roles } from '../auth/role.decorator'
+import { IdArg } from '../common/dtos/id.dto'
+import { CoreOutput } from '../common/dtos/output.dto'
+import { UserRole } from '../users/entities/user.entity'
+import { DishService } from './dishes.service'
+import { DishOutput, CreateDishInput, UpdateDishInput } from './dto'
 
 @Resolver()
 export class DishResolver {

@@ -34,6 +34,7 @@
 .env.example text eol=lf
 .eslintignore text eol=lf
 .eslintrc text eol=lf
+.nvmrc text eol=lf
 yarn.lock text eol=lf
 Procfile text eol=lf
 

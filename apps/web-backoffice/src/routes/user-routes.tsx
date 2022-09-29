@@ -2,10 +2,10 @@ import { lazy } from 'react'
 
 import { Navigate, RouteObject } from 'react-router-dom'
 
-const AdminsPage = lazy(() => import('src/pages/admins-page'))
-const VendorsPage = lazy(() => import('src/pages/vendors-page'))
-const CustomersPage = lazy(() => import('src/pages/customers-page'))
-const DriversPage = lazy(() => import('src/pages/drivers-page'))
+const AdminsPage = lazy(() => import('../pages/admins-page'))
+const VendorsPage = lazy(() => import('../pages/vendors-page'))
+const CustomersPage = lazy(() => import('../pages/customers-page'))
+const DriversPage = lazy(() => import('../pages/drivers-page'))
 
 const userRoutes: RouteObject[] = [
   {

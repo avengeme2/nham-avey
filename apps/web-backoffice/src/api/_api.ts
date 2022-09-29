@@ -1,6 +1,6 @@
 import axios from 'axios'
-import firebaseService from 'src/services/firebase-service'
 
+import firebaseService from '../services/firebase-service'
 import { CONTENT_TYPE_JSON } from './api-constants'
 
 const api = axios.create({

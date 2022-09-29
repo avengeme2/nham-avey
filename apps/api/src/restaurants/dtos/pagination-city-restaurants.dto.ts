@@ -1,10 +1,11 @@
 import { ArgsType, Field, ObjectType } from '@nestjs/graphql'
-import { City } from 'src/cities/city.entity'
+
+import { City } from '../../cities/city.entity'
 import {
   PaginationArgs,
   PaginationOutput,
-} from 'src/common/dtos/pagination.dto'
-import { Restaurant } from 'src/restaurants/entities/restaurant.entity'
+} from '../../common/dtos/pagination.dto'
+import { Restaurant } from '../entities/restaurant.entity'
 
 @ArgsType()
 export class PaginationCityRestaurantsArgs extends PaginationArgs {

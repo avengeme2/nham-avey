@@ -1,5 +1,6 @@
 import clsx from 'clsx'
-import LazyAvatar from 'src/components/lazy-avatar'
+
+import { LazyAvatar } from './lazy-avatar'
 
 interface AvatarInfoProps {
   title: string

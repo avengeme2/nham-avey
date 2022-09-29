@@ -1,12 +1,13 @@
 import { useState } from 'react'
 
 import { useFirebaseAuthState, useMeQuery } from '@nham-avey/common'
-import ProfileLinkButton from 'src/components/buttons/profile-link-button'
-import { Hamburger } from 'src/components/hamburger'
-import LogoLink from 'src/components/links/logo-link'
-import LargeScreenMenu from 'src/components/menu/large-screen-menu'
-import SmallScreenMenu from 'src/components/menu/small-screen-menu'
-import firebaseServices from 'src/services/firebase-services'
+
+import firebaseServices from '../../services/firebase-services'
+import { ProfileLinkButton } from '../buttons/profile-link-button'
+import { Hamburger } from '../hamburger'
+import { LogoLink } from '../links/logo-link'
+import { LargeScreenMenu } from '../menu/large-screen-menu'
+import { SmallScreenMenu } from '../menu/small-screen-menu'
 
 const { auth } = firebaseServices
 

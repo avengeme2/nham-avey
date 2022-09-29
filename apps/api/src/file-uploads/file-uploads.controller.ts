@@ -1,9 +1,10 @@
 import { Controller, Post, UploadedFile, UseInterceptors } from '@nestjs/common'
 import { FileInterceptor } from '@nestjs/platform-express'
 import { ApiConsumes, ApiOperation, ApiSecurity } from '@nestjs/swagger'
-import { ApiFileBody } from 'src/common/api-file-body.decorator'
-import { API_KEY_NAME, FILE_KEY } from 'src/common/constants/common.constants'
-import { FileUploadsService } from 'src/file-uploads/file-uploads.service'
+
+import { ApiFileBody } from '../common/api-file-body.decorator'
+import { API_KEY_NAME, FILE_KEY } from '../common/constants/common.constants'
+import { FileUploadsService } from './file-uploads.service'
 
 @ApiSecurity(API_KEY_NAME)
 @Controller('upload')

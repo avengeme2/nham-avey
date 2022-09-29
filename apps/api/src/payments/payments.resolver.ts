@@ -1,15 +1,16 @@
 import { Args, Mutation, Query, Resolver } from '@nestjs/graphql'
 import { DecodedIdToken } from 'firebase-admin/auth'
-import { GraphqlAuthUser } from 'src/auth/graphql-auth-user.decorator'
-import { Roles } from 'src/auth/role.decorator'
-import { Payment } from 'src/payments/payment.entity'
+
+import { GraphqlAuthUser } from '../auth/graphql-auth-user.decorator'
+import { Roles } from '../auth/role.decorator'
+import { UserRole } from '../users/entities/user.entity'
+import { Payment } from './payment.entity'
 import {
   CreatePaymentInput,
   CreatePaymentOutput,
   GetPaymentsOutput,
-} from 'src/payments/payments.dto'
-import { PaymentService } from 'src/payments/payments.service'
-import { UserRole } from 'src/users/entities/user.entity'
+} from './payments.dto'
+import { PaymentService } from './payments.service'
 
 @Resolver(() => Payment)
 export class PaymentResolver {

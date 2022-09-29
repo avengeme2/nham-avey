@@ -3,8 +3,9 @@ import { Inject, Injectable } from '@nestjs/common'
 import axios from 'axios'
 import * as FormData from 'form-data'
 import { firstValueFrom } from 'rxjs'
-import { CONFIG_OPTIONS } from 'src/common/constants/common.constants'
-import { IEmailVar, IMailModuleOptions } from 'src/mail/mail.interfaces'
+
+import { CONFIG_OPTIONS } from '../common/constants/common.constants'
+import { IEmailVar, IMailModuleOptions } from './mail.interfaces'
 
 @Injectable()
 export class MailService {

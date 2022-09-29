@@ -2,8 +2,13 @@ import { Injectable } from '@nestjs/common'
 import { InjectRepository } from '@nestjs/typeorm'
 import { UserRecord } from 'firebase-admin/auth'
 import slugify from 'slugify'
-import { City } from 'src/cities/city.entity'
-import { CityRequest } from 'src/cities/city.interface'
+import { Repository } from 'typeorm'
+
+import { CoreOutput } from '../common/dtos/output.dto'
+import { PaginationWithSearchArgs } from '../common/dtos/pagination.dto'
+import { PaginatedRestaurantsOutput } from '../restaurants/dtos'
+import { City } from './city.entity'
+import { CityRequest } from './city.interface'
 import {
   PaginationCitiesOutput,
   AdminCreateCityOutput,
@@ -11,11 +16,7 @@ import {
   AdminUpdateCityOutput,
   AllCitiesOutput,
   AdminUpdateCityInput,
-} from 'src/cities/dtos'
-import { CoreOutput } from 'src/common/dtos/output.dto'
-import { PaginationWithSearchArgs } from 'src/common/dtos/pagination.dto'
-import { PaginatedRestaurantsOutput } from 'src/restaurants/dtos'
-import { Repository } from 'typeorm'
+} from './dtos'
 
 @Injectable()
 export class CityService {

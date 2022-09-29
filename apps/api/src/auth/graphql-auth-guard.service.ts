@@ -9,10 +9,11 @@ import {
 } from '@nestjs/common'
 import { Reflector } from '@nestjs/core'
 import { GqlExecutionContext } from '@nestjs/graphql'
-import { AuthMiddleware } from 'src/auth/auth.middleware'
-import { AUTHORIZATION_HEADER } from 'src/common/constants/common.constants'
-import { FirebaseAuthenticationService } from 'src/firebase-admin/services/firebase-admin-authentication.service'
-import { UserRole } from 'src/users/entities/user.entity'
+
+import { AUTHORIZATION_HEADER } from '../common/constants/common.constants'
+import { FirebaseAuthenticationService } from '../firebase-admin/services/firebase-admin-authentication.service'
+import { UserRole } from '../users/entities/user.entity'
+import { AuthMiddleware } from './auth.middleware'
 
 @Injectable()
 export class GraphqlAuthGuard implements CanActivate {

@@ -2,8 +2,9 @@ import { Logger, ValidationPipe } from '@nestjs/common'
 import { ConfigService } from '@nestjs/config'
 import { NestFactory } from '@nestjs/core'
 import * as compression from 'compression'
-import { AppModule } from 'src/app/app.module'
-import { createSwagger } from 'src/common/common.helpers'
+
+import { AppModule } from './app/app.module'
+import { createSwagger } from './common/common.helpers'
 
 async function bootstrap() {
   const app = await NestFactory.create(AppModule)

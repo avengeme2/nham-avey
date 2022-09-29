@@ -2,7 +2,7 @@ import React from 'react'
 
 import GoogleMapReact from 'google-map-react'
 
-import LocationMarker from 'src/components/pages/restaurant-page/location-marker'
+import { LocationMarker } from './location-marker'
 
 const defaultProps = {
   center: {

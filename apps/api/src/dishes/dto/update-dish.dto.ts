@@ -1,5 +1,6 @@
 import { Field, InputType, Int, PartialType, PickType } from '@nestjs/graphql'
-import { Dish } from 'src/dishes/dish.entity'
+
+import { Dish } from '../dish.entity'
 
 @InputType()
 export class UpdateDishInput extends PickType(PartialType(Dish), [

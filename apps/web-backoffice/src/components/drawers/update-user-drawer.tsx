@@ -4,7 +4,8 @@ import {
   User,
 } from '@nham-avey/common'
 import { Drawer } from 'antd'
-import UpdateUserForm from 'src/components/form/update-user-form'
+
+import { UpdateUserForm } from '../form/update-user-form'
 
 interface UpdateUserDrawerProps {
   visible: boolean

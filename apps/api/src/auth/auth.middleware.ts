@@ -7,8 +7,9 @@ import {
 } from '@nestjs/common'
 import { NextFunction, Request, Response } from 'express'
 import { DecodedIdToken } from 'firebase-admin/auth'
-import { FirebaseAuthenticationService } from 'src/firebase-admin/services/firebase-admin-authentication.service'
-import { UserRole } from 'src/users/entities/user.entity'
+
+import { FirebaseAuthenticationService } from '../firebase-admin/services/firebase-admin-authentication.service'
+import { UserRole } from '../users/entities/user.entity'
 
 export interface UserClaims extends DecodedIdToken {
   roles?: UserRole[]

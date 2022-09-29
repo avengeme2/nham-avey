@@ -1,7 +1,8 @@
 import { Suspense } from 'react'
 
 import { Outlet } from 'react-router-dom'
-import LoadingIndicator from 'src/components/loading-indicator'
+
+import { LoadingIndicator } from '../loading-indicator'
 
 export const AuthLayout = () => {
   return (

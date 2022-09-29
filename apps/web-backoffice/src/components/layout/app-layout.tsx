@@ -3,16 +3,17 @@ import { CSSProperties, Suspense } from 'react'
 import { LoadingOutlined } from '@ant-design/icons'
 import { Grid, Layout, Spin } from 'antd'
 import { Outlet } from 'react-router-dom'
-import Footer from 'src/components/footer'
-import HeaderNav from 'src/components/header-nav'
-import { MobileNav } from 'src/components/mobile-nav'
-import { SideNav } from 'src/components/side-nav'
+
 import {
   HEADER_HEIGHT,
   SIDE_NAV_COLLAPSED_WIDTH,
   SIDE_NAV_WIDTH,
-} from 'src/constants/theme-constants'
-import { useTypedSelector } from 'src/hooks/redux/use-typed-selector'
+} from '../../constants/theme-constants'
+import { useTypedSelector } from '../../hooks/redux/use-typed-selector'
+import { Footer } from '../footer'
+import { HeaderNav } from '../header-nav'
+import { MobileNav } from '../mobile-nav'
+import { SideNav } from '../side-nav'
 
 const { Content } = Layout
 const { useBreakpoint } = Grid

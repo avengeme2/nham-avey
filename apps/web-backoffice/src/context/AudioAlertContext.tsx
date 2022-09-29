@@ -8,7 +8,11 @@ const AudioAlertContext = createContext<AudioAlertContext>({
   playAlert: () => Promise.resolve(),
 })
 
-const AudioAlertContextProvider = ({ children }: { children: ReactNode }) => {
+export const AudioAlertContextProvider = ({
+  children,
+}: {
+  children: ReactNode
+}) => {
   const audio = useRef(new Audio('/assets/sounds/alert.mp3'))
 
   return (
