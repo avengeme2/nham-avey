@@ -1,5 +1,6 @@
 import { ArgsType, Field, Int, ObjectType } from '@nestjs/graphql'
-import { CoreOutput } from 'src/common/dtos/output.dto'
+
+import { CoreOutput } from '../../common/dtos/output.dto'
 
 @ArgsType()
 export class AllRestaurantsSlugArgs {

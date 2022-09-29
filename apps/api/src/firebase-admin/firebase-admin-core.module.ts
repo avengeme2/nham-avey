@@ -1,15 +1,15 @@
 import { Global, Module, DynamicModule, Provider } from '@nestjs/common'
 import { apps } from 'firebase-admin'
 import { App, initializeApp } from 'firebase-admin/app'
-import { FirebaseAuthenticationService } from 'src/firebase-admin/services/firebase-admin-authentication.service'
-import { FirebaseMessagingService } from 'src/firebase-admin/services/firebase-admin-messaging.service'
-import { FirebaseStorageService } from 'src/firebase-admin/services/firebase-admin-storage.service'
 
 import { FIREBASE_ADMIN_MODULE_OPTIONS } from './firebase-admin.constant'
 import {
   FirebaseAdminModuleAsyncOptions,
   FirebaseAdminModuleOptions,
 } from './firebase-admin.interface'
+import { FirebaseAuthenticationService } from './services/firebase-admin-authentication.service'
+import { FirebaseMessagingService } from './services/firebase-admin-messaging.service'
+import { FirebaseStorageService } from './services/firebase-admin-storage.service'
 
 const PROVIDERS = [
   FirebaseAuthenticationService,

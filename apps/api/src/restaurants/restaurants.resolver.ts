@@ -1,11 +1,13 @@
 import { Args, Mutation, Query, Resolver } from '@nestjs/graphql'
 import { DecodedIdToken } from 'firebase-admin/auth'
-import { GraphqlAuthUser } from 'src/auth/graphql-auth-user.decorator'
-import { Roles } from 'src/auth/role.decorator'
-import { IdArg } from 'src/common/dtos/id.dto'
-import { CoreOutput } from 'src/common/dtos/output.dto'
-import { PaginationWithSearchArgs } from 'src/common/dtos/pagination.dto'
-import { SlugArg } from 'src/common/dtos/slug.dto'
+
+import { GraphqlAuthUser } from '../auth/graphql-auth-user.decorator'
+import { Roles } from '../auth/role.decorator'
+import { IdArg } from '../common/dtos/id.dto'
+import { CoreOutput } from '../common/dtos/output.dto'
+import { PaginationWithSearchArgs } from '../common/dtos/pagination.dto'
+import { SlugArg } from '../common/dtos/slug.dto'
+import { UserRole } from '../users/entities/user.entity'
 import {
   AdminCreateRestaurantInput,
   AdminUpdateRestaurantInput,
@@ -17,13 +19,12 @@ import {
   RestaurantOutput,
   VendorCreateRestaurantInput,
   VendorUpdateRestaurantInput,
-} from 'src/restaurants/dtos'
+} from './dtos'
 import {
   AllRestaurantsSlugArgs,
   AllRestaurantsSlugOutput,
-} from 'src/restaurants/dtos/all-restaurants-slug.dto'
-import { RestaurantService } from 'src/restaurants/restaurants.service'
-import { UserRole } from 'src/users/entities/user.entity'
+} from './dtos/all-restaurants-slug.dto'
+import { RestaurantService } from './restaurants.service'
 
 @Resolver()
 export class RestaurantResolver {

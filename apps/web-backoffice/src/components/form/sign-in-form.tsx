@@ -2,7 +2,8 @@ import { LockOutlined, MailOutlined } from '@ant-design/icons'
 import { useSignInWithEmailAndPassword } from '@nham-avey/common'
 import { Alert, Button, Form, Input } from 'antd'
 import { motion } from 'framer-motion'
-import firebaseService from 'src/services/firebase-service'
+
+import firebaseService from '../../services/firebase-service'
 
 const { getErrorMessage, auth } = firebaseService
 

@@ -8,10 +8,15 @@ import {
   Resolver,
 } from '@nestjs/graphql'
 import { DecodedIdToken } from 'firebase-admin/auth'
-import { GraphqlAuthUser } from 'src/auth/graphql-auth-user.decorator'
-import { Roles } from 'src/auth/role.decorator'
-import { CategoryService } from 'src/categories/categories.service'
-import { Category } from 'src/categories/category.entity'
+
+import { GraphqlAuthUser } from '../auth/graphql-auth-user.decorator'
+import { Roles } from '../auth/role.decorator'
+import { IdArg } from '../common/dtos/id.dto'
+import { CoreOutput } from '../common/dtos/output.dto'
+import { PaginationWithSearchArgs } from '../common/dtos/pagination.dto'
+import { UserRole } from '../users/entities/user.entity'
+import { CategoryService } from './categories.service'
+import { Category } from './category.entity'
 import {
   AdminCreateCategoryInput,
   AdminCreateCategoryOutput,
@@ -19,11 +24,7 @@ import {
   AdminUpdateCategoryOutput,
   AllCategoriesOutput,
   PaginationCategoriesOutput,
-} from 'src/categories/dtos'
-import { IdArg } from 'src/common/dtos/id.dto'
-import { CoreOutput } from 'src/common/dtos/output.dto'
-import { PaginationWithSearchArgs } from 'src/common/dtos/pagination.dto'
-import { UserRole } from 'src/users/entities/user.entity'
+} from './dtos'
 
 @Resolver(of => Category)
 export class CategoryResolver {

@@ -1,7 +1,8 @@
 import { isBlurhashValid } from 'blurhash'
 import { Blurhash } from 'react-blurhash'
 import { ErrorBoundary } from 'react-error-boundary'
-import ErrorFallback from 'src/components/error-fallback'
+
+import { ErrorFallback } from './error-fallback'
 
 interface BlurhashPlaceholderProps {
   blurhash?: string
@@ -29,7 +30,7 @@ const DefaultBlurhashPlaceholder = ({
   )
 }
 
-const BlurhashPlaceholder = (props: BlurhashPlaceholderProps) => {
+export const BlurhashPlaceholder = (props: BlurhashPlaceholderProps) => {
   return (
     <ErrorBoundary FallbackComponent={ErrorFallback}>
       <DefaultBlurhashPlaceholder {...props} />

@@ -1,6 +1,7 @@
 import { Args, Mutation, Resolver } from '@nestjs/graphql'
-import { SignUpAccountInput, SignUpAccountOutput } from 'src/users/users.dto'
-import { UserService } from 'src/users/users.service'
+
+import { SignUpAccountInput, SignUpAccountOutput } from '../users.dto'
+import { UserService } from '../users.service'
 
 @Resolver()
 export class VendorResolver {

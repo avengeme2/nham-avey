@@ -4,7 +4,8 @@ import {
   useAdminUpdateRestaurantMutation,
 } from '@nham-avey/common'
 import { Drawer } from 'antd'
-import UpdateRestaurantForm from 'src/components/form/update-restaurant-form'
+
+import { UpdateRestaurantForm } from '../form/update-restaurant-form'
 
 interface UpdateRestaurantDrawerProps {
   restaurant: Restaurant | null

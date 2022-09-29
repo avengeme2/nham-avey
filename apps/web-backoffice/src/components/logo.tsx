@@ -1,7 +1,8 @@
 import clsx from 'clsx'
-import { useTypedSelector } from 'src/hooks/redux/use-typed-selector'
 
-const Logo = () => {
+import { useTypedSelector } from '../hooks/redux/use-typed-selector'
+
+export const Logo = () => {
   const navCollapsed = useTypedSelector(state => state.theme.navCollapsed)
 
   return (

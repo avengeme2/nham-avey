@@ -1,16 +1,17 @@
 import { Injectable } from '@nestjs/common'
 import { Interval } from '@nestjs/schedule'
 import { InjectRepository } from '@nestjs/typeorm'
-import { Payment } from 'src/payments/payment.entity'
+import { Equal, LessThan, Repository } from 'typeorm'
+
+import { Restaurant } from '../restaurants/entities/restaurant.entity'
+import { User } from '../users/entities/user.entity'
+import { UserService } from '../users/users.service'
+import { Payment } from './payment.entity'
 import {
   CreatePaymentInput,
   CreatePaymentOutput,
   GetPaymentsOutput,
-} from 'src/payments/payments.dto'
-import { Restaurant } from 'src/restaurants/entities/restaurant.entity'
-import { User } from 'src/users/entities/user.entity'
-import { UserService } from 'src/users/users.service'
-import { Equal, LessThan, Repository } from 'typeorm'
+} from './payments.dto'
 
 @Injectable()
 export class PaymentService {

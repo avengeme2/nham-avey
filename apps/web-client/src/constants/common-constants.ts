@@ -1,4 +1,4 @@
-import { PageState } from 'src/context/restaurant-page-state-context'
+import { PageState } from '../context/restaurant-page-state-context'
 
 export const APP_NAME = 'Nham Avey'
 

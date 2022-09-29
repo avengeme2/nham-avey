@@ -3,8 +3,8 @@ import { getAuth } from 'firebase/auth'
 import { getMessaging } from 'firebase/messaging'
 import { getMessaging as getMessageSw } from 'firebase/messaging/sw'
 
-import firebaseConfig from 'src/config/firebase-config'
-import { isClient } from 'src/utils/common-utils'
+import firebaseConfig from '../config/firebase-config'
+import { isClient } from '../utils/common-utils'
 
 const app = initializeApp(firebaseConfig)
 

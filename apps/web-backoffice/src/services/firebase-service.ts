@@ -2,7 +2,8 @@ import { FirebaseError, initializeApp } from 'firebase/app'
 import { getAuth } from 'firebase/auth'
 import { getMessaging } from 'firebase/messaging'
 import { getMessaging as getMessageSw } from 'firebase/messaging/sw'
-import firebaseConfig from 'src/config/firebase-config'
+
+import firebaseConfig from '../config/firebase-config'
 
 const firebaseApp = initializeApp(firebaseConfig)
 

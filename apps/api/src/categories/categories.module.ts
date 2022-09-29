@@ -1,8 +1,9 @@
 import { Module } from '@nestjs/common'
 import { TypeOrmModule } from '@nestjs/typeorm'
-import { CategoryService } from 'src/categories/categories.service'
-import { Category } from 'src/categories/category.entity'
-import { CategoryResolver } from 'src/categories/category.resolver'
+
+import { CategoryService } from './categories.service'
+import { Category } from './category.entity'
+import { CategoryResolver } from './category.resolver'
 
 @Module({
   imports: [TypeOrmModule.forFeature([Category])],

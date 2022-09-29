@@ -5,10 +5,10 @@ import { AppProps } from 'next/app'
 import Head from 'next/head'
 import NextNProgress from 'nextjs-progressbar'
 
-import { PRIMARY } from 'src/constants/colors-constants'
-import RestaurantPageStateContextProvider from 'src/context/restaurant-page-state-context'
-import useApollo from 'src/hooks/use-apollo'
-import 'src/styles.css'
+import { PRIMARY } from '../constants/colors-constants'
+import RestaurantPageStateContextProvider from '../context/restaurant-page-state-context'
+import useApollo from '../hooks/use-apollo'
+import '../styles.css'
 
 const queryClient = new QueryClient()
 

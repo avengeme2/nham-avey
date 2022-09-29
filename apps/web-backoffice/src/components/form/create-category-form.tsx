@@ -5,7 +5,8 @@ import { useAdminCreateCategoryMutation } from '@nham-avey/common'
 import { Button, Form, Input, Upload } from 'antd'
 import { UploadChangeParam } from 'antd/es/upload'
 import { UploadProps } from 'antd/es/upload/interface'
-import { antUploadCustom } from 'src/utils/common-utils'
+
+import { antUploadCustom } from '../../utils/common-utils'
 
 const { useForm } = Form
 

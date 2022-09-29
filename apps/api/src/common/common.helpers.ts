@@ -3,11 +3,12 @@ import { join } from 'path'
 
 import { INestApplication } from '@nestjs/common'
 import { DocumentBuilder, SwaggerModule } from '@nestjs/swagger'
+
 import {
   API_KEY_HEADER,
   API_KEY_NAME,
   SWAGGER_PATH,
-} from 'src/common/constants/common.constants'
+} from './constants/common.constants'
 
 const getSwaggerCss = async () => {
   try {

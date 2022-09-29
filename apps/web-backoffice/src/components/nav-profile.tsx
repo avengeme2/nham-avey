@@ -2,8 +2,9 @@ import { EditOutlined, LogoutOutlined } from '@ant-design/icons'
 import { Dropdown, Menu } from 'antd'
 import { deleteToken } from 'firebase/messaging'
 import { useLocation, useNavigate } from 'react-router-dom'
-import AvatarInfo from 'src/components/avatar-info'
-import firebaseService from 'src/services/firebase-service'
+
+import firebaseService from '../services/firebase-service'
+import { AvatarInfo } from './avatar-info'
 
 const MY_PROFILE_PATH = '/app/my-profile'
 

@@ -1,7 +1,8 @@
 import { Field, Float, InputType, ObjectType } from '@nestjs/graphql'
 import { IsNumber } from 'class-validator'
-import { CoreEntity } from 'src/common/entities/core.entity'
 import { Column, Entity } from 'typeorm'
+
+import { CoreEntity } from '../common/entities/core.entity'
 
 @InputType('LocationInputType', { isAbstract: true })
 @ObjectType()

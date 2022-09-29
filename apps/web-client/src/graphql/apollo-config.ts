@@ -11,8 +11,8 @@ import { getMainDefinition } from '@apollo/client/utilities'
 import merge from 'deepmerge'
 import isEqual from 'lodash-es/isEqual'
 
-import firebaseServices from 'src/services/firebase-services'
-import { isClient } from 'src/utils/common-utils'
+import firebaseServices from '../services/firebase-services'
+import { isClient } from '../utils/common-utils'
 
 export const APOLLO_STATE_PROP_NAME = '__APOLLO_STATE__'
 

@@ -1,8 +1,9 @@
 import { UploadProps } from 'antd/es/upload/interface'
 import { AxiosRequestConfig } from 'axios'
 import compressImage from 'browser-image-compression'
-import api from 'src/api/_api'
-import { CONTENT_TYPE_FORM_DATA } from 'src/api/api-constants'
+
+import api from '../api/_api'
+import { CONTENT_TYPE_FORM_DATA } from '../api/api-constants'
 
 export const antUploadCustom: UploadProps['customRequest'] = async options => {
   const { onSuccess, onError, file, onProgress } = options

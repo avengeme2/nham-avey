@@ -7,11 +7,12 @@ import { NextSeo } from 'next-seo'
 import { useRouter } from 'next/router'
 
 import { Restaurant, useRestaurantBySlugQuery } from '@nham-avey/common'
-import DishCard from 'src/components/cards/dish-card'
-import { AuthedLayout } from 'src/components/layout/authed-layout'
-import RestaurantInfo from 'src/components/pages/restaurant-page/restaurant-info'
-import RestaurantMap from 'src/components/pages/restaurant-page/restaurant-map'
-import { APP_NAME } from 'src/constants/common-constants'
+
+import { APP_NAME } from '../../../constants/common-constants'
+import { DishCard } from '../../cards/dish-card'
+import { AuthedLayout } from '../../layout/authed-layout'
+import { RestaurantInfo } from './restaurant-info'
+import { RestaurantMap } from './restaurant-map'
 
 export const RestaurantPage = () => {
   const { query } = useRouter()

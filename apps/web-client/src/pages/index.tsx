@@ -6,9 +6,10 @@ import {
   RestaurantsQuery,
   RestaurantsQueryVariables,
 } from '@nham-avey/common'
-import HomePage, { CATEGORIES_VARIABLES } from 'src/components/pages/homepage'
-import { DEFAULT_PAGE_STATE } from 'src/constants/common-constants'
-import { addApolloState, initializeApollo } from 'src/graphql/apollo-config'
+
+import HomePage, { CATEGORIES_VARIABLES } from '../components/pages/homepage'
+import { DEFAULT_PAGE_STATE } from '../constants/common-constants'
+import { addApolloState, initializeApollo } from '../graphql/apollo-config'
 
 export const getStaticProps: GetStaticProps = async _ => {
   const apolloClient = initializeApollo()

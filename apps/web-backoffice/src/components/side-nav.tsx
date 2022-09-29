@@ -1,8 +1,8 @@
 import { Layout } from 'antd'
 import { Scrollbars } from 'react-custom-scrollbars-2'
-import { SIDE_NAV_WIDTH } from 'src/constants/theme-constants'
-import { useTypedSelector } from 'src/hooks/redux/use-typed-selector'
 
+import { SIDE_NAV_WIDTH } from '../constants/theme-constants'
+import { useTypedSelector } from '../hooks/redux/use-typed-selector'
 import MenuContent from './menu-content'
 
 const { Sider } = Layout

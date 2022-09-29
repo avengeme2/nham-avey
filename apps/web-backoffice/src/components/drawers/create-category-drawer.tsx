@@ -3,7 +3,8 @@ import {
   useAdminCreateCategoryMutation,
 } from '@nham-avey/common'
 import { Drawer } from 'antd'
-import CreateCategoryForm from 'src/components/form/create-category-form'
+
+import { CreateCategoryForm } from '../form/create-category-form'
 
 interface CreateCategoryDrawerProps {
   visible: boolean

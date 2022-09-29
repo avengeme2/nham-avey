@@ -1,6 +1,7 @@
 import { Field, ObjectType } from '@nestjs/graphql'
-import { City } from 'src/cities/city.entity'
-import { PaginationOutput } from 'src/common/dtos/pagination.dto'
+
+import { PaginationOutput } from '../../common/dtos/pagination.dto'
+import { City } from '../city.entity'
 
 @ObjectType()
 export class PaginationCitiesOutput extends PaginationOutput {

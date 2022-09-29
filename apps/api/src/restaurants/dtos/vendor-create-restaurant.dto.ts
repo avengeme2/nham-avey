@@ -1,6 +1,7 @@
 import { Field, InputType, PickType } from '@nestjs/graphql'
 import { IsString, MinLength } from 'class-validator'
-import { Restaurant } from 'src/restaurants/entities/restaurant.entity'
+
+import { Restaurant } from '../entities/restaurant.entity'
 
 @InputType()
 export class VendorCreateRestaurantInput extends PickType(Restaurant, [

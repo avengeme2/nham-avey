@@ -1,6 +1,7 @@
 import { Field, ObjectType } from '@nestjs/graphql'
-import { Category } from 'src/categories/category.entity'
-import { PaginationOutput } from 'src/common/dtos/pagination.dto'
+
+import { PaginationOutput } from '../../common/dtos/pagination.dto'
+import { Category } from '../category.entity'
 
 @ObjectType()
 export class PaginationCategoriesOutput extends PaginationOutput {

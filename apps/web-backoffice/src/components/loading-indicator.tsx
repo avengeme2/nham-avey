@@ -8,7 +8,7 @@ interface LoadingProps {
   size?: number
 }
 
-const LoadingIndicator = ({ align, cover, size = 35 }: LoadingProps) => {
+export const LoadingIndicator = ({ align, cover, size = 35 }: LoadingProps) => {
   return (
     <div
       className={clsx('loading', {

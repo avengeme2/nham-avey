@@ -26,11 +26,12 @@ import {
 } from 'antd'
 import { ColumnsType } from 'antd/lib/table/interface'
 import { Helmet } from 'react-helmet-async'
-import AvatarInfo from 'src/components/avatar-info'
-import UpdateUserDrawer from 'src/components/drawers/update-user-drawer'
-import { APP_NAME } from 'src/config/app-config'
-import { TableType } from 'src/typing/common-type'
 import { useDebouncedCallback } from 'use-debounce'
+
+import { AvatarInfo } from '../components/avatar-info'
+import { UpdateUserDrawer } from '../components/drawers/update-user-drawer'
+import { APP_NAME } from '../config/app-config'
+import { TableType } from '../typing/common-type'
 
 const { confirm } = Modal
 

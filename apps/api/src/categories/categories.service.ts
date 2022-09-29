@@ -2,8 +2,13 @@ import { Injectable } from '@nestjs/common'
 import { InjectRepository } from '@nestjs/typeorm'
 import { UserRecord } from 'firebase-admin/auth'
 import slugify from 'slugify'
-import { Category } from 'src/categories/category.entity'
-import { CategoryRequest } from 'src/categories/category.interface'
+import { Repository } from 'typeorm'
+
+import { CoreOutput } from '../common/dtos/output.dto'
+import { PaginationWithSearchArgs } from '../common/dtos/pagination.dto'
+import { PaginatedRestaurantsOutput } from '../restaurants/dtos'
+import { Category } from './category.entity'
+import { CategoryRequest } from './category.interface'
 import {
   AdminCreateCategoryInput,
   AdminCreateCategoryOutput,
@@ -11,11 +16,7 @@ import {
   AdminUpdateCategoryOutput,
   AllCategoriesOutput,
   PaginationCategoriesOutput,
-} from 'src/categories/dtos'
-import { CoreOutput } from 'src/common/dtos/output.dto'
-import { PaginationWithSearchArgs } from 'src/common/dtos/pagination.dto'
-import { PaginatedRestaurantsOutput } from 'src/restaurants/dtos'
-import { Repository } from 'typeorm'
+} from './dtos'
 
 @Injectable()
 export class CategoryService {

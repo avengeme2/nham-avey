@@ -1,13 +1,14 @@
 import { Navigate, Outlet, RouteObject } from 'react-router-dom'
-import AppLayout from 'src/components/layout/app-layout'
-import { APP_PREFIX_PATH } from 'src/config/app-config'
-import restaurantRoute from 'src/routes/restaurant-routes'
-import userRoutes from 'src/routes/user-routes'
+
+import userRoutes from '..//routes/user-routes'
+import { AppLayout } from '../components/layout/app-layout'
+import { APP_PREFIX_PATH } from '../config/app-config'
+import restaurantRoute from '../routes/restaurant-routes'
 
 export const USER_PREFIX_PATH = 'users'
 export const RESTAURANT_PREFIX_PATH = 'restaurants'
 
-const defaultAppRoutes: RouteObject[] = [
+export const defaultAppRoutes: RouteObject[] = [
   {
     path: '*',
     element: <Navigate to={APP_PREFIX_PATH} />,
