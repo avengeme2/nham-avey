@@ -35,6 +35,7 @@
 .eslintignore text eol=lf
 .eslintrc text eol=lf
 .nvmrc text eol=lf
+.babelrc text eol=lf
 yarn.lock text eol=lf
 Procfile text eol=lf
 
