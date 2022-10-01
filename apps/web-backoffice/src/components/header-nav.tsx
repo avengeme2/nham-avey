@@ -1,6 +1,6 @@
 import { MenuFoldOutlined, MenuUnfoldOutlined } from '@ant-design/icons'
+import { LiveClock } from '@nham-avey/react-component'
 import { Grid, Layout } from 'antd'
-import Clock from 'react-live-clock'
 import { Link } from 'react-router-dom'
 
 import { useThemeActions } from '../hooks/redux/use-theme-actions'
@@ -55,7 +55,7 @@ export const HeaderNav = () => {
             </ul>
           </div>
           <div className="hidden px-[1rem] lg:flex">
-            <Clock
+            <LiveClock
               ticking
               format="dddd, MMMM Do, YYYY, h:mm:ss A"
               timezone="Asia/Bangkok"
