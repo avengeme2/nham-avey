@@ -33,16 +33,19 @@ jobs:
         run: |
           npx nx run api:build
           mv dist/apps/api out
-          cd out
-          npm i pg ioredis
 
       - name: Create Commit and push to build-api branch 💌
         run: |
           git config user.name "${{ github.actor }}"
           git config user.email "${{ github.actor }}@users.noreply.github.com"
           git branch -D build-api &>/dev/null || true
-          git checkout --orphan build-api
+          git checkout --orphan out-api
           git rm --cached -r .
           git add out
           git commit -m "Build" --no-verify
-          git push origin build-api -f
+          git reset --hard
+          mv out/* .
+          npm i pg ioredis
+          git add .
+          git commit -m "Move out to root" --no-verify
+          git push origin out-api -f
