@@ -7,7 +7,7 @@ on:
   workflow_dispatch:
 
 jobs:
-  build-and-push-to-build-api-branch:
+  build-and-push-to-OUT-api-branch:
     runs-on: ubuntu-latest
     steps:
       - name: Checkout 🛎️
@@ -34,11 +34,11 @@ jobs:
           npx nx run api:build
           mv dist/apps/api out
 
-      - name: Create Commit and push to build-api branch 💌
+      - name: Create Commit and push to out-api branch 💌
         run: |
           git config user.name "${{ github.actor }}"
           git config user.email "${{ github.actor }}@users.noreply.github.com"
-          git branch -D build-api &>/dev/null || true
+          git branch -D out-api &>/dev/null || true
           git checkout --orphan out-api
           git rm --cached -r .
           git add out
