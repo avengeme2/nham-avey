@@ -50,7 +50,8 @@ jobs:
           git rm --cached -r .
           git add out
           git commit -m "Build" --no-verify
-          git reset --hard
+          rm -rf node_modules
+          git clean -fdx
           mv out/* .
           npm i
           git add .
