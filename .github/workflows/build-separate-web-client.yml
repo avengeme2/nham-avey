@@ -55,7 +55,7 @@ jobs:
           git clean -fdx
           cp -a out/. .
           rm -rf out
-          npm i
+          npm i subscriptions-transport-ws
           touch .gitignore
           echo "node_modules" > .gitignore
           git add .
