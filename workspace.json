@@ -4,6 +4,7 @@
     "api": "apps/api",
     "common": "libs/common",
     "react-component": "libs/react-component",
+    "react-hook": "libs/react-hook",
     "web-backoffice": "apps/web-backoffice",
     "web-backoffice-e2e": "apps/web-backoffice-e2e",
     "web-client": "apps/web-client",
