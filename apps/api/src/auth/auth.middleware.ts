@@ -5,10 +5,10 @@ import {
   NestMiddleware,
   UnauthorizedException,
 } from '@nestjs/common'
+import { FirebaseAuthenticationService } from '@nham-avey/nestjs-module'
 import { NextFunction, Request, Response } from 'express'
 import { DecodedIdToken } from 'firebase-admin/auth'
 
-import { FirebaseAuthenticationService } from '../firebase-admin/services/firebase-admin-authentication.service'
 import { UserRole } from '../users/entities/user.entity'
 
 export interface UserClaims extends DecodedIdToken {

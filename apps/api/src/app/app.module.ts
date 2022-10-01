@@ -11,6 +11,7 @@ import { ConfigModule, ConfigService } from '@nestjs/config'
 import { GraphQLModule } from '@nestjs/graphql'
 import { ScheduleModule } from '@nestjs/schedule'
 import { TypeOrmModule } from '@nestjs/typeorm'
+import { FirebaseAdminModule } from '@nham-avey/nestjs-module'
 import {
   ApolloServerPluginLandingPageLocalDefault,
   ApolloServerPluginLandingPageProductionDefault,
@@ -36,7 +37,6 @@ import { EnhancedDate } from '../common/scalar/enhanced-date.scalar'
 import configuration from '../config/configuration'
 import { DishModule } from '../dishes/dishes.module'
 import { FileUploadsModule } from '../file-uploads/file-uploads.module'
-import { FirebaseAdminModule } from '../firebase-admin/firebase-admin.module'
 import { ImagesModule } from '../images/images.module'
 import { MorganFormatType, MorganMiddleware } from '../log/morgan.middleware'
 import { MailModule } from '../mail/mails.module'

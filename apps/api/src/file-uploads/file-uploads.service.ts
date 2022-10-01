@@ -1,8 +1,8 @@
 import { Injectable, Logger } from '@nestjs/common'
+import { FirebaseStorageService } from '@nham-avey/nestjs-module'
 import { v4 as uuidv4 } from 'uuid'
 
 import { getFileExtension } from '../common/common.helpers'
-import { FirebaseStorageService } from '../firebase-admin/services/firebase-admin-storage.service'
 import { ImageService } from '../images/images.service'
 
 @Injectable()

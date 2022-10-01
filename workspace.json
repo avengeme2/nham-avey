@@ -3,6 +3,7 @@
   "projects": {
     "api": "apps/api",
     "common": "libs/common",
+    "nestjs-module": "libs/nestjs-module",
     "react-component": "libs/react-component",
     "react-hook": "libs/react-hook",
     "web-backoffice": "apps/web-backoffice",

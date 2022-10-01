@@ -22,10 +22,12 @@ export interface SentryOptionsFactory {
 
 export interface SentryModuleAsyncOptions
   extends Pick<ModuleMetadata, 'imports'> {
+  // eslint-disable-next-line @typescript-eslint/no-explicit-any
   inject?: any[]
   useClass?: Type<SentryOptionsFactory>
   useExisting?: Type<SentryOptionsFactory>
   useFactory?: (
+    // eslint-disable-next-line @typescript-eslint/no-explicit-any
     ...args: any[]
   ) => Promise<SentryModuleOptions> | SentryModuleOptions
 }
@@ -33,10 +35,12 @@ export interface SentryModuleAsyncOptions
 export type SentryTransaction = boolean | 'path' | 'methodPath' | 'handler'
 
 export interface SentryFilterFunction {
+  // eslint-disable-next-line @typescript-eslint/no-explicit-any
   (exception: any): boolean
 }
 
 export interface SentryInterceptorOptionsFilter {
+  // eslint-disable-next-line @typescript-eslint/no-explicit-any
   type: any
   filter?: SentryFilterFunction
 }
@@ -44,6 +48,7 @@ export interface SentryInterceptorOptionsFilter {
 export interface SentryInterceptorOptions {
   filters?: SentryInterceptorOptionsFilter[]
   tags?: { [key: string]: string }
+  // eslint-disable-next-line @typescript-eslint/no-explicit-any
   extra?: { [key: string]: any }
   fingerprint?: string[]
   level?: SeverityLevel

@@ -8,9 +8,10 @@ import { SentryInterceptor } from '.'
 
 @Injectable()
 export class GraphqlInterceptor extends SentryInterceptor {
-  protected captureException(
+  protected override captureException(
     context: ExecutionContext,
     scope: Scope,
+    // eslint-disable-next-line @typescript-eslint/no-explicit-any
     exception: any,
   ) {
     if (context.getType<GqlContextType>() === 'graphql') {
@@ -27,6 +28,7 @@ export class GraphqlInterceptor extends SentryInterceptor {
   private captureGraphqlException(
     scope: Scope,
     gqlContext: GqlExecutionContext,
+    // eslint-disable-next-line @typescript-eslint/no-explicit-any
     exception: any,
   ): void {
     const info = gqlContext.getInfo()
@@ -37,7 +39,7 @@ export class GraphqlInterceptor extends SentryInterceptor {
     if (context.req) {
       // req within graphql context needs modification in
       // TODO: Fix this
-      /* eslint-disable-next-line deprecation/deprecation */
+      // eslint-disable-next-line @typescript-eslint/no-explicit-any
       const data = Handlers.parseRequest(<any>{}, context.req, {})
 
       scope.setExtra('req', data.request)

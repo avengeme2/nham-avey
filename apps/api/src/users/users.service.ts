@@ -1,10 +1,10 @@
 import { Injectable } from '@nestjs/common'
 import { InjectRepository } from '@nestjs/typeorm'
+import { FirebaseAuthenticationService } from '@nham-avey/nestjs-module'
 import { CreateRequest, UserRecord } from 'firebase-admin/auth'
 import { In, Repository } from 'typeorm'
 import { DeepPartial } from 'typeorm/common/DeepPartial'
 
-import { FirebaseAuthenticationService } from '../firebase-admin/services/firebase-admin-authentication.service'
 import { User, UserRole } from './entities/user.entity'
 import {
   AdminUpdateUserInput,

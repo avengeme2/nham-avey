@@ -1,3 +1,4 @@
+/* eslint-disable no-empty */
 import {
   Inject,
   Injectable,
@@ -26,6 +27,7 @@ export class SentryService
       // console.log('options not found. Did you use SentryModule.forRoot?');
       return
     }
+    // eslint-disable-next-line @typescript-eslint/no-unused-vars
     const { debug: _, integrations = [], ...sentryOptions } = opts
     Sentry.init({
       ...sentryOptions,
@@ -60,7 +62,7 @@ export class SentryService
     return SentryService.serviceInstance
   }
 
-  log(message: string, context?: string, asBreadcrumb?: boolean) {
+  override log(message: string, context?: string, asBreadcrumb?: boolean) {
     message = `${this.app} ${message}`
     try {
       super.log(message, context)
@@ -76,7 +78,7 @@ export class SentryService
     } catch (err) {}
   }
 
-  error(message: string, trace?: string, context?: string) {
+  override error(message: string, trace?: string, context?: string) {
     message = `${this.app} ${message}`
     try {
       super.error(message, trace, context)
@@ -84,7 +86,7 @@ export class SentryService
     } catch (err) {}
   }
 
-  warn(message: string, context?: string, asBreadcrumb?: boolean) {
+  override warn(message: string, context?: string, asBreadcrumb?: boolean) {
     message = `${this.app} ${message}`
     try {
       super.warn(message, context)
@@ -100,7 +102,7 @@ export class SentryService
     } catch (err) {}
   }
 
-  debug(message: string, context?: string, asBreadcrumb?: boolean) {
+  override debug(message: string, context?: string, asBreadcrumb?: boolean) {
     message = `${this.app} ${message}`
     try {
       super.debug(message, context)
@@ -116,7 +118,7 @@ export class SentryService
     } catch (err) {}
   }
 
-  verbose(message: string, context?: string, asBreadcrumb?: boolean) {
+  override verbose(message: string, context?: string, asBreadcrumb?: boolean) {
     message = `${this.app} ${message}`
     try {
       super.verbose(message, context)
@@ -136,6 +138,7 @@ export class SentryService
     return Sentry
   }
 
+  // eslint-disable-next-line @typescript-eslint/no-unused-vars
   async onApplicationShutdown(_signal?: string) {
     if (this.opts?.close?.enabled === true) {
       await Sentry.close(this.opts?.close.timeout)

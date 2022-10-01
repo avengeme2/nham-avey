@@ -1,3 +1,4 @@
+/* eslint-disable @typescript-eslint/no-explicit-any */
 import {
   CallHandler,
   ExecutionContext,
@@ -67,7 +68,6 @@ export class SentryInterceptor implements NestInterceptor {
     exception: HttpException,
   ): void {
     // TODO: Fix this
-    /* eslint-disable-next-line deprecation/deprecation */
     const data = Handlers.parseRequest(<any>{}, http.getRequest(), this.options)
 
     scope.setExtra('req', data.request)
