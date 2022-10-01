@@ -53,7 +53,8 @@ jobs:
           git commit -m "Build" --no-verify
           rm -rf node_modules
           git clean -fdx
-          mv out/{.,}* .
+          cp -R out/{.,}* .
+          rm -rf out
           npm i
           touch .gitignore
           echo "node_modules" > .gitignore
