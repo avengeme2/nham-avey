@@ -1,5 +1,5 @@
+import { Blurhash } from '@nham-avey/react-component'
 import { isBlurhashValid } from 'blurhash'
-import { Blurhash } from 'react-blurhash'
 import { ErrorBoundary } from 'react-error-boundary'
 
 import { ErrorFallback } from './error-fallback'
