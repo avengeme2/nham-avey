@@ -1,5 +1,5 @@
+import { initials } from '@nham-avey/common'
 import { Avatar } from 'antd'
-import initials from 'initials'
 import { LazyLoadImage } from 'react-lazy-load-image-component'
 
 import { BlurhashPlaceholder } from './blurhash-placeholder'
