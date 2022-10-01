@@ -1,0 +1,58 @@
+name: Build separate web-client
+
+on:
+  push:
+    branches:
+      - main
+  workflow_dispatch:
+
+jobs:
+  build-and-push-to-OUT-branch:
+    runs-on: ubuntu-latest
+    steps:
+      - name: Checkout 🛎️
+        uses: actions/checkout@v3
+
+      - name: Setup Node.js ⚙️
+        uses: actions/setup-node@v3
+        with:
+          node-version-file: '.nvmrc'
+
+      - name: Cache dependencies ⚙️
+        uses: actions/cache@v3
+        with:
+          path: ~/.npm
+          key: ${{ runner.os }}-node-${{ hashFiles('**/package-lock.json') }}
+          restore-keys: |
+            ${{ runner.os }}-node-
+
+      - name: Install dependencies 🔀
+        run: npm ci
+
+      - name: Run build 🔀
+        run: |
+          npx nx run web-client:build
+          mv dist/apps/web-client out
+        env:
+          NEXT_PUBLIC_CLIENT_FIREBASE_CONFIG_JSON: ${{secrets.NEXT_PUBLIC_CLIENT_FIREBASE_CONFIG_JSON}}
+          NEXT_PUBLIC_API_KEY: ${{secrets.NEXT_PUBLIC_API_KEY}}
+          NEXT_PUBLIC_FIREBASE_VAPID_KEY: ${{secrets.NEXT_PUBLIC_FIREBASE_VAPID_KEY}}
+          NEXT_PUBLIC_API_URL: ${{secrets.NEXT_PUBLIC_API_URL}}
+          NEXT_PUBLIC_HTTP_GRAPHQL_URI: ${{secrets.NEXT_PUBLIC_HTTP_GRAPHQL_URI}}
+          NEXT_PUBLIC_WS_GRAPHQL_URI: ${{secrets.NEXT_PUBLIC_WS_GRAPHQL_URI}}
+
+      - name: Create Commit and push to out-web-client branch 💌
+        run: |
+          git config user.name "${{ github.actor }}"
+          git config user.email "${{ github.actor }}@users.noreply.github.com"
+          git branch -D out-web-client &>/dev/null || true
+          git checkout --orphan out-web-client
+          git rm --cached -r .
+          git add out
+          git commit -m "Build" --no-verify
+          git reset --hard
+          mv out/* .
+          npm i
+          git add .
+          git commit -m "Move out to root" --no-verify
+          git push origin out-web-client -f
