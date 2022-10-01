@@ -46,7 +46,7 @@ jobs:
           git commit -m "Build" --no-verify
           rm -rf node_modules
           git clean -fdx
-          cp -R out .
+          cp -R out/* .
           rm -rf out
           npm i pg ioredis
           touch .gitignore
