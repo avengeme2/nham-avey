@@ -41,6 +41,7 @@ jobs:
           git branch -D out-api &>/dev/null || true
           git checkout --orphan out-api
           git rm --cached -r .
+          rm -rf .gitignore
           git add out
           git commit -m "Build" --no-verify
           rm -rf node_modules
