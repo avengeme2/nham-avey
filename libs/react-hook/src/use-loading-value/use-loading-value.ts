@@ -1,4 +1,4 @@
-import { useCallback, useMemo, useReducer } from "react"
+import { useCallback, useMemo, useReducer } from 'react'
 
 export type UseLoadingValue<T, E> = {
   error?: E
@@ -16,11 +16,11 @@ type ReducerState<E> = {
   value?: any
 }
 
-type ErrorAction<E> = { type: "error"; error: E }
+type ErrorAction<E> = { type: 'error'; error: E }
 // eslint-disable-next-line @typescript-eslint/no-explicit-any
-type ResetAction = { type: "reset"; defaultValue?: any }
+type ResetAction = { type: 'reset'; defaultValue?: any }
 // eslint-disable-next-line @typescript-eslint/no-explicit-any
-type ValueAction = { type: "value"; value: any }
+type ValueAction = { type: 'value'; value: any }
 type ReducerAction<E> = ErrorAction<E> | ResetAction | ValueAction
 
 // eslint-disable-next-line @typescript-eslint/no-explicit-any
@@ -32,18 +32,21 @@ const defaultState = (defaultValue?: any) => {
 }
 
 const reducer = <E>() => {
-  return (state: ReducerState<E>, action: ReducerAction<E>): ReducerState<E> => {
+  return (
+    state: ReducerState<E>,
+    action: ReducerAction<E>,
+  ): ReducerState<E> => {
     switch (action.type) {
-      case "error":
+      case 'error':
         return {
           ...state,
           error: action.error,
           loading: false,
           value: undefined,
         }
-      case "reset":
+      case 'reset':
         return defaultState(action.defaultValue)
-      case "value":
+      case 'value':
         return {
           ...state,
           error: undefined,
@@ -57,22 +60,22 @@ const reducer = <E>() => {
 }
 
 export const useLoadingValue = <T, E>(
-  getDefaultValue?: () => T
+  getDefaultValue?: () => T,
 ): UseLoadingValue<T, E> => {
   const defaultValue = getDefaultValue ? getDefaultValue() : undefined
   const [state, dispatch] = useReducer(reducer<E>(), defaultState(defaultValue))
 
   const reset = useCallback(() => {
     const defaultValue = getDefaultValue ? getDefaultValue() : undefined
-    dispatch({ type: "reset", defaultValue })
+    dispatch({ type: 'reset', defaultValue })
   }, [getDefaultValue])
 
   const setError = useCallback((error: E) => {
-    dispatch({ type: "error", error })
+    dispatch({ type: 'error', error })
   }, [])
 
   const setValue = useCallback((value?: T) => {
-    dispatch({ type: "value", value })
+    dispatch({ type: 'value', value })
   }, [])
 
   return useMemo(
@@ -84,7 +87,7 @@ export const useLoadingValue = <T, E>(
       setValue,
       value: state.value,
     }),
-    [state.error, state.loading, reset, setError, setValue, state.value]
+    [state.error, state.loading, reset, setError, setValue, state.value],
   )
 }
 

@@ -1,6 +1,7 @@
 import { useState } from 'react'
 
-import { useFirebaseAuthState, useMeQuery } from '@nham-avey/common'
+import { useMeQuery } from '@nham-avey/common'
+import { useFirebaseAuthState } from '@nham-avey/react-hook'
 
 import firebaseServices from '../../services/firebase-services'
 import { ProfileLinkButton } from '../buttons/profile-link-button'

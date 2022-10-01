@@ -1,5 +1,6 @@
-import { DependencyList, MutableRefObject, useRef } from "react"
-import useIsomorphicLayoutEffect from "../use-isomorphic-layout-effect/use-isomorphic-layout-effect"
+import { DependencyList, MutableRefObject, useRef } from 'react'
+
+import useIsomorphicLayoutEffect from '../use-isomorphic-layout-effect/use-isomorphic-layout-effect'
 
 interface Position {
   x: number
@@ -24,7 +25,8 @@ interface UseScrollPosition {
 
 const isBrowser = typeof window !== `undefined`
 const zeroPosition = { x: 0, y: 0 }
-const getClientRect = (element?: HTMLElement) => element?.getBoundingClientRect()
+const getClientRect = (element?: HTMLElement) =>
+  element?.getBoundingClientRect()
 const getScrollPosition = ({
   element,
   useWindow,
@@ -92,16 +94,18 @@ export const useScrollPosition = ({
     }
 
     if (boundingElement) {
-      boundingElement.current?.addEventListener("scroll", handleScroll, { passive: true })
+      boundingElement.current?.addEventListener('scroll', handleScroll, {
+        passive: true,
+      })
     } else {
-      window.addEventListener("scroll", handleScroll, { passive: true })
+      window.addEventListener('scroll', handleScroll, { passive: true })
     }
 
     return () => {
       if (boundingElement) {
-        boundingElement.current?.removeEventListener("scroll", handleScroll)
+        boundingElement.current?.removeEventListener('scroll', handleScroll)
       } else {
-        window.removeEventListener("scroll", handleScroll)
+        window.removeEventListener('scroll', handleScroll)
       }
 
       if (throttleTimeout) {

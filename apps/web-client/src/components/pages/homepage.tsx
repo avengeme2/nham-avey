@@ -8,11 +8,10 @@ import {
   Restaurant,
   RestaurantsQuery,
   RestaurantsQueryVariables,
-  ScrollProps,
   useCategoriesQuery,
   useRestaurantsQuery,
-  useScrollPosition,
 } from '@nham-avey/common'
+import { ScrollProps, useScrollPosition } from '@nham-avey/react-hook'
 
 import CategoryCard from '../../components/cards/category-card'
 import { APP_NAME, DEFAULT_PAGE_STATE } from '../../constants/common-constants'

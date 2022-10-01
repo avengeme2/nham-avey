@@ -1,6 +1,6 @@
 import { useMemo } from 'react'
 
-import { useFirebaseAuthState } from '@nham-avey/common'
+import { useFirebaseAuthState } from '@nham-avey/react-hook'
 import { useRoutes } from 'react-router-dom'
 
 import { authRoutes } from '../routes/auth-routes'

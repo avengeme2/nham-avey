@@ -1,5 +1,5 @@
 import { LockOutlined, MailOutlined } from '@ant-design/icons'
-import { useSignInWithEmailAndPassword } from '@nham-avey/common'
+import { useFirebaseSignInWithEmailAndPassword } from '@nham-avey/react-hook'
 import { Alert, Button, Form, Input } from 'antd'
 import { motion } from 'framer-motion'
 
@@ -12,7 +12,7 @@ export const SignInForm = () => {
     error,
     signIn,
     isLoading: isSigningIn,
-  } = useSignInWithEmailAndPassword()
+  } = useFirebaseSignInWithEmailAndPassword()
 
   const initialCredential = {
     email: '',

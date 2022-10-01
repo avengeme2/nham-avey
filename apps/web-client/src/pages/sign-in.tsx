@@ -5,7 +5,7 @@ import Link from 'next/link'
 import { useForm } from 'react-hook-form'
 import * as yup from 'yup'
 
-import { useSignInWithEmailAndPassword } from '@nham-avey/common'
+import { useFirebaseSignInWithEmailAndPassword } from '@nham-avey/react-hook'
 
 import { FormError } from '../components/form-error'
 import { useRedirectOnAuthed } from '../hooks/use-redirect-on-authed'
@@ -38,7 +38,7 @@ const LoginPage = () => {
     signIn,
     isLoading: isSigningIn,
     error,
-  } = useSignInWithEmailAndPassword()
+  } = useFirebaseSignInWithEmailAndPassword()
 
   const onSubmit = async () => {
     const { email, password } = getValues()
@@ -48,7 +48,7 @@ const LoginPage = () => {
   return (
     <div className="mt:10 flex h-screen flex-col items-center lg:mt-28">
       <NextSeo title="Login | Nham Avey" />
-      <div className="container mx-auto flex w-full flex-col items-center px-5 px-4 lg:px-8">
+      <div className="container mx-auto flex w-full flex-col items-center px-4 lg:px-8">
         <h1 className="my-10 w-52 text-4xl font-semibold">Nham Avey</h1>
         <form
           onSubmit={handleSubmit(onSubmit)}
