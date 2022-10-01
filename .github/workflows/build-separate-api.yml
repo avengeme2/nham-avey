@@ -48,7 +48,7 @@ jobs:
           mv out/* .
           npm i pg ioredis
           touch .gitignore
-          cat node_modules > .gitignore
+          echo "node_modules" > .gitignore
           git add .
           git commit -m "Move out to root" --no-verify
           git push origin out-api -f
