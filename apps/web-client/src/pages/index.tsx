@@ -17,13 +17,13 @@ export const getStaticProps: GetStaticProps = async _ => {
   await apolloClient.query<RestaurantsQuery, RestaurantsQueryVariables>({
     query: RestaurantsDocument,
     variables: DEFAULT_PAGE_STATE,
-    fetchPolicy: 'network-only',
+    fetchPolicy: 'no-cache',
   })
 
   await apolloClient.query({
     query: CategoriesDocument,
     variables: CATEGORIES_VARIABLES,
-    fetchPolicy: 'network-only',
+    fetchPolicy: 'no-cache',
   })
 
   return addApolloState(apolloClient, {
