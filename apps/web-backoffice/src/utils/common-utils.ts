@@ -11,7 +11,9 @@ export const antUploadCustom: UploadProps['customRequest'] = async options => {
   const config: AxiosRequestConfig = {
     headers: { 'content-type': CONTENT_TYPE_FORM_DATA },
     onUploadProgress: event => {
-      onProgress?.({ percent: (event.loaded / event.total) * 100 })
+      if (event.total) {
+        onProgress?.({ percent: (event.loaded / event.total) * 100 })
+      }
     },
   }
   const formData = new FormData()
@@ -38,7 +40,9 @@ export const antUploadCustomRequestWithCompression: UploadProps['customRequest']
     const config: AxiosRequestConfig = {
       headers: { 'content-type': CONTENT_TYPE_FORM_DATA },
       onUploadProgress: event => {
-        onProgress?.({ percent: (event.loaded / event.total) * 100 })
+        if (event.total) {
+          onProgress?.({ percent: (event.loaded / event.total) * 100 })
+        }
       },
     }
     const formData = new FormData()
