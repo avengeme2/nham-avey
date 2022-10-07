@@ -63,7 +63,7 @@
     "debug": "^4.3.4",
     "deepmerge": "^4.2.2",
     "firebase": "^9.11.0",
-    "firebase-admin": "^11.0.1",
+    "firebase-admin": "^11.1.0",
     "framer-motion": "^7.5.2",
     "google-map-react": "^2.2.0",
     "graphql": "^16.6.0",
