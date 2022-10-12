@@ -27,7 +27,7 @@
     "@ant-design/icons": "^4.7.0",
     "@apollo/client": "^3.7.0",
     "@apollo/link-error": "^2.0.0-beta.3",
-    "@faker-js/faker": "^7.5.0",
+    "@faker-js/faker": "^7.6.0",
     "@headlessui/react": "^1.7.3",
     "@heroicons/react": "^2.0.12",
     "@hookform/resolvers": "^2.9.8",
