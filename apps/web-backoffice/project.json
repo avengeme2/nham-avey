@@ -72,7 +72,7 @@
     },
     "test": {
       "executor": "@nrwl/jest:jest",
-      "outputs": ["coverage/apps/web-backoffice"],
+      "outputs": ["{workspaceRoot}/coverage/apps/web-backoffice"],
       "options": {
         "jestConfig": "apps/web-backoffice/jest.config.ts",
         "passWithNoTests": true

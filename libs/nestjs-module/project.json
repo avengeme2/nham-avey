@@ -13,7 +13,7 @@
     },
     "test": {
       "executor": "@nrwl/jest:jest",
-      "outputs": ["coverage/libs/nestjs-module"],
+      "outputs": ["{workspaceRoot}/coverage/libs/nestjs-module"],
       "options": {
         "jestConfig": "libs/nestjs-module/jest.config.ts",
         "passWithNoTests": true
