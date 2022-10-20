@@ -176,7 +176,7 @@
     "prettier-plugin-tailwindcss": "^0.1.13",
     "react-test-renderer": "18.2.0",
     "swc-loader": "0.1.15",
-    "tailwindcss": "3.1.8",
+    "tailwindcss": "3.2.0",
     "ts-jest": "28.0.8",
     "ts-node": "10.9.1",
     "tsconfig-paths": "^4.1.0",
