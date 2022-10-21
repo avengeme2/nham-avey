@@ -12,8 +12,7 @@ import {
   RpcArgumentsHost,
   WsArgumentsHost,
 } from '@nestjs/common/interfaces'
-import { Scope } from '@sentry/hub'
-import { Handlers } from '@sentry/node'
+import { Handlers, Scope } from '@sentry/node'
 import { Observable } from 'rxjs'
 import { tap } from 'rxjs/operators'
 

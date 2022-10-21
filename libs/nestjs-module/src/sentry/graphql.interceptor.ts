@@ -1,8 +1,7 @@
 import { ExecutionContext, Injectable } from '@nestjs/common'
 import type { GqlContextType } from '@nestjs/graphql'
 import { GqlExecutionContext } from '@nestjs/graphql'
-import { Scope } from '@sentry/hub'
-import { Handlers } from '@sentry/node'
+import { Handlers, Scope } from '@sentry/node'
 
 import { SentryInterceptor } from '.'
 
