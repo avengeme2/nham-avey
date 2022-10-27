@@ -63,7 +63,7 @@ const LoginPage = () => {
               {...register('email')}
               type="email"
               placeholder="Email"
-              className="input input-primary w-full"
+              className="input-primary input w-full"
             />
             <label htmlFor="email" className="label">
               <span className="label-text-alt text-error">
@@ -80,7 +80,7 @@ const LoginPage = () => {
               {...register('password')}
               id="password"
               type="password"
-              className="input input-primary w-full"
+              className="input-primary input w-full"
             />
             <label htmlFor="password" className="label">
               <span className="label-text-alt text-error">
@@ -90,7 +90,7 @@ const LoginPage = () => {
           </div>
 
           <button
-            className={clsx('btn btn-primary', {
+            className={clsx('btn-primary btn', {
               loading: isSigningIn,
             })}
           >

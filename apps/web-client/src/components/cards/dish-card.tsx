@@ -27,7 +27,7 @@ export const DishCard = () => {
           </p>
           <div className="flex items-end justify-between">
             <p className="h4 mt-3">$10.999</p>
-            <button className="btn btn-ghost h-8 min-h-max w-8 rounded bg-blue-100 p-0">
+            <button className="btn-ghost btn h-8 min-h-max w-8 rounded bg-blue-100 p-0">
               <PlusIcon className="h-4 text-secondary" />
             </button>
           </div>

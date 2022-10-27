@@ -31,7 +31,6 @@ jobs:
           npm i
           npx nx migrate latest
 
-
       - name: Create Commit 💌
         run: |
           git config user.name "${{ github.actor }}"
@@ -42,7 +41,7 @@ jobs:
       - name: Create PR 🔀
         uses: peter-evans/create-pull-request@v4
         with:
-          title: "build(deps): Upgrade nx (automated)"
-          branch: "build-deps-upgrade-nx-automated"
-          commit-message: "build(deps): upgrade nx (automated)"
-          labels: "dependencies"
+          title: 'build(deps): Upgrade nx (automated)'
+          branch: 'build-deps-upgrade-nx-automated'
+          commit-message: 'build(deps): upgrade nx (automated)'
+          labels: 'dependencies'

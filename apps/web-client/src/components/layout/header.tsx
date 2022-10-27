@@ -32,7 +32,7 @@ export const Header = () => {
             <ProfileLinkButton />
           </div>
           <button
-            className="btn btn-ghost pr-1 hover:bg-transparent md:hidden"
+            className="btn-ghost btn pr-1 hover:bg-transparent md:hidden"
             onClick={handleToggleMenu}
           >
             <Hamburger

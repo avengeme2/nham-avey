@@ -1,9 +1,9 @@
 name: Sync NPM packages
 
 on:
-#   push:
-#     branches:
-#       - 'dependabot/**'
+  #   push:
+  #     branches:
+  #       - 'dependabot/**'
   workflow_dispatch:
 
 jobs:
@@ -41,4 +41,3 @@ jobs:
           git add -A
           git commit -m "build(deps): upgrade NPM packages (automated)" --no-verify
           git push origin ${{ github.head_ref || github.ref_name }}
-

@@ -59,7 +59,6 @@ fragment OrderParts on Order {
   total
 }
 
-
 fragment UserParts on User {
   id
   firstName

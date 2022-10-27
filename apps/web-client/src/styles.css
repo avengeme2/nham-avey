@@ -1,10 +1,18 @@
 @tailwind base;
 @tailwind components;
 
-
 @layer components {
-  .h1, .h2, .h3, .h4, .h5, .h6, .subtitle-1, .subtitle-2, .body-1, .body-2 {
-    @apply font-sans
+  .h1,
+  .h2,
+  .h3,
+  .h4,
+  .h5,
+  .h6,
+  .subtitle-1,
+  .subtitle-2,
+  .body-1,
+  .body-2 {
+    @apply font-sans;
   }
 
   .h1 {
@@ -101,20 +109,24 @@
 
 @tailwind utilities;
 
-
 /* Restaurant Card */
 .restaurant-card:hover .restaurant-card-image {
-  --image-url: "";
+  --image-url: '';
   --scale-size: 1.009;
   transform: scale(var(--scale-size), var(--scale-size));
-  opacity: .95;
+  opacity: 0.95;
 }
 
 .restaurant-card-image {
-  background: linear-gradient(90deg, rgba(33, 33, 65, 0.3) 0%, rgba(2, 0, 36, .3) 30%, rgba(234, 82, 52, .1) 100%), center / cover var(--image-url) no-repeat;
-  transition: transform .1s ease-in-out,
-  background-color .25s ease-in-out,
-  box-shadow .4s ease-in-out;
+  background: linear-gradient(
+      90deg,
+      rgba(33, 33, 65, 0.3) 0%,
+      rgba(2, 0, 36, 0.3) 30%,
+      rgba(234, 82, 52, 0.1) 100%
+    ),
+    center / cover var(--image-url) no-repeat;
+  transition: transform 0.1s ease-in-out, background-color 0.25s ease-in-out,
+    box-shadow 0.4s ease-in-out;
 }
 
 :root {
@@ -123,11 +135,11 @@
 
 /* Scroll for chome only */
 ::-webkit-scrollbar-track {
-  box-shadow: inset 0 0 var(--scrollbar-size) rgba(0, 0, 0, .1);
+  box-shadow: inset 0 0 var(--scrollbar-size) rgba(0, 0, 0, 0.1);
 }
 
 ::-webkit-scrollbar {
-  background: rgba(255, 255, 255, .2);
+  background: rgba(255, 255, 255, 0.2);
   position: absolute;
   width: var(--scrollbar-size);
   scroll-behavior: smooth !important;

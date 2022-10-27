@@ -12,7 +12,7 @@
     "sourceType": "module",
     "project": "./apps/api/tsconfig.app.json"
   },
-  "plugins": ["import", "@typescript-eslint/eslint-plugin","deprecation"],
+  "plugins": ["import", "@typescript-eslint/eslint-plugin", "deprecation"],
   "overrides": [
     {
       "files": ["*.ts", "*.tsx", "*.js", "*.jsx"],

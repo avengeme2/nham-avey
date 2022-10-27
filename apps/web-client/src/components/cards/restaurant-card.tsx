@@ -48,7 +48,7 @@ export const RestaurantCard = ({ restaurant }: RestaurantCardProps) => {
             </div>
             <div className="mt-3 h-8 overflow-hidden">
               {firstCategory && (
-                <button className="btn btn-ghost h-8 min-h-fit w-max gap-1 rounded-2xl bg-base-200 px-3 normal-case">
+                <button className="btn-ghost btn h-8 min-h-fit w-max gap-1 rounded-2xl bg-base-200 px-3 normal-case">
                   <img
                     className="h-4"
                     src={

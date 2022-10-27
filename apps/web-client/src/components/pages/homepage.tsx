@@ -159,7 +159,7 @@ const HomePage = () => {
           <div className="mb-16 text-center">
             <button
               className={clsx(
-                'w-30 btn btn-active btn-sm h-10 hover:shadow-lg',
+                'w-30 btn-active btn-sm btn h-10 hover:shadow-lg',
                 {
                   'loading btn-ghost': isLoadingRestaurant,
                 },
