@@ -33,7 +33,7 @@ jobs:
           npm i
           npx nx migrate --run-migrations
           npm i
-          nx format:write --all
+          npx nx format:write --all
 
       - name: Create Commit 💌
         run: |
