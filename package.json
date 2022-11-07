@@ -64,7 +64,7 @@
     "deepmerge": "^4.2.2",
     "firebase": "^9.13.0",
     "firebase-admin": "^11.2.0",
-    "framer-motion": "^7.6.4",
+    "framer-motion": "^7.6.5",
     "google-map-react": "^2.2.0",
     "graphql": "^16.6.0",
     "graphql-subscriptions": "^2.0.0",
