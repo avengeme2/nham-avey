@@ -118,7 +118,7 @@
     "@graphql-codegen/typescript-operations": "^2.5.6",
     "@graphql-codegen/typescript-react-apollo": "^3.3.6",
     "@nestjs/schematics": "^9.0.3",
-    "@nestjs/testing": "^9.1.6",
+    "@nestjs/testing": "^9.2.0",
     "@nrwl/cli": "15.0.10",
     "@nrwl/cypress": "15.0.10",
     "@nrwl/eslint-plugin-nx": "15.0.10",
