@@ -32,7 +32,7 @@
     "@heroicons/react": "^2.0.13",
     "@hookform/resolvers": "^2.9.10",
     "@nestjs-modules/mailer": "^1.8.1",
-    "@nestjs/apollo": "^10.1.4",
+    "@nestjs/apollo": "^10.1.6",
     "@nestjs/axios": "^1.0.0",
     "@nestjs/common": "^9.2.0",
     "@nestjs/config": "^2.2.0",
