@@ -22,7 +22,7 @@ export class Category extends CoreEntity {
   @Field(type => String, { nullable: true })
   @Column({ nullable: true })
   @IsString()
-  coverImageUrl: string
+  coverImageUrl?: string
 
   @Field(type => String)
   @Column()

@@ -267,7 +267,7 @@ type Image {
   blurhash: String!
   createdAt: EnhancedDate!
   id: Float!
-  restaurant: Restaurant!
+  restaurant: Restaurant
   updatedAt: EnhancedDate!
   url: String!
 }

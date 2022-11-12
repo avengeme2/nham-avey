@@ -19,7 +19,7 @@ export class Image extends CoreEntity {
   @IsString()
   blurhash?: string
 
-  @Field(() => Restaurant)
+  @Field(() => Restaurant, { nullable: true })
   @ManyToOne(() => Restaurant, restaurant => restaurant.coverImages, {
     nullable: true,
   })
