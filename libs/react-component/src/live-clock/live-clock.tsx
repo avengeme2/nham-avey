@@ -1,8 +1,8 @@
-import { useState, useEffect, ReactNode } from 'react'
+import { useState, useEffect, ReactNode, useRef } from 'react'
 import Moment from 'react-moment'
 import 'moment-timezone'
 
-interface LiveClockProps {
+export interface LiveClockProps {
   className?: string
   date?: number | string
   element?: ReactNode
@@ -39,16 +39,14 @@ export const LiveClock: React.FC<LiveClockProps> = props => {
     timezone,
   } = props
 
-  // eslint-disable-next-line @typescript-eslint/no-unused-vars
-  const [startTime, setStartTime] = useState(Date.now())
+  const startTime = useRef(Date.now())
   const [currentTime, setCurrentTime] = useState(
     date ? new Date(date).getTime() : Date.now(),
   )
   const [formatToUse, setFormatToUse] = useState(format)
   const [noSsr, setNoSsr] = useState(props.noSsr)
 
-  // TODO: use useRef
-  let colonOn = true
+  const colonOn = useRef(true)
 
   function reverseString(str: string) {
     const splitString = str.split('')
@@ -73,13 +71,13 @@ export const LiveClock: React.FC<LiveClockProps> = props => {
         let now = Date.now()
 
         if (date) {
-          const difference = Date.now() - startTime
+          const difference = Date.now() - startTime.current
 
           now = new Date(date).getTime() + difference
         }
 
         if (blinking) {
-          if (colonOn) {
+          if (colonOn.current) {
             let newFormat = format
 
             if (blinking === 'all') {
@@ -90,11 +88,11 @@ export const LiveClock: React.FC<LiveClockProps> = props => {
               newFormat = reverseString(newFormat)
             }
 
-            colonOn = false
+            colonOn.current = false
             setFormatToUse(newFormat)
           } else {
             setFormatToUse(format)
-            colonOn = true
+            colonOn.current = true
           }
         }
 
@@ -111,7 +109,7 @@ export const LiveClock: React.FC<LiveClockProps> = props => {
     }
 
     return () => true
-  }, [props])
+  }, [blinking, date, format, interval, onChange, ticking])
 
   if (noSsr) {
     return null
