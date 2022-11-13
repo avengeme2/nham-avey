@@ -1,6 +1,6 @@
 import axios from 'axios'
 import { encode } from 'blurhash'
-import * as sharp from 'sharp'
+import sharp from 'sharp'
 import slugify from 'slugify'
 import { MigrationInterface, QueryRunner } from 'typeorm'
 
@@ -11,7 +11,7 @@ import { Image } from '../../images/entities/image.entity'
 import { Location } from '../../locations/location.entity'
 import { OpeningHours } from '../../restaurants/entities/opening-hours.entity'
 import { Restaurant } from '../../restaurants/entities/restaurant.entity'
-import * as restaurants from '../data/restaurants.data.json'
+import restaurants from '../data/restaurants.data.json'
 
 async function generateBlurhashFromBuffer(
   imageFileBuffer: Buffer,

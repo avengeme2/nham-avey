@@ -12,13 +12,8 @@ import { GraphQLModule } from '@nestjs/graphql'
 import { ScheduleModule } from '@nestjs/schedule'
 import { TypeOrmModule } from '@nestjs/typeorm'
 import { FirebaseAdminModule } from '@nham-avey/nestjs-module'
-import {
-  ApolloServerPluginLandingPageLocalDefault,
-  ApolloServerPluginLandingPageProductionDefault,
-} from 'apollo-server-core'
-import { ApolloServer } from 'apollo-server-express'
 import { cert } from 'firebase-admin/app'
-import * as Joi from 'joi'
+import Joi from 'joi'
 
 import { ApiKeyMiddleware } from '../auth/api-key.middleware'
 import { AuthMiddleware } from '../auth/auth.middleware'
@@ -27,7 +22,6 @@ import { CategoryModule } from '../categories/categories.module'
 import { CityModule } from '../cities/cities.module'
 import { CommonModule } from '../common/common.module'
 import {
-  AUTHORIZATION_HEADER,
   GRAPHQL_PATH,
   SWAGGER_PATH,
 } from '../common/constants/common.constants'
@@ -37,6 +31,7 @@ import { EnhancedDate } from '../common/scalar/enhanced-date.scalar'
 import configuration from '../config/configuration'
 import { DishModule } from '../dishes/dishes.module'
 import { FileUploadsModule } from '../file-uploads/file-uploads.module'
+import { GraphqlConfigService } from '../graphql/graphql-config.service'
 import { ImagesModule } from '../images/images.module'
 import { MorganFormatType, MorganMiddleware } from '../log/morgan.middleware'
 import { MailModule } from '../mail/mails.module'
@@ -63,30 +58,8 @@ import { UsersModule } from '../users/users.module'
     }),
     TypeOrmModule.forRootAsync({ useClass: TypeormConfigService }),
     GraphQLModule.forRootAsync({
-      imports: [ConfigModule],
-      inject: [ConfigService],
       driver: ApolloDriver,
-      useFactory: (config: ConfigService) => {
-        return {
-          installSubscriptionHandlers: true,
-          playground: false,
-          introspection: true,
-          plugins: [
-            config.get('isProd')
-              ? ApolloServerPluginLandingPageProductionDefault()
-              : ApolloServerPluginLandingPageLocalDefault(),
-          ],
-          sortSchema: true,
-          autoSchemaFile: path.join(process.cwd(), 'apps/api/src/schema.gql'),
-          context: ({ req, connection }: ApolloServer['context']) => {
-            return {
-              [AUTHORIZATION_HEADER]: req
-                ? req.headers[AUTHORIZATION_HEADER]
-                : connection.context[AUTHORIZATION_HEADER],
-            }
-          },
-        }
-      },
+      useClass: GraphqlConfigService,
     }),
     ScheduleModule.forRoot(),
     MailModule.forRoot({

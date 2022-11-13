@@ -3,7 +3,7 @@ import { Injectable } from '@nestjs/common'
 import { InjectRepository } from '@nestjs/typeorm'
 import { encode } from 'blurhash'
 import { firstValueFrom } from 'rxjs'
-import * as sharp from 'sharp'
+import sharp from 'sharp'
 import { Repository } from 'typeorm'
 
 import { Image } from './entities/image.entity'
