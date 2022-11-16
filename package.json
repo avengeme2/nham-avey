@@ -104,7 +104,6 @@
     "sharp": "^0.31.2",
     "slugify": "^1.6.5",
     "theme-change": "^2.2.0",
-    "ts-morph": "^15.1.0",
     "tslib": "^2.4.0",
     "typeorm": "^0.3.10",
     "typeorm-naming-strategies": "^4.1.0",
