@@ -1,6 +1,7 @@
 import { Module } from '@nestjs/common'
 import { TypeOrmModule } from '@nestjs/typeorm'
 
+import { EmailModule } from '../email/email.module'
 import { User } from './entities/user.entity'
 import { AdminResolver } from './resolvers/admins.resolver'
 import { CommonUserResolver } from './resolvers/common-users.resolver'
@@ -9,7 +10,7 @@ import { VendorResolver } from './resolvers/vendors.resolver'
 import { UserService } from './users.service'
 
 @Module({
-  imports: [TypeOrmModule.forFeature([User])],
+  imports: [TypeOrmModule.forFeature([User]), EmailModule],
   providers: [
     UserService,
     CommonUserResolver,

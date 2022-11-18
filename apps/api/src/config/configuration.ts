@@ -16,6 +16,12 @@ const configs = () => ({
         : process.env.DATABASE_LOGGING,
   },
   isProd: process.env.NODE_ENV === 'production',
+  email: {
+    secret: {
+      user: process.env.AUTH_EMAIL_USER,
+      password: process.env.AUTH_EMAIL_PASSWORD,
+    },
+  },
 })
 
 export default configs
