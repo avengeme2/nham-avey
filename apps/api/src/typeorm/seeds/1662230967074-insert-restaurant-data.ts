@@ -1,6 +1,3 @@
-import axios from 'axios'
-import { encode } from 'blurhash'
-import sharp from 'sharp'
 import slugify from 'slugify'
 import { MigrationInterface, QueryRunner } from 'typeorm'
 
@@ -13,48 +10,14 @@ import { OpeningHours } from '../../restaurants/entities/opening-hours.entity'
 import { Restaurant } from '../../restaurants/entities/restaurant.entity'
 import restaurants from '../data/restaurants.data.json'
 
-async function generateBlurhashFromBuffer(
-  imageFileBuffer: Buffer,
-): Promise<string> {
-  const componentX = 4
-  const componentY = 4
-  const { data: forBlurhash, info } = await sharp(imageFileBuffer)
-    .flatten({ background: '#FFFFFF' })
-    .resize(componentX * 5, componentY * 5, {
-      fit: sharp.fit.cover,
-    })
-    .clone()
-    .raw()
-    .ensureAlpha()
-    .toBuffer({ resolveWithObject: true })
-
-  return encode(
-    new Uint8ClampedArray(forBlurhash),
-    info.width,
-    info.height,
-    componentX,
-    componentY,
-  )
-}
-
-async function generateBlurhashFromURL(url: string): Promise<string> {
-  const { data } = await axios.get(url, {
-    responseType: 'arraybuffer',
-  })
-  const buffer = Buffer.from(data, 'utf-8')
-  return generateBlurhashFromBuffer(buffer)
-}
-
 export class insertRestaurantData1662230967074 implements MigrationInterface {
   public async up(queryRunner: QueryRunner): Promise<void> {
     for (const restaurant of restaurants) {
       // setup image
       const coverImages: Image[] = []
       for (const imageUrl of restaurant.imageUrls) {
-        const blurhash = await generateBlurhashFromURL(imageUrl)
         const image = await queryRunner.manager.save(
           queryRunner.manager.create(Image, {
-            blurhash,
             url: imageUrl,
           }),
         )

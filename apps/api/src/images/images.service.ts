@@ -1,53 +1,19 @@
-import { HttpService } from '@nestjs/axios'
 import { Injectable } from '@nestjs/common'
 import { InjectRepository } from '@nestjs/typeorm'
-import { encode } from 'blurhash'
-import { firstValueFrom } from 'rxjs'
-import sharp from 'sharp'
 import { Repository } from 'typeorm'
 
 import { Image } from './entities/image.entity'
+import {
+  generateBlurhashFromBuffer,
+  generateBlurhashFromURL,
+} from './images.util'
 
 @Injectable()
 export class ImageService {
   constructor(
     @InjectRepository(Image)
     private readonly imageRepo: Repository<Image>,
-    private readonly httpService: HttpService,
   ) {}
-
-  private async generateBlurhashFromBuffer(
-    imageFileBuffer: Buffer,
-  ): Promise<string> {
-    const componentX = 4
-    const componentY = 4
-    const { data: forBlurhash, info } = await sharp(imageFileBuffer)
-      .flatten({ background: '#FFFFFF' })
-      .resize(componentX * 5, componentY * 5, {
-        fit: sharp.fit.cover,
-      })
-      .clone()
-      .raw()
-      .ensureAlpha()
-      .toBuffer({ resolveWithObject: true })
-
-    return encode(
-      new Uint8ClampedArray(forBlurhash),
-      info.width,
-      info.height,
-      componentX,
-      componentY,
-    )
-  }
-
-  private async generateBlurhashFromURL(url: string): Promise<string> {
-    const observable = this.httpService.get(url, {
-      responseType: 'arraybuffer',
-    })
-    const { data } = await firstValueFrom(observable)
-    const buffer = Buffer.from(data, 'utf-8')
-    return this.generateBlurhashFromBuffer(buffer)
-  }
 
   getOrCreateImages(imageUrls: string[]): Promise<Image[]> {
     return Promise.all<Image>(
@@ -56,14 +22,14 @@ export class ImageService {
         if (image) {
           return image
         }
-        const blurhash = await this.generateBlurhashFromURL(url)
+        const blurhash = await generateBlurhashFromURL(url)
         return this.imageRepo.save(this.imageRepo.create({ url, blurhash }))
       }),
     )
   }
 
   async saveImage(file: Express.Multer.File, url: string): Promise<Image> {
-    const blurhash = await this.generateBlurhashFromBuffer(file.buffer)
+    const blurhash = await generateBlurhashFromBuffer(file.buffer)
     const image = this.imageRepo.create({ blurhash, url })
     return this.imageRepo.save(image)
   }

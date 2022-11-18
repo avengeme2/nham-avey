@@ -1,9 +1,17 @@
 import { Field, InputType, ObjectType } from '@nestjs/graphql'
 import { IsString } from 'class-validator'
-import { Column, Entity, JoinColumn, ManyToOne, RelationId } from 'typeorm'
+import {
+  BeforeInsert,
+  Column,
+  Entity,
+  JoinColumn,
+  ManyToOne,
+  RelationId,
+} from 'typeorm'
 
 import { CoreEntity } from '../../common/entities/core.entity'
 import { Restaurant } from '../../restaurants/entities/restaurant.entity'
+import { generateBlurhashFromURL } from '../images.util'
 
 @InputType('ImageInputType', { isAbstract: true })
 @ObjectType()
@@ -28,4 +36,12 @@ export class Image extends CoreEntity {
 
   @RelationId((image: Image) => image.restaurant)
   restaurantId?: number
+
+  @BeforeInsert()
+  async ensureBlurhash() {
+    if (!this.blurhash) {
+      const blurhash = await generateBlurhashFromURL(this.url)
+      this.blurhash = blurhash
+    }
+  }
 }
