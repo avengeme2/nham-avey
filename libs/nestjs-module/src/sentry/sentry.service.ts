@@ -5,7 +5,7 @@ import {
   ConsoleLogger,
   OnApplicationShutdown,
 } from '@nestjs/common'
-import * as Sentry from '@sentry/node'
+import Sentry from '@sentry/node'
 import { ClientOptions, Client } from '@sentry/types'
 
 import { SENTRY_MODULE_OPTIONS } from './sentry.constants'

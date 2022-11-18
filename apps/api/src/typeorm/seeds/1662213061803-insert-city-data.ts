@@ -2,7 +2,7 @@ import { MigrationInterface, QueryRunner } from 'typeorm'
 
 import { City } from '../../cities/city.entity'
 import { Location } from '../../locations/location.entity'
-import * as cities from '../data/cities.data.json'
+import cities from '../data/cities.data.json'
 
 export class insertCityData1662213061803 implements MigrationInterface {
   public async up(queryRunner: QueryRunner): Promise<void> {
