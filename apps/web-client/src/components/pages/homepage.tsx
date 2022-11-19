@@ -1,10 +1,10 @@
 import { useCallback, useEffect, useMemo } from 'react'
 
 import { QueryResult } from '@apollo/client'
-import clsx from 'clsx'
 import { NextSeo } from 'next-seo'
 
 import {
+  joinClassName,
   Restaurant,
   RestaurantsQuery,
   RestaurantsQueryVariables,
@@ -158,7 +158,7 @@ const HomePage = () => {
         {restaurantData?.restaurants.hasNext && (
           <div className="mb-16 text-center">
             <button
-              className={clsx(
+              className={joinClassName(
                 'w-30 btn-active btn-sm btn h-10 hover:shadow-lg',
                 {
                   'loading btn-ghost': isLoadingRestaurant,

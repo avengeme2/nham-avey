@@ -1,4 +1,4 @@
-import clsx from 'clsx'
+import { joinClassName } from '@nham-avey/common'
 
 import { useTypedSelector } from '../hooks/redux/use-typed-selector'
 
@@ -7,7 +7,7 @@ export const Logo = () => {
 
   return (
     <div
-      className={clsx('text-center font-semibold', {
+      className={joinClassName('text-center font-semibold', {
         'md:2-[250px] w-[200px]': !navCollapsed,
         'w-[80px]': navCollapsed,
       })}

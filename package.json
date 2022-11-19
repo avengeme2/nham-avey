@@ -56,7 +56,6 @@
     "browser-image-compression": "^2.0.0",
     "class-transformer": "^0.5.1",
     "class-validator": "^0.13.2",
-    "clsx": "^1.2.1",
     "compression": "^1.7.4",
     "core-js": "^3.26.1",
     "daisyui": "^2.41.0",

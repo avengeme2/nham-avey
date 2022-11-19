@@ -1,10 +1,10 @@
 import { yupResolver } from '@hookform/resolvers/yup'
-import clsx from 'clsx'
 import { NextSeo } from 'next-seo'
 import Link from 'next/link'
 import { useForm } from 'react-hook-form'
 import * as yup from 'yup'
 
+import { joinClassName } from '@nham-avey/common'
 import { useFirebaseSignInWithEmailAndPassword } from '@nham-avey/react-hook'
 
 import { FormError } from '../components/form-error'
@@ -90,7 +90,7 @@ const LoginPage = () => {
           </div>
 
           <button
-            className={clsx('btn-primary btn', {
+            className={joinClassName('btn-primary btn', {
               loading: isSigningIn,
             })}
           >

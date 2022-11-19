@@ -1,4 +1,4 @@
-import clsx from 'clsx'
+import { joinClassName } from '@nham-avey/common'
 
 import { LazyAvatar } from './lazy-avatar'
 
@@ -19,7 +19,7 @@ export const AvatarInfo = ({
 }: AvatarInfoProps) => {
   return (
     <div
-      className={clsx('flex h-16 items-center', {
+      className={joinClassName('flex h-16 items-center', {
         'flex-row-reverse': reverse,
       })}
     >
@@ -33,7 +33,7 @@ export const AvatarInfo = ({
         />
       </div>
       <div
-        className={clsx('mx-2', {
+        className={joinClassName('mx-2', {
           'text-right': reverse,
         })}
       >

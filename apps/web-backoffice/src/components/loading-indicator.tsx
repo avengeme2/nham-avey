@@ -1,6 +1,6 @@
 import { LoadingOutlined } from '@ant-design/icons'
+import { joinClassName } from '@nham-avey/common'
 import { Spin } from 'antd'
-import clsx from 'clsx'
 
 interface LoadingProps {
   align?: 'left' | 'right' | 'center'
@@ -11,7 +11,7 @@ interface LoadingProps {
 export const LoadingIndicator = ({ align, cover, size = 35 }: LoadingProps) => {
   return (
     <div
-      className={clsx('loading', {
+      className={joinClassName('loading', {
         'text-left': align === 'left',
         'text-right': align === 'right',
         'text-center': align === 'center',

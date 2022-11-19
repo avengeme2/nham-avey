@@ -1,12 +1,11 @@
 import React from 'react'
 
 import { Tab } from '@headlessui/react'
-import clsx from 'clsx'
 import { AnimatePresence, motion } from 'framer-motion'
 import { NextSeo } from 'next-seo'
 import { useRouter } from 'next/router'
 
-import { Restaurant, useRestaurantBySlugQuery } from '@nham-avey/common'
+import { joinClassName, Restaurant, useRestaurantBySlugQuery } from '@nham-avey/common'
 
 import { APP_NAME } from '../../../constants/common-constants'
 import { DishCard } from '../../cards/dish-card'
@@ -166,7 +165,7 @@ export const RestaurantPage = () => {
               <Tab
                 key={item}
                 className={({ selected }) =>
-                  clsx('h5 outline-none', {
+                  joinClassName('h5 outline-none', {
                     'text-gray-400': !selected,
                   })
                 }
