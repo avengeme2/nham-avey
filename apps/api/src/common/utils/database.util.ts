@@ -1,24 +1,38 @@
-import fs from 'node:fs/promises'
+import fs from 'node:fs'
 import url from 'node:url'
 
-function parse(str: string) {
+export interface ConnectionOptions {
+  host: string | null
+  password?: string
+  user?: string
+  port?: string | null
+  database: string | null | undefined
+  client_encoding?: string
+  ssl?: boolean | string
+
+  application_name?: string
+  fallback_application_name?: string
+  options?: string
+}
+
+export const parsePGConnectionString = (string: string): ConnectionOptions => {
   //unix socket
-  if (str.charAt(0) === '/') {
-    const config = str.split(' ')
+  if (string.charAt(0) === '/') {
+    const config = string.split(' ')
     return { host: config[0], database: config[1] }
   }
 
   // url parse expects spaces encoded as %20
   const result = url.parse(
-    / |%[^a-f0-9]|%[a-f0-9][^a-f0-9]/i.test(str)
-      ? encodeURI(str).replace(/%25(\d\d)/g, '%$1')
-      : str,
+    / |%[^a-f0-9]|%[a-f0-9][^a-f0-9]/i.test(string)
+      ? encodeURI(string).replace(/%25(\d\d)/g, '%$1')
+      : string,
     true,
   )
-  const config = result.query
+  const config = result.query as Record<string, any>
   for (const k in config) {
     if (Array.isArray(config[k])) {
-      config[k] = config[k][config[k].length - 1]
+      config[k] = config?.[k]?.[(config[k]?.length as number) - 1]
     }
   }
 
@@ -26,16 +40,17 @@ function parse(str: string) {
   config.user = auth[0]
   config.password = auth.splice(1).join(':')
 
-  config.port = result.port
+  config.port = result.port as string
   if (result.protocol === 'socket:') {
-    config.host = decodeURI(result.pathname)
+    // eslint-disable-next-line @typescript-eslint/no-non-null-assertion
+    config.host = decodeURI(result.pathname!)
     config.database = result.query.db
     config.client_encoding = result.query.encoding
-    return config
+    return config as ConnectionOptions
   }
   if (!config.host) {
     // Only set the host if there is no equivalent query param.
-    config.host = result.hostname
+    config.host = result.hostname as string
   }
 
   // If the host is missing it might be a URL-encoded path to a socket.
@@ -50,7 +65,7 @@ function parse(str: string) {
   if (pathname && pathname.charAt(0) === '/') {
     pathname = pathname.slice(1) || null
   }
-  config.database = pathname && decodeURI(pathname)
+  config.database = (pathname && decodeURI(pathname)) as string
 
   if (config.ssl === 'true' || config.ssl === '1') {
     config.ssl = true
@@ -93,9 +108,5 @@ function parse(str: string) {
     }
   }
 
-  return config
+  return config as ConnectionOptions
 }
-
-module.exports = parse
-
-parse.parse = parse

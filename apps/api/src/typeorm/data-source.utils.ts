@@ -1,10 +1,10 @@
-import { parse } from 'pg-connection-string'
 import { DataSource } from 'typeorm'
 
+import { parsePGConnectionString } from '../common/utils/database.util'
 import { SnakeNamingStrategy } from './snake-naming.strategy'
 
 export const getDatasource = (type: 'migrations' | 'seeds') => {
-  const { host, port, database, user, password } = parse(
+  const { host, port, database, user, password } = parsePGConnectionString(
     process.env.DATABASE_URL as string,
   )
   const isLocalhost = host?.includes('127.0.0.1') || host?.includes('localhost')
