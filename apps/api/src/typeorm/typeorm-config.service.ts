@@ -2,7 +2,6 @@ import { Injectable } from '@nestjs/common'
 import { ConfigService } from '@nestjs/config'
 import { TypeOrmModuleOptions, TypeOrmOptionsFactory } from '@nestjs/typeorm'
 import { parse } from 'pg-connection-string'
-import { SnakeNamingStrategy } from 'typeorm-naming-strategies'
 import { LoggerOptions } from 'typeorm/logger/LoggerOptions'
 
 import { Category } from '../categories/category.entity'
@@ -17,6 +16,7 @@ import { OpeningHours } from '../restaurants/entities/opening-hours.entity'
 import { Restaurant } from '../restaurants/entities/restaurant.entity'
 import { Review } from '../restaurants/entities/review.entity'
 import { User } from '../users/entities/user.entity'
+import { SnakeNamingStrategy } from './snake-naming.strategy'
 
 @Injectable()
 export class TypeormConfigService implements TypeOrmOptionsFactory {

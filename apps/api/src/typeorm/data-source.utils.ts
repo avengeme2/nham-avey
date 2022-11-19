@@ -1,6 +1,7 @@
 import { parse } from 'pg-connection-string'
 import { DataSource } from 'typeorm'
-import { SnakeNamingStrategy } from 'typeorm-naming-strategies'
+
+import { SnakeNamingStrategy } from './snake-naming.strategy'
 
 export const getDatasource = (type: 'migrations' | 'seeds') => {
   const { host, port, database, user, password } = parse(
