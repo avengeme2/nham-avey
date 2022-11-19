@@ -1,11 +1,11 @@
 import { Injectable } from '@nestjs/common'
 import { ConfigService } from '@nestjs/config'
 import { TypeOrmModuleOptions, TypeOrmOptionsFactory } from '@nestjs/typeorm'
-import { parse } from 'pg-connection-string'
 import { LoggerOptions } from 'typeorm/logger/LoggerOptions'
 
 import { Category } from '../categories/category.entity'
 import { City } from '../cities/city.entity'
+import { parsePGConnectionString } from '../common/utils/database.util'
 import { Dish } from '../dishes/dish.entity'
 import { Image } from '../images/entities/image.entity'
 import { Location } from '../locations/location.entity'
@@ -23,7 +23,7 @@ export class TypeormConfigService implements TypeOrmOptionsFactory {
   constructor(private readonly config: ConfigService) {}
 
   public createTypeOrmOptions(): TypeOrmModuleOptions {
-    const { host, port, database, user, password } = parse(
+    const { host, port, database, user, password } = parsePGConnectionString(
       this.config.get<string>('db.url') as string,
     )
     const isLocalHost =
