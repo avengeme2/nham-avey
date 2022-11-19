@@ -5,7 +5,11 @@ import { AnimatePresence, motion } from 'framer-motion'
 import { NextSeo } from 'next-seo'
 import { useRouter } from 'next/router'
 
-import { joinClassName, Restaurant, useRestaurantBySlugQuery } from '@nham-avey/common'
+import {
+  joinClassName,
+  Restaurant,
+  useRestaurantBySlugQuery,
+} from '@nham-avey/common'
 
 import { APP_NAME } from '../../../constants/common-constants'
 import { DishCard } from '../../cards/dish-card'
