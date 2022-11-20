@@ -2,7 +2,7 @@ import { useCallback, useMemo } from 'react'
 
 import { QuestionOutlined, UserOutlined } from '@ant-design/icons'
 import { Grid, Menu } from 'antd'
-import { ItemType } from 'antd/lib/menu/hooks/useItems'
+import { ItemType } from 'antd/es/menu/hooks/useItems'
 import { useNavigate } from 'react-router-dom'
 
 import { useThemeActions } from '../hooks/redux/use-theme-actions'

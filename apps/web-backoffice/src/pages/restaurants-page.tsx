@@ -25,7 +25,7 @@ import {
   Tooltip,
   Typography,
 } from 'antd'
-import { ColumnsType } from 'antd/lib/table/interface'
+import { ColumnsType } from 'antd/es/table'
 import moment from 'moment'
 import { Helmet } from 'react-helmet-async'
 import { useDebouncedCallback } from 'use-debounce'
