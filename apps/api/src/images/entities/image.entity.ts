@@ -40,8 +40,10 @@ export class Image extends CoreEntity {
   @BeforeInsert()
   async ensureBlurhash() {
     if (!this.blurhash) {
-      const blurhash = await generateBlurhashFromURL(this.url)
-      this.blurhash = blurhash
+      try {
+        const blurhash = await generateBlurhashFromURL(this.url)
+        this.blurhash = blurhash
+      } catch (e) {}
     }
   }
 }
