@@ -25,7 +25,7 @@ import {
   GRAPHQL_PATH,
   SWAGGER_PATH,
 } from '../common/constants/common.constants'
-import { ResponseTimeMiddleware } from '../common/middlewares/response-time.middlware'
+import { ResponseTimeMiddleware } from '../common/middlewares/response-time.middleware'
 import { ServeFaviconMiddleware } from '../common/middlewares/serve-favicon.middleware'
 import { EnhancedDate } from '../common/scalar/enhanced-date.scalar'
 import configuration from '../config/configuration'
