@@ -1,3 +1,3 @@
-export const isFunction = (object: unknown): boolean => {
-  return typeof object === 'function'
+export const isFunction = (arg: unknown): arg is (...args: any[]) => any => {
+  return typeof arg === 'function'
 }

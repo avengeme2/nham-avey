@@ -1,4 +1,4 @@
-import { Request, Response } from 'express'
+import { Request, Response, NextFunction } from 'express'
 import onHeaders from 'on-headers'
 
 import { isFunction } from '../../common/utils/is.util'
@@ -16,7 +16,7 @@ export interface ResponseTimeFunction {
 /**
  * Create function to set response time header.
  */
-const createSetHeader = options => {
+const createSetHeader = (options: ResponseTimeOptions) => {
   // response time digits
   const digits = options.digits !== undefined ? options.digits : 3
 
@@ -26,7 +26,11 @@ const createSetHeader = options => {
   // display suffix
   const suffix = options.suffix !== undefined ? Boolean(options.suffix) : true
 
-  return function setResponseHeader(req, res, time) {
+  return function setResponseHeader(
+    _req: Request,
+    res: Response,
+    time: number,
+  ) {
     if (res.getHeader(header)) {
       return
     }
@@ -42,7 +46,7 @@ const createSetHeader = options => {
 }
 
 /**
- * Add a `X-Response-Time` header displaying
+ * Add a `x-response-time` header displaying
  * the response duration in milliseconds.
  */
 export const responseTime = (
@@ -51,11 +55,9 @@ export const responseTime = (
   const opts = options || {}
 
   // get the function to invoke
-  const fn = isFunction(opts)
-    ? (opts as ResponseTimeFunction) // FIXME: infer function type with `as`
-    : createSetHeader(opts)
+  const fn = isFunction(opts) ? opts : createSetHeader(opts)
 
-  return (req, res, next) => {
+  return (req: Request, res: Response, next: NextFunction) => {
     const startAt = process.hrtime()
     onHeaders(res, () => {
       const diff = process.hrtime(startAt)
