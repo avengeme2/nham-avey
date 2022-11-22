@@ -62,7 +62,7 @@ export class TypeormConfigService implements TypeOrmOptionsFactory {
           rejectUnauthorized: false, // this should be true outside heroku!
         },
       }),
-      cache: {
+      cache: this.config.get<boolean>('isProd') && {
         duration: 1500, // override default 1000ms
         type: 'ioredis',
         options: this.config.get('REDIS_URL'),
