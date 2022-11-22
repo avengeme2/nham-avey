@@ -9,9 +9,9 @@ export const urlAlphabet =
 // request size by this multiplier. The pool is enlarged if subsequent
 // requests exceed the maximum buffer size.
 const POOL_SIZE_MULTIPLIER = 128
-let pool, poolOffset
+let pool: Buffer, poolOffset: number
 
-const fillPool = bytes => {
+const fillPool = (bytes: number) => {
   if (!pool || pool.length < bytes) {
     pool = Buffer.allocUnsafe(bytes * POOL_SIZE_MULTIPLIER)
     randomFillSync(pool)
@@ -23,13 +23,17 @@ const fillPool = bytes => {
   poolOffset += bytes
 }
 
-export const random = bytes => {
+export const random = (bytes: number) => {
   // `-=` convert `bytes` to number to prevent `valueOf` abusing
   fillPool((bytes -= 0))
   return pool.subarray(poolOffset - bytes, poolOffset)
 }
 
-export const customRandom = (alphabet, defaultSize, getRandom) => {
+export const customRandom = (
+  alphabet: string,
+  defaultSize: number,
+  getRandom: (bytes: number) => Uint8Array,
+) => {
   // First, a bitmask is necessary to generate the ID. The bitmask makes bytes
   // values closer to the alphabet size. The bitmask calculates the closest
   // `2^31 - 1` number, which exceeds the alphabet size.
@@ -67,7 +71,7 @@ export const customRandom = (alphabet, defaultSize, getRandom) => {
   }
 }
 
-export const customAlphabet = (alphabet, size = 21) =>
+export const customAlphabet = (alphabet: string, size = 21) =>
   customRandom(alphabet, size, random)
 
 export const randomId = (size = 21) => {
