@@ -110,7 +110,7 @@
   "devDependencies": {
     "@commitlint/cli": "^17.3.0",
     "@commitlint/config-conventional": "^17.3.0",
-    "@graphql-codegen/cli": "^2.14.0",
+    "@graphql-codegen/cli": "^2.14.1",
     "@graphql-codegen/typescript-operations": "^2.5.7",
     "@graphql-codegen/typescript-react-apollo": "^3.3.7",
     "@nestjs/schematics": "^9.0.3",
