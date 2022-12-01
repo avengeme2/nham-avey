@@ -1,9 +1,8 @@
 import path from 'node:path'
 
-import { MailerModule } from '@nestjs-modules/mailer'
-import { EjsAdapter } from '@nestjs-modules/mailer/dist/adapters/ejs.adapter'
 import { Module } from '@nestjs/common'
 import { ConfigService } from '@nestjs/config'
+import { EjsAdapter, MailerModule } from '@nham-avey/nestjs-module'
 
 import { EmailService } from './email.service'
 

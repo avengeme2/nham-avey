@@ -1,5 +1,5 @@
-import { MailerService } from '@nestjs-modules/mailer'
 import { Injectable } from '@nestjs/common'
+import { MailerService } from '@nham-avey/nestjs-module'
 
 import { SendEmailOptions } from './interfaces/send-email-options.interface'
 
