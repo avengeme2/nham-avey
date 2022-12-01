@@ -72,6 +72,7 @@
     "ioredis": "^5.2.4",
     "joi": "^17.7.0",
     "lodash-es": "^4.17.21",
+    "logform": "^2.4.2",
     "lottie-react": "^2.3.1",
     "moment": "^2.29.4",
     "moment-timezone": "^0.5.39",
@@ -106,6 +107,7 @@
     "tslib": "^2.4.1",
     "typeorm": "^0.3.10",
     "use-debounce": "^9.0.2",
+    "winston": "^3.8.2",
     "yup": "^0.32.11"
   },
   "devDependencies": {
