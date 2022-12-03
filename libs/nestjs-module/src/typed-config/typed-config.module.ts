@@ -1,35 +1,39 @@
-import { Module, DynamicModule, Provider } from '@nestjs/common';
-import { red, yellow, cyan, blue } from 'chalk';
-import type { ClassConstructor } from 'class-transformer';
-import type { ValidatorOptions, ValidationError } from 'class-validator';
-import merge from 'lodash.merge';
+import { Module, DynamicModule, Provider } from '@nestjs/common'
+import { red, yellow, cyan, blue } from 'chalk'
+import { ClassConstructor, plainToInstance } from 'class-transformer'
+import {
+  ValidatorOptions,
+  ValidationError,
+  validateSync,
+} from 'class-validator'
+import { merge } from 'lodash'
 import {
   TypedConfigModuleAsyncOptions,
   TypedConfigModuleOptions,
-} from './interfaces/typed-config-module-options.interface';
-import { forEachDeep } from './utils/for-each-deep.util';
-import { identity } from './utils/identity.util';
-import { debug } from './utils/debug.util';
-import { validateSync, plainToClass } from './utils/imports.util';
+} from './interfaces/typed-config-module-options.interface'
+import { forEachDeep } from './utils/for-each-deep.util'
+import { identity } from './utils/identity.util'
+import { debug } from './utils/debug.util'
 
 @Module({})
 export class TypedConfigModule {
   public static forRoot(options: TypedConfigModuleOptions): DynamicModule {
-    const rawConfig = this.getRawConfig(options.load);
+    const rawConfig = this.getRawConfig(options.load)
 
-    return this.getDynamicModule(options, rawConfig);
+    return this.getDynamicModule(options, rawConfig)
   }
 
   public static async forRootAsync(
     options: TypedConfigModuleAsyncOptions,
   ): Promise<DynamicModule> {
-    const rawConfig = await this.getRawConfigAsync(options.load);
+    const rawConfig = await this.getRawConfigAsync(options.load)
 
-    return this.getDynamicModule(options, rawConfig);
+    return this.getDynamicModule(options, rawConfig)
   }
 
   private static getDynamicModule(
     options: TypedConfigModuleOptions | TypedConfigModuleAsyncOptions,
+    // eslint-disable-next-line @typescript-eslint/no-explicit-any
     rawConfig: Record<string, any>,
   ) {
     const {
@@ -38,57 +42,57 @@ export class TypedConfigModule {
       validationOptions,
       isGlobal = true,
       validate = this.validateWithClassValidator.bind(this),
-    } = options;
+    } = options
 
     if (typeof rawConfig !== 'object') {
       throw new Error(
         `Configuration should be an object, received: ${rawConfig}. Please check the return value of \`load()\``,
-      );
+      )
     }
-    const normalized = normalize(rawConfig);
-    const config = validate(normalized, Config, validationOptions);
-    const providers = this.getProviders(config, Config);
+    const normalized = normalize(rawConfig)
+    const config = validate(normalized, Config, validationOptions)
+    const providers = this.getProviders(config, Config)
 
     return {
       global: isGlobal,
       module: TypedConfigModule,
       providers,
       exports: providers,
-    };
+    }
   }
 
   private static getRawConfig(load: TypedConfigModuleOptions['load']) {
     if (Array.isArray(load)) {
-      const config = {};
+      const config = {}
       for (const fn of load) {
         try {
-          const conf = fn();
-          merge(config, conf);
+          const conf = fn()
+          merge(config, conf)
         } catch (err: any) {
-          debug(`Config load failed: ${err.message}`);
+          debug(`Config load failed: ${err.message}`)
         }
       }
-      return config;
+      return config
     }
-    return load();
+    return load()
   }
 
   private static async getRawConfigAsync(
     load: TypedConfigModuleAsyncOptions['load'],
   ) {
     if (Array.isArray(load)) {
-      const config = {};
+      const config = {}
       for (const fn of load) {
         try {
-          const conf = await fn();
-          merge(config, conf);
+          const conf = await fn()
+          merge(config, conf)
         } catch (err: any) {
-          debug(`Config load failed: ${err.message}`);
+          debug(`Config load failed: ${err.message}`)
         }
       }
-      return config;
+      return config
     }
-    return load();
+    return load()
   }
 
   private static getProviders(
@@ -100,7 +104,7 @@ export class TypedConfigModule {
         provide: Config,
         useValue: config,
       },
-    ];
+    ]
     forEachDeep(config, value => {
       if (
         value &&
@@ -108,32 +112,34 @@ export class TypedConfigModule {
         !Array.isArray(value) &&
         value.constructor !== Object
       ) {
-        providers.push({ provide: value.constructor, useValue: value });
+        providers.push({ provide: value.constructor, useValue: value })
       }
-    });
+    })
 
-    return providers;
+    return providers
   }
 
   private static validateWithClassValidator(
+    // eslint-disable-next-line @typescript-eslint/no-explicit-any
     rawConfig: any,
+    // eslint-disable-next-line @typescript-eslint/no-explicit-any
     Config: ClassConstructor<any>,
     options?: Partial<ValidatorOptions>,
   ) {
-    const config = plainToClass(Config, rawConfig, {
+    const config = plainToInstance(Config, rawConfig, {
       exposeDefaultValues: true,
-    });
+    })
     // defaults to strictest validation rules
     const schemaErrors = validateSync(config, {
       forbidUnknownValues: true,
       whitelist: true,
       ...options,
-    });
+    })
     if (schemaErrors.length > 0) {
-      const configErrorMessage = this.getConfigErrorMessage(schemaErrors);
-      throw new Error(configErrorMessage);
+      const configErrorMessage = this.getConfigErrorMessage(schemaErrors)
+      throw new Error(configErrorMessage)
     }
-    return config;
+    return config
   }
 
   static getConfigErrorMessage(errors: ValidationError[]): string {
@@ -148,19 +154,17 @@ export class TypedConfigModule {
                 JSON.stringify(value),
               )}\``,
           )
-          .join(`\n`);
+          .join(`\n`)
         const msg = [
           `  - config ${cyan(property)} does not match the following rules:`,
           `${constraintMessage}`,
-        ].join(`\n`);
-        return msg;
+        ].join(`\n`)
+        return msg
       })
       .filter(Boolean)
-      .join(`\n`);
-    const configErrorMessage = red(
-      `Configuration is not valid:\n${messages}\n`,
-    );
-    return configErrorMessage;
+      .join(`\n`)
+    const configErrorMessage = red(`Configuration is not valid:\n${messages}\n`)
+    return configErrorMessage
   }
 
   /**
@@ -169,27 +173,27 @@ export class TypedConfigModule {
    */
   private static formatValidationError(errors: ValidationError[]) {
     const result: {
-      property: string;
-      constraints: ValidationError['constraints'];
-      value: ValidationError['value'];
-    }[] = [];
+      property: string
+      constraints: ValidationError['constraints']
+      value: ValidationError['value']
+    }[] = []
     const helper = (
       { property, constraints, children, value }: ValidationError,
       prefix: string,
     ) => {
-      const keyPath = prefix ? `${prefix}.${property}` : property;
+      const keyPath = prefix ? `${prefix}.${property}` : property
       if (constraints) {
         result.push({
           property: keyPath,
           constraints,
           value,
-        });
+        })
       }
       if (children && children.length) {
-        children.forEach(child => helper(child, keyPath));
+        children.forEach(child => helper(child, keyPath))
       }
-    };
-    errors.forEach(error => helper(error, ``));
-    return result;
+    }
+    errors.forEach(error => helper(error, ``))
+    return result
   }
 }

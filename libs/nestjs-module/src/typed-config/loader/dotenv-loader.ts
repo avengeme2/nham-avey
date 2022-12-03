@@ -6,9 +6,10 @@
 
 import fs from 'node:fs'
 import { resolve } from 'node:path'
-import { loadPackage } from '../utils/load-package.util'
 import { debug } from '../utils/debug.util'
 import { set } from 'lodash'
+import dotenv from 'dotenv'
+import dotenvExpand from 'dotenv-expand'
 
 export interface DotenvLoaderOptions {
   /**
@@ -64,13 +65,7 @@ export interface DotenvLoaderOptions {
 }
 
 // eslint-disable-next-line @typescript-eslint/no-explicit-any
-let dotenv: any
-// eslint-disable-next-line @typescript-eslint/no-explicit-any
-let dotenvExpand: any
-
-// eslint-disable-next-line @typescript-eslint/no-explicit-any
 const loadEnvFile = (options: DotenvLoaderOptions): Record<string, any> => {
-  dotenv = loadPackage('dotenv', 'dotenvLoader')
   const envFilePaths = Array.isArray(options.envFilePath)
     ? options.envFilePath
     : [options.envFilePath || resolve(process.cwd(), '.env')]
@@ -80,12 +75,8 @@ const loadEnvFile = (options: DotenvLoaderOptions): Record<string, any> => {
     if (fs.existsSync(envFilePath)) {
       config = Object.assign(dotenv.parse(fs.readFileSync(envFilePath)), config)
       if (options.expandVariables) {
-        dotenvExpand = loadPackage(
-          'dotenv-expand',
-          "dotenvLoader's ability to expandVariables",
-        )
         // eslint-disable-next-line @typescript-eslint/no-non-null-assertion
-        config = dotenvExpand({ parsed: config }).parsed!
+        config = dotenvExpand.expand({ parsed: config }).parsed!
       }
     }
 
