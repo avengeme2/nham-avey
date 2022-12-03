@@ -68,6 +68,7 @@ export class TypedConfigModule {
         try {
           const conf = fn()
           merge(config, conf)
+          // eslint-disable-next-line @typescript-eslint/no-explicit-any
         } catch (err: any) {
           debug(`Config load failed: ${err.message}`)
         }
@@ -86,6 +87,7 @@ export class TypedConfigModule {
         try {
           const conf = await fn()
           merge(config, conf)
+          // eslint-disable-next-line @typescript-eslint/no-explicit-any
         } catch (err: any) {
           debug(`Config load failed: ${err.message}`)
         }
@@ -96,7 +98,9 @@ export class TypedConfigModule {
   }
 
   private static getProviders(
+    // eslint-disable-next-line @typescript-eslint/no-explicit-any
     config: any,
+    // eslint-disable-next-line @typescript-eslint/no-explicit-any
     Config: ClassConstructor<any>,
   ): Provider[] {
     const providers: Provider[] = [

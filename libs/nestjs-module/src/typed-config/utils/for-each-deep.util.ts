@@ -7,9 +7,12 @@
  * @param iteratee The function invoked per iteration.
  */
 export function forEachDeep(
+  // eslint-disable-next-line @typescript-eslint/no-explicit-any
   obj: Record<string, any>,
+  // eslint-disable-next-line @typescript-eslint/no-explicit-any
   iteratee: (value: any, path: string[]) => void,
 ): void {
+  // eslint-disable-next-line @typescript-eslint/no-explicit-any
   const helper = (obj: any, path: string[]) => {
     Object.entries(obj).forEach(([key, value]) => {
       iteratee(value, [...path, key])
