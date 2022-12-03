@@ -7,16 +7,17 @@ import {
   validateSync,
 } from 'class-validator'
 import { merge } from 'lodash'
-import {
-  TypedConfigModuleAsyncOptions,
-  TypedConfigModuleOptions,
-} from './interfaces/typed-config-module-options.interface'
+
 import { forEachDeep } from './utils/for-each-deep.util'
 import { identity } from './utils/identity.util'
 import { debug } from './utils/debug.util'
+import {
+  TypedConfigModuleAsyncOptions,
+  TypedConfigModuleOptions,
+} from './interfaces'
 
 @Module({})
-export class TypedConfigModule {
+export class ConfigModule {
   public static forRoot(options: TypedConfigModuleOptions): DynamicModule {
     const rawConfig = this.getRawConfig(options.load)
 
@@ -55,7 +56,7 @@ export class TypedConfigModule {
 
     return {
       global: isGlobal,
-      module: TypedConfigModule,
+      module: ConfigModule,
       providers,
       exports: providers,
     }
