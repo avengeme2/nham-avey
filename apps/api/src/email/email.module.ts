@@ -1,9 +1,12 @@
 import path from 'node:path'
 
+import { HttpModule } from '@nestjs/axios'
 import { Module } from '@nestjs/common'
 import { ConfigService } from '@nestjs/config'
+import { TypeOrmModule } from '@nestjs/typeorm'
 import { EjsAdapter, MailerModule } from '@nham-avey/nestjs-module'
 
+import { DisposableDomainEmail } from './disposable-domain-email.entity'
 import { EmailService } from './email.service'
 
 @Module({
@@ -45,6 +48,8 @@ import { EmailService } from './email.service'
         }
       },
     }),
+    HttpModule,
+    TypeOrmModule.forFeature([DisposableDomainEmail]),
   ],
   providers: [EmailService],
   exports: [EmailService],

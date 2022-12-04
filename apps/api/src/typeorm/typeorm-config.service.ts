@@ -7,6 +7,7 @@ import { Category } from '../categories/category.entity'
 import { City } from '../cities/city.entity'
 import { parsePGConnectionString } from '../common/utils/database.util'
 import { Dish } from '../dishes/dish.entity'
+import { DisposableDomainEmail } from '../email/disposable-domain-email.entity'
 import { Image } from '../images/entities/image.entity'
 import { Location } from '../locations/location.entity'
 import { OrderItem } from '../orders/entities/order-item.entity'
@@ -49,6 +50,7 @@ export class TypeormConfigService implements TypeOrmOptionsFactory {
         OpeningHours,
         Review,
         Image,
+        DisposableDomainEmail,
       ],
       migrations: [],
       migrationsTableName: 'migrations',

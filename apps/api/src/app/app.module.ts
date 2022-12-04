@@ -34,7 +34,6 @@ import { FileUploadsModule } from '../file-uploads/file-uploads.module'
 import { GraphqlConfigService } from '../graphql/graphql-config.service'
 import { ImagesModule } from '../images/images.module'
 import { MorganFormatType, MorganMiddleware } from '../log/morgan.middleware'
-import { MailModule } from '../mail/mails.module'
 import { OrdersModule } from '../orders/orders.module'
 import { PaymentsModule } from '../payments/payments.module'
 import { RestaurantsModule } from '../restaurants/restaurants.module'
@@ -62,11 +61,6 @@ import { UsersModule } from '../users/users.module'
       useClass: GraphqlConfigService,
     }),
     ScheduleModule.forRoot(),
-    MailModule.forRoot({
-      apiKey: process.env.MAILGUN_API_KEY as string,
-      domain: process.env.MAILGUN_DOMAIN_NAME as string,
-      fromEmail: process.env.MAILGUN_FROM_EMAIL as string,
-    }),
     FirebaseAdminModule.forRootAsync({
       imports: [ConfigModule],
       inject: [ConfigService],
@@ -108,7 +102,10 @@ export class AppModule implements NestModule {
       .apply(ApiKeyMiddleware)
       .exclude({ path: 'favicon.ico', method: RequestMethod.GET })
       .exclude({ path: SWAGGER_PATH, method: RequestMethod.ALL })
-      .exclude({ path: GRAPHQL_PATH, method: RequestMethod.ALL }) // TODO: remove this line when include api key from the frontend
+      .exclude({
+        path: GRAPHQL_PATH,
+        method: RequestMethod.ALL,
+      }) // TODO: remove this line when include api key from the frontend
       .forRoutes({ path: '*', method: RequestMethod.ALL })
       .apply(AuthMiddleware)
       .exclude({ path: 'graphql', method: RequestMethod.ALL })
