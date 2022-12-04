@@ -6,6 +6,7 @@ import { Repository } from 'typeorm'
 
 import { CoreOutput } from '../common/dtos/output.dto'
 import { PaginationWithSearchArgs } from '../common/dtos/pagination.dto'
+import { Location } from '../locations/location.entity'
 import { PaginatedRestaurantsOutput } from '../restaurants/dtos'
 import { City } from './city.entity'
 import { CityRequest } from './city.interface'
@@ -23,6 +24,8 @@ export class CityService {
   constructor(
     @InjectRepository(City)
     private readonly cityRepo: Repository<City>,
+    @InjectRepository(Location)
+    private readonly locationRepo: Repository<Location>,
   ) {}
 
   getCityBySlug(slug: string) {
@@ -63,7 +66,6 @@ export class CityService {
   async findAllCities(): Promise<AllCitiesOutput> {
     const cities = await this.cityRepo.find({
       order: { name: 'ASC' },
-      relations: { location: true },
       cache: true,
     })
     return { ok: true, data: cities }
@@ -82,10 +84,10 @@ export class CityService {
       queryBuilder
         .where(
           `
-            city.name ILIKE :searchQuery
-            OR
-            city.nameInKhmer ILIKE :searchQuery
-    `,
+              city.name ILIKE :searchQuery
+              OR
+              city.nameInKhmer ILIKE :searchQuery
+      `,
           { searchQuery },
         )
         .leftJoinAndSelect('city.location', 'location')
@@ -145,5 +147,14 @@ export class CityService {
     city.slug = slug
     const saved = await this.cityRepo.save(city)
     return { ok: true, city: saved }
+  }
+
+  findLocationByCity(city: City): Promise<Location | null> | null {
+    if (city.locationId) {
+      return this.locationRepo.findOne({
+        where: { id: city.locationId },
+      })
+    }
+    return null
   }
 }

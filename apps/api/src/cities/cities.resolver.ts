@@ -14,6 +14,7 @@ import { Roles } from '../auth/role.decorator'
 import { IdArg } from '../common/dtos/id.dto'
 import { CoreOutput } from '../common/dtos/output.dto'
 import { PaginationWithSearchArgs } from '../common/dtos/pagination.dto'
+import { Location } from '../locations/location.entity'
 import { UserRole } from '../users/entities/user.entity'
 import { CityService } from './cities.service'
 import { City } from './city.entity'
@@ -33,6 +34,11 @@ export class CityResolver {
   @ResolveField(returns => Int)
   restaurantCount(@Parent() city: City): Promise<number> {
     return this.cityService.countRestaurantsByCity(city)
+  }
+
+  @ResolveField(returns => Location)
+  location(@Parent() city: City): Promise<Location | null> | null {
+    return this.cityService.findLocationByCity(city)
   }
 
   @Query(returns => AllCitiesOutput)
@@ -55,6 +61,7 @@ export class CityResolver {
   ): Promise<CoreOutput> {
     return this.cityService.deleteCityByAdmin(decodedIdToken.uid, arg.id)
   }
+
   @Mutation(returns => AdminCreateCityOutput)
   @Roles(UserRole.Admin)
   adminCreateCity(

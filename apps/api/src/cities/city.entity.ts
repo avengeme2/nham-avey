@@ -1,6 +1,13 @@
 import { Field, InputType, ObjectType } from '@nestjs/graphql'
 import { IsOptional, IsString } from 'class-validator'
-import { Column, Entity, JoinColumn, OneToMany, OneToOne } from 'typeorm'
+import {
+  Column,
+  Entity,
+  JoinColumn,
+  OneToMany,
+  OneToOne,
+  RelationId,
+} from 'typeorm'
 
 import { CoreEntity } from '../common/entities/core.entity'
 import { Location } from '../locations/location.entity'
@@ -30,6 +37,9 @@ export class City extends CoreEntity {
   @OneToOne(() => Location, { nullable: true })
   @JoinColumn({ name: 'location_id', referencedColumnName: 'id' })
   location?: Location
+
+  @RelationId((city: City) => city.location)
+  locationId?: number
 
   @OneToMany(() => Restaurant, restaurant => restaurant.city, {
     nullable: true,
