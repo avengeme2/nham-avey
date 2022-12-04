@@ -22,7 +22,7 @@ export class Image extends CoreEntity {
   @IsString()
   url: string
 
-  @Field(() => String, { nullable: false })
+  @Field(() => String, { nullable: true })
   @Column({ nullable: true, type: 'varchar', length: 50 })
   @IsString()
   blurhash?: string
