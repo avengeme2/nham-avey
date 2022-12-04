@@ -264,7 +264,7 @@ type GetPaymentsOutput {
 }
 
 type Image {
-  blurhash: String!
+  blurhash: String
   createdAt: EnhancedDate!
   id: Float!
   restaurant: Restaurant
