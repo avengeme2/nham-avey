@@ -13,6 +13,7 @@ import {
   User,
   UserRole,
 } from '@nham-avey/common'
+import { useDebouncedCallback } from '@nham-avey/react-hook'
 import {
   Button,
   Card,
@@ -26,7 +27,6 @@ import {
 } from 'antd'
 import { ColumnsType } from 'antd/es/table'
 import { Helmet } from 'react-helmet-async'
-import { useDebouncedCallback } from 'use-debounce'
 
 import { AvatarInfo } from '../components/avatar-info'
 import { UpdateUserDrawer } from '../components/drawers/update-user-drawer'

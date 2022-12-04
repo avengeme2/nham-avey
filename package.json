@@ -111,7 +111,6 @@
     "tslib": "^2.4.1",
     "typeorm": "^0.3.10",
     "typesense": "^1.4.4",
-    "use-debounce": "^9.0.2",
     "winston": "^3.8.2",
     "yup": "^0.32.11"
   },

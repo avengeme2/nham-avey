@@ -13,6 +13,7 @@ import {
   useAdminGetRestaurantsQuery,
   useDeleteRestaurantMutation,
 } from '@nham-avey/common'
+import { useDebouncedCallback } from '@nham-avey/react-hook'
 import {
   Button,
   Card,
@@ -28,7 +29,6 @@ import {
 import { ColumnsType } from 'antd/es/table'
 import moment from 'moment'
 import { Helmet } from 'react-helmet-async'
-import { useDebouncedCallback } from 'use-debounce'
 
 import { AvatarInfo } from '../components/avatar-info'
 import { CreateRestaurantDrawer } from '../components/drawers/create-restaurant-drawer'
