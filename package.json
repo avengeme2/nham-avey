@@ -55,7 +55,7 @@
     "browser-image-compression": "^2.0.0",
     "chalk": "^4.1.2",
     "class-transformer": "^0.5.1",
-    "class-validator": "^0.13.2",
+    "class-validator": "^0.14.0",
     "compression": "^1.7.4",
     "core-js": "^3.26.1",
     "daisyui": "^2.42.1",
