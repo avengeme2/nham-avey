@@ -10,5 +10,6 @@
     "web-backoffice-e2e": "apps/web-backoffice-e2e",
     "web-client": "apps/web-client",
     "web-client-e2e": "apps/web-client-e2e"
-  }
+  },
+  "$schema": "./node_modules/nx/schemas/workspace-schema.json"
 }
