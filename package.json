@@ -151,7 +151,7 @@
     "@types/morgan": "^1.9.3",
     "@types/multer": "^1.4.7",
     "@types/node": "18.7.18",
-    "@types/nodemailer": "^6.4.6",
+    "@types/nodemailer": "^6.4.7",
     "@types/nprogress": "^0.2.0",
     "@types/on-headers": "^1.0.0",
     "@types/preview-email": "^2.0.1",
