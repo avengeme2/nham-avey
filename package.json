@@ -41,7 +41,7 @@
     "@nestjs/schedule": "^2.1.0",
     "@nestjs/swagger": "^6.1.4",
     "@nestjs/typeorm": "^9.0.1",
-    "@next/bundle-analyzer": "^13.0.6",
+    "@next/bundle-analyzer": "^13.0.7",
     "@nrwl/next": "15.3.3",
     "@reduxjs/toolkit": "1.9.1",
     "@sentry/node": "^7.27.0",
