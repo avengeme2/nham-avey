@@ -58,7 +58,7 @@
     "class-validator": "^0.14.0",
     "compression": "^1.7.4",
     "core-js": "^3.26.1",
-    "daisyui": "^2.43.2",
+    "daisyui": "^2.45.0",
     "debug": "^4.3.4",
     "deepmerge": "^4.2.2",
     "dotenv": "^16.0.3",
