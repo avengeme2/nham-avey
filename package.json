@@ -57,7 +57,7 @@
     "class-transformer": "^0.5.1",
     "class-validator": "^0.14.0",
     "compression": "^1.7.4",
-    "core-js": "^3.26.1",
+    "core-js": "^3.27.0",
     "daisyui": "^2.46.0",
     "debug": "^4.3.4",
     "deepmerge": "^4.2.2",
