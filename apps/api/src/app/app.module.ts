@@ -2,16 +2,25 @@ import path from 'node:path'
 
 import { ApolloDriver } from '@nestjs/apollo'
 import {
+  HttpException,
   MiddlewareConsumer,
   Module,
   NestModule,
   RequestMethod,
 } from '@nestjs/common'
 import { ConfigModule, ConfigService } from '@nestjs/config'
+import { APP_INTERCEPTOR } from '@nestjs/core'
 import { GraphQLModule } from '@nestjs/graphql'
 import { ScheduleModule } from '@nestjs/schedule'
 import { TypeOrmModule } from '@nestjs/typeorm'
-import { FirebaseAdminModule } from '@nham-avey/nestjs-module'
+import {
+  FirebaseAdminModule,
+  SentryGraphqlInterceptor,
+  SentryInterceptor,
+  SentryModule,
+} from '@nham-avey/nestjs-module'
+import * as Sentry from '@sentry/node'
+import * as Tracing from '@sentry/tracing'
 import { cert } from 'firebase-admin/app'
 import Joi from 'joi'
 
@@ -60,6 +69,18 @@ import { UsersModule } from '../users/users.module'
       useClass: GraphqlConfigService,
     }),
     ScheduleModule.forRoot(),
+    SentryModule.forRoot({
+      dsn: process.env.SENTRY_DSN,
+      environment: 'development', // TODO
+      tracesSampleRate: 1,
+      integrations: [
+        // enable HTTP calls tracing
+        new Sentry.Integrations.Http({ tracing: true }),
+        // enable Express.js middleware tracing
+        new Tracing.Integrations.Express(), // TODO: check app instance
+        new Tracing.Integrations.Postgres(),
+      ],
+    }),
     FirebaseAdminModule.forRootAsync({
       imports: [ConfigModule],
       inject: [ConfigService],
@@ -87,6 +108,22 @@ import { UsersModule } from '../users/users.module'
   controllers: [],
   providers: [
     EnhancedDate, // override default graphql date since default one doesn't parse date from string
+    {
+      provide: APP_INTERCEPTOR,
+      useFactory: () =>
+        new SentryInterceptor({
+          filters: [
+            {
+              type: HttpException,
+              filter: (exception: HttpException) => 500 > exception.getStatus(), // Only report 500 errors
+            },
+          ],
+        }),
+    },
+    {
+      provide: APP_INTERCEPTOR,
+      useFactory: () => new SentryGraphqlInterceptor(),
+    },
   ],
 })
 export class AppModule implements NestModule {

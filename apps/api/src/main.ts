@@ -1,6 +1,7 @@
 import { Logger, ValidationPipe } from '@nestjs/common'
 import { ConfigService } from '@nestjs/config'
 import { NestFactory } from '@nestjs/core'
+import * as Sentry from '@sentry/node'
 import compression from 'compression'
 
 import { AppModule } from './app/app.module'
@@ -21,6 +22,15 @@ async function bootstrap() {
   if (showSwagger) {
     await createSwagger(app)
   }
+
+  // RequestHandler creates a separate execution context using domains, so that every
+  // transaction/span/breadcrumb is attached to its own Hub instance
+  app.use(Sentry.Handlers.requestHandler())
+  // TracingHandler creates a trace for every incoming request
+  app.use(Sentry.Handlers.tracingHandler())
+
+  // The error handler must be before any other error middleware and after all controllers
+  app.use(Sentry.Handlers.errorHandler())
 
   await app.listen(port)
   Logger.log(

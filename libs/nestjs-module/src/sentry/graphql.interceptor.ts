@@ -6,7 +6,7 @@ import { Handlers, Scope } from '@sentry/node'
 import { SentryInterceptor } from '.'
 
 @Injectable()
-export class GraphqlInterceptor extends SentryInterceptor {
+export class SentryGraphqlInterceptor extends SentryInterceptor {
   protected override captureException(
     context: ExecutionContext,
     scope: Scope,

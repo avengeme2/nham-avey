@@ -6,6 +6,7 @@ import {
   UnauthorizedException,
 } from '@nestjs/common'
 import { FirebaseAuthenticationService } from '@nham-avey/nestjs-module'
+import * as Sentry from '@sentry/node'
 import { NextFunction, Request, Response } from 'express'
 import { DecodedIdToken } from 'firebase-admin/auth'
 
@@ -48,6 +49,10 @@ export class AuthMiddleware implements NestMiddleware {
         accessToken,
       )
       req.user = decodedIdToken
+      Sentry.setUser({
+        id: decodedIdToken.uid,
+        ...decodedIdToken, // TODO: align with https://docs.sentry.io/platforms/node/guides/express/enriching-events/identify-user/
+      })
       next()
     } catch (err: any) {
       if (err?.code === 'auth/id-token-expired') {
