@@ -1,0 +1,22 @@
+diff --git a/node_modules/@nrwl/js/src/executors/node/node.impl.js b/node_modules/@nrwl/js/src/executors/node/node.impl.js
+index 9915f7c..edda125 100644
+--- a/node_modules/@nrwl/js/src/executors/node/node.impl.js
++++ b/node_modules/@nrwl/js/src/executors/node/node.impl.js
+@@ -72,7 +72,7 @@ function runProcess(uniqueKey, event, options, mappings) {
+     return tslib_1.__awaiter(this, void 0, void 0, function* () {
+         const execArgv = getExecArgv(options);
+         const hashed = hasher.hashArray(execArgv.concat(options.args));
+-        const hashedKey = [uniqueKey, ...options.args];
++        const hashedKey = JSON.stringify([uniqueKey, ...options.args]);
+         hashedMap.set(hashedKey, hashed);
+         const subProcess = (0, child_process_1.fork)((0, devkit_1.joinPathFragments)(__dirname, 'node-with-require-overrides'), options.args, {
+             execArgv,
+@@ -122,7 +122,7 @@ function handleBuildEvent(uniqueKey, event, options, mappings) {
+ const promisifiedTreeKill = (0, util_1.promisify)(treeKill);
+ function killCurrentProcess(uniqueKey, options, signal = 'SIGTERM') {
+     return tslib_1.__awaiter(this, void 0, void 0, function* () {
+-        const hashedKey = [uniqueKey, ...options.args];
++        const hashedKey = JSON.stringify([uniqueKey, ...options.args]);
+         const currentProcessKey = hashedMap.get(hashedKey);
+         if (!currentProcessKey)
+             return;

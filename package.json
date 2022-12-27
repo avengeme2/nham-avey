@@ -8,7 +8,8 @@
     "test": "nx test",
     "serve-client": "nx run web-client:serve",
     "serve-bo": "nx run web-backoffice:serve",
-    "prepare": "husky install"
+    "prepare": "husky install",
+    "postinstall": "patch-package"
   },
   "fig": {
     "serve-client": {
@@ -86,6 +87,7 @@
     "nodemailer": "^6.8.0",
     "nprogress": "^0.2.0",
     "on-headers": "^1.0.2",
+    "patch-package": "^6.5.0",
     "pg": "^8.8.0",
     "preview-email": "^3.0.7",
     "react": "18.2.0",

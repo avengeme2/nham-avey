@@ -1,5 +1,5 @@
 import { Injectable } from '@nestjs/common'
-import { Interval } from '@nestjs/schedule'
+// import { Interval } from '@nestjs/schedule'
 import { InjectRepository } from '@nestjs/typeorm'
 import { Equal, LessThan, Repository } from 'typeorm'
 
@@ -67,7 +67,7 @@ export class PaymentService {
     return { ok: true, payments }
   }
 
-  @Interval(2000)
+  // @Interval(2000) // TODO
   async checkPromotedRestaurants() {
     const restaurants = await this.restaurants.find({
       where: {
