@@ -33,7 +33,6 @@ import { DishModule } from '../dishes/dishes.module'
 import { FileUploadsModule } from '../file-uploads/file-uploads.module'
 import { GraphqlConfigService } from '../graphql/graphql-config.service'
 import { ImagesModule } from '../images/images.module'
-import { MorganFormatType, MorganMiddleware } from '../log/morgan.middleware'
 import { OrdersModule } from '../orders/orders.module'
 import { PaymentsModule } from '../payments/payments.module'
 import { RestaurantsModule } from '../restaurants/restaurants.module'
@@ -93,7 +92,6 @@ import { UsersModule } from '../users/users.module'
 export class AppModule implements NestModule {
   configure(consumer: MiddlewareConsumer) {
     // middleware configs
-    MorganMiddleware.configure(MorganFormatType.Dev)
     ServeFaviconMiddleware.configure(
       path.resolve(__dirname, 'assets/favicon.ico'),
     )
@@ -109,8 +107,6 @@ export class AppModule implements NestModule {
       .forRoutes({ path: '*', method: RequestMethod.ALL })
       .apply(AuthMiddleware)
       .exclude({ path: 'graphql', method: RequestMethod.ALL })
-      .forRoutes({ path: '*', method: RequestMethod.ALL })
-      .apply(MorganMiddleware)
       .forRoutes({ path: '*', method: RequestMethod.ALL })
       .apply(ResponseTimeMiddleware)
       .forRoutes({ path: '*', method: RequestMethod.ALL })

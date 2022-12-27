@@ -152,7 +152,7 @@ input CreateDishInput {
 }
 
 input CreateOrderInput {
-  items: [CreateOrderItemInput!] = []
+  items: [CreateOrderItemInput!]! = []
   restaurantId: Int!
 }
 
@@ -443,51 +443,51 @@ type Payment {
 
 type Query {
   adminGetRestaurants(
-    page: Int = 1
+    page: Int! = 1
     q: String
-    take: Int = 20
+    take: Int! = 20
   ): PaginatedRestaurantsOutput!
   adminGetUsers(
-    page: Int = 1
+    page: Int! = 1
     q: String
     role: UserRole
-    take: Int = 20
+    take: Int! = 20
   ): PaginatedUsersOutput!
   allCategories: AllCategoriesOutput!
   allCities: AllCitiesOutput!
   allRestaurantsSlug(take: Int): AllRestaurantsSlugOutput!
   categories(
-    page: Int = 1
+    page: Int! = 1
     q: String
-    take: Int = 20
+    take: Int! = 20
   ): PaginationCategoriesOutput!
-  cities(page: Int = 1, q: String, take: Int = 20): PaginationCitiesOutput!
+  cities(page: Int! = 1, q: String, take: Int! = 20): PaginationCitiesOutput!
   getOrder(input: GetOrderInput!): GetOrderOutput!
   getOrders(input: GetOrdersInput!): GetOrdersOutput!
   getPayments: GetPaymentsOutput!
   me: User!
   myRestaurant(id: Int!): RestaurantOutput!
   myRestaurants(
-    page: Int = 1
+    page: Int! = 1
     q: String
-    take: Int = 20
+    take: Int! = 20
   ): PaginatedRestaurantsOutput!
   restaurant(id: Int!): RestaurantOutput!
   restaurantBySlug(slug: String!): RestaurantOutput!
   restaurants(
-    page: Int = 1
+    page: Int! = 1
     q: String
-    take: Int = 20
+    take: Int! = 20
   ): PaginatedRestaurantsOutput!
   restaurantsByCategorySlug(
-    page: Int = 1
+    page: Int! = 1
     slug: String!
-    take: Int = 20
+    take: Int! = 20
   ): PaginatedCategoryRestaurantsOutput!
   restaurantsByCitySlug(
-    page: Int = 1
+    page: Int! = 1
     slug: String!
-    take: Int = 20
+    take: Int! = 20
   ): PaginatedCityRestaurantsOutput!
 }
 
