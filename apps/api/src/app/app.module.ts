@@ -20,6 +20,7 @@ import {
   SentryModule,
 } from '@nham-avey/nestjs-module'
 import * as Sentry from '@sentry/node'
+import { ProfilingIntegration } from '@sentry/profiling-node'
 import * as Tracing from '@sentry/tracing'
 import { cert } from 'firebase-admin/app'
 import Joi from 'joi'
@@ -79,6 +80,7 @@ import { UsersModule } from '../users/users.module'
         // enable Express.js middleware tracing
         new Tracing.Integrations.Express(), // TODO: check app instance
         new Tracing.Integrations.Postgres(),
+        new ProfilingIntegration(),
       ],
     }),
     FirebaseAdminModule.forRootAsync({
