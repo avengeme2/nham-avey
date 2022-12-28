@@ -1,4 +1,4 @@
-import { Field, ObjectType } from '@nestjs/graphql'
+import { Field, ObjectType, ID } from '@nestjs/graphql'
 import { Exclude } from 'class-transformer'
 import {
   Column,
@@ -41,6 +41,6 @@ export abstract class CoreWithoutIdEntity {
 @ObjectType()
 export abstract class CoreEntity extends CoreWithoutIdEntity {
   @PrimaryGeneratedColumn()
-  @Field(() => Number)
+  @Field(() => ID)
   id: number
 }

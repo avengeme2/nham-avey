@@ -1,4 +1,10 @@
-import { Field, InputType, ObjectType, registerEnumType } from '@nestjs/graphql'
+import {
+  Field,
+  ID,
+  InputType,
+  ObjectType,
+  registerEnumType,
+} from '@nestjs/graphql'
 import {
   IsBoolean,
   IsEmail,
@@ -27,7 +33,7 @@ registerEnumType(UserRole, { name: 'UserRole' })
 @Entity({ name: 'users' })
 export class User extends CoreWithoutIdEntity {
   @PrimaryColumn()
-  @Field(() => String)
+  @Field(() => ID)
   id: string
 
   @Column({ nullable: true })

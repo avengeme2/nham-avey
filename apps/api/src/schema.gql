@@ -107,7 +107,7 @@ type Category {
   coverImageUrl: String
   createdAt: EnhancedDate!
   iconUrl: String
-  id: Float!
+  id: ID!
   name: String!
   restaurantCount: Int!
   slug: String!
@@ -116,7 +116,7 @@ type Category {
 
 type City {
   createdAt: EnhancedDate!
-  id: Float!
+  id: ID!
   location: Location
   name: String!
   nameInKhmer: String
@@ -185,7 +185,7 @@ type DeleteAccountOutput {
 type Dish {
   createdAt: EnhancedDate!
   description: String!
-  id: Float!
+  id: ID!
   name: String!
   options: [DishOption!]
   photo: String
@@ -223,7 +223,7 @@ type DishOutput {
 }
 
 input EditOrderInput {
-  id: Float!
+  id: ID!
   status: OrderStatus!
 }
 
@@ -238,7 +238,7 @@ type EditOrderOutput {
 scalar EnhancedDate
 
 input GetOrderInput {
-  id: Float!
+  id: ID!
 }
 
 type GetOrderOutput {
@@ -266,7 +266,7 @@ type GetPaymentsOutput {
 type Image {
   blurhash: String
   createdAt: EnhancedDate!
-  id: Float!
+  id: ID!
   restaurant: Restaurant
   updatedAt: EnhancedDate!
   url: String!
@@ -274,7 +274,7 @@ type Image {
 
 type Location {
   createdAt: EnhancedDate!
-  id: Float!
+  id: ID!
   latitude: Float!
   longitude: Float!
   updatedAt: EnhancedDate!
@@ -317,7 +317,7 @@ type Mutation {
 type OpeningHours {
   createdAt: EnhancedDate!
   fridayHours: String
-  id: Float!
+  id: ID!
   mondayHours: String
   saturdayHours: String
   sundayHours: String
@@ -331,7 +331,7 @@ type Order {
   createdAt: EnhancedDate!
   customer: User
   driver: User
-  id: Float!
+  id: ID!
   items: [OrderItem!]!
   restaurant: Restaurant
   status: OrderStatus!
@@ -342,7 +342,7 @@ type Order {
 type OrderItem {
   createdAt: EnhancedDate!
   dish: Dish!
-  id: Float!
+  id: ID!
   options: [OrderItemOption!]
   updatedAt: EnhancedDate!
 }
@@ -366,7 +366,7 @@ enum OrderStatus {
 }
 
 input OrderUpdatesInput {
-  id: Float!
+  id: ID!
 }
 
 type PaginatedCategoryRestaurantsOutput {
@@ -433,7 +433,7 @@ type PaginationCitiesOutput {
 
 type Payment {
   createdAt: EnhancedDate!
-  id: Float!
+  id: ID!
   restaurant: Restaurant!
   restaurantId: Int!
   transactionId: String!
@@ -498,7 +498,7 @@ type Restaurant {
   coverImages: [Image!]
   createdAt: EnhancedDate!
   description: String
-  id: Float!
+  id: ID!
   isPromoted: Boolean!
   location: Location
   logoImageUrl: String
@@ -526,7 +526,7 @@ type RestaurantOutput {
 type Review {
   createdAt: EnhancedDate!
   customer: User!
-  id: Float!
+  id: ID!
   name: String!
   restaurant: Restaurant!
   stars: Int!
@@ -556,7 +556,7 @@ type Subscription {
 }
 
 input TakeOrderInput {
-  id: Float!
+  id: ID!
 }
 
 type TakeOrderOutput {
@@ -589,7 +589,7 @@ type User {
   createdAt: EnhancedDate!
   email: String!
   firstName: String
-  id: String!
+  id: ID!
   isVerified: Boolean!
   lastName: String
   orders: [Order!]
