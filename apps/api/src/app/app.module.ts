@@ -80,6 +80,7 @@ import { UsersModule } from '../users/users.module'
         // enable Express.js middleware tracing
         new Tracing.Integrations.Express(), // TODO: check app instance
         new Tracing.Integrations.Postgres(),
+        new Tracing.Integrations.Apollo(),
         new ProfilingIntegration(),
       ],
     }),
