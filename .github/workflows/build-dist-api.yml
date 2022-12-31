@@ -48,7 +48,7 @@ jobs:
           git clean -fdx
           cp -a out/. .
           rm -rf out
-          npm i pg ioredis
+          npm i algoliasearch
           touch .gitignore
           echo "node_modules" > .gitignore
           git add .
