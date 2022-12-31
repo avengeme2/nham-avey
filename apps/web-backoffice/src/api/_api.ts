@@ -15,7 +15,10 @@ api.interceptors.request.use(
   async config => {
     const token = await firebaseService.auth.currentUser?.getIdToken()
     if (token && config.headers) {
-      config.headers.Authorization = `Bearer ${token}`
+      // TODO: CHECK THIS
+      if (typeof config?.headers?.set === 'function') {
+        config.headers?.set('Authorization', `Bearer ${token}`)
+      }
     }
     return config
   },
