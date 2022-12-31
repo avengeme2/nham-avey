@@ -1,4 +1,4 @@
-name: Build separate api
+name: Build dist api
 
 on:
   # push:
@@ -7,7 +7,7 @@ on:
   workflow_dispatch:
 
 jobs:
-  build-and-push-to-OUT-api-branch:
+  build-and-push-to-dist-api-branch:
     runs-on: ubuntu-latest
     steps:
       - name: Checkout 🛎️
@@ -34,12 +34,12 @@ jobs:
           npx nx run api:build
           mv dist/apps/api out
 
-      - name: Create Commit and push to out-api branch 💌
+      - name: Create Commit and push to dist-api branch 💌
         run: |
           git config user.name "${{ github.actor }}"
           git config user.email "${{ github.actor }}@users.noreply.github.com"
-          git branch -D out-api &>/dev/null || true
-          git checkout --orphan out-api
+          git branch -D dist-api &>/dev/null || true
+          git checkout --orphan dist-api
           git rm --cached -r .
           rm -rf .gitignore
           git add out
@@ -53,4 +53,4 @@ jobs:
           echo "node_modules" > .gitignore
           git add .
           git commit -m "Move out to root" --no-verify
-          git push origin out-api -f
+          git push origin dist-api -f
