@@ -5,7 +5,7 @@
     "plugin:@typescript-eslint/recommended",
     "plugin:prettier/recommended"
   ],
-  "ignorePatterns": ["!**/*", "**/*.config.js", "**/*.config.ts"],
+  "ignorePatterns": ["!**/*", "jest.config.ts"],
   "parser": "@typescript-eslint/parser",
   "parserOptions": {
     "ecmaVersion": 2020,

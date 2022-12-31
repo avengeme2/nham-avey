@@ -11,21 +11,18 @@ import { merge } from 'lodash'
 import { forEachDeep } from './utils/for-each-deep.util'
 import { identity } from './utils/identity.util'
 import { debug } from './utils/debug.util'
-import {
-  TypedConfigModuleAsyncOptions,
-  TypedConfigModuleOptions,
-} from './interfaces'
+import { ConfigModuleAsyncOptions, ConfigModuleOptions } from './interfaces'
 
 @Module({})
 export class ConfigModule {
-  public static forRoot(options: TypedConfigModuleOptions): DynamicModule {
+  public static forRoot(options: ConfigModuleOptions): DynamicModule {
     const rawConfig = this.getRawConfig(options.load)
 
     return this.getDynamicModule(options, rawConfig)
   }
 
   public static async forRootAsync(
-    options: TypedConfigModuleAsyncOptions,
+    options: ConfigModuleAsyncOptions,
   ): Promise<DynamicModule> {
     const rawConfig = await this.getRawConfigAsync(options.load)
 
@@ -33,7 +30,7 @@ export class ConfigModule {
   }
 
   private static getDynamicModule(
-    options: TypedConfigModuleOptions | TypedConfigModuleAsyncOptions,
+    options: ConfigModuleOptions | ConfigModuleAsyncOptions,
     // eslint-disable-next-line @typescript-eslint/no-explicit-any
     rawConfig: Record<string, any>,
   ) {
@@ -62,7 +59,7 @@ export class ConfigModule {
     }
   }
 
-  private static getRawConfig(load: TypedConfigModuleOptions['load']) {
+  private static getRawConfig(load: ConfigModuleOptions['load']) {
     if (Array.isArray(load)) {
       const config = {}
       for (const fn of load) {
@@ -80,7 +77,7 @@ export class ConfigModule {
   }
 
   private static async getRawConfigAsync(
-    load: TypedConfigModuleAsyncOptions['load'],
+    load: ConfigModuleAsyncOptions['load'],
   ) {
     if (Array.isArray(load)) {
       const config = {}

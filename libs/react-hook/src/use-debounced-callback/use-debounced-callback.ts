@@ -119,6 +119,7 @@ export const useDebouncedCallback = function <
   const lastArgs = useRef<unknown[] | null>([])
   const lastThis = useRef<unknown>()
   const result = useRef<ReturnType<T>>()
+  // eslint-disable-next-line @typescript-eslint/no-explicit-any
   const funcRef = useRef<T | any>(func)
   const mounted = useRef(true)
 

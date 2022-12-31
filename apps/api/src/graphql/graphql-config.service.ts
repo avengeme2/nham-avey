@@ -2,7 +2,6 @@ import path from 'node:path'
 
 import { ApolloDriverConfig } from '@nestjs/apollo'
 import { Injectable } from '@nestjs/common'
-import { ConfigService } from '@nestjs/config'
 import { GqlOptionsFactory } from '@nestjs/graphql'
 import * as Sentry from '@sentry/node'
 import {
@@ -18,10 +17,11 @@ import {
 } from 'apollo-server-plugin-base'
 
 import { AUTHORIZATION_HEADER } from '../common/constants/common.constants'
+import { RootConfig } from '../config/root.config'
 
 @Injectable()
 export class GraphqlConfigService implements GqlOptionsFactory {
-  constructor(private readonly configService: ConfigService) {}
+  constructor(private readonly rootConfig: RootConfig) {}
 
   createGqlOptions(): ApolloDriverConfig {
     return {
@@ -29,9 +29,9 @@ export class GraphqlConfigService implements GqlOptionsFactory {
       playground: false,
       introspection: true,
       plugins: [
-        this.configService.get('isProd')
-          ? ApolloServerPluginLandingPageProductionDefault()
-          : ApolloServerPluginLandingPageLocalDefault(),
+        this.rootConfig.isDev
+          ? ApolloServerPluginLandingPageLocalDefault()
+          : ApolloServerPluginLandingPageProductionDefault(),
         {
           requestDidStart(
             _requestContext: GraphQLRequestContext,

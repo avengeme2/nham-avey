@@ -2,24 +2,22 @@ import path from 'node:path'
 
 import { HttpModule } from '@nestjs/axios'
 import { Module } from '@nestjs/common'
-import { ConfigService } from '@nestjs/config'
 import { TypeOrmModule } from '@nestjs/typeorm'
 import { EjsAdapter, MailerModule } from '@nham-avey/nestjs-module'
 
+import { MailerConfig } from '../config/mailer.config'
 import { DisposableDomainEmail } from './disposable-domain-email.entity'
 import { EmailService } from './email.service'
 
 @Module({
   imports: [
     MailerModule.forRootAsync({
-      inject: [ConfigService],
-      useFactory: (configService: ConfigService) => {
-        const user = configService.get<string>('email.secret.user') as string
-        const pass = configService.get<string>(
-          'email.secret.password',
-        ) as string
-        const fromEmail = configService.get<string>('email.from') as string
-        const sender = configService.get<string>('email.senderName') as string
+      inject: [MailerConfig],
+      useFactory: (mailerConfig: MailerConfig) => {
+        const user = mailerConfig.AUTH_USER
+        const pass = mailerConfig.AUTH_PASSWORD
+        const fromEmail = mailerConfig.FROM
+        const sender = mailerConfig.SENDER_NAME
         const templateDir = path.join(__dirname, 'email/templates')
         return {
           transport: {

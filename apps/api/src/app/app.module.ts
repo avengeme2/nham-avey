@@ -8,12 +8,13 @@ import {
   NestModule,
   RequestMethod,
 } from '@nestjs/common'
-import { ConfigModule, ConfigService } from '@nestjs/config'
 import { APP_INTERCEPTOR } from '@nestjs/core'
 import { GraphQLModule } from '@nestjs/graphql'
 import { ScheduleModule } from '@nestjs/schedule'
 import { TypeOrmModule } from '@nestjs/typeorm'
 import {
+  ConfigModule,
+  dotenvLoader,
   FirebaseAdminModule,
   SentryGraphqlInterceptor,
   SentryInterceptor,
@@ -23,7 +24,6 @@ import * as Sentry from '@sentry/node'
 import { ProfilingIntegration } from '@sentry/profiling-node'
 import * as Tracing from '@sentry/tracing'
 import { cert } from 'firebase-admin/app'
-import Joi from 'joi'
 
 import { ApiKeyMiddleware } from '../auth/api-key.middleware'
 import { AuthMiddleware } from '../auth/auth.middleware'
@@ -38,7 +38,8 @@ import {
 import { ResponseTimeMiddleware } from '../common/middlewares/response-time.middleware'
 import { ServeFaviconMiddleware } from '../common/middlewares/serve-favicon.middleware'
 import { EnhancedDate } from '../common/scalar/enhanced-date.scalar'
-import configuration from '../config/configuration'
+import { FirebaseAdminConfig } from '../config/firebase-admin.config'
+import { RootConfig } from '../config/root.config'
 import { DishModule } from '../dishes/dishes.module'
 import { FileUploadsModule } from '../file-uploads/file-uploads.module'
 import { GraphqlConfigService } from '../graphql/graphql-config.service'
@@ -49,20 +50,16 @@ import { RestaurantsModule } from '../restaurants/restaurants.module'
 import { TypeormConfigService } from '../typeorm/typeorm-config.service'
 import { UsersModule } from '../users/users.module'
 
+const envFilePath = path.resolve(process.cwd(), '.env')
+
 @Module({
   imports: [
     ConfigModule.forRoot({
-      load: [configuration],
-      isGlobal: true,
-      validationSchema: Joi.object({
-        DATABASE_URL: Joi.string().required(),
-        FIREBASE_STORAGE_BUCKET_URL: Joi.string().required(),
-        DATABASE_LOGGING: Joi.string(),
+      schema: RootConfig,
+      load: dotenvLoader({
+        envFilePath,
+        separator: '__',
       }),
-      validationOptions: {
-        allowUnknown: true,
-        abortEarly: true,
-      },
     }),
     TypeOrmModule.forRootAsync({ useClass: TypeormConfigService }),
     GraphQLModule.forRootAsync({
@@ -70,26 +67,29 @@ import { UsersModule } from '../users/users.module'
       useClass: GraphqlConfigService,
     }),
     ScheduleModule.forRoot(),
-    SentryModule.forRoot({
-      dsn: process.env.SENTRY_DSN,
-      environment: 'development', // TODO
-      tracesSampleRate: 1,
-      integrations: [
-        // enable HTTP calls tracing
-        new Sentry.Integrations.Http({ tracing: true }),
-        // enable Express.js middleware tracing
-        new Tracing.Integrations.Express(), // TODO: check app instance
-        new Tracing.Integrations.Postgres(),
-        new Tracing.Integrations.Apollo(),
-        new ProfilingIntegration(),
-      ],
+    SentryModule.forRootAsync({
+      inject: [RootConfig],
+      useFactory: (rootConfig: RootConfig) => ({
+        dsn: rootConfig.SENTRY_DSN,
+        environment: rootConfig.NODE_ENV,
+        tracesSampleRate: 1.0,
+        integrations: [
+          // enable HTTP calls tracing
+          new Sentry.Integrations.Http({ tracing: true }),
+          // enable Express.js middleware tracing
+          new Tracing.Integrations.Express(), // TODO: check app instance
+          new Tracing.Integrations.Postgres(),
+          new Tracing.Integrations.Apollo(),
+          new ProfilingIntegration(),
+        ],
+      }),
     }),
     FirebaseAdminModule.forRootAsync({
       imports: [ConfigModule],
-      inject: [ConfigService],
-      useFactory: (configService: ConfigService) => {
-        const serviceAccount = configService.get('firebase.serviceAccount')
-        const storageBucket = configService.get('firebase.bucketUrl')
+      inject: [FirebaseAdminConfig],
+      useFactory: (firebaseAdminConfig: FirebaseAdminConfig) => {
+        const serviceAccount = firebaseAdminConfig.serviceAccount
+        const storageBucket = firebaseAdminConfig.STORAGE_BUCKET_URL
         return {
           credential: cert(serviceAccount),
           storageBucket,

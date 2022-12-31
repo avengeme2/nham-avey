@@ -1,11 +1,11 @@
 import { Logger, ValidationPipe } from '@nestjs/common'
-import { ConfigService } from '@nestjs/config'
 import { NestFactory } from '@nestjs/core'
 import * as Sentry from '@sentry/node'
 import compression from 'compression'
 
 import { AppModule } from './app/app.module'
 import { createSwagger } from './common/common.helpers'
+import { RootConfig } from './config/root.config'
 
 async function bootstrap() {
   const app = await NestFactory.create(AppModule)
@@ -15,10 +15,10 @@ async function bootstrap() {
   app.use(compression())
   app.enableCors()
 
-  const configService: ConfigService = app.get(ConfigService)
-  const port: number = configService.get<number>('port') || 3333
+  const rootConfig = app.get(RootConfig)
+  const port: number = rootConfig.PORT || 3333
 
-  const showSwagger = configService.get<boolean>('enableSwagger')
+  const showSwagger = rootConfig.ENABLE_SWAGGER
   if (showSwagger) {
     await createSwagger(app)
   }

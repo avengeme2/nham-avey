@@ -1,11 +1,11 @@
 import { Injectable } from '@nestjs/common'
-import { ConfigService } from '@nestjs/config'
 import { TypeOrmModuleOptions, TypeOrmOptionsFactory } from '@nestjs/typeorm'
-import { LoggerOptions } from 'typeorm/logger/LoggerOptions'
 
 import { Category } from '../categories/category.entity'
 import { City } from '../cities/city.entity'
 import { parsePGConnectionString } from '../common/utils/database.util'
+import { DatabaseConfig } from '../config/database.config'
+import { RootConfig } from '../config/root.config'
 import { Dish } from '../dishes/dish.entity'
 import { DisposableDomainEmail } from '../email/disposable-domain-email.entity'
 import { Image } from '../images/entities/image.entity'
@@ -21,12 +21,15 @@ import { SnakeNamingStrategy } from './snake-naming.strategy'
 
 @Injectable()
 export class TypeormConfigService implements TypeOrmOptionsFactory {
-  constructor(private readonly config: ConfigService) {}
+  constructor(
+    private readonly databaseConfig: DatabaseConfig,
+    private readonly rootConfig: RootConfig,
+  ) {}
 
   public createTypeOrmOptions(): TypeOrmModuleOptions {
-    const { host, port, database, user, password } = parsePGConnectionString(
-      this.config.get<string>('db.url') as string,
-    )
+    const dbURL = this.databaseConfig.URL
+    const { host, port, database, user, password } =
+      parsePGConnectionString(dbURL)
     const isLocalHost =
       host?.includes('127.0.0.1') || host?.includes('localhost')
 
@@ -56,18 +59,18 @@ export class TypeormConfigService implements TypeOrmOptionsFactory {
       migrationsTableName: 'migrations',
       namingStrategy: new SnakeNamingStrategy(),
       logger: 'advanced-console',
-      logging: this.config.get<LoggerOptions>('db.logging'),
+      logging: this.databaseConfig.LOGGING,
       synchronize: false,
-      keepConnectionAlive: !this.config.get('isProd'),
+      keepConnectionAlive: this.rootConfig.isDev,
       ...(!isLocalHost && {
         ssl: {
           rejectUnauthorized: false, // this should be true outside heroku!
         },
       }),
-      cache: this.config.get<boolean>('isProd') && {
+      cache: !this.rootConfig.isDev && {
         duration: 1500, // override default 1000ms
         type: 'ioredis',
-        options: this.config.get('REDIS_URL'),
+        options: this.rootConfig.REDIS_URL,
       },
     }
   }

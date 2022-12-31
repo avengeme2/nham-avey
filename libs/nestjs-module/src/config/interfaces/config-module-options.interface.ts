@@ -5,7 +5,7 @@ import type { ValidatorOptions } from 'class-validator'
 export type ConfigLoader = () => Record<string, any>
 export type AsyncConfigLoader = () => Promise<Record<string, any>>
 
-export interface TypedConfigModuleOptions {
+export interface ConfigModuleOptions {
   /**
    * The root object for application configuration.
    */
@@ -47,8 +47,7 @@ export interface TypedConfigModuleOptions {
   validationOptions?: ValidatorOptions
 }
 
-export interface TypedConfigModuleAsyncOptions
-  extends TypedConfigModuleOptions {
+export interface ConfigModuleAsyncOptions extends ConfigModuleOptions {
   /**
    * Function(s) to load configurations, can be synchronous or asynchronous.
    */
