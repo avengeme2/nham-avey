@@ -31,7 +31,7 @@ export const HeaderNav = () => {
   }
 
   return (
-    <Header className="fixed left-0 z-[1000] h-[70px] w-full bg-white pl-0 pr-3 shadow-md shadow-gray-200">
+    <Header className="fixed left-0 z-[1000] h-[70px] w-full !bg-white pl-0 pr-3 shadow-md shadow-gray-200">
       <div className="flex w-full">
         <Link to="/app" className="w-36 md:w-[revert]">
           <Logo />

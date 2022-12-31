@@ -12,7 +12,7 @@ export const SideNav = () => {
 
   return (
     <Sider
-      className="fixed top-[70px] z-[999] h-[calc(100vh-var(--header-height))] bg-white shadow-[0_1px_4px_-1px_rgba(0,0,0,.25)]"
+      className="!fixed top-[70px] z-[999] h-[calc(100vh-var(--header-height))] !bg-white shadow-[0_1px_4px_-1px_rgba(0,0,0,.25)]"
       width={SIDE_NAV_WIDTH}
       collapsed={navCollapsed}
     >
