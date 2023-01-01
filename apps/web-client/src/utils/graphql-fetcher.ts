@@ -7,7 +7,7 @@ export const fetchData = <TData, TVariables>(
 ): (() => Promise<TData>) => {
   return async () => {
     const response = await axios.post(
-      'http://localhost:3000/graphql',
+      process.env.NEXT_PUBLIC_HTTP_GRAPHQL_URI as string,
       {
         query,
         variables,
