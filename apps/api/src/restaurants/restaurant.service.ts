@@ -427,7 +427,7 @@ export class RestaurantService {
       .leftJoinAndSelect('restaurant.menu', 'menu')
       .leftJoinAndSelect('restaurant.coverImages', 'coverImages')
       .orderBy('restaurant.isPromoted', 'DESC')
-      .addOrderBy('restaurant.name', 'ASC')
+      .addOrderBy('restaurant.id', 'ASC')
 
     const restaurants = await queryBuilder.getMany()
     const paginatedOutput = new PaginatedRestaurantsOutput(args, matchedCount)
