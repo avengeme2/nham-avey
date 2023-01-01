@@ -148,13 +148,4 @@ export class CityService {
     const saved = await this.cityRepo.save(city)
     return { ok: true, city: saved }
   }
-
-  findLocationByCity(city: City): Promise<Location | null> | null {
-    if (city.locationId) {
-      return this.locationRepo.findOne({
-        where: { id: city.locationId },
-      })
-    }
-    return null
-  }
 }

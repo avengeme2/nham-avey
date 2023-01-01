@@ -15,7 +15,9 @@ import { IdArg } from '../common/dtos/id.dto'
 import { CoreOutput } from '../common/dtos/output.dto'
 import { PaginationWithSearchArgs } from '../common/dtos/pagination.dto'
 import { Location } from '../locations/location.entity'
+import { LocationsService } from '../locations/locations.service'
 import { UserRole } from '../users/entities/user.entity'
+import { CitiesLoaders } from './cities.loaders'
 import { CityService } from './cities.service'
 import { City } from './city.entity'
 import {
@@ -29,7 +31,11 @@ import {
 
 @Resolver(of => City)
 export class CityResolver {
-  constructor(private readonly cityService: CityService) {}
+  constructor(
+    private readonly cityService: CityService,
+    private readonly locationService: LocationsService,
+    private readonly citiesLoaders: CitiesLoaders,
+  ) {}
 
   @ResolveField(returns => Int)
   restaurantCount(@Parent() city: City): Promise<number> {
@@ -37,8 +43,15 @@ export class CityResolver {
   }
 
   @ResolveField(returns => Location)
-  location(@Parent() city: City): Promise<Location | null> | null {
-    return this.cityService.findLocationByCity(city)
+  async location(@Parent() city: City): Promise<Location | null> {
+    const { locationId } = city
+    if (locationId) {
+      const locations = await this.citiesLoaders
+        .createLocationsLoader()
+        .load(locationId)
+      return locations || null
+    }
+    return null
   }
 
   @Query(returns => AllCitiesOutput)
