@@ -3,19 +3,7 @@ import { useEffect } from 'react'
 import { NextSeo } from 'next-seo'
 import { useRouter } from 'next/router'
 
-import { useRestaurantsLazyQuery } from '@nham-avey/common'
-
-interface PageState {
-  page: number
-  take: number
-  q: string
-}
-
-const pageState: PageState = {
-  page: 1,
-  take: 2,
-  q: '',
-}
+import { useRestaurantsQuery } from '../../__generated__/grapql.react-query'
 
 /**
  * @todo Implement this component.
@@ -24,21 +12,21 @@ const SearchPage = () => {
   const { query, isReady } = useRouter()
   const { term } = query
   const router = useRouter()
-  const [getRestaurants, { loading, data }] = useRestaurantsLazyQuery()
+  const { data, isLoading } = useRestaurantsQuery({}, { enabled: false })
 
   useEffect(() => {
-    if (!isReady || loading) return
+    if (!isReady || isLoading) return
 
     if (!term) {
       router.replace('/')
       return
     }
-    getRestaurants({
-      variables: pageState,
-    })
-  }, [router, getRestaurants, term, isReady, loading])
+    // getRestaurants({
+    //   variables: pageState,
+    // })
+  }, [router, term, isReady, isLoading])
 
-  if (loading) return <p>Loading...</p>
+  if (isLoading) return <p>Loading...</p>
 
   return (
     <h1>

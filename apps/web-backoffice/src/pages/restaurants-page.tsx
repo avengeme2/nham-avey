@@ -7,12 +7,6 @@ import {
   ReloadOutlined,
   SearchOutlined,
 } from '@ant-design/icons'
-import {
-  Category,
-  Restaurant,
-  useAdminGetRestaurantsQuery,
-  useDeleteRestaurantMutation,
-} from '@nham-avey/common'
 import { useDebouncedCallback } from '@nham-avey/react-hook'
 import {
   Button,
@@ -30,6 +24,12 @@ import { ColumnsType } from 'antd/es/table'
 import moment from 'moment'
 import { Helmet } from 'react-helmet-async'
 
+import {
+  Category,
+  Restaurant,
+  useAdminGetRestaurantsQuery,
+  useDeleteRestaurantMutation,
+} from '../__generated__/types.react-apollo'
 import { AvatarInfo } from '../components/avatar-info'
 import { CreateRestaurantDrawer } from '../components/drawers/create-restaurant-drawer'
 import { UpdateRestaurantDrawer } from '../components/drawers/update-restaurant-drawer'
@@ -178,7 +178,7 @@ export const RestaurantsPage = () => {
                       content: '',
                       onOk: async () =>
                         await deleteRestaurant({
-                          variables: { id: restaurant.id },
+                          variables: { id: +restaurant.id },
                         }),
                     })
                   }}

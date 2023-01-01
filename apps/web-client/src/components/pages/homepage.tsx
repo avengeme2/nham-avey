@@ -6,6 +6,7 @@ import { joinClassName } from '@nham-avey/common'
 import { ScrollProps, useScrollPosition } from '@nham-avey/react-hook'
 
 import {
+  Restaurant,
   useCategoriesQuery,
   useRestaurantsQuery,
 } from '../../__generated__/grapql.react-query'
@@ -27,8 +28,11 @@ const HomePage = () => {
     scrollYPosition,
   } = useRestaurantPageStateContext()
 
-  const { data: restaurantData, isLoading: isLoadingRestaurant } =
-    useRestaurantsQuery(pageState, { keepPreviousData: true })
+  const {
+    data: restaurantData,
+    isLoading: isLoadingRestaurant,
+    isPreviousData,
+  } = useRestaurantsQuery(pageState, { keepPreviousData: true })
 
   const handleScroll = useCallback(
     ({ currentPosition }: ScrollProps) => setScrollYPosition(currentPosition.y),
@@ -39,6 +43,7 @@ const HomePage = () => {
 
   // update scroll position when navigate back
   useEffect(() => {
+    if (isPreviousData) return
     if (restaurantData?.restaurants?.hasPrevious) {
       setLoadedRestaurants((prevState: any) => [
         ...prevState,
@@ -47,8 +52,12 @@ const HomePage = () => {
       if (window.scrollY === 0) {
         window.scrollBy({ top: -scrollYPosition })
       }
+    } else {
+      setLoadedRestaurants(
+        (restaurantData?.restaurants.data as Restaurant[]) || [],
+      )
     }
-  }, [pageState, restaurantData, setLoadedRestaurants])
+  }, [pageState, restaurantData, setLoadedRestaurants, isPreviousData])
 
   const { data: categoriesData } = useCategoriesQuery(CATEGORIES_VARIABLES)
 

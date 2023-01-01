@@ -9,8 +9,7 @@ import {
   Restaurant,
   useCategoriesQuery,
   useRestaurantsQuery,
-} from '@nham-avey/common'
-
+} from '../../__generated__/grapql.react-query'
 import { RestaurantCard } from '../../components/cards/restaurant-card'
 
 interface PageState {
@@ -27,10 +26,7 @@ const pageState: PageState = {
 
 const RestaurantsPage = () => {
   const [page, setPage] = useState(1)
-  const { data: data, loading } = useRestaurantsQuery({
-    variables: pageState,
-    notifyOnNetworkStatusChange: true,
-  })
+  const { data: data, isLoading } = useRestaurantsQuery(pageState)
 
   interface FormProps {
     searchTerm: string
@@ -42,7 +38,9 @@ const RestaurantsPage = () => {
   const router = useRouter()
 
   const { data: categoriesData } = useCategoriesQuery({
-    variables: { ...pageState, page: 1, take: 6 }, // take top 6
+    ...pageState,
+    page: 1,
+    take: 6,
   })
 
   const onSearchSubmit = () => {
@@ -70,7 +68,7 @@ const RestaurantsPage = () => {
           placeholder="Search restaurants..."
         />
       </form>
-      {!loading && (
+      {!isLoading && (
         <div className="mx-auto mt-8 max-w-screen-2xl pb-20">
           <div className="mx-auto flex max-w-sm justify-around ">
             {categoriesData?.categories.data?.map(category => (

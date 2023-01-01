@@ -1,3 +1,4 @@
+import { dehydrate, QueryClient } from '@tanstack/react-query'
 import { GetStaticPropsContext } from 'next'
 
 import {
@@ -7,41 +8,42 @@ import {
   RestaurantBySlugDocument,
   RestaurantBySlugQuery,
   RestaurantBySlugQueryVariables,
-} from '@nham-avey/common'
-
+} from '../../__generated__/grapql.react-query'
 import { RestaurantPage } from '../../components/pages/restaurant-page/restaurant-page'
-import { addApolloState, initializeApollo } from '../../graphql/apollo-config'
+import { fetchData } from '../../utils/graphql-fetcher'
 
 export const getStaticProps = async ({ params }: GetStaticPropsContext) => {
-  const apolloClient = initializeApollo()
+  const queryClient = new QueryClient()
 
-  await apolloClient.query<
-    RestaurantBySlugQuery,
-    RestaurantBySlugQueryVariables
-  >({
-    query: RestaurantBySlugDocument,
-    variables: { slug: params?.slug as string },
-    fetchPolicy: 'network-only',
-  })
+  await queryClient.prefetchQuery(
+    ['RestaurantBySlug', { slug: params?.slug as string }],
+    fetchData<RestaurantBySlugQuery, RestaurantBySlugQueryVariables>(
+      RestaurantBySlugDocument,
+      { slug: params?.slug as string },
+    ),
+  )
 
-  return addApolloState(apolloClient, {
-    props: {},
+  return {
+    props: {
+      dehydratedState: dehydrate(queryClient),
+    },
     revalidate: 2,
-  })
+  }
 }
 
 export const getStaticPaths = async () => {
-  const apolloClient = initializeApollo()
-  const { data } = await apolloClient.query<
-    AllRestaurantsSlugQuery,
-    AllRestaurantsSlugQueryVariables
-  >({
-    query: AllRestaurantsSlugDocument,
-    fetchPolicy: 'no-cache',
-  })
+  const queryClient = new QueryClient()
+
+  const { allRestaurantsSlug } =
+    await queryClient.fetchQuery<AllRestaurantsSlugQuery>(
+      ['AllRestaurantsSlug'],
+      fetchData<AllRestaurantsSlugQuery, AllRestaurantsSlugQueryVariables>(
+        AllRestaurantsSlugDocument,
+      ),
+    )
 
   const paths =
-    data.allRestaurantsSlug?.slugs?.map(slug => ({
+    allRestaurantsSlug?.slugs?.map(slug => ({
       params: { slug: slug },
     })) || []
 

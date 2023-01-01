@@ -5,12 +5,12 @@ import { AnimatePresence, motion } from 'framer-motion'
 import { NextSeo } from 'next-seo'
 import { useRouter } from 'next/router'
 
+import { joinClassName } from '@nham-avey/common'
+
 import {
-  joinClassName,
   Restaurant,
   useRestaurantBySlugQuery,
-} from '@nham-avey/common'
-
+} from '../../../__generated__/grapql.react-query'
 import { APP_NAME } from '../../../constants/common-constants'
 import { DishCard } from '../../cards/dish-card'
 import { AuthedLayout } from '../../layout/authed-layout'
@@ -21,9 +21,7 @@ export const RestaurantPage = () => {
   const { query } = useRouter()
   const { slug } = query
   const { data } = useRestaurantBySlugQuery({
-    variables: {
-      slug: slug as string,
-    },
+    slug: slug as string,
   })
   //
   // const [orderStarted, setOrderStarted] = useState(false)
