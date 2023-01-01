@@ -65,6 +65,14 @@
         "command": "netlify deploy --build --prod",
         "cwd": "."
       }
+    },
+    "graphql-codegen": {
+      "executor": "nx:run-commands",
+      "outputs": [],
+      "options": {
+        "command": "graphql-codegen --config codegen.ts && cd ../../ && nx format:write --files apps/web-client/src/__generated__/grapql.react-query.ts",
+        "cwd": "apps/web-client"
+      }
     }
   },
   "tags": []
