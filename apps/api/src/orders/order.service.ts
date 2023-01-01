@@ -12,7 +12,7 @@ import {
 import { Dish } from '../dishes/dish.entity'
 import { Restaurant } from '../restaurants/entities/restaurant.entity'
 import { User, UserRole } from '../users/entities/user.entity'
-import { UserService } from '../users/users.service'
+import { UserService } from '../users/user.service'
 import { CreateOrderInput, CreateOrderOutput } from './dtos/create-order.dto'
 import { EditOrderInput, EditOrderOutput } from './dtos/edit-order.dto'
 import { GetOrderInput, GetOrderOutput } from './dtos/get-order.dto'

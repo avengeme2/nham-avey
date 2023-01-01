@@ -3,11 +3,11 @@ import { FirebaseStorageService } from '@nham-avey/nestjs-module'
 import { v4 as uuidv4 } from 'uuid'
 
 import { getFileExtension } from '../common/common.helpers'
-import { ImageService } from '../images/images.service'
+import { ImageService } from '../images/image.service'
 
 @Injectable()
-export class FileUploadsService {
-  private readonly logger = new Logger(FileUploadsService.name)
+export class FileUploadService {
+  private readonly logger = new Logger(FileUploadService.name)
   constructor(
     private readonly storageService: FirebaseStorageService,
     private readonly imageService: ImageService,

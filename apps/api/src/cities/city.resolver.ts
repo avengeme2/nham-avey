@@ -15,11 +15,11 @@ import { IdArg } from '../common/dtos/id.dto'
 import { CoreOutput } from '../common/dtos/output.dto'
 import { PaginationWithSearchArgs } from '../common/dtos/pagination.dto'
 import { Location } from '../locations/location.entity'
-import { LocationsService } from '../locations/locations.service'
+import { LocationService } from '../locations/location.service'
 import { UserRole } from '../users/entities/user.entity'
-import { CitiesLoaders } from './cities.loaders'
-import { CityService } from './cities.service'
 import { City } from './city.entity'
+import { CityLoader } from './city.loader'
+import { CityService } from './city.service'
 import {
   PaginationCitiesOutput,
   AdminCreateCityOutput,
@@ -33,8 +33,8 @@ import {
 export class CityResolver {
   constructor(
     private readonly cityService: CityService,
-    private readonly locationService: LocationsService,
-    private readonly citiesLoaders: CitiesLoaders,
+    private readonly locationService: LocationService,
+    private readonly cityLoader: CityLoader,
   ) {}
 
   @ResolveField(returns => Int)
@@ -46,7 +46,7 @@ export class CityResolver {
   async location(@Parent() city: City): Promise<Location | null> {
     const { locationId } = city
     if (locationId) {
-      const locations = await this.citiesLoaders
+      const locations = await this.cityLoader
         .createLocationsLoader()
         .load(locationId)
       return locations || null

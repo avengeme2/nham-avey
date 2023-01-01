@@ -11,8 +11,8 @@ import {
   PaginatedUsersOutput,
   PaginationUserArgs,
   UserArgs,
-} from '../users.dto'
-import { UserService } from '../users.service'
+} from '../user.dto'
+import { UserService } from '../user.service'
 
 @Resolver()
 export class AdminResolver {

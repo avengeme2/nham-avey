@@ -6,7 +6,7 @@ import { Roles } from '../auth/role.decorator'
 import { IdArg } from '../common/dtos/id.dto'
 import { CoreOutput } from '../common/dtos/output.dto'
 import { UserRole } from '../users/entities/user.entity'
-import { DishService } from './dishes.service'
+import { DishService } from './dish.service'
 import { DishOutput, CreateDishInput, UpdateDishInput } from './dto'
 
 @Resolver()

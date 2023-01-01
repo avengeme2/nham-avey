@@ -5,13 +5,13 @@ import { Equal, LessThan, Repository } from 'typeorm'
 
 import { Restaurant } from '../restaurants/entities/restaurant.entity'
 import { User } from '../users/entities/user.entity'
-import { UserService } from '../users/users.service'
-import { Payment } from './payment.entity'
+import { UserService } from '../users/user.service'
 import {
   CreatePaymentInput,
   CreatePaymentOutput,
   GetPaymentsOutput,
-} from './payments.dto'
+} from './payment.dto'
+import { Payment } from './payment.entity'
 
 @Injectable()
 export class PaymentService {

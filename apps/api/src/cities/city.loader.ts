@@ -1,11 +1,11 @@
 import { Injectable } from '@nestjs/common'
 import DataLoader from 'dataloader'
 
-import { LocationsService } from '../locations/locations.service'
+import { LocationService } from '../locations/location.service'
 
 @Injectable()
-export class CitiesLoaders {
-  constructor(private readonly locationService: LocationsService) {}
+export class CityLoader {
+  constructor(private readonly locationService: LocationService) {}
 
   createLocationsLoader() {
     return new DataLoader(async (locationIds: readonly number[]) => {

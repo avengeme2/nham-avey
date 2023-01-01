@@ -24,7 +24,7 @@ import {
   AllRestaurantsSlugArgs,
   AllRestaurantsSlugOutput,
 } from './dtos/all-restaurants-slug.dto'
-import { RestaurantService } from './restaurants.service'
+import { RestaurantService } from './restaurant.service'
 
 @Resolver()
 export class RestaurantResolver {

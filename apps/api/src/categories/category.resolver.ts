@@ -15,10 +15,10 @@ import { IdArg } from '../common/dtos/id.dto'
 import { CoreOutput } from '../common/dtos/output.dto'
 import { PaginationWithSearchArgs } from '../common/dtos/pagination.dto'
 import { Restaurant } from '../restaurants/entities/restaurant.entity'
-import { RestaurantService } from '../restaurants/restaurants.service'
+import { RestaurantService } from '../restaurants/restaurant.service'
 import { UserRole } from '../users/entities/user.entity'
-import { CategoryService } from './categories.service'
 import { Category } from './category.entity'
+import { CategoryService } from './category.service'
 import {
   AdminCreateCategoryInput,
   AdminCreateCategoryOutput,

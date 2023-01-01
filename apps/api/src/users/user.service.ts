@@ -18,7 +18,7 @@ import {
   SignUpAccountOutput,
   UpdateProfileInput,
   UpdateProfileOutput,
-} from './users.dto'
+} from './user.dto'
 
 @Injectable()
 export class UserService {

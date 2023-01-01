@@ -28,8 +28,8 @@ import { cert } from 'firebase-admin/app'
 import { ApiKeyMiddleware } from '../auth/api-key.middleware'
 import { AuthMiddleware } from '../auth/auth.middleware'
 import { AuthModule } from '../auth/auth.module'
-import { CategoryModule } from '../categories/categories.module'
-import { CityModule } from '../cities/cities.module'
+import { CategoryModule } from '../categories/category.module'
+import { CityModule } from '../cities/city.module'
 import { CommonModule } from '../common/common.module'
 import {
   GRAPHQL_PATH,
@@ -40,15 +40,15 @@ import { ServeFaviconMiddleware } from '../common/middlewares/serve-favicon.midd
 import { EnhancedDate } from '../common/scalar/enhanced-date.scalar'
 import { FirebaseAdminConfig } from '../config/firebase-admin.config'
 import { RootConfig } from '../config/root.config'
-import { DishModule } from '../dishes/dishes.module'
-import { FileUploadsModule } from '../file-uploads/file-uploads.module'
+import { DishModule } from '../dishes/dish.module'
+import { FileUploadModule } from '../file-uploads/file-upload.module'
 import { GraphqlConfigService } from '../graphql/graphql-config.service'
-import { ImagesModule } from '../images/images.module'
-import { OrdersModule } from '../orders/orders.module'
-import { PaymentsModule } from '../payments/payments.module'
-import { RestaurantsModule } from '../restaurants/restaurants.module'
+import { ImageModule } from '../images/image.module'
+import { OrderModule } from '../orders/order.module'
+import { PaymentModule } from '../payments/payment.module'
+import { RestaurantModule } from '../restaurants/restaurant.module'
 import { TypeormConfigService } from '../typeorm/typeorm-config.service'
-import { UsersModule } from '../users/users.module'
+import { UserModule } from '../users/user.module'
 
 const envFilePath = path.resolve(process.cwd(), '.env')
 
@@ -97,16 +97,16 @@ const envFilePath = path.resolve(process.cwd(), '.env')
       },
     }),
     AuthModule,
-    UsersModule,
-    RestaurantsModule,
+    UserModule,
+    RestaurantModule,
     CategoryModule,
     CityModule,
     DishModule,
-    OrdersModule,
+    OrderModule,
     CommonModule,
-    PaymentsModule,
-    FileUploadsModule,
-    ImagesModule,
+    PaymentModule,
+    FileUploadModule,
+    ImageModule,
   ],
   controllers: [],
   providers: [

@@ -11,7 +11,7 @@ import {
 
 import { CoreEntity } from '../../common/entities/core.entity'
 import { Restaurant } from '../../restaurants/entities/restaurant.entity'
-import { generateBlurhashFromURL } from '../images.util'
+import { generateBlurhashFromURL } from '../image.util'
 
 @InputType('ImageInputType', { isAbstract: true })
 @ObjectType()

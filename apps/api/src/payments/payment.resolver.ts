@@ -4,13 +4,13 @@ import { DecodedIdToken } from 'firebase-admin/auth'
 import { GraphqlAuthUser } from '../auth/graphql-auth-user.decorator'
 import { Roles } from '../auth/role.decorator'
 import { UserRole } from '../users/entities/user.entity'
-import { Payment } from './payment.entity'
 import {
   CreatePaymentInput,
   CreatePaymentOutput,
   GetPaymentsOutput,
-} from './payments.dto'
-import { PaymentService } from './payments.service'
+} from './payment.dto'
+import { Payment } from './payment.entity'
+import { PaymentService } from './payment.service'
 
 @Resolver(() => Payment)
 export class PaymentResolver {

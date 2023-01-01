@@ -19,7 +19,7 @@ import { GetOrdersInput, GetOrdersOutput } from './dtos/get-orders.dto'
 import { OrderUpdatesInput } from './dtos/order-updates.dto'
 import { TakeOrderInput, TakeOrderOutput } from './dtos/take-order.dto'
 import { Order } from './entities/order.entity'
-import { OrderService } from './orders.service'
+import { OrderService } from './order.service'
 
 @Resolver(() => Order)
 export class OrderResolver {

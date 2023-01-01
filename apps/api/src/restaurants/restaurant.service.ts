@@ -4,14 +4,14 @@ import { DecodedIdToken, UserRecord } from 'firebase-admin/auth'
 import slugify from 'slugify'
 import { Any, In, Repository } from 'typeorm'
 
-import { CategoryService } from '../categories/categories.service'
 import { CategoryRequest } from '../categories/category.interface'
-import { CityService } from '../cities/cities.service'
+import { CategoryService } from '../categories/category.service'
+import { CityService } from '../cities/city.service'
 import { CoreOutput } from '../common/dtos/output.dto'
 import { PaginationWithSearchArgs } from '../common/dtos/pagination.dto'
-import { ImageService } from '../images/images.service'
+import { ImageService } from '../images/image.service'
 import { UserRole } from '../users/entities/user.entity'
-import { UserService } from '../users/users.service'
+import { UserService } from '../users/user.service'
 import {
   AdminCreateRestaurantInput,
   AdminUpdateRestaurantInput,

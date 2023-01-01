@@ -6,7 +6,7 @@ import { Image } from './entities/image.entity'
 import {
   generateBlurhashFromBuffer,
   generateBlurhashFromURL,
-} from './images.util'
+} from './image.util'
 
 @Injectable()
 export class ImageService {

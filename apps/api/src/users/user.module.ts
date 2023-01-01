@@ -3,11 +3,11 @@ import { TypeOrmModule } from '@nestjs/typeorm'
 
 import { EmailModule } from '../email/email.module'
 import { User } from './entities/user.entity'
-import { AdminResolver } from './resolvers/admins.resolver'
-import { CommonUserResolver } from './resolvers/common-users.resolver'
-import { DriverResolver } from './resolvers/drivers.resolver'
-import { VendorResolver } from './resolvers/vendors.resolver'
-import { UserService } from './users.service'
+import { AdminResolver } from './resolvers/admin.resolver'
+import { CommonUserResolver } from './resolvers/common-user.resolver'
+import { DriverResolver } from './resolvers/driver.resolver'
+import { VendorResolver } from './resolvers/vendor.resolver'
+import { UserService } from './user.service'
 
 @Module({
   imports: [TypeOrmModule.forFeature([User]), EmailModule],
@@ -20,4 +20,4 @@ import { UserService } from './users.service'
   ],
   exports: [UserService],
 })
-export class UsersModule {}
+export class UserModule {}

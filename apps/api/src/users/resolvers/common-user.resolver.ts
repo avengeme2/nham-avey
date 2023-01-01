@@ -6,8 +6,8 @@ import { GraphqlAuthGuard } from '../../auth/graphql-auth-guard.service'
 import { GraphqlAuthUser } from '../../auth/graphql-auth-user.decorator'
 import { AnyRoles } from '../../auth/role.decorator'
 import { User } from '../entities/user.entity'
-import { UpdateProfileInput, UpdateProfileOutput } from '../users.dto'
-import { UserService } from '../users.service'
+import { UpdateProfileInput, UpdateProfileOutput } from '../user.dto'
+import { UserService } from '../user.service'
 
 @Resolver()
 export class CommonUserResolver {

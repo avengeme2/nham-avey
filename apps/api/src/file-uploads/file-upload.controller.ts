@@ -4,12 +4,12 @@ import { ApiConsumes, ApiOperation, ApiSecurity } from '@nestjs/swagger'
 
 import { ApiFileBody } from '../common/api-file-body.decorator'
 import { API_KEY_NAME, FILE_KEY } from '../common/constants/common.constants'
-import { FileUploadsService } from './file-uploads.service'
+import { FileUploadService } from './file-upload.service'
 
 @ApiSecurity(API_KEY_NAME)
 @Controller('upload')
-export class FileUploadsController {
-  constructor(private readonly fileUploadsService: FileUploadsService) {}
+export class FileUploadController {
+  constructor(private readonly fileUploadsService: FileUploadService) {}
 
   @ApiOperation({
     summary: 'Upload file',
