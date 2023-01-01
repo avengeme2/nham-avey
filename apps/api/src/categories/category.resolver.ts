@@ -14,6 +14,8 @@ import { Roles } from '../auth/role.decorator'
 import { IdArg } from '../common/dtos/id.dto'
 import { CoreOutput } from '../common/dtos/output.dto'
 import { PaginationWithSearchArgs } from '../common/dtos/pagination.dto'
+import { Restaurant } from '../restaurants/entities/restaurant.entity'
+import { RestaurantService } from '../restaurants/restaurants.service'
 import { UserRole } from '../users/entities/user.entity'
 import { CategoryService } from './categories.service'
 import { Category } from './category.entity'
@@ -28,7 +30,10 @@ import {
 
 @Resolver(of => Category)
 export class CategoryResolver {
-  constructor(private readonly categoryService: CategoryService) {}
+  constructor(
+    private readonly categoryService: CategoryService,
+    private readonly restaurantService: RestaurantService,
+  ) {}
 
   @ResolveField(returns => Int)
   restaurantCount(@Parent() category: Category): Promise<number> {
@@ -38,6 +43,11 @@ export class CategoryResolver {
   @Query(returns => AllCategoriesOutput)
   allCategories(): Promise<AllCategoriesOutput> {
     return this.categoryService.findAllCategories()
+  }
+
+  @ResolveField(returns => [Restaurant])
+  restaurants(@Parent() category: Category): Promise<Restaurant[] | []> {
+    return this.restaurantService.findAllByCategoryIds([category.id])
   }
 
   @Query(returns => PaginationCategoriesOutput)

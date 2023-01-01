@@ -2,7 +2,7 @@ import { Injectable } from '@nestjs/common'
 import { InjectRepository } from '@nestjs/typeorm'
 import { DecodedIdToken, UserRecord } from 'firebase-admin/auth'
 import slugify from 'slugify'
-import { Any, Repository } from 'typeorm'
+import { Any, In, Repository } from 'typeorm'
 
 import { CategoryService } from '../categories/categories.service'
 import { CategoryRequest } from '../categories/category.interface'
@@ -454,5 +454,17 @@ export class RestaurantService {
     }
 
     return { ok: true, data: restaurant }
+  }
+
+  findAllByIds(ids: number[]): Promise<Restaurant[]> {
+    return this.restaurantRepo.findBy({ id: In(ids) })
+  }
+
+  findAllByCategoryIds(categoryIds: number[]): Promise<Restaurant[]> {
+    return this.restaurantRepo
+      .createQueryBuilder('restaurant')
+      .leftJoinAndSelect('restaurant.categories', 'category')
+      .where('category.id IN (:...categoryIds)', { categoryIds })
+      .getMany()
   }
 }

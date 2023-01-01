@@ -52,17 +52,18 @@ export class CategoryService {
   }
 
   async countRestaurantsByCategory(category: Category): Promise<number> {
+    const countProperty = 'restaurantCount'
     const entity = await this.categoryRepo
       .createQueryBuilder('category')
       .where('category.id = :id', { id: category.id })
       .loadRelationCountAndMap(
-        'category.restaurantCount',
+        `category.${countProperty}`,
         'category.restaurants',
         'restaurant',
       )
       .cache(true)
       .getOne()
-    return entity?.restaurantCount as number
+    return entity?.[countProperty] || 0
   }
 
   async findAllCategories(): Promise<AllCategoriesOutput> {

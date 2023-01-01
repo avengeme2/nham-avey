@@ -16,7 +16,7 @@ export class CitiesLoaders {
       const locationsMap = new Map(
         locations.map(location => [location.id, location]),
       )
-      return locationIds.map(authorId => locationsMap.get(authorId))
+      return locationIds.map(locationId => locationsMap.get(locationId))
     })
   }
 }

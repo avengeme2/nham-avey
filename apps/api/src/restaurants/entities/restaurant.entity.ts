@@ -105,6 +105,9 @@ export class Restaurant extends CoreEntity {
   @JoinColumn({ name: 'location_id', referencedColumnName: 'id' })
   location?: Location
 
+  @RelationId((restaurant: Restaurant) => restaurant.location)
+  locationId?: number
+
   @Field(() => String, { nullable: true })
   @Column({ nullable: true })
   @IsString()
