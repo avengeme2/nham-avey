@@ -6,8 +6,8 @@ export const fetchData = <TData, TVariables>(
   _options?: RequestInit['headers'],
 ): (() => Promise<TData>) => {
   return async () => {
-    const { data } = await axios.post(
-      'https://localhost:3000/graphql',
+    const response = await axios.post(
+      'http://localhost:3000/graphql',
       {
         query,
         variables,
@@ -20,9 +20,10 @@ export const fetchData = <TData, TVariables>(
       },
     )
 
-    if (data.errors) {
-      const { message } = data.errors[0] || {}
-      throw new Error(message || 'Error…')
+    const { data } = response.data
+
+    if (data.error) {
+      throw new Error(data.error)
     }
 
     return data

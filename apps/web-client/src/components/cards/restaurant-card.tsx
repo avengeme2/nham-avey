@@ -7,7 +7,7 @@ import {
 import { StarIcon as StarIconSolid } from '@heroicons/react/24/solid'
 import Link from 'next/link'
 
-import { Restaurant } from '@nham-avey/common'
+import { Restaurant } from '../../__generated__/grapql.react-query'
 
 interface RestaurantCardProps {
   restaurant: Restaurant

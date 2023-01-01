@@ -1,35 +1,42 @@
+import { dehydrate, QueryClient } from '@tanstack/react-query'
 import { GetStaticProps } from 'next'
 
 import {
   CategoriesDocument,
+  CategoriesQuery,
+  CategoriesQueryVariables,
   RestaurantsDocument,
   RestaurantsQuery,
   RestaurantsQueryVariables,
-} from '@nham-avey/common'
-
+} from '../__generated__/grapql.react-query'
 import HomePage, { CATEGORIES_VARIABLES } from '../components/pages/homepage'
 import { DEFAULT_PAGE_STATE } from '../constants/common-constants'
-import { addApolloState, initializeApollo } from '../graphql/apollo-config'
+import { fetchData } from '../utils/graphql-fetcher'
 
 export const getStaticProps: GetStaticProps = async _ => {
-  const apolloClient = initializeApollo()
+  const queryClient = new QueryClient()
 
-  await apolloClient.query<RestaurantsQuery, RestaurantsQueryVariables>({
-    query: RestaurantsDocument,
-    variables: DEFAULT_PAGE_STATE,
-    fetchPolicy: 'no-cache',
-  })
+  await queryClient.prefetchQuery(
+    ['Categories', CATEGORIES_VARIABLES],
+    fetchData<CategoriesQuery, CategoriesQueryVariables>(
+      CategoriesDocument,
+      CATEGORIES_VARIABLES,
+    ),
+  )
 
-  await apolloClient.query({
-    query: CategoriesDocument,
-    variables: CATEGORIES_VARIABLES,
-    fetchPolicy: 'no-cache',
-  })
+  await queryClient.prefetchQuery(
+    ['Restaurants', DEFAULT_PAGE_STATE],
+    fetchData<RestaurantsQuery, RestaurantsQueryVariables>(
+      RestaurantsDocument,
+      DEFAULT_PAGE_STATE,
+    ),
+  )
 
-  return addApolloState(apolloClient, {
-    props: {},
-    revalidate: 1,
-  })
+  return {
+    props: {
+      dehydratedState: dehydrate(queryClient),
+    },
+  }
 }
 
 export default HomePage

@@ -1,5 +1,10 @@
-import { ApolloProvider } from '@apollo/client'
-import { QueryClient, QueryClientProvider } from '@tanstack/react-query'
+import { useState } from 'react'
+
+import {
+  Hydrate,
+  QueryClient,
+  QueryClientProvider,
+} from '@tanstack/react-query'
 import { ReactQueryDevtools } from '@tanstack/react-query-devtools'
 import { AppProps } from 'next/app'
 import Head from 'next/head'
@@ -8,14 +13,24 @@ import { NextNProgress } from '@nham-avey/react-component'
 
 import { PRIMARY } from '../constants/colors-constants'
 import RestaurantPageStateContextProvider from '../context/restaurant-page-state-context'
-import useApollo from '../hooks/use-apollo'
+
 import '../styles.css'
 
-const queryClient = new QueryClient()
-
 function CustomApp({ Component, pageProps }: AppProps) {
-  const apolloClient = useApollo(pageProps)
-
+  const [queryClient] = useState(
+    () =>
+      new QueryClient({
+        defaultOptions: {
+          queries: {
+            refetchOnMount: false,
+            refetchInterval: false,
+            refetchOnWindowFocus: false,
+            refetchOnReconnect: false,
+            refetchIntervalInBackground: false,
+          },
+        },
+      }),
+  )
   return (
     <>
       <Head>
@@ -28,12 +43,13 @@ function CustomApp({ Component, pageProps }: AppProps) {
           options={{ showSpinner: false }}
         />
         <QueryClientProvider client={queryClient}>
-          <ReactQueryDevtools initialIsOpen={false} />
-          <ApolloProvider client={apolloClient}>
+          <Hydrate state={pageProps.dehydratedState}>
+            <ReactQueryDevtools initialIsOpen={false} />
+
             <RestaurantPageStateContextProvider>
               <Component {...pageProps} />
             </RestaurantPageStateContextProvider>
-          </ApolloProvider>
+          </Hydrate>
         </QueryClientProvider>
       </main>
     </>

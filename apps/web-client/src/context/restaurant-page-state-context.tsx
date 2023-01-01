@@ -7,10 +7,10 @@ import {
   useState,
 } from 'react'
 
-import { QueryResult } from '@apollo/client'
-
-import { RestaurantsQuery, RestaurantsQueryVariables } from '@nham-avey/common'
-
+import {
+  Restaurant,
+  useRestaurantsQuery,
+} from '../__generated__/grapql.react-query'
 import { DEFAULT_PAGE_STATE } from '../constants/common-constants'
 
 export interface PageState {
@@ -19,18 +19,13 @@ export interface PageState {
   q: string
 }
 
-type RestaurantData = QueryResult<
-  RestaurantsQuery,
-  RestaurantsQueryVariables
->['data']
-
 interface RestaurantPageState {
   pageState: PageState
   setPageState: Dispatch<SetStateAction<PageState>>
   scrollYPosition: number
   setScrollYPosition: Dispatch<SetStateAction<number>>
-  loadedRestaurants: RestaurantData
-  setLoadedRestaurants: Dispatch<SetStateAction<RestaurantData>>
+  loadedRestaurants: Restaurant[]
+  setLoadedRestaurants: Dispatch<SetStateAction<Restaurant[]>>
 }
 
 const RestaurantPageStateContext = createContext<RestaurantPageState | null>(
@@ -42,8 +37,11 @@ const RestaurantPageStateContextProvider = ({
 }: {
   children: ReactNode
 }) => {
+  const { data: restaurantData } = useRestaurantsQuery(DEFAULT_PAGE_STATE)
   const [pageState, setPageState] = useState(DEFAULT_PAGE_STATE)
-  const [loadedRestaurants, setLoadedRestaurants] = useState<RestaurantData>()
+  const [loadedRestaurants, setLoadedRestaurants] = useState<Restaurant[]>(
+    (restaurantData?.restaurants.data as Restaurant[]) || [],
+  )
   const [scrollYPosition, setScrollYPosition] = useState(0)
 
   return (

@@ -1,8 +1,8 @@
 import { useState } from 'react'
 
-import { useMeQuery } from '@nham-avey/common'
 import { useFirebaseAuthState } from '@nham-avey/react-hook'
 
+import { useMeQuery } from '../../__generated__/grapql.react-query'
 import firebaseServices from '../../services/firebase-services'
 import { ProfileLinkButton } from '../buttons/profile-link-button'
 import { Hamburger } from '../hamburger'
@@ -14,7 +14,7 @@ const { auth } = firebaseServices
 
 export const Header = () => {
   const { user } = useFirebaseAuthState(auth)
-  const { data } = useMeQuery({ skip: !user })
+  const { data } = useMeQuery({}, { enabled: !!user })
   const [isExpanded, setIsExpanded] = useState(false)
 
   const handleToggleMenu = () => setIsExpanded(prevState => !prevState)
