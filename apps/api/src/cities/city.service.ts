@@ -6,7 +6,7 @@ import { Repository } from 'typeorm'
 
 import { CoreOutput } from '../common/dtos/output.dto'
 import { PaginationWithSearchArgs } from '../common/dtos/pagination.dto'
-import { Location } from '../locations/location.entity'
+import { GeoLocation } from '../geo-locations/geo-location.entity'
 import { PaginatedRestaurantsOutput } from '../restaurants/dtos'
 import { City } from './city.entity'
 import { CityRequest } from './city.interface'
@@ -24,8 +24,8 @@ export class CityService {
   constructor(
     @InjectRepository(City)
     private readonly cityRepo: Repository<City>,
-    @InjectRepository(Location)
-    private readonly locationRepo: Repository<Location>,
+    @InjectRepository(GeoLocation)
+    private readonly locationRepo: Repository<GeoLocation>,
   ) {}
 
   getCityBySlug(slug: string) {

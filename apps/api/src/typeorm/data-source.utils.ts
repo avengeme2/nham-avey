@@ -5,7 +5,7 @@ import { SnakeNamingStrategy } from './snake-naming.strategy'
 
 export const getDatasource = (type: 'migrations' | 'seeds') => {
   const { host, port, database, user, password } = parsePGConnectionString(
-    process.env.DATABASE_URL as string,
+    process.env.DATABASE__URL as string,
   )
   const isLocalhost = host?.includes('127.0.0.1') || host?.includes('localhost')
 

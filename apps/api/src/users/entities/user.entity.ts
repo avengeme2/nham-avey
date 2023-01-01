@@ -62,7 +62,7 @@ export class User extends CoreWithoutIdEntity {
   @Field(type => [UserRole])
   @IsEnum(UserRole, { each: true })
   @Column({
-    enumName: 'user_role',
+    enumName: 'user_role_enum',
     type: 'enum',
     enum: UserRole,
     array: true,

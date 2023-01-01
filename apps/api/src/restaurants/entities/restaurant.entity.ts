@@ -16,8 +16,8 @@ import { Category } from '../../categories/category.entity'
 import { City } from '../../cities/city.entity'
 import { CoreEntity } from '../../common/entities/core.entity'
 import { Dish } from '../../dishes/dish.entity'
+import { GeoLocation } from '../../geo-locations/geo-location.entity'
 import { Image } from '../../images/entities/image.entity'
-import { Location } from '../../locations/location.entity'
 import { Order } from '../../orders/entities/order.entity'
 import { User } from '../../users/entities/user.entity'
 import { OpeningHours } from './opening-hours.entity'
@@ -100,10 +100,10 @@ export class Restaurant extends CoreEntity {
   @RelationId((restaurant: Restaurant) => restaurant.reviews)
   reviewsIds?: number[]
 
-  @Field(() => Location, { nullable: true })
-  @OneToOne(() => Location, { nullable: true })
+  @Field(() => GeoLocation, { nullable: true })
+  @OneToOne(() => GeoLocation, { nullable: true })
   @JoinColumn({ name: 'location_id', referencedColumnName: 'id' })
-  location?: Location
+  location?: GeoLocation
 
   @RelationId((restaurant: Restaurant) => restaurant.location)
   locationId?: number

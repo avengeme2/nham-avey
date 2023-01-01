@@ -1,7 +1,7 @@
 import { Resolver } from '@nestjs/graphql'
 
 @Resolver()
-export class LocationResolver {
+export class GeoLocationResolver {
   constructor() {
     // TODO
   }

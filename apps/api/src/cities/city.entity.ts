@@ -10,7 +10,7 @@ import {
 } from 'typeorm'
 
 import { CoreEntity } from '../common/entities/core.entity'
-import { Location } from '../locations/location.entity'
+import { GeoLocation } from '../geo-locations/geo-location.entity'
 import { Restaurant } from '../restaurants/entities/restaurant.entity'
 
 @InputType('CityInputType', { isAbstract: true })
@@ -33,10 +33,10 @@ export class City extends CoreEntity {
   @IsOptional()
   nameInKhmer?: string
 
-  @Field(type => Location, { nullable: true })
-  @OneToOne(() => Location, { nullable: true })
+  @Field(type => GeoLocation, { nullable: true })
+  @OneToOne(() => GeoLocation, { nullable: true })
   @JoinColumn({ name: 'location_id', referencedColumnName: 'id' })
-  location?: Location
+  location?: GeoLocation
 
   @RelationId((city: City) => city.location)
   locationId?: number

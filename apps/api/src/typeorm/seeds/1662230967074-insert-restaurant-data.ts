@@ -4,8 +4,8 @@ import { MigrationInterface, QueryRunner } from 'typeorm'
 import { Category } from '../../categories/category.entity'
 import { City } from '../../cities/city.entity'
 import { randomId } from '../../common/utils/random-id.util'
+import { GeoLocation } from '../../geo-locations/geo-location.entity'
 import { Image } from '../../images/entities/image.entity'
-import { Location } from '../../locations/location.entity'
 import { OpeningHours } from '../../restaurants/entities/opening-hours.entity'
 import { Restaurant } from '../../restaurants/entities/restaurant.entity'
 import restaurants from '../data/restaurants.data.json'
@@ -25,7 +25,7 @@ export class insertRestaurantData1662230967074 implements MigrationInterface {
       }
       // setup location
       const location = await queryRunner.manager.save(
-        queryRunner.manager.create<Location>(Location, {
+        queryRunner.manager.create<GeoLocation>(GeoLocation, {
           latitude: restaurant.location.lat,
           longitude: restaurant.location.lng,
         }),

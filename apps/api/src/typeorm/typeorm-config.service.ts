@@ -8,8 +8,8 @@ import { DatabaseConfig } from '../config/database.config'
 import { RootConfig } from '../config/root.config'
 import { Dish } from '../dishes/dish.entity'
 import { DisposableDomainEmail } from '../email/disposable-domain-email.entity'
+import { GeoLocation } from '../geo-locations/geo-location.entity'
 import { Image } from '../images/entities/image.entity'
-import { Location } from '../locations/location.entity'
 import { OrderItem } from '../orders/entities/order-item.entity'
 import { Order } from '../orders/entities/order.entity'
 import { Payment } from '../payments/payment.entity'
@@ -49,7 +49,7 @@ export class TypeormConfigService implements TypeOrmOptionsFactory {
         OrderItem,
         Payment,
         City,
-        Location,
+        GeoLocation,
         OpeningHours,
         Review,
         Image,

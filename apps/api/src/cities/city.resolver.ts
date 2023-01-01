@@ -14,8 +14,8 @@ import { Roles } from '../auth/role.decorator'
 import { IdArg } from '../common/dtos/id.dto'
 import { CoreOutput } from '../common/dtos/output.dto'
 import { PaginationWithSearchArgs } from '../common/dtos/pagination.dto'
-import { Location } from '../locations/location.entity'
-import { LocationService } from '../locations/location.service'
+import { GeoLocation } from '../geo-locations/geo-location.entity'
+import { GeoLocationService } from '../geo-locations/geo-location.service'
 import { UserRole } from '../users/entities/user.entity'
 import { City } from './city.entity'
 import { CityLoader } from './city.loader'
@@ -33,7 +33,7 @@ import {
 export class CityResolver {
   constructor(
     private readonly cityService: CityService,
-    private readonly locationService: LocationService,
+    private readonly geoLocationService: GeoLocationService,
     private readonly cityLoader: CityLoader,
   ) {}
 
@@ -42,8 +42,8 @@ export class CityResolver {
     return this.cityService.countRestaurantsByCity(city)
   }
 
-  @ResolveField(returns => Location)
-  async location(@Parent() city: City): Promise<Location | null> {
+  @ResolveField(returns => GeoLocation)
+  async location(@Parent() city: City): Promise<GeoLocation | null> {
     const { locationId } = city
     if (locationId) {
       const locations = await this.cityLoader

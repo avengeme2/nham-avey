@@ -10,7 +10,7 @@ import {
 } from 'typeorm'
 
 import { CoreEntity } from '../../common/entities/core.entity'
-import { Location } from '../../locations/location.entity'
+import { GeoLocation } from '../../geo-locations/geo-location.entity'
 import { User } from '../../users/entities/user.entity'
 import { Restaurant } from './restaurant.entity'
 
@@ -24,7 +24,7 @@ export class Review extends CoreEntity {
   name: string
 
   @Field(() => User)
-  @OneToOne(() => Location, { nullable: false })
+  @OneToOne(() => GeoLocation, { nullable: false })
   @JoinColumn({ name: 'customer_id', referencedColumnName: 'id' })
   customer: User
 

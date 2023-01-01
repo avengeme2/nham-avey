@@ -6,8 +6,8 @@ import { CoreEntity } from '../common/entities/core.entity'
 
 @InputType('LocationInputType', { isAbstract: true })
 @ObjectType()
-@Entity({ name: 'locations' })
-export class Location extends CoreEntity {
+@Entity({ name: 'geo_locations' })
+export class GeoLocation extends CoreEntity {
   @Field(() => Float)
   @Column({ type: 'float' })
   @IsNumber()

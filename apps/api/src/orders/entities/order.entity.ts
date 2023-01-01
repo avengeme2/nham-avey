@@ -82,7 +82,7 @@ export class Order extends CoreEntity {
 
   @Column({
     type: 'enum',
-    enumName: 'order_status',
+    enumName: 'order_status_enum',
     enum: OrderStatus,
     default: OrderStatus.Pending,
   })
