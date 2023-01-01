@@ -6,6 +6,7 @@ import { joinClassName } from '@nham-avey/common'
 import { ScrollProps, useScrollPosition } from '@nham-avey/react-hook'
 
 import {
+  Category,
   Restaurant,
   useCategoriesQuery,
   useRestaurantsQuery,
@@ -88,7 +89,7 @@ const HomePage = () => {
         {/* Top Categories */}
         <div className="mb-6 mt-12 grid grid-cols-3 gap-8 md:grid-cols-6">
           {categoriesData?.categories?.data?.map(category => (
-            <CategoryCard category={category} key={category.id} />
+            <CategoryCard category={category as Category} key={category.id} />
           ))}
         </div>
 

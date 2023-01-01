@@ -1,6 +1,6 @@
 import Link from 'next/link'
 
-import { Category } from '@nham-avey/common'
+import { Category } from '../../__generated__/grapql.react-query'
 
 interface CategoryItemProps {
   category: Category

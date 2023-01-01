@@ -1,9 +1,9 @@
+import { Drawer } from 'antd'
+
 import {
   AdminCreateRestaurantMutationOptions,
   useAdminCreateRestaurantMutation,
-} from '@nham-avey/common'
-import { Drawer } from 'antd'
-
+} from '../../__generated__/types.react-apollo'
 import { CreateRestaurantForm } from '../form/create-restaurant-form'
 
 interface CreateRestaurantDrawerProps {

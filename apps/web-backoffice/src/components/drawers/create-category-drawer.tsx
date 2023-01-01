@@ -1,9 +1,9 @@
+import { Drawer } from 'antd'
+
 import {
   AdminCreateCategoryMutationOptions,
   useAdminCreateCategoryMutation,
-} from '@nham-avey/common'
-import { Drawer } from 'antd'
-
+} from '../../__generated__/types.react-apollo'
 import { CreateCategoryForm } from '../form/create-category-form'
 
 interface CreateCategoryDrawerProps {

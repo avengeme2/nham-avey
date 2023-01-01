@@ -1,10 +1,10 @@
+import { Drawer } from 'antd'
+
 import {
   AdminUpdateCategoryMutationOptions,
   useAdminUpdateCategoryMutation,
   Category,
-} from '@nham-avey/common'
-import { Drawer } from 'antd'
-
+} from '../../__generated__/types.react-apollo'
 import { UpdateCategoryForm } from '../form/update-category-form'
 
 interface UpdateCategoryDrawerProps {

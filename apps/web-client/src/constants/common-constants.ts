@@ -4,6 +4,6 @@ export const APP_NAME = 'Nham Avey'
 
 export const DEFAULT_PAGE_STATE: PageState = {
   page: 1,
-  take: 1,
+  take: 8,
   q: '',
 }

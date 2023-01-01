@@ -1,18 +1,18 @@
 import React, { useCallback, useMemo, useState } from 'react'
 
 import { LoadingOutlined, PlusOutlined } from '@ant-design/icons'
+import { Button, Form, Input, Select, Upload, UploadFile } from 'antd'
+import ImgCrop from 'antd-img-crop'
+import { UploadChangeParam } from 'antd/es/upload'
+import { UploadProps } from 'antd/es/upload/interface'
+
 import {
   useAdminCreateRestaurantMutation,
   useAdminGetUsersLazyQuery,
   useCategoriesQuery,
   User,
   UserRole,
-} from '@nham-avey/common'
-import { Button, Form, Input, Select, Upload, UploadFile } from 'antd'
-import ImgCrop from 'antd-img-crop'
-import { UploadChangeParam } from 'antd/es/upload'
-import { UploadProps } from 'antd/es/upload/interface'
-
+} from '../../__generated__/types.react-apollo'
 import { SelectOption } from '../../typing/common-type'
 import { antUploadCustomRequestWithCompression } from '../../utils/common-utils'
 import { DebouncedSelect } from '../form-elements/DebouncedSelect'

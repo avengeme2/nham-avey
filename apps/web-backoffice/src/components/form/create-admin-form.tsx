@@ -1,12 +1,15 @@
 import React, { useEffect, useState } from 'react'
 
 import { LoadingOutlined, PlusOutlined } from '@ant-design/icons'
-import { useAdminCreateAdminMutation, User } from '@nham-avey/common'
 import { Button, Form, Input, Upload } from 'antd'
 import ImgCrop from 'antd-img-crop'
 import { UploadChangeParam } from 'antd/es/upload'
 import { UploadProps } from 'antd/es/upload/interface'
 
+import {
+  useAdminCreateAdminMutation,
+  User,
+} from '../../__generated__/types.react-apollo'
 import { antUploadCustomRequestWithCompression } from '../../utils/common-utils'
 
 const { useForm } = Form

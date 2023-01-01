@@ -1,10 +1,10 @@
+import { Drawer } from 'antd'
+
 import {
   AdminUpdateUserMutationOptions,
   useAdminUpdateUserMutation,
   User,
-} from '@nham-avey/common'
-import { Drawer } from 'antd'
-
+} from '../../__generated__/types.react-apollo'
 import { UpdateUserForm } from '../form/update-user-form'
 
 interface UpdateUserDrawerProps {

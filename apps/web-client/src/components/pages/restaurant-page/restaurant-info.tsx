@@ -2,7 +2,7 @@ import React from 'react'
 
 import { ClockIcon } from '@heroicons/react/24/outline'
 
-import { Restaurant } from '@nham-avey/common'
+import { Restaurant } from '../../../__generated__/grapql.react-query'
 
 export interface RestaurantIntoProps {
   restaurant: Restaurant

@@ -1,9 +1,9 @@
+import { Drawer } from 'antd'
+
 import {
   AdminCreateAdminMutationOptions,
   useAdminCreateAdminMutation,
-} from '@nham-avey/common'
-import { Drawer } from 'antd'
-
+} from '../../__generated__/types.react-apollo'
 import { CreateAdminForm } from '../form/create-admin-form'
 
 interface CreateAdminDrawerProps {

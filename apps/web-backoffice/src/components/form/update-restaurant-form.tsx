@@ -5,18 +5,18 @@ import {
   PlusOutlined,
   UploadOutlined,
 } from '@ant-design/icons'
+import { Button, Form, Input, Select, Upload, UploadFile } from 'antd'
+import ImgCrop from 'antd-img-crop'
+import { UploadChangeParam } from 'antd/es/upload'
+import { UploadProps } from 'antd/es/upload/interface'
+
 import {
   Restaurant,
   useAdminGetUsersQuery,
   useAdminUpdateRestaurantMutation,
   useCategoriesQuery,
   UserRole,
-} from '@nham-avey/common'
-import { Button, Form, Input, Select, Upload, UploadFile } from 'antd'
-import ImgCrop from 'antd-img-crop'
-import { UploadChangeParam } from 'antd/es/upload'
-import { UploadProps } from 'antd/es/upload/interface'
-
+} from '../../__generated__/types.react-apollo'
 import { SelectOption } from '../../typing/common-type'
 import { antUploadCustomRequestWithCompression } from '../../utils/common-utils'
 
@@ -130,7 +130,7 @@ export const UpdateRestaurantForm = ({
       const { data } = await onSubmit({
         variables: {
           input: {
-            restaurantId: initialValue?.id as number,
+            restaurantId: +(initialValue?.id as string),
             name,
             address,
             logoImageUrl,

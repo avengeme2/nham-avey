@@ -1,11 +1,14 @@
 import { useEffect, useState } from 'react'
 
 import { LoadingOutlined, PlusOutlined } from '@ant-design/icons'
-import { Category, useAdminUpdateCategoryMutation } from '@nham-avey/common'
 import { Button, Form, Input, Upload } from 'antd'
 import { UploadChangeParam } from 'antd/es/upload'
 import { UploadProps } from 'antd/es/upload/interface'
 
+import {
+  Category,
+  useAdminUpdateCategoryMutation,
+} from '../../__generated__/types.react-apollo'
 import { antUploadCustom } from '../../utils/common-utils'
 
 const { useForm } = Form
@@ -56,7 +59,7 @@ export const UpdateCategoryForm = ({
     const { data } = await onSubmit({
       variables: {
         input: {
-          categoryId: initialValue?.id as number,
+          categoryId: +(initialValue?.id as string),
           name,
           coverImageUrl,
         },

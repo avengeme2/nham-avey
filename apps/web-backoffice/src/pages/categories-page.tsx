@@ -7,11 +7,6 @@ import {
   ReloadOutlined,
   SearchOutlined,
 } from '@ant-design/icons'
-import {
-  Category,
-  useAdminDeleteCategoryMutation,
-  useCategoriesQuery,
-} from '@nham-avey/common'
 import { useDebouncedCallback } from '@nham-avey/react-hook'
 import {
   Button,
@@ -27,6 +22,11 @@ import {
 import { ColumnsType } from 'antd/es/table'
 import { Helmet } from 'react-helmet-async'
 
+import {
+  Category,
+  useAdminDeleteCategoryMutation,
+  useCategoriesQuery,
+} from '../__generated__/types.react-apollo'
 import { AvatarInfo } from '../components/avatar-info'
 import { CreateCategoryDrawer } from '../components/drawers/create-category-drawer'
 import { UpdateCategoryDrawer } from '../components/drawers/update-category-drawer'
@@ -149,7 +149,7 @@ export const CategoriesPage = () => {
                       content: '',
                       onOk: async () =>
                         await deleteCategory({
-                          variables: { id: category.id },
+                          variables: { id: +category.id },
                         }),
                     })
                   }}

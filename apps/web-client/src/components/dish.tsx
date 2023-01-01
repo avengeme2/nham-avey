@@ -1,6 +1,6 @@
 import { ReactNode } from 'react'
 
-import { DishOption } from '@nham-avey/common'
+import { DishOption } from '../__generated__/grapql.react-query'
 
 interface DishProps {
   id?: number
