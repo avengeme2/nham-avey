@@ -78,6 +78,14 @@
         "jestConfig": "apps/web-backoffice/jest.config.ts",
         "passWithNoTests": true
       }
+    },
+    "graphql-codegen": {
+      "executor": "nx:run-commands",
+      "outputs": [],
+      "options": {
+        "command": "graphql-codegen --config codegen.yml && cd ../../ && nx format:write --files apps/web-backoffice/src/__generated__/types.react-apollo.ts",
+        "cwd": "apps/web-backoffice"
+      }
     }
   },
   "tags": []

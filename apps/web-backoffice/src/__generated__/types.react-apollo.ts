@@ -1,5 +1,6 @@
 import { gql } from '@apollo/client'
 import * as Apollo from '@apollo/client'
+
 export type Maybe<T> = T | null
 export type InputMaybe<T> = Maybe<T>
 export type Exact<T extends { [key: string]: unknown }> = {
@@ -136,9 +137,10 @@ export type Category = {
   coverImageUrl?: Maybe<Scalars['String']>
   createdAt: Scalars['EnhancedDate']
   iconUrl?: Maybe<Scalars['String']>
-  id: Scalars['Float']
+  id: Scalars['ID']
   name: Scalars['String']
   restaurantCount: Scalars['Int']
+  restaurants: Array<Restaurant>
   slug: Scalars['String']
   updatedAt: Scalars['EnhancedDate']
 }
@@ -146,8 +148,8 @@ export type Category = {
 export type City = {
   __typename?: 'City'
   createdAt: Scalars['EnhancedDate']
-  id: Scalars['Float']
-  location?: Maybe<Location>
+  id: Scalars['ID']
+  location?: Maybe<GeoLocation>
   name: Scalars['String']
   nameInKhmer?: Maybe<Scalars['String']>
   restaurantCount: Scalars['Int']
@@ -184,7 +186,7 @@ export type CreateDishInput = {
 }
 
 export type CreateOrderInput = {
-  items?: InputMaybe<Array<CreateOrderItemInput>>
+  items?: Array<CreateOrderItemInput>
   restaurantId: Scalars['Int']
 }
 
@@ -221,7 +223,7 @@ export type Dish = {
   __typename?: 'Dish'
   createdAt: Scalars['EnhancedDate']
   description: Scalars['String']
-  id: Scalars['Float']
+  id: Scalars['ID']
   name: Scalars['String']
   options?: Maybe<Array<DishOption>>
   photo?: Maybe<Scalars['String']>
@@ -262,7 +264,7 @@ export type DishOutput = {
 }
 
 export type EditOrderInput = {
-  id: Scalars['Float']
+  id: Scalars['ID']
   status: OrderStatus
 }
 
@@ -272,8 +274,17 @@ export type EditOrderOutput = {
   ok: Scalars['Boolean']
 }
 
+export type GeoLocation = {
+  __typename?: 'GeoLocation'
+  createdAt: Scalars['EnhancedDate']
+  id: Scalars['ID']
+  latitude: Scalars['Float']
+  longitude: Scalars['Float']
+  updatedAt: Scalars['EnhancedDate']
+}
+
 export type GetOrderInput = {
-  id: Scalars['Float']
+  id: Scalars['ID']
 }
 
 export type GetOrderOutput = {
@@ -303,21 +314,12 @@ export type GetPaymentsOutput = {
 
 export type Image = {
   __typename?: 'Image'
-  blurhash: Scalars['String']
+  blurhash?: Maybe<Scalars['String']>
   createdAt: Scalars['EnhancedDate']
-  id: Scalars['Float']
-  restaurant: Restaurant
+  id: Scalars['ID']
+  restaurant?: Maybe<Restaurant>
   updatedAt: Scalars['EnhancedDate']
   url: Scalars['String']
-}
-
-export type Location = {
-  __typename?: 'Location'
-  createdAt: Scalars['EnhancedDate']
-  id: Scalars['Float']
-  latitude: Scalars['Float']
-  longitude: Scalars['Float']
-  updatedAt: Scalars['EnhancedDate']
 }
 
 export type Mutation = {
@@ -463,7 +465,7 @@ export type OpeningHours = {
   __typename?: 'OpeningHours'
   createdAt: Scalars['EnhancedDate']
   fridayHours?: Maybe<Scalars['String']>
-  id: Scalars['Float']
+  id: Scalars['ID']
   mondayHours?: Maybe<Scalars['String']>
   saturdayHours?: Maybe<Scalars['String']>
   sundayHours?: Maybe<Scalars['String']>
@@ -478,7 +480,7 @@ export type Order = {
   createdAt: Scalars['EnhancedDate']
   customer?: Maybe<User>
   driver?: Maybe<User>
-  id: Scalars['Float']
+  id: Scalars['ID']
   items: Array<OrderItem>
   restaurant?: Maybe<Restaurant>
   status: OrderStatus
@@ -490,7 +492,7 @@ export type OrderItem = {
   __typename?: 'OrderItem'
   createdAt: Scalars['EnhancedDate']
   dish: Dish
-  id: Scalars['Float']
+  id: Scalars['ID']
   options?: Maybe<Array<OrderItemOption>>
   updatedAt: Scalars['EnhancedDate']
 }
@@ -515,7 +517,7 @@ export enum OrderStatus {
 }
 
 export type OrderUpdatesInput = {
-  id: Scalars['Float']
+  id: Scalars['ID']
 }
 
 export type PaginatedCategoryRestaurantsOutput = {
@@ -589,7 +591,7 @@ export type PaginationCitiesOutput = {
 export type Payment = {
   __typename?: 'Payment'
   createdAt: Scalars['EnhancedDate']
-  id: Scalars['Float']
+  id: Scalars['ID']
   restaurant: Restaurant
   restaurantId: Scalars['Int']
   transactionId: Scalars['String']
@@ -620,16 +622,16 @@ export type Query = {
 }
 
 export type QueryAdminGetRestaurantsArgs = {
-  page?: InputMaybe<Scalars['Int']>
+  page?: Scalars['Int']
   q?: InputMaybe<Scalars['String']>
-  take?: InputMaybe<Scalars['Int']>
+  take?: Scalars['Int']
 }
 
 export type QueryAdminGetUsersArgs = {
-  page?: InputMaybe<Scalars['Int']>
+  page?: Scalars['Int']
   q?: InputMaybe<Scalars['String']>
   role?: InputMaybe<UserRole>
-  take?: InputMaybe<Scalars['Int']>
+  take?: Scalars['Int']
 }
 
 export type QueryAllRestaurantsSlugArgs = {
@@ -637,15 +639,15 @@ export type QueryAllRestaurantsSlugArgs = {
 }
 
 export type QueryCategoriesArgs = {
-  page?: InputMaybe<Scalars['Int']>
+  page?: Scalars['Int']
   q?: InputMaybe<Scalars['String']>
-  take?: InputMaybe<Scalars['Int']>
+  take?: Scalars['Int']
 }
 
 export type QueryCitiesArgs = {
-  page?: InputMaybe<Scalars['Int']>
+  page?: Scalars['Int']
   q?: InputMaybe<Scalars['String']>
-  take?: InputMaybe<Scalars['Int']>
+  take?: Scalars['Int']
 }
 
 export type QueryGetOrderArgs = {
@@ -661,9 +663,9 @@ export type QueryMyRestaurantArgs = {
 }
 
 export type QueryMyRestaurantsArgs = {
-  page?: InputMaybe<Scalars['Int']>
+  page?: Scalars['Int']
   q?: InputMaybe<Scalars['String']>
-  take?: InputMaybe<Scalars['Int']>
+  take?: Scalars['Int']
 }
 
 export type QueryRestaurantArgs = {
@@ -675,21 +677,21 @@ export type QueryRestaurantBySlugArgs = {
 }
 
 export type QueryRestaurantsArgs = {
-  page?: InputMaybe<Scalars['Int']>
+  page?: Scalars['Int']
   q?: InputMaybe<Scalars['String']>
-  take?: InputMaybe<Scalars['Int']>
+  take?: Scalars['Int']
 }
 
 export type QueryRestaurantsByCategorySlugArgs = {
-  page?: InputMaybe<Scalars['Int']>
+  page?: Scalars['Int']
   slug: Scalars['String']
-  take?: InputMaybe<Scalars['Int']>
+  take?: Scalars['Int']
 }
 
 export type QueryRestaurantsByCitySlugArgs = {
-  page?: InputMaybe<Scalars['Int']>
+  page?: Scalars['Int']
   slug: Scalars['String']
-  take?: InputMaybe<Scalars['Int']>
+  take?: Scalars['Int']
 }
 
 export type Restaurant = {
@@ -700,15 +702,16 @@ export type Restaurant = {
   coverImages?: Maybe<Array<Image>>
   createdAt: Scalars['EnhancedDate']
   description?: Maybe<Scalars['String']>
-  id: Scalars['Float']
+  id: Scalars['ID']
   isPromoted: Scalars['Boolean']
-  location?: Maybe<Location>
+  location?: Maybe<GeoLocation>
   logoImageUrl?: Maybe<Scalars['String']>
   menu?: Maybe<Array<Dish>>
   name: Scalars['String']
   neighborhood?: Maybe<Scalars['String']>
   openingHours?: Maybe<OpeningHours>
   orders?: Maybe<Array<Order>>
+  phone?: Maybe<Scalars['String']>
   promotedUntil?: Maybe<Scalars['EnhancedDate']>
   reviews?: Maybe<Array<Review>>
   slug: Scalars['String']
@@ -729,7 +732,7 @@ export type Review = {
   __typename?: 'Review'
   createdAt: Scalars['EnhancedDate']
   customer: User
-  id: Scalars['Float']
+  id: Scalars['ID']
   name: Scalars['String']
   restaurant: Restaurant
   stars: Scalars['Int']
@@ -765,7 +768,7 @@ export type SubscriptionOrderUpdatesArgs = {
 }
 
 export type TakeOrderInput = {
-  id: Scalars['Float']
+  id: Scalars['ID']
 }
 
 export type TakeOrderOutput = {
@@ -801,7 +804,7 @@ export type User = {
   createdAt: Scalars['EnhancedDate']
   email: Scalars['String']
   firstName?: Maybe<Scalars['String']>
-  id: Scalars['String']
+  id: Scalars['ID']
   isVerified: Scalars['Boolean']
   lastName?: Maybe<Scalars['String']>
   orders?: Maybe<Array<Order>>
@@ -837,7 +840,7 @@ export type VendorUpdateRestaurantInput = {
 
 export type FullOrderPartsFragment = {
   __typename?: 'Order'
-  id: number
+  id: string
   status: OrderStatus
   total?: number | null
   driver?: { __typename?: 'User'; email: string } | null
@@ -847,14 +850,14 @@ export type FullOrderPartsFragment = {
 
 export type RestaurantPartsFragment = {
   __typename?: 'Restaurant'
-  id: number
+  id: string
   name: string
   address?: string | null
   isPromoted: boolean
   logoImageUrl?: string | null
   coverImages?: Array<{
     __typename?: 'Image'
-    blurhash: string
+    blurhash?: string | null
     url: string
   }> | null
   categories?: Array<{
@@ -866,7 +869,7 @@ export type RestaurantPartsFragment = {
 
 export type CategoryPartsFragment = {
   __typename?: 'Category'
-  id: number
+  id: string
   name: string
   coverImageUrl?: string | null
   slug: string
@@ -875,7 +878,7 @@ export type CategoryPartsFragment = {
 
 export type DishPartsFragment = {
   __typename?: 'Dish'
-  id: number
+  id: string
   name: string
   price: number
   photo?: string | null
@@ -894,7 +897,7 @@ export type DishPartsFragment = {
 
 export type OrderPartsFragment = {
   __typename?: 'Order'
-  id: number
+  id: string
   createdAt: any
   total?: number | null
 }
@@ -925,7 +928,7 @@ export type AdminCreateCategoryMutation = {
       __typename?: 'Category'
       coverImageUrl?: string | null
       createdAt: any
-      id: number
+      id: string
       name: string
       restaurantCount: number
       slug: string
@@ -1136,7 +1139,7 @@ export type AdminGetRestaurantsQuery = {
       address?: string | null
       logoImageUrl?: string | null
       createdAt: any
-      id: number
+      id: string
       isPromoted: boolean
       name: string
       promotedUntil?: any | null
@@ -1146,14 +1149,14 @@ export type AdminGetRestaurantsQuery = {
         restaurantCount: number
         coverImageUrl?: string | null
         createdAt: any
-        id: number
+        id: string
         name: string
         slug: string
         updatedAt: any
       }> | null
       coverImages?: Array<{
         __typename?: 'Image'
-        blurhash: string
+        blurhash?: string | null
         url: string
       }> | null
       vendors: Array<{
@@ -1215,7 +1218,7 @@ export type AllCategoriesQuery = {
       __typename?: 'Category'
       coverImageUrl?: string | null
       createdAt: any
-      id: number
+      id: string
       name: string
       restaurantCount: number
       slug: string
@@ -1235,16 +1238,16 @@ export type AllCitiesQuery = {
     data?: Array<{
       __typename?: 'City'
       createdAt: any
-      id: number
+      id: string
       name: string
       nameInKhmer?: string | null
       restaurantCount: number
       slug: string
       updatedAt: any
       location?: {
-        __typename?: 'Location'
+        __typename?: 'GeoLocation'
         createdAt: any
-        id: number
+        id: string
         latitude: number
         longitude: number
         updatedAt: any
@@ -1288,7 +1291,7 @@ export type CategoriesQuery = {
       __typename?: 'Category'
       coverImageUrl?: string | null
       createdAt: any
-      id: number
+      id: string
       name: string
       restaurantCount: number
       slug: string
@@ -1316,16 +1319,16 @@ export type CitiesQuery = {
     data?: Array<{
       __typename?: 'City'
       createdAt: any
-      id: number
+      id: string
       name: string
       nameInKhmer?: string | null
       restaurantCount: number
       slug: string
       updatedAt: any
       location?: {
-        __typename?: 'Location'
+        __typename?: 'GeoLocation'
         createdAt: any
-        id: number
+        id: string
         latitude: number
         longitude: number
         updatedAt: any
@@ -1346,7 +1349,7 @@ export type GetOrderQuery = {
     error?: string | null
     order?: {
       __typename?: 'Order'
-      id: number
+      id: string
       status: OrderStatus
       total?: number | null
       driver?: { __typename?: 'User'; email: string } | null
@@ -1383,14 +1386,14 @@ export type MyRestaurantsQuery = {
     error?: string | null
     data?: Array<{
       __typename?: 'Restaurant'
-      id: number
+      id: string
       name: string
       address?: string | null
       isPromoted: boolean
       logoImageUrl?: string | null
       coverImages?: Array<{
         __typename?: 'Image'
-        blurhash: string
+        blurhash?: string | null
         url: string
       }> | null
       categories?: Array<{
@@ -1416,7 +1419,7 @@ export type RestaurantBySlugQuery = {
       __typename?: 'Restaurant'
       address?: string | null
       createdAt: any
-      id: number
+      id: string
       isPromoted: boolean
       logoImageUrl?: string | null
       name: string
@@ -1431,7 +1434,7 @@ export type RestaurantBySlugQuery = {
         coverImageUrl?: string | null
         createdAt: any
         iconUrl?: string | null
-        id: number
+        id: string
         name: string
         restaurantCount: number
         slug: string
@@ -1440,7 +1443,7 @@ export type RestaurantBySlugQuery = {
       city?: {
         __typename?: 'City'
         createdAt: any
-        id: number
+        id: string
         name: string
         nameInKhmer?: string | null
         restaurantCount: number
@@ -1449,13 +1452,13 @@ export type RestaurantBySlugQuery = {
       } | null
       coverImages?: Array<{
         __typename?: 'Image'
-        blurhash: string
+        blurhash?: string | null
         url: string
       }> | null
       location?: {
-        __typename?: 'Location'
+        __typename?: 'GeoLocation'
         createdAt: any
-        id: number
+        id: string
         latitude: number
         longitude: number
         updatedAt: any
@@ -1464,7 +1467,7 @@ export type RestaurantBySlugQuery = {
         __typename?: 'Dish'
         createdAt: any
         description: string
-        id: number
+        id: string
         name: string
         photo?: string | null
         price: number
@@ -1484,7 +1487,7 @@ export type RestaurantBySlugQuery = {
         __typename?: 'OpeningHours'
         createdAt: any
         fridayHours?: string | null
-        id: number
+        id: string
         mondayHours?: string | null
         saturdayHours?: string | null
         sundayHours?: string | null
@@ -1496,7 +1499,7 @@ export type RestaurantBySlugQuery = {
       reviews?: Array<{
         __typename?: 'Review'
         createdAt: any
-        id: number
+        id: string
         name: string
         stars: number
         text?: string | null
@@ -1520,7 +1523,7 @@ export type RestaurantByIdQuery = {
       __typename?: 'Restaurant'
       address?: string | null
       createdAt: any
-      id: number
+      id: string
       isPromoted: boolean
       logoImageUrl?: string | null
       name: string
@@ -1530,7 +1533,7 @@ export type RestaurantByIdQuery = {
         __typename?: 'Category'
         coverImageUrl?: string | null
         createdAt: any
-        id: number
+        id: string
         name: string
         restaurantCount: number
         slug: string
@@ -1539,13 +1542,13 @@ export type RestaurantByIdQuery = {
       coverImages?: Array<{
         __typename?: 'Image'
         url: string
-        blurhash: string
+        blurhash?: string | null
       }> | null
       menu?: Array<{
         __typename?: 'Dish'
         createdAt: any
         description: string
-        id: number
+        id: string
         name: string
         photo?: string | null
         price: number
@@ -1586,7 +1589,7 @@ export type RestaurantsQuery = {
       address?: string | null
       slug: string
       createdAt: any
-      id: number
+      id: string
       isPromoted: boolean
       logoImageUrl?: string | null
       name: string
@@ -1595,11 +1598,11 @@ export type RestaurantsQuery = {
       coverImages?: Array<{
         __typename?: 'Image'
         url: string
-        blurhash: string
+        blurhash?: string | null
       }> | null
       categories?: Array<{
         __typename?: 'Category'
-        id: number
+        id: string
         name: string
         coverImageUrl?: string | null
         slug: string
@@ -1609,7 +1612,7 @@ export type RestaurantsQuery = {
         __typename?: 'Dish'
         createdAt: any
         description: string
-        id: number
+        id: string
         name: string
         photo?: string | null
         price: number
@@ -1635,7 +1638,7 @@ export type CookedOrdersSubscription = {
   __typename?: 'Subscription'
   cookedOrders: {
     __typename?: 'Order'
-    id: number
+    id: string
     status: OrderStatus
     total?: number | null
     driver?: { __typename?: 'User'; email: string } | null
@@ -1652,7 +1655,7 @@ export type OrderUpdatesSubscription = {
   __typename?: 'Subscription'
   orderUpdates: {
     __typename?: 'Order'
-    id: number
+    id: string
     status: OrderStatus
     total?: number | null
     driver?: { __typename?: 'User'; email: string } | null
@@ -1667,7 +1670,7 @@ export type PendingOrdersSubscription = {
   __typename?: 'Subscription'
   pendingOrders: {
     __typename?: 'Order'
-    id: number
+    id: string
     status: OrderStatus
     total?: number | null
     driver?: { __typename?: 'User'; email: string } | null

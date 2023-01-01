@@ -1,6 +1,5 @@
-#schema: http://localhost:3000/graphql # for local development
-schema: https://nham-avey.herokuapp.com/graphql # for deployed
-documents: '**/*.gql'
+schema: http://localhost:3000/graphql # for local development
+documents: '../../libs/common/**/*.gql'
 overwrite: true
 generates:
   ./src/__generated__/types.react-apollo.ts:
