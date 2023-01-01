@@ -1,9 +1,8 @@
-import slugify from 'slugify'
 import { MigrationInterface, QueryRunner } from 'typeorm'
 
 import { Category } from '../../categories/category.entity'
 import { City } from '../../cities/city.entity'
-import { randomId } from '../../common/utils/random-id.util'
+import { createSlug } from '../../common/utils/create-slug'
 import { GeoLocation } from '../../geo-locations/geo-location.entity'
 import { Image } from '../../images/entities/image.entity'
 import { OpeningHours } from '../../restaurants/entities/opening-hours.entity'
@@ -12,7 +11,18 @@ import restaurants from '../data/restaurants.data.json'
 
 export class insertRestaurantData1662230967074 implements MigrationInterface {
   public async up(queryRunner: QueryRunner): Promise<void> {
-    for (const restaurant of restaurants) {
+    for (const restaurant of [
+      ...restaurants,
+      ...restaurants,
+      ...restaurants,
+      ...restaurants,
+      ...restaurants,
+      ...restaurants,
+      ...restaurants,
+      ...restaurants,
+      ...restaurants,
+      ...restaurants,
+    ]) {
       // setup image
       const coverImages: Image[] = []
       for (const imageUrl of restaurant.imageUrls) {
@@ -66,7 +76,7 @@ export class insertRestaurantData1662230967074 implements MigrationInterface {
           category = await queryRunner.manager.save(
             queryRunner.manager.create(Category, {
               name: categoryName,
-              slug: slugify(categoryName, { lower: true }),
+              slug: createSlug(categoryName),
             }),
           )
         }
@@ -84,7 +94,7 @@ export class insertRestaurantData1662230967074 implements MigrationInterface {
           name: title,
           address,
           coverImages,
-          slug: slugify(`${title}--${randomId(3)}`, { lower: true }),
+          slug: createSlug(title, true),
           neighborhood,
           street,
           website: website || undefined,

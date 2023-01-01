@@ -1,1 +1,1 @@
-export * from './initials'
+export * from './create-initials'

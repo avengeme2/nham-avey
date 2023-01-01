@@ -1,4 +1,4 @@
-import { initials } from '@nham-avey/common'
+import { createInitials } from '@nham-avey/common'
 import { Avatar } from 'antd'
 import { LazyLoadImage } from 'react-lazy-load-image-component'
 
@@ -33,7 +33,7 @@ export const LazyAvatar = ({
 
   return (
     <Avatar size={size} className="bg-primary">
-      {initials(name)}
+      {createInitials(name)}
     </Avatar>
   )
 }

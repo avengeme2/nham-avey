@@ -118,7 +118,7 @@ type Category {
 type City {
   createdAt: EnhancedDate!
   id: ID!
-  location: Location
+  location: GeoLocation
   name: String!
   nameInKhmer: String
   restaurantCount: Int!
@@ -238,6 +238,14 @@ type EditOrderOutput {
 """
 scalar EnhancedDate
 
+type GeoLocation {
+  createdAt: EnhancedDate!
+  id: ID!
+  latitude: Float!
+  longitude: Float!
+  updatedAt: EnhancedDate!
+}
+
 input GetOrderInput {
   id: ID!
 }
@@ -271,14 +279,6 @@ type Image {
   restaurant: Restaurant
   updatedAt: EnhancedDate!
   url: String!
-}
-
-type Location {
-  createdAt: EnhancedDate!
-  id: ID!
-  latitude: Float!
-  longitude: Float!
-  updatedAt: EnhancedDate!
 }
 
 type Mutation {
@@ -501,7 +501,7 @@ type Restaurant {
   description: String
   id: ID!
   isPromoted: Boolean!
-  location: Location
+  location: GeoLocation
   logoImageUrl: String
   menu: [Dish!]
   name: String!

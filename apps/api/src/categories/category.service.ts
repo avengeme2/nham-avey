@@ -1,11 +1,11 @@
 import { Injectable } from '@nestjs/common'
 import { InjectRepository } from '@nestjs/typeorm'
 import { UserRecord } from 'firebase-admin/auth'
-import slugify from 'slugify'
 import { Repository } from 'typeorm'
 
 import { CoreOutput } from '../common/dtos/output.dto'
 import { PaginationWithSearchArgs } from '../common/dtos/pagination.dto'
+import { createSlug } from '../common/utils/create-slug'
 import { PaginatedRestaurantsOutput } from '../restaurants/dtos'
 import { Category } from './category.entity'
 import { CategoryRequest } from './category.interface'
@@ -31,7 +31,7 @@ export class CategoryService {
 
   async getOrCreateCategory(request: CategoryRequest): Promise<Category> {
     const { name, coverImageUrl, iconUrl } = request
-    const slug = slugify(name, { lower: true })
+    const slug = createSlug(name)
     let category = await this.categoryRepo.findOneBy({ slug })
     if (!category) {
       const entity = this.categoryRepo.create({
@@ -135,7 +135,7 @@ export class CategoryService {
       return { ok: false, error: '[App] Category not found' }
     }
 
-    const slug = slugify(updatePayload.name || existing.name, { lower: true })
+    const slug = createSlug(updatePayload.name || existing.name)
     const category = Object.assign(existing, updatePayload)
     category.updatedBy = adminId
     category.slug = slug

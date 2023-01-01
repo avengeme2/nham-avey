@@ -1,7 +1,6 @@
+import { isFunction } from '@nham-avey/common'
 import { Request, Response, NextFunction } from 'express'
 import onHeaders from 'on-headers'
-
-import { isFunction } from '../../common/utils/is.util'
 
 export interface ResponseTimeOptions {
   digits?: number

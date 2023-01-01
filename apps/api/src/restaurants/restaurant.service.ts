@@ -1,7 +1,6 @@
 import { Injectable } from '@nestjs/common'
 import { InjectRepository } from '@nestjs/typeorm'
 import { DecodedIdToken, UserRecord } from 'firebase-admin/auth'
-import slugify from 'slugify'
 import { Any, In, Repository } from 'typeorm'
 
 import { CategoryRequest } from '../categories/category.interface'
@@ -9,6 +8,7 @@ import { CategoryService } from '../categories/category.service'
 import { CityService } from '../cities/city.service'
 import { CoreOutput } from '../common/dtos/output.dto'
 import { PaginationWithSearchArgs } from '../common/dtos/pagination.dto'
+import { createSlug } from '../common/utils/create-slug'
 import { ImageService } from '../images/image.service'
 import { UserRole } from '../users/entities/user.entity'
 import { UserService } from '../users/user.service'
@@ -142,7 +142,7 @@ export class RestaurantService {
     const categoryEntities = await this.categoryService.getOrCreateCategories(
       categories?.map(name => ({ name })) ?? [],
     )
-    const slug = slugify(restaurantPayload.name, { lower: true })
+    const slug = createSlug(restaurantPayload.name)
     const restaurant = this.restaurantRepo.create({
       ...restaurantPayload,
       slug,
@@ -176,7 +176,7 @@ export class RestaurantService {
       coverImageUrls || [],
     )
 
-    const slug = slugify(restaurantPayload.name, { lower: true })
+    const slug = createSlug(restaurantPayload.name)
 
     const restaurant = this.restaurantRepo.create({
       ...restaurantPayload,

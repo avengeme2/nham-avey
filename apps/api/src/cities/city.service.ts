@@ -1,11 +1,11 @@
 import { Injectable } from '@nestjs/common'
 import { InjectRepository } from '@nestjs/typeorm'
 import { UserRecord } from 'firebase-admin/auth'
-import slugify from 'slugify'
 import { Repository } from 'typeorm'
 
 import { CoreOutput } from '../common/dtos/output.dto'
 import { PaginationWithSearchArgs } from '../common/dtos/pagination.dto'
+import { createSlug } from '../common/utils/create-slug'
 import { GeoLocation } from '../geo-locations/geo-location.entity'
 import { PaginatedRestaurantsOutput } from '../restaurants/dtos'
 import { City } from './city.entity'
@@ -34,7 +34,7 @@ export class CityService {
 
   async getOrCreateCity(request: CityRequest): Promise<City> {
     const { name, nameInKhmer } = request
-    const slug = slugify(name, { lower: true })
+    const slug = createSlug(name)
     let city = await this.cityRepo.findOneBy({ slug })
     if (!city) {
       const entity = this.cityRepo.create({ name, slug, nameInKhmer })
@@ -141,7 +141,7 @@ export class CityService {
       return { ok: false, error: '[App] City not found' }
     }
 
-    const slug = slugify(updatePayload.name || existing.name, { lower: true })
+    const slug = createSlug(updatePayload.name || existing.name)
     const city = Object.assign(existing, updatePayload)
     city.updatedBy = adminId
     city.slug = slug
