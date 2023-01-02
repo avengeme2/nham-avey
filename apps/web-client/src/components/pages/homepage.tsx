@@ -31,7 +31,7 @@ const HomePage = () => {
 
   const {
     data: restaurantData,
-    isLoading: isLoadingRestaurant,
+    isFetching: isLoadingRestaurant,
     isPreviousData,
   } = useRestaurantsQuery(pageState, { keepPreviousData: true })
 
@@ -58,6 +58,8 @@ const HomePage = () => {
         (restaurantData?.restaurants.data as Restaurant[]) || [],
       )
     }
+    // TODO
+    // eslint-disable-next-line react-hooks/exhaustive-deps
   }, [pageState, restaurantData, setLoadedRestaurants, isPreviousData])
 
   const { data: categoriesData } = useCategoriesQuery(CATEGORIES_VARIABLES)

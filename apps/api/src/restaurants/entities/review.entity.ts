@@ -1,13 +1,6 @@
 import { Field, InputType, Int, ObjectType } from '@nestjs/graphql'
 import { IsNumber, IsOptional, IsString } from 'class-validator'
-import {
-  Column,
-  Entity,
-  JoinColumn,
-  ManyToOne,
-  OneToOne,
-  RelationId,
-} from 'typeorm'
+import { Column, Entity, JoinColumn, ManyToOne, OneToOne } from 'typeorm'
 
 import { CoreEntity } from '../../common/entities/core.entity'
 import { GeoLocation } from '../../geo-locations/geo-location.entity'
