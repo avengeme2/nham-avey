@@ -40,11 +40,11 @@ export class Review extends CoreEntity {
   @IsOptional()
   text: string
 
-  @Field(() => Restaurant)
+  // @Field(() => Restaurant)
   @ManyToOne(() => Restaurant, restaurant => restaurant.reviews)
   @JoinColumn({ name: 'restaurant_id', referencedColumnName: 'id' })
   restaurant: Restaurant
 
-  @RelationId((review: Review) => review.restaurant)
-  restaurantId: number
+  // @RelationId((review: Review) => review.restaurant)
+  // restaurantId: number
 }

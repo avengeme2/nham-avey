@@ -93,12 +93,12 @@ export class Restaurant extends CoreEntity {
   @RelationId((restaurant: Restaurant) => restaurant.city)
   cityId?: number
 
-  @Field(() => [Review], { nullable: true })
+  // @Field(() => [Review], { nullable: true })
   @OneToMany(() => Review, reveiw => reveiw.restaurant, { nullable: true })
   reviews?: Review[]
 
-  @RelationId((restaurant: Restaurant) => restaurant.reviews)
-  reviewsIds?: number[]
+  // @RelationId((restaurant: Restaurant) => restaurant.reviews)
+  // reviewsIds?: number[]
 
   @Field(() => GeoLocation, { nullable: true })
   @OneToOne(() => GeoLocation, { nullable: true })
@@ -140,7 +140,8 @@ export class Restaurant extends CoreEntity {
   })
   vendors: User[]
 
-  @RelationId((restaurant: Restaurant) => restaurant.vendors)
+  // TODO: remove
+  // @RelationId((restaurant: Restaurant) => restaurant.vendors)
   vendorIds?: string[]
 
   @Field(() => [Order], { nullable: true })

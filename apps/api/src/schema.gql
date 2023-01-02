@@ -477,7 +477,6 @@ type Restaurant {
   orders: [Order!]
   phone: String
   promotedUntil: EnhancedDate
-  reviews: [Review!]
   slug: String!
   street: String
   updatedAt: EnhancedDate!
@@ -489,17 +488,6 @@ type RestaurantOutput {
   data: Restaurant
   error: String
   ok: Boolean!
-}
-
-type Review {
-  createdAt: EnhancedDate!
-  customer: User!
-  id: ID!
-  name: String!
-  restaurant: Restaurant!
-  stars: Int!
-  text: String
-  updatedAt: EnhancedDate!
 }
 
 input SignUpAccountInput {

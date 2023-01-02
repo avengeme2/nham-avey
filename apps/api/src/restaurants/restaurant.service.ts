@@ -421,11 +421,11 @@ export class RestaurantService {
     queryBuilder
       .skip(skip)
       .take(take)
-      .leftJoinAndSelect('restaurant.categories', 'category')
-      .leftJoinAndSelect('restaurant.vendors', 'vendor')
-      .leftJoinAndSelect('restaurant.orders', 'orders')
-      .leftJoinAndSelect('restaurant.menu', 'menu')
-      .leftJoinAndSelect('restaurant.coverImages', 'coverImages')
+      // .leftJoinAndSelect('restaurant.categories', 'category')
+      // .leftJoinAndSelect('restaurant.vendors', 'vendor')
+      // .leftJoinAndSelect('restaurant.orders', 'orders')
+      // .leftJoinAndSelect('restaurant.menu', 'menu')
+      // .leftJoinAndSelect('restaurant.coverImages', 'coverImages')
       .orderBy('restaurant.isPromoted', 'DESC')
       .addOrderBy('restaurant.id', 'ASC')
 
