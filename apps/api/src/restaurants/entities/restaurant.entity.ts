@@ -85,6 +85,7 @@ export class Restaurant extends CoreEntity {
   @IsOptional()
   street?: string
 
+  // TODO: use dataloader
   @Field(() => City, { nullable: true })
   @ManyToOne(() => City, city => city.restaurants, { nullable: true })
   @JoinColumn({ name: 'city_id', referencedColumnName: 'id' })
@@ -93,14 +94,15 @@ export class Restaurant extends CoreEntity {
   @RelationId((restaurant: Restaurant) => restaurant.city)
   cityId?: number
 
-  // @Field(() => [Review], { nullable: true })
+  @Field(() => [Review], { nullable: true })
   @OneToMany(() => Review, reveiw => reveiw.restaurant, { nullable: true })
   reviews?: Review[]
 
   // @RelationId((restaurant: Restaurant) => restaurant.reviews)
   // reviewsIds?: number[]
 
-  @Field(() => GeoLocation, { nullable: true })
+  // TODO: use dataloader
+  // @Field(() => GeoLocation, { nullable: true })
   @OneToOne(() => GeoLocation, { nullable: true })
   @JoinColumn({ name: 'location_id', referencedColumnName: 'id' })
   location?: GeoLocation
@@ -114,6 +116,7 @@ export class Restaurant extends CoreEntity {
   @IsOptional()
   website?: string
 
+  // TODO: use dataloader
   @Field(() => OpeningHours, { nullable: true })
   @OneToOne(() => OpeningHours, { nullable: true })
   @JoinColumn({ name: 'opening_hours_id', referencedColumnName: 'id' })

@@ -1,5 +1,6 @@
-import { Args, Mutation, Query, Resolver } from '@nestjs/graphql'
+import { Args, Info, Mutation, Query, Resolver } from '@nestjs/graphql'
 import { DecodedIdToken } from 'firebase-admin/auth'
+import { GraphQLResolveInfo } from 'graphql'
 
 import { GraphqlAuthUser } from '../auth/graphql-auth-user.decorator'
 import { Roles } from '../auth/role.decorator'
@@ -7,6 +8,11 @@ import { IdArg } from '../common/dtos/id.dto'
 import { CoreOutput } from '../common/dtos/output.dto'
 import { PaginationWithSearchArgs } from '../common/dtos/pagination.dto'
 import { SlugArg } from '../common/dtos/slug.dto'
+import {
+  parseResolveInfo,
+  ResolveTree,
+  simplifyParsedResolveInfoFragmentWithType,
+} from '../common/utils/parse-graphql-resolve-info'
 import { UserRole } from '../users/entities/user.entity'
 import {
   AdminCreateRestaurantInput,
@@ -40,8 +46,33 @@ export class RestaurantResolver {
   @Query(returns => PaginatedRestaurantsOutput)
   restaurants(
     @Args() args: PaginationWithSearchArgs,
+    @Info() info: GraphQLResolveInfo,
   ): Promise<PaginatedRestaurantsOutput> {
-    return this.restaurantService.findRestaurants(args)
+    const parsedInfo = parseResolveInfo(info) as ResolveTree
+    const simplifiedInfo = simplifyParsedResolveInfoFragmentWithType(
+      parsedInfo,
+      info.returnType,
+    )
+    const restaurantFields =
+      simplifiedInfo.fields?.['data']?.['fieldsByTypeName']?.['Restaurant'] ||
+      {}
+
+    const neededJoinedColumns: string[] = []
+
+    const allOptionalJoinColumns = [
+      'reviews',
+      'categories',
+      'vendors',
+      'orders',
+      'menu',
+    ]
+    allOptionalJoinColumns.forEach(column => {
+      if (column in restaurantFields) {
+        neededJoinedColumns.push(column)
+      }
+    })
+
+    return this.restaurantService.findRestaurants(args, neededJoinedColumns)
   }
 
   @Query(returns => RestaurantOutput)

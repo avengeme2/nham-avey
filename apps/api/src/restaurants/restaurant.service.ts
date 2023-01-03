@@ -399,6 +399,7 @@ export class RestaurantService {
 
   async findRestaurants(
     args: PaginationWithSearchArgs,
+    neededJoinedColumns: string[],
   ): Promise<PaginatedRestaurantsOutput> {
     const {
       pageOptions: { take, skip },
@@ -407,25 +408,17 @@ export class RestaurantService {
     const queryBuilder = this.restaurantRepo.createQueryBuilder('restaurant')
 
     if (searchQuery) {
-      queryBuilder.where(
-        `
-                  restaurant.name ILIKE :searchQuery
-                  OR
-                  restaurant.address ILIKE :searchQuery`,
-        { searchQuery },
-      )
+      queryBuilder.where(`restaurant.name ILIKE :searchQuery`, { searchQuery })
     }
 
     const matchedCount = await queryBuilder.getCount()
 
+    queryBuilder.skip(skip).take(take)
+    neededJoinedColumns.forEach(column => {
+      queryBuilder.leftJoinAndSelect(`restaurant.${column}`, column)
+    })
+
     queryBuilder
-      .skip(skip)
-      .take(take)
-      // .leftJoinAndSelect('restaurant.categories', 'category')
-      // .leftJoinAndSelect('restaurant.vendors', 'vendor')
-      // .leftJoinAndSelect('restaurant.orders', 'orders')
-      // .leftJoinAndSelect('restaurant.menu', 'menu')
-      // .leftJoinAndSelect('restaurant.coverImages', 'coverImages')
       .orderBy('restaurant.isPromoted', 'DESC')
       .addOrderBy('restaurant.id', 'ASC')
 
