@@ -1,4 +1,12 @@
-import { Args, Info, Mutation, Query, Resolver } from '@nestjs/graphql'
+import {
+  Args,
+  Info,
+  Mutation,
+  Parent,
+  Query,
+  ResolveField,
+  Resolver,
+} from '@nestjs/graphql'
 import { DecodedIdToken } from 'firebase-admin/auth'
 import { GraphQLResolveInfo } from 'graphql'
 
@@ -13,6 +21,8 @@ import {
   ResolveTree,
   simplifyParsedResolveInfoFragmentWithType,
 } from '../common/utils/parse-graphql-resolve-info'
+import { GeoLocation } from '../geo-locations/geo-location.entity'
+import { GeoLocationLoader } from '../geo-locations/geo-location.loader'
 import { UserRole } from '../users/entities/user.entity'
 import {
   AdminCreateRestaurantInput,
@@ -30,11 +40,15 @@ import {
   AllRestaurantsSlugArgs,
   AllRestaurantsSlugOutput,
 } from './dtos/all-restaurants-slug.dto'
+import { Restaurant } from './entities/restaurant.entity'
 import { RestaurantService } from './restaurant.service'
 
-@Resolver()
+@Resolver(of => Restaurant)
 export class RestaurantResolver {
-  constructor(private readonly restaurantService: RestaurantService) {}
+  constructor(
+    private readonly restaurantService: RestaurantService,
+    private readonly geoLocationLoader: GeoLocationLoader,
+  ) {}
 
   @Query(returns => AllRestaurantsSlugOutput)
   allRestaurantsSlug(
@@ -83,6 +97,20 @@ export class RestaurantResolver {
   @Query(returns => RestaurantOutput)
   restaurantBySlug(@Args() arg: SlugArg): Promise<RestaurantOutput> {
     return this.restaurantService.findRestaurantBySlug(arg.slug)
+  }
+
+  @ResolveField(returns => GeoLocation, { nullable: true })
+  async location(
+    @Parent() restaurant: Restaurant,
+  ): Promise<GeoLocation | null> {
+    const { locationId } = restaurant
+    if (locationId) {
+      const locations = await this.geoLocationLoader.findAllLocationsByIds.load(
+        locationId,
+      )
+      return locations || null
+    }
+    return null
   }
 
   @Mutation(returns => RestaurantOutput)

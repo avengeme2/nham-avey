@@ -1,11 +1,11 @@
 import { Injectable } from '@nestjs/common'
 import DataLoader from 'dataloader'
 
-import { GeoLocation } from '../geo-locations/geo-location.entity'
-import { GeoLocationService } from '../geo-locations/geo-location.service'
+import { GeoLocation } from './geo-location.entity'
+import { GeoLocationService } from './geo-location.service'
 
 @Injectable()
-export class CityLoader {
+export class GeoLocationLoader {
   constructor(private readonly geoLocationService: GeoLocationService) {}
 
   readonly findAllLocationsByIds = new DataLoader<number, GeoLocation>(

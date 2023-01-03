@@ -33,7 +33,6 @@ export class City extends CoreEntity {
   @IsOptional()
   nameInKhmer?: string
 
-  @Field(type => GeoLocation, { nullable: true })
   @OneToOne(() => GeoLocation, { nullable: true })
   @JoinColumn({ name: 'location_id', referencedColumnName: 'id' })
   location?: GeoLocation

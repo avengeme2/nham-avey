@@ -500,6 +500,7 @@ type Restaurant {
   description: String
   id: ID!
   isPromoted: Boolean!
+  location: GeoLocation
   logoImageUrl: String
   menu: [Dish!]
   name: String!

@@ -101,8 +101,6 @@ export class Restaurant extends CoreEntity {
   // @RelationId((restaurant: Restaurant) => restaurant.reviews)
   // reviewsIds?: number[]
 
-  // TODO: use dataloader
-  // @Field(() => GeoLocation, { nullable: true })
   @OneToOne(() => GeoLocation, { nullable: true })
   @JoinColumn({ name: 'location_id', referencedColumnName: 'id' })
   location?: GeoLocation

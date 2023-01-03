@@ -15,9 +15,9 @@ import { IdArg } from '../common/dtos/id.dto'
 import { CoreOutput } from '../common/dtos/output.dto'
 import { PaginationWithSearchArgs } from '../common/dtos/pagination.dto'
 import { GeoLocation } from '../geo-locations/geo-location.entity'
+import { GeoLocationLoader } from '../geo-locations/geo-location.loader'
 import { UserRole } from '../users/entities/user.entity'
 import { City } from './city.entity'
-import { CityLoader } from './city.loader'
 import { CityService } from './city.service'
 import {
   PaginationCitiesOutput,
@@ -32,7 +32,7 @@ import {
 export class CityResolver {
   constructor(
     private readonly cityService: CityService,
-    private readonly cityLoader: CityLoader,
+    private readonly geoLocationLoader: GeoLocationLoader,
   ) {}
 
   @ResolveField(returns => Int)
@@ -40,11 +40,11 @@ export class CityResolver {
     return this.cityService.countRestaurantsByCity(city)
   }
 
-  @ResolveField(returns => GeoLocation)
+  @ResolveField(returns => GeoLocation, { nullable: true })
   async location(@Parent() city: City): Promise<GeoLocation | null> {
     const { locationId } = city
     if (locationId) {
-      const locations = await this.cityLoader.findAllLocationsByIds.load(
+      const locations = await this.geoLocationLoader.findAllLocationsByIds.load(
         locationId,
       )
       return locations || null
