@@ -28,6 +28,7 @@ export class GraphqlConfigService implements GqlOptionsFactory {
       installSubscriptionHandlers: true,
       playground: false,
       introspection: true,
+      cache: this.rootConfig.isDev ? undefined : 'bounded',
       plugins: [
         this.rootConfig.isDev
           ? ApolloServerPluginLandingPageLocalDefault()
