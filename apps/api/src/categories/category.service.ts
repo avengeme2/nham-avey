@@ -51,6 +51,31 @@ export class CategoryService {
     )
   }
 
+  async countRestaurantByEachCategoryId(
+    categoryIds: number[],
+  ): Promise<{ count: number; categoryId: number }[]> {
+    if (categoryIds.length === 0) {
+      return []
+    }
+    const result: { count: number; category_id: number }[] =
+      await this.categoryRepo.query(
+        `SELECT COUNT(*)::int, category_id
+      FROM restaurant_categories
+      WHERE category_id IN (${new Array(categoryIds.length)
+        .fill(null)
+        .map((_, index) => `$${index + 1}`)
+        .join(', ')})
+      GROUP BY category_id`,
+        categoryIds,
+      )
+
+    // since postgres doesn't return the camel case key, we need to do our conversion
+    return result.map(item => ({
+      count: item.count,
+      categoryId: item.category_id,
+    }))
+  }
+
   async countRestaurantsByCategory(category: Category): Promise<number> {
     const countProperty = 'restaurantCount'
     const entity = await this.categoryRepo

@@ -18,6 +18,7 @@ import { Restaurant } from '../restaurants/entities/restaurant.entity'
 import { RestaurantService } from '../restaurants/restaurant.service'
 import { UserRole } from '../users/entities/user.entity'
 import { Category } from './category.entity'
+import { CategoryLoader } from './category.loader'
 import { CategoryService } from './category.service'
 import {
   AdminCreateCategoryInput,
@@ -33,11 +34,16 @@ export class CategoryResolver {
   constructor(
     private readonly categoryService: CategoryService,
     private readonly restaurantService: RestaurantService,
+    private readonly categoryLoader: CategoryLoader,
   ) {}
 
   @ResolveField(returns => Int)
-  restaurantCount(@Parent() category: Category): Promise<number> {
-    return this.categoryService.countRestaurantsByCategory(category)
+  async restaurantCount(@Parent() category: Category): Promise<number> {
+    const count =
+      await this.categoryLoader.countRestaurantByEachCategoryId.load(
+        category.id,
+      )
+    return count || 0
   }
 
   @Query(returns => AllCategoriesOutput)
@@ -45,7 +51,8 @@ export class CategoryResolver {
     return this.categoryService.findAllCategories()
   }
 
-  @ResolveField(returns => [Restaurant])
+  // TODO: use conditional join instead
+  // @ResolveField(returns => [Restaurant])
   restaurants(@Parent() category: Category): Promise<Restaurant[] | []> {
     return this.restaurantService.findAllByCategoryIds([category.id])
   }
