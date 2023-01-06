@@ -42,6 +42,7 @@ import {
   AllRestaurantsSlugArgs,
   AllRestaurantsSlugOutput,
 } from './dtos/all-restaurants-slug.dto'
+import { OpeningHours } from './entities/opening-hours.entity'
 import { Restaurant } from './entities/restaurant.entity'
 import { RestaurantService } from './restaurant.service'
 
@@ -122,6 +123,18 @@ export class RestaurantResolver {
     if (cityId) {
       const city = await this.cityLoader.findCitiesAllByIds.load(cityId)
       return city || null
+    }
+    return null
+  }
+
+  @ResolveField(returns => OpeningHours, { nullable: true })
+  async openingHours(
+    @Parent() restaurant: Restaurant,
+  ): Promise<OpeningHours | null> {
+    const { openingHoursId } = restaurant
+    if (openingHoursId) {
+      const openingHours = await this.cityLoader.findCitiesAllByIds.load(cityId)
+      return openingHours || null
     }
     return null
   }

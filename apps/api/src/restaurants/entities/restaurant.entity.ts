@@ -109,11 +109,13 @@ export class Restaurant extends CoreEntity {
   @IsOptional()
   website?: string
 
-  // TODO: use dataloader
   @Field(() => OpeningHours, { nullable: true })
   @OneToOne(() => OpeningHours, { nullable: true })
   @JoinColumn({ name: 'opening_hours_id', referencedColumnName: 'id' })
   openingHours?: OpeningHours
+
+  @RelationId((restaurant: Restaurant) => restaurant.openingHours)
+  openingHoursId?: number
 
   @Field(() => [Category], { nullable: true })
   @ManyToMany(type => Category, category => category.restaurants, {
