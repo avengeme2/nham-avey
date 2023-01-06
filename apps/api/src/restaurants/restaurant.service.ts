@@ -453,11 +453,22 @@ export class RestaurantService {
     return this.restaurantRepo.findBy({ id: In(ids) })
   }
 
-  findAllByCategoryIds(categoryIds: number[]): Promise<Restaurant[]> {
-    return this.restaurantRepo
-      .createQueryBuilder('restaurant')
-      .leftJoinAndSelect('restaurant.categories', 'category')
-      .where('category.id IN (:...categoryIds)', { categoryIds })
+  findAllByCategoryIds(
+    categoryIds: number[],
+    neededJoinedColumns: string[],
+  ): Promise<Restaurant[]> {
+    const queryBuilder = this.restaurantRepo.createQueryBuilder('restaurant')
+
+    neededJoinedColumns.forEach(column => {
+      queryBuilder.leftJoinAndSelect(`restaurant.${column}`, column)
+    })
+
+    if (!neededJoinedColumns.includes('categories')) {
+      queryBuilder.leftJoin('restaurant.categories', 'categories')
+    }
+
+    return queryBuilder
+      .where('categories.id IN (:...categoryIds)', { categoryIds })
       .getMany()
   }
 }

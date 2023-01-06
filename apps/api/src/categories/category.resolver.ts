@@ -1,5 +1,6 @@
 import {
   Args,
+  Info,
   Int,
   Mutation,
   Parent,
@@ -8,12 +9,18 @@ import {
   Resolver,
 } from '@nestjs/graphql'
 import { DecodedIdToken } from 'firebase-admin/auth'
+import { GraphQLResolveInfo } from 'graphql/index'
 
 import { GraphqlAuthUser } from '../auth/graphql-auth-user.decorator'
 import { Roles } from '../auth/role.decorator'
 import { IdArg } from '../common/dtos/id.dto'
 import { CoreOutput } from '../common/dtos/output.dto'
 import { PaginationWithSearchArgs } from '../common/dtos/pagination.dto'
+import {
+  parseResolveInfo,
+  ResolveTree,
+  simplifyParsedResolveInfoFragmentWithType,
+} from '../common/utils/parse-graphql-resolve-info'
 import { Restaurant } from '../restaurants/entities/restaurant.entity'
 import { RestaurantService } from '../restaurants/restaurant.service'
 import { UserRole } from '../users/entities/user.entity'
@@ -51,10 +58,36 @@ export class CategoryResolver {
     return this.categoryService.findAllCategories()
   }
 
-  // TODO: use conditional join instead
-  // @ResolveField(returns => [Restaurant])
-  restaurants(@Parent() category: Category): Promise<Restaurant[] | []> {
-    return this.restaurantService.findAllByCategoryIds([category.id])
+  @ResolveField(returns => [Restaurant])
+  restaurants(
+    @Parent() category: Category,
+    @Info() info: GraphQLResolveInfo,
+  ): Promise<Restaurant[] | []> {
+    const parsedInfo = parseResolveInfo(info) as ResolveTree
+    const simplifiedInfo = simplifyParsedResolveInfoFragmentWithType(
+      parsedInfo,
+      info.returnType,
+    )
+    const restaurantFields = simplifiedInfo.fields
+
+    const neededJoinedColumns: string[] = []
+
+    const allOptionalJoinColumns = [
+      'reviews',
+      'categories',
+      'vendors',
+      'orders',
+      'menu',
+    ]
+    allOptionalJoinColumns.forEach(column => {
+      if (column in restaurantFields) {
+        neededJoinedColumns.push(column)
+      }
+    })
+    return this.restaurantService.findAllByCategoryIds(
+      [category.id],
+      neededJoinedColumns,
+    )
   }
 
   @Query(returns => PaginationCategoriesOutput)

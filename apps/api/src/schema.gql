@@ -110,6 +110,7 @@ type Category {
   id: ID!
   name: String!
   restaurantCount: Int!
+  restaurants: [Restaurant!]!
   slug: String!
   updatedAt: EnhancedDate!
 }
