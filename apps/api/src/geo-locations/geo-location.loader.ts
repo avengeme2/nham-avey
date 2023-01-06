@@ -1,10 +1,10 @@
-import { Injectable } from '@nestjs/common'
+import { Injectable, Scope } from '@nestjs/common'
 import DataLoader from 'dataloader'
 
 import { GeoLocation } from './geo-location.entity'
 import { GeoLocationService } from './geo-location.service'
 
-@Injectable()
+@Injectable({ scope: Scope.REQUEST })
 export class GeoLocationLoader {
   constructor(private readonly geoLocationService: GeoLocationService) {}
 

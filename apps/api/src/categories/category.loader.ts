@@ -1,9 +1,9 @@
-import { Injectable } from '@nestjs/common'
+import { Injectable, Scope } from '@nestjs/common'
 import DataLoader from 'dataloader'
 
 import { CategoryService } from './category.service'
 
-@Injectable()
+@Injectable({ scope: Scope.REQUEST })
 export class CategoryLoader {
   constructor(private readonly categoryService: CategoryService) {}
 
