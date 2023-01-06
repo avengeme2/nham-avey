@@ -85,8 +85,6 @@ export class Restaurant extends CoreEntity {
   @IsOptional()
   street?: string
 
-  // TODO: use dataloader
-  @Field(() => City, { nullable: true })
   @ManyToOne(() => City, city => city.restaurants, { nullable: true })
   @JoinColumn({ name: 'city_id', referencedColumnName: 'id' })
   city?: City
@@ -95,11 +93,8 @@ export class Restaurant extends CoreEntity {
   cityId?: number
 
   @Field(() => [Review], { nullable: true })
-  @OneToMany(() => Review, reveiw => reveiw.restaurant, { nullable: true })
+  @OneToMany(() => Review, review => review.restaurant, { nullable: true })
   reviews?: Review[]
-
-  // @RelationId((restaurant: Restaurant) => restaurant.reviews)
-  // reviewsIds?: number[]
 
   @OneToOne(() => GeoLocation, { nullable: true })
   @JoinColumn({ name: 'location_id', referencedColumnName: 'id' })

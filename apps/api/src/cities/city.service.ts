@@ -1,7 +1,7 @@
 import { Injectable } from '@nestjs/common'
 import { InjectRepository } from '@nestjs/typeorm'
 import { UserRecord } from 'firebase-admin/auth'
-import { Repository } from 'typeorm'
+import { Repository, In } from 'typeorm'
 
 import { CoreOutput } from '../common/dtos/output.dto'
 import { PaginationWithSearchArgs } from '../common/dtos/pagination.dto'
@@ -147,5 +147,9 @@ export class CityService {
     city.slug = slug
     const saved = await this.cityRepo.save(city)
     return { ok: true, city: saved }
+  }
+
+  findAllByIds(numbers: number[]) {
+    return this.cityRepo.findBy({ id: In(numbers) })
   }
 }

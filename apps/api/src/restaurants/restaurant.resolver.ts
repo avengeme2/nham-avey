@@ -12,6 +12,8 @@ import { GraphQLResolveInfo } from 'graphql'
 
 import { GraphqlAuthUser } from '../auth/graphql-auth-user.decorator'
 import { Roles } from '../auth/role.decorator'
+import { City } from '../cities/city.entity'
+import { CityLoader } from '../cities/city.loader'
 import { IdArg } from '../common/dtos/id.dto'
 import { CoreOutput } from '../common/dtos/output.dto'
 import { PaginationWithSearchArgs } from '../common/dtos/pagination.dto'
@@ -48,6 +50,7 @@ export class RestaurantResolver {
   constructor(
     private readonly restaurantService: RestaurantService,
     private readonly geoLocationLoader: GeoLocationLoader,
+    private readonly cityLoader: CityLoader,
   ) {}
 
   @Query(returns => AllRestaurantsSlugOutput)
@@ -109,6 +112,16 @@ export class RestaurantResolver {
         locationId,
       )
       return locations || null
+    }
+    return null
+  }
+
+  @ResolveField(returns => City, { nullable: true })
+  async city(@Parent() restaurant: Restaurant): Promise<City | null> {
+    const { cityId } = restaurant
+    if (cityId) {
+      const city = await this.cityLoader.findCitiesAllByIds.load(cityId)
+      return city || null
     }
     return null
   }
