@@ -73,6 +73,7 @@ export class CategoryResolver {
     const neededJoinedColumns: string[] = []
 
     const allOptionalJoinColumns = [
+      'coverImages',
       'reviews',
       'categories',
       'vendors',
@@ -108,6 +109,7 @@ export class CategoryResolver {
       arg.id,
     )
   }
+
   @Mutation(returns => AdminCreateCategoryOutput)
   @Roles(UserRole.Admin)
   adminCreateCategory(

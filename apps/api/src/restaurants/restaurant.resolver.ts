@@ -80,6 +80,7 @@ export class RestaurantResolver {
     const neededJoinedColumns: string[] = []
 
     const allOptionalJoinColumns = [
+      'coverImages',
       'reviews',
       'categories',
       'vendors',
