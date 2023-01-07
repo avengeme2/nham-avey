@@ -1,6 +1,7 @@
 export * from './use-isomorphic-layout-effect/use-isomorphic-layout-effect'
 export * from './use-loading-value/use-loading-value'
 export * from './use-scroll-position/use-scroll-position'
+export * from './use-loading-delay/use-loading-delay'
 
 // firebase hook
 export * from './firebase/use-firebase-auth-state/use-firebase-auth-state'

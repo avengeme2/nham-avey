@@ -3,7 +3,11 @@ import { useCallback, useEffect } from 'react'
 import { NextSeo } from 'next-seo'
 
 import { joinClassName } from '@nham-avey/common'
-import { ScrollProps, useScrollPosition } from '@nham-avey/react-hook'
+import {
+  ScrollProps,
+  useLoadingDelay,
+  useScrollPosition,
+} from '@nham-avey/react-hook'
 
 import {
   Category,
@@ -84,6 +88,8 @@ const HomePage = () => {
     })
   }, [setPageState])
 
+  const showLoading = useLoadingDelay(isLoadingRestaurant)
+
   return (
     <AuthedLayout>
       <NextSeo title={APP_NAME} />
@@ -105,12 +111,12 @@ const HomePage = () => {
               className={joinClassName(
                 'w-30 btn-active btn-sm btn h-10 hover:shadow-lg',
                 {
-                  'loading btn-ghost': isLoadingRestaurant,
+                  'loading btn-ghost': showLoading,
                 },
               )}
               onClick={handleLoadMore}
             >
-              {isLoadingRestaurant ? 'Loading' : 'Load More'}
+              {showLoading ? 'Loading' : 'Load More'}
             </button>
           </div>
         )}
