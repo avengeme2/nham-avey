@@ -25,6 +25,8 @@ import {
 } from '../common/utils/parse-graphql-resolve-info'
 import { GeoLocation } from '../geo-locations/geo-location.entity'
 import { GeoLocationLoader } from '../geo-locations/geo-location.loader'
+import { OpeningHours } from '../opening-hours/opening-hours.entity'
+import { OpeningHoursLoader } from '../opening-hours/opening-hours.loader'
 import { UserRole } from '../users/entities/user.entity'
 import {
   AdminCreateRestaurantInput,
@@ -42,7 +44,6 @@ import {
   AllRestaurantsSlugArgs,
   AllRestaurantsSlugOutput,
 } from './dtos/all-restaurants-slug.dto'
-import { OpeningHours } from './entities/opening-hours.entity'
 import { Restaurant } from './entities/restaurant.entity'
 import { RestaurantService } from './restaurant.service'
 
@@ -52,6 +53,7 @@ export class RestaurantResolver {
     private readonly restaurantService: RestaurantService,
     private readonly geoLocationLoader: GeoLocationLoader,
     private readonly cityLoader: CityLoader,
+    private readonly openingHoursLoader: OpeningHoursLoader,
   ) {}
 
   @Query(returns => AllRestaurantsSlugOutput)
@@ -133,7 +135,10 @@ export class RestaurantResolver {
   ): Promise<OpeningHours | null> {
     const { openingHoursId } = restaurant
     if (openingHoursId) {
-      const openingHours = await this.cityLoader.findCitiesAllByIds.load(cityId)
+      const openingHours =
+        await this.openingHoursLoader.findAllOpeningHoursByIds.load(
+          openingHoursId,
+        )
       return openingHours || null
     }
     return null

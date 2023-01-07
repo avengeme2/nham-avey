@@ -18,9 +18,9 @@ import { CoreEntity } from '../../common/entities/core.entity'
 import { Dish } from '../../dishes/dish.entity'
 import { GeoLocation } from '../../geo-locations/geo-location.entity'
 import { Image } from '../../images/entities/image.entity'
+import { OpeningHours } from '../../opening-hours/opening-hours.entity'
 import { Order } from '../../orders/entities/order.entity'
 import { User } from '../../users/entities/user.entity'
-import { OpeningHours } from './opening-hours.entity'
 import { Review } from './review.entity'
 
 /**

@@ -2,7 +2,7 @@ import { Field, InputType, ObjectType } from '@nestjs/graphql'
 import { IsOptional, IsString } from 'class-validator'
 import { Column, Entity } from 'typeorm'
 
-import { CoreEntity } from '../../common/entities/core.entity'
+import { CoreEntity } from '../common/entities/core.entity'
 
 @InputType('OpeningHoursInputType', { isAbstract: true })
 @ObjectType()
