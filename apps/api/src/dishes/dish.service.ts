@@ -21,14 +21,21 @@ export class DishService {
     vendorId: UserRecord['uid'],
     input: CreateDishInput,
   ): Promise<DishOutput> {
-    const restaurant = await this.restaurantRepo.findOneBy({
-      id: input.restaurantId,
+    const restaurant = await this.restaurantRepo.findOne({
+      where: {
+        id: input.restaurantId,
+      },
+      relations: {
+        vendors: true,
+      },
     })
 
     if (!restaurant) {
       return { ok: false, error: '[App] Restaurant not found' }
     }
-    if (!restaurant.vendorIds?.includes(vendorId)) {
+
+    const vendorIds = restaurant.vendors.map(vendor => vendor.id)
+    if (!vendorIds?.includes(vendorId)) {
       return { ok: false, error: "[App] You can't do that" }
     }
 
@@ -63,13 +70,18 @@ export class DishService {
   ): Promise<DishOutput> {
     const dish = await this.dishRepo.findOne({
       where: { id: input.dishId },
-      relations: ['restaurant'],
+      relations: {
+        restaurant: {
+          vendors: true,
+        },
+      },
     })
 
     if (!dish) {
       return { ok: false, error: '[App] Dish not found' }
     }
-    if (!dish.restaurant.vendorIds?.includes(vendorId)) {
+    const vendorIds = dish.restaurant.vendors.map(vendor => vendor.id)
+    if (!vendorIds?.includes(vendorId)) {
       return { ok: false, error: "[App] You can't do that" }
     }
 
@@ -114,7 +126,8 @@ export class DishService {
     if (!existing) {
       return { ok: false, error: '[App] Dish not found' }
     }
-    if (!existing.restaurant.vendorIds?.includes(vendorId)) {
+    const vendorIds = existing.restaurant.vendors.map(vendor => vendor.id)
+    if (!vendorIds?.includes(vendorId)) {
       return { ok: false, error: "[App] You can't do that" }
     }
 

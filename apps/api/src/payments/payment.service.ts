@@ -27,11 +27,18 @@ export class PaymentService {
     vendorId: string,
     { transactionId, restaurantId }: CreatePaymentInput,
   ): Promise<CreatePaymentOutput> {
-    const restaurant = await this.restaurants.findOneBy({ id: restaurantId })
+    const restaurant = await this.restaurants.findOne({
+      where: { id: restaurantId },
+      relations: {
+        vendors: true,
+      },
+    })
     if (!restaurant) {
       return { ok: false, error: '[App] Restaurant not found' }
     }
-    if (!restaurant.vendorIds?.includes(vendorId)) {
+
+    const vendorIds = restaurant.vendors.map(vendor => vendor.id)
+    if (!vendorIds?.includes(vendorId)) {
       return { ok: false, error: "[App] You can't do this" }
     }
 

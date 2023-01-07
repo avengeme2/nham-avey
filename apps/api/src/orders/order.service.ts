@@ -45,7 +45,12 @@ export class OrderService {
       return { ok: false, error: '[App] Cannot get Customer details' }
     }
 
-    const restaurant = await this.restaurants.findOneBy({ id: restaurantId })
+    const restaurant = await this.restaurants.findOne({
+      where: { id: restaurantId },
+      relations: {
+        vendors: true,
+      },
+    })
     if (!restaurant) {
       return { ok: false, error: '[App] Restaurant not found' }
     }
@@ -101,8 +106,9 @@ export class OrderService {
       }),
     )
 
+    const vendorIds = restaurant.vendors.map(vendor => vendor.id)
     await this.pubSub.publish(NEW_PENDING_ORDER, {
-      pendingOrders: { order, vendorIds: restaurant.vendorIds },
+      pendingOrders: { order, vendorIds },
     })
 
     return { ok: true, orderId: order.id }
@@ -161,10 +167,9 @@ export class OrderService {
     if (user.roles.includes(UserRole.Driver) && order.driverId !== user.id) {
       canSee = false
     }
-    if (
-      user.roles.includes(UserRole.Vendor) &&
-      !order.restaurant?.vendorIds?.includes(user.id)
-    ) {
+
+    const vendorIds = order.restaurant?.vendors.map(vendor => vendor.id)
+    if (user.roles.includes(UserRole.Vendor) && !vendorIds?.includes(user.id)) {
       canSee = false
     }
 
@@ -181,7 +186,11 @@ export class OrderService {
     }
     const order = await this.orders.findOne({
       where: { id },
-      relations: ['restaurant'],
+      relations: {
+        restaurant: {
+          vendors: true,
+        },
+      },
     })
 
     if (!order) {
@@ -202,7 +211,14 @@ export class OrderService {
       return { ok: false, error: '[App] Cannot get User details' }
     }
 
-    const order = await this.orders.findOneBy({ id: orderId })
+    const order = await this.orders.findOne({
+      where: { id: orderId },
+      relations: {
+        restaurant: {
+          vendors: true,
+        },
+      },
+    })
     if (!order) {
       return { ok: false, error: '[App] Order not found' }
     }

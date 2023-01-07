@@ -138,10 +138,6 @@ export class Restaurant extends CoreEntity {
   })
   vendors: User[]
 
-  // TODO: remove
-  // @RelationId((restaurant: Restaurant) => restaurant.vendors)
-  vendorIds?: string[]
-
   @Field(() => [Order], { nullable: true })
   @OneToMany(() => Order, order => order.restaurant)
   orders: Order[]

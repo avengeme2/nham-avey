@@ -87,10 +87,11 @@ export class OrderResolver {
       { input }: { input: OrderUpdatesInput },
       { user }: { user: User },
     ) => {
+      const vendorIds = order.restaurant?.vendors.map(vendor => vendor.id)
       if (
         order.driverId !== user.id &&
         order.customerId !== user.id &&
-        !order.restaurant?.vendorIds?.includes(user.id)
+        !vendorIds?.includes(user.id)
       ) {
         return false
       }

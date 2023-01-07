@@ -194,11 +194,18 @@ export class RestaurantService {
     input: VendorUpdateRestaurantInput,
   ): Promise<RestaurantOutput> {
     const { restaurantId, categories, ...restaurantPayload } = input
-    const restaurant = await this.restaurantRepo.findOneBy({ id: restaurantId })
+    const restaurant = await this.restaurantRepo.findOne({
+      where: { id: restaurantId },
+      relations: {
+        vendors: true,
+      },
+    })
     if (!restaurant) {
       return { ok: false, error: '[App] Restaurant not found' }
     }
-    if (!restaurant.vendorIds?.includes(vendorId)) {
+
+    const vendorIds = restaurant.vendors.map(vendor => vendor.id)
+    if (!vendorIds?.includes(vendorId)) {
       return {
         ok: false,
         error: "[App] You can't update a restaurant that you don't own",
@@ -274,13 +281,20 @@ export class RestaurantService {
     decodedIdToken: DecodedIdToken,
     restaurantId: Restaurant['id'],
   ): Promise<CoreOutput> {
-    const restaurant = await this.restaurantRepo.findOneBy({ id: restaurantId })
+    const restaurant = await this.restaurantRepo.findOne({
+      where: { id: restaurantId },
+      relations: {
+        vendors: true,
+      },
+    })
     if (!restaurant) {
       return { ok: false, error: '[App] Restaurant not found' }
     }
+
+    const vendorIds = restaurant.vendors.map(vendor => vendor.id)
     if (
       !decodedIdToken.roles.includes(UserRole.Admin) ||
-      !restaurant.vendorIds?.includes(decodedIdToken.uid)
+      !vendorIds?.includes(decodedIdToken.uid)
     ) {
       return {
         ok: false,
@@ -437,7 +451,9 @@ export class RestaurantService {
     const restaurant = await this.restaurantRepo.findOne({
       where: {
         id: restaurantId,
-        vendorIds: Any([vendorId]),
+        vendors: {
+          id: Any([vendorId]),
+        },
       },
       relations: ['menu', 'orders'],
     })
