@@ -46,6 +46,7 @@ import {
 } from './dtos/all-restaurants-slug.dto'
 import { Restaurant } from './entities/restaurant.entity'
 import { RestaurantService } from './restaurant.service'
+import { RESTAURANT_OPTIONAL_JOIN_COLUMNS } from './restaurant.utils'
 
 @Resolver(of => Restaurant)
 export class RestaurantResolver {
@@ -79,15 +80,7 @@ export class RestaurantResolver {
 
     const neededJoinedColumns: string[] = []
 
-    const allOptionalJoinColumns = [
-      'coverImages',
-      'reviews',
-      'categories',
-      'vendors',
-      'orders',
-      'menu',
-    ]
-    allOptionalJoinColumns.forEach(column => {
+    RESTAURANT_OPTIONAL_JOIN_COLUMNS.forEach(column => {
       if (column in restaurantFields) {
         neededJoinedColumns.push(column)
       }

@@ -23,6 +23,7 @@ import {
 } from '../common/utils/parse-graphql-resolve-info'
 import { Restaurant } from '../restaurants/entities/restaurant.entity'
 import { RestaurantService } from '../restaurants/restaurant.service'
+import { RESTAURANT_OPTIONAL_JOIN_COLUMNS } from '../restaurants/restaurant.utils'
 import { UserRole } from '../users/entities/user.entity'
 import { Category } from './category.entity'
 import { CategoryLoader } from './category.loader'
@@ -72,15 +73,7 @@ export class CategoryResolver {
 
     const neededJoinedColumns: string[] = []
 
-    const allOptionalJoinColumns = [
-      'coverImages',
-      'reviews',
-      'categories',
-      'vendors',
-      'orders',
-      'menu',
-    ]
-    allOptionalJoinColumns.forEach(column => {
+    RESTAURANT_OPTIONAL_JOIN_COLUMNS.forEach(column => {
       if (column in restaurantFields) {
         neededJoinedColumns.push(column)
       }
