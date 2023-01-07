@@ -1,1 +1,1 @@
-export * from './join-classname.utils'
+export * from './join-class-name.utils'
