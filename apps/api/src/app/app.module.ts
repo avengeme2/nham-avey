@@ -44,6 +44,7 @@ import { DishModule } from '../dishes/dish.module'
 import { FileUploadModule } from '../file-uploads/file-upload.module'
 import { GraphqlConfigService } from '../graphql/graphql-config.service'
 import { ImageModule } from '../images/image.module'
+import { OpeningHoursModule } from '../opening-hours/opening-hours.module'
 import { OrderModule } from '../orders/order.module'
 import { PaymentModule } from '../payments/payment.module'
 import { RestaurantModule } from '../restaurants/restaurant.module'
@@ -99,6 +100,7 @@ const envFilePath = path.resolve(process.cwd(), '.env')
     AuthModule,
     UserModule,
     RestaurantModule,
+    OpeningHoursModule,
     CategoryModule,
     CityModule,
     DishModule,

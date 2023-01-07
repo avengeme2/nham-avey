@@ -5,7 +5,7 @@ import { City } from '../../cities/city.entity'
 import { createSlug } from '../../common/utils/create-slug'
 import { GeoLocation } from '../../geo-locations/geo-location.entity'
 import { Image } from '../../images/entities/image.entity'
-import { OpeningHours } from '../../restaurants/entities/opening-hours.entity'
+import { OpeningHours } from '../../opening-hours/opening-hours.entity'
 import { Restaurant } from '../../restaurants/entities/restaurant.entity'
 import restaurants from '../data/restaurants.data.json'
 

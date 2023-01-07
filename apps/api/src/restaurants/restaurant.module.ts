@@ -5,6 +5,7 @@ import { CategoryModule } from '../categories/category.module'
 import { CityModule } from '../cities/city.module'
 import { GeoLocationModule } from '../geo-locations/geo-location.module'
 import { ImageModule } from '../images/image.module'
+import { OpeningHoursModule } from '../opening-hours/opening-hours.module'
 import { UserModule } from '../users/user.module'
 import { Restaurant } from './entities/restaurant.entity'
 import { RestaurantResolver } from './restaurant.resolver'
@@ -18,6 +19,7 @@ import { RestaurantService } from './restaurant.service'
     GeoLocationModule,
     CityModule,
     ImageModule,
+    OpeningHoursModule,
   ],
   providers: [RestaurantService, RestaurantResolver],
   exports: [RestaurantService],
