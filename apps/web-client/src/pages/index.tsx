@@ -1,5 +1,5 @@
 import { dehydrate, QueryClient } from '@tanstack/react-query'
-import { GetStaticProps } from 'next'
+import { GetServerSideProps } from 'next'
 
 import {
   CategoriesDocument,
@@ -13,7 +13,7 @@ import HomePage, { CATEGORIES_VARIABLES } from '../components/pages/homepage'
 import { DEFAULT_PAGE_STATE } from '../constants/common-constants'
 import { fetchData } from '../utils/graphql-fetcher'
 
-export const getStaticProps: GetStaticProps = async _ => {
+export const getServerSideProps: GetServerSideProps = async _ => {
   const queryClient = new QueryClient()
 
   await queryClient.prefetchQuery(
