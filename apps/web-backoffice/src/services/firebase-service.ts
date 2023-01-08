@@ -13,7 +13,7 @@ const messaging = getMessaging(firebaseApp)
 
 const messagingSw = getMessageSw(firebaseApp)
 
-const vapidKey = process.env.NX_FIREBASE_VAPID_KEY
+const vapidKey = import.meta.env.VITE_FIREBASE_VAPID_KEY
 
 const getErrorMessage = (error: FirebaseError) => {
   switch (error.code) {

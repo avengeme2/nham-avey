@@ -46,7 +46,7 @@ const errorLink = onError(({ graphQLErrors, networkError, operation }) => {
 
 const getWsLink = () => {
   return new WebSocketLink({
-    uri: process.env.NX_WS_GRAPHQL_URI as string,
+    uri: import.meta.env.VITE_WS_GRAPHQL_URI as string,
     options: {
       reconnect: true,
       connectionParams: async () => {
@@ -59,7 +59,7 @@ const getWsLink = () => {
 }
 
 const httpLink = createHttpLink({
-  uri: process.env.NX_HTTP_GRAPHQL_URI,
+  uri: import.meta.env.VITE_HTTP_GRAPHQL_URI,
 })
 
 const authMiddleware = setContext(async (_, { headers }) => {

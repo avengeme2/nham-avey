@@ -25,7 +25,7 @@ const createLogger = () => {
 }
 
 // Auto-enable all logs on Dev env
-if (process.env.NODE_ENV === 'development') {
+if (import.meta.env.MODE === 'development') {
   const envDebug = localStorage.getItem('debug')
   if (!envDebug) createDebug.enable(`${APPID}:*`)
 }

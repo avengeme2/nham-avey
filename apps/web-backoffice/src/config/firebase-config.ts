@@ -1,7 +1,7 @@
 import { FirebaseOptions } from 'firebase/app'
 
 const firebaseConfig = JSON.parse(
-  process.env.NX_BO_FIREBASE_CONFIG_JSON as string,
+  import.meta.env.VITE_BO_FIREBASE_CONFIG_JSON,
 ) as FirebaseOptions
 
 export default firebaseConfig

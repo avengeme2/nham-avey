@@ -4,9 +4,9 @@ import firebaseService from '../services/firebase-service'
 import { CONTENT_TYPE_JSON } from './api-constants'
 
 const api = axios.create({
-  baseURL: process.env.NX_API_URL,
+  baseURL: import.meta.env.VITE_API_URL,
   headers: {
-    'api-key': process.env.NX_API_KEY as string,
+    'api-key': import.meta.env.VITE_API_KEY as string,
     'Content-Type': CONTENT_TYPE_JSON, // default to json
   },
 })

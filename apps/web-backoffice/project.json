@@ -40,7 +40,7 @@
     },
     "test": {
       "executor": "@nrwl/vite:test",
-      "outputs": ["coverage/apps/web-backoffice"],
+      "outputs": ["{workspaceRoot}/coverage/apps/web-backoffice"],
       "options": {
         "passWithNoTests": true,
         "reportsDirectory": "../../coverage/apps/web-backoffice"

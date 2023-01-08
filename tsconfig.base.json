@@ -18,6 +18,9 @@
       "@nham-avey/common": ["libs/common/src/index.ts"],
       "@nham-avey/nestjs-module": ["libs/nestjs-module/src/index.ts"],
       "@nham-avey/react-component": ["libs/react-component/src/index.ts"],
+      "@nham-avey/react-component/next": [
+        "libs/react-component/src/next/index.ts"
+      ],
       "@nham-avey/react-hook": ["libs/react-hook/src/index.ts"]
     }
   },
