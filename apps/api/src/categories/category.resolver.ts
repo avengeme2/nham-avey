@@ -8,7 +8,6 @@ import {
   ResolveField,
   Resolver,
 } from '@nestjs/graphql'
-import { DecodedIdToken } from 'firebase-admin/auth'
 import { GraphQLResolveInfo } from 'graphql/index'
 
 import { GraphqlAuthUser } from '../auth/graphql-auth-user.decorator'
@@ -24,7 +23,7 @@ import {
 import { Restaurant } from '../restaurants/entities/restaurant.entity'
 import { RestaurantService } from '../restaurants/restaurant.service'
 import { RESTAURANT_OPTIONAL_JOIN_COLUMNS } from '../restaurants/restaurant.utils'
-import { UserRole } from '../users/entities/user.entity'
+import { User, UserRole } from '../users/entities/user.entity'
 import { Category } from './category.entity'
 import { CategoryLoader } from './category.loader'
 import { CategoryService } from './category.service'
@@ -94,30 +93,27 @@ export class CategoryResolver {
   @Mutation(returns => CoreOutput)
   @Roles(UserRole.Admin)
   adminDeleteCategory(
-    @GraphqlAuthUser() decodedIdToken: DecodedIdToken,
+    @GraphqlAuthUser() authUser: User,
     @Args() arg: IdArg,
   ): Promise<CoreOutput> {
-    return this.categoryService.deleteCategoryByAdmin(
-      decodedIdToken.uid,
-      arg.id,
-    )
+    return this.categoryService.deleteCategoryByAdmin(authUser.id, arg.id)
   }
 
   @Mutation(returns => AdminCreateCategoryOutput)
   @Roles(UserRole.Admin)
   adminCreateCategory(
-    @GraphqlAuthUser() decodedIdToken: DecodedIdToken,
+    @GraphqlAuthUser() authUser: User,
     @Args('input') input: AdminCreateCategoryInput,
   ): Promise<AdminCreateCategoryOutput> {
-    return this.categoryService.createCategoryByAdmin(decodedIdToken.uid, input)
+    return this.categoryService.createCategoryByAdmin(authUser.id, input)
   }
 
   @Mutation(returns => AdminUpdateCategoryOutput)
   @Roles(UserRole.Admin)
   adminUpdateCategory(
-    @GraphqlAuthUser() decodedIdToken: DecodedIdToken,
+    @GraphqlAuthUser() authUser: User,
     @Args('input') input: AdminUpdateCategoryInput,
   ): Promise<AdminUpdateCategoryOutput> {
-    return this.categoryService.updateCategoryByAdmin(decodedIdToken.uid, input)
+    return this.categoryService.updateCategoryByAdmin(authUser.id, input)
   }
 }

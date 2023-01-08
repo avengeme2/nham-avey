@@ -1,6 +1,5 @@
 import { Inject } from '@nestjs/common'
 import { Args, Mutation, Query, Resolver, Subscription } from '@nestjs/graphql'
-import { DecodedIdToken } from 'firebase-admin/auth'
 import { PubSub } from 'graphql-subscriptions'
 
 import { GraphqlAuthUser } from '../auth/graphql-auth-user.decorator'
@@ -31,35 +30,35 @@ export class OrderResolver {
   @Mutation(() => CreateOrderOutput)
   @Roles(UserRole.Customer)
   createOrder(
-    @GraphqlAuthUser() decodedIdToken: DecodedIdToken,
+    @GraphqlAuthUser() authUser: User,
     @Args('input') createOrderInput: CreateOrderInput,
   ): Promise<CreateOrderOutput> {
-    return this.ordersService.createOrder(decodedIdToken.uid, createOrderInput)
+    return this.ordersService.createOrder(authUser.id, createOrderInput)
   }
 
   @Query(() => GetOrdersOutput)
   @Roles(UserRole.Customer, UserRole.Admin, UserRole.Vendor, UserRole.Driver)
   getOrders(
-    @GraphqlAuthUser() decodedIdToken: DecodedIdToken,
+    @GraphqlAuthUser() authUser: User,
     @Args('input') getOrdersInput: GetOrdersInput,
   ): Promise<GetOrdersOutput> {
-    return this.ordersService.getOrders(decodedIdToken.uid, getOrdersInput)
+    return this.ordersService.getOrders(authUser.id, getOrdersInput)
   }
 
   @Query(() => GetOrderOutput)
   getOrder(
-    @GraphqlAuthUser() decodedIdToken: DecodedIdToken,
+    @GraphqlAuthUser() authUser: User,
     @Args('input') getOrderInput: GetOrderInput,
   ): Promise<GetOrderOutput> {
-    return this.ordersService.getOrder(decodedIdToken.uid, getOrderInput)
+    return this.ordersService.getOrder(authUser.id, getOrderInput)
   }
 
   @Mutation(() => EditOrderOutput)
   updateOrder(
-    @GraphqlAuthUser() decodedIdToken: DecodedIdToken,
+    @GraphqlAuthUser() authUser: User,
     @Args('input') editOrderInput: EditOrderInput,
   ): Promise<EditOrderOutput> {
-    return this.ordersService.updateOrder(decodedIdToken.uid, editOrderInput)
+    return this.ordersService.updateOrder(authUser.id, editOrderInput)
   }
 
   @Subscription(() => Order, {

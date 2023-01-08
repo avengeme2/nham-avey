@@ -2,7 +2,6 @@ import {
   BadRequestException,
   CanActivate,
   ExecutionContext,
-  Inject,
   Injectable,
   InternalServerErrorException,
   UnauthorizedException,
@@ -13,14 +12,16 @@ import { FirebaseAuthenticationService } from '@nham-avey/nestjs-module'
 
 import { AUTHORIZATION_HEADER } from '../common/constants/common.constants'
 import { UserRole } from '../users/entities/user.entity'
+import { UserService } from '../users/user.service'
 import { AuthMiddleware } from './auth.middleware'
 
 @Injectable()
 export class GraphqlAuthGuard implements CanActivate {
-  @Inject(FirebaseAuthenticationService)
-  private readonly firebaseAuthService: FirebaseAuthenticationService
-
-  constructor(private readonly reflector: Reflector) {}
+  constructor(
+    private readonly reflector: Reflector,
+    private readonly firebaseAuthService: FirebaseAuthenticationService,
+    private readonly userService: UserService,
+  ) {}
 
   async canActivate(context: ExecutionContext) {
     const roles = this.reflector.get<UserRole[]>('roles', context.getHandler())
@@ -41,10 +42,13 @@ export class GraphqlAuthGuard implements CanActivate {
       const decodedIdToken = await this.firebaseAuthService.verifyIdToken(
         accessToken,
       )
-      gqlContext['user'] = decodedIdToken
+      const user = await this.userService.findUserById(decodedIdToken.uid)
+      if (!user) {
+        throw new UnauthorizedException('User not found')
+      }
+      gqlContext['user'] = user
       return (
-        decodedIdToken?.roles?.some((role: UserRole) => roles.includes(role)) ||
-        false
+        user?.roles?.some((role: UserRole) => roles.includes(role)) || false
       )
     } catch (err: any) {
       if (err?.code === 'auth/id-token-expired') {

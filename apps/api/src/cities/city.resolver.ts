@@ -7,7 +7,6 @@ import {
   ResolveField,
   Resolver,
 } from '@nestjs/graphql'
-import { DecodedIdToken } from 'firebase-admin/auth'
 
 import { GraphqlAuthUser } from '../auth/graphql-auth-user.decorator'
 import { Roles } from '../auth/role.decorator'
@@ -16,7 +15,7 @@ import { CoreOutput } from '../common/dtos/output.dto'
 import { PaginationWithSearchArgs } from '../common/dtos/pagination.dto'
 import { GeoLocation } from '../geo-locations/geo-location.entity'
 import { GeoLocationLoader } from '../geo-locations/geo-location.loader'
-import { UserRole } from '../users/entities/user.entity'
+import { User, UserRole } from '../users/entities/user.entity'
 import { City } from './city.entity'
 import { CityService } from './city.service'
 import {
@@ -67,27 +66,27 @@ export class CityResolver {
   @Mutation(returns => CoreOutput)
   @Roles(UserRole.Admin)
   adminDeleteCity(
-    @GraphqlAuthUser() decodedIdToken: DecodedIdToken,
+    @GraphqlAuthUser() authUser: User,
     @Args() arg: IdArg,
   ): Promise<CoreOutput> {
-    return this.cityService.deleteCityByAdmin(decodedIdToken.uid, arg.id)
+    return this.cityService.deleteCityByAdmin(authUser.id, arg.id)
   }
 
   @Mutation(returns => AdminCreateCityOutput)
   @Roles(UserRole.Admin)
   adminCreateCity(
-    @GraphqlAuthUser() decodedIdToken: DecodedIdToken,
+    @GraphqlAuthUser() authUser: User,
     @Args('input') input: AdminCreateCityInput,
   ): Promise<AdminCreateCityOutput> {
-    return this.cityService.createCityByAdmin(decodedIdToken.uid, input)
+    return this.cityService.createCityByAdmin(authUser.id, input)
   }
 
   @Mutation(returns => AdminUpdateCityOutput)
   @Roles(UserRole.Admin)
   adminUpdateCity(
-    @GraphqlAuthUser() decodedIdToken: DecodedIdToken,
+    @GraphqlAuthUser() authUser: User,
     @Args('input') input: AdminUpdateCityInput,
   ): Promise<AdminUpdateCityOutput> {
-    return this.cityService.updateCityByAdmin(decodedIdToken.uid, input)
+    return this.cityService.updateCityByAdmin(authUser.id, input)
   }
 }

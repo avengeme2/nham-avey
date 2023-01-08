@@ -7,7 +7,6 @@ import {
   ResolveField,
   Resolver,
 } from '@nestjs/graphql'
-import { DecodedIdToken } from 'firebase-admin/auth'
 import { GraphQLResolveInfo } from 'graphql'
 
 import { GraphqlAuthUser } from '../auth/graphql-auth-user.decorator'
@@ -27,7 +26,7 @@ import { GeoLocation } from '../geo-locations/geo-location.entity'
 import { GeoLocationLoader } from '../geo-locations/geo-location.loader'
 import { OpeningHours } from '../opening-hours/opening-hours.entity'
 import { OpeningHoursLoader } from '../opening-hours/opening-hours.loader'
-import { UserRole } from '../users/entities/user.entity'
+import { User, UserRole } from '../users/entities/user.entity'
 import {
   AdminCreateRestaurantInput,
   AdminUpdateRestaurantInput,
@@ -141,11 +140,11 @@ export class RestaurantResolver {
   @Mutation(returns => RestaurantOutput)
   @Roles(UserRole.Vendor)
   async vendorCreateRestaurant(
-    @GraphqlAuthUser() decodedIdToken: DecodedIdToken,
+    @GraphqlAuthUser() authUser: User,
     @Args('input') input: VendorCreateRestaurantInput,
   ): Promise<RestaurantOutput> {
     return await this.restaurantService.createRestaurantByVendor(
-      decodedIdToken.uid,
+      authUser.id,
       input,
     )
   }
@@ -153,32 +152,29 @@ export class RestaurantResolver {
   @Mutation(returns => RestaurantOutput)
   @Roles(UserRole.Admin)
   async adminCreateRestaurant(
-    @GraphqlAuthUser() admin: DecodedIdToken,
+    @GraphqlAuthUser() authUser: User,
     @Args('input') input: AdminCreateRestaurantInput,
   ): Promise<RestaurantOutput> {
-    return await this.restaurantService.createRestaurantByAdmin(admin, input)
+    return await this.restaurantService.createRestaurantByAdmin(authUser, input)
   }
 
   @Query(returns => PaginatedRestaurantsOutput)
   @Roles(UserRole.Vendor)
   myRestaurants(
-    @GraphqlAuthUser() decodedIdToken: DecodedIdToken,
+    @GraphqlAuthUser() authUser: User,
     @Args() args: PaginationWithSearchArgs,
   ): Promise<PaginatedRestaurantsOutput> {
-    return this.restaurantService.findRestaurantsByVendor(
-      decodedIdToken.uid,
-      args,
-    )
+    return this.restaurantService.findRestaurantsByVendor(authUser.id, args)
   }
 
   @Query(returns => RestaurantOutput)
   @Roles(UserRole.Vendor)
   myRestaurant(
-    @GraphqlAuthUser() decodedIdToken: DecodedIdToken,
+    @GraphqlAuthUser() authUser: User,
     @Args() arg: IdArg,
   ): Promise<RestaurantOutput> {
     return this.restaurantService.findRestaurantByIdAndVendorId(
-      decodedIdToken.uid,
+      authUser.id,
       arg.id,
     )
   }
@@ -208,19 +204,16 @@ export class RestaurantResolver {
   @Mutation(returns => RestaurantOutput)
   @Roles(UserRole.Vendor)
   vendorUpdateRestaurant(
-    @GraphqlAuthUser() decodedIdToken: DecodedIdToken,
+    @GraphqlAuthUser() authUser: User,
     @Args('input') input: VendorUpdateRestaurantInput,
   ): Promise<RestaurantOutput> {
-    return this.restaurantService.updateRestaurantByVendor(
-      decodedIdToken.uid,
-      input,
-    )
+    return this.restaurantService.updateRestaurantByVendor(authUser.id, input)
   }
 
   @Mutation(returns => RestaurantOutput)
   @Roles(UserRole.Admin)
   adminUpdateRestaurant(
-    @GraphqlAuthUser() decodedIdToken: DecodedIdToken,
+    @GraphqlAuthUser() authUser: User,
     @Args('input') input: AdminUpdateRestaurantInput,
   ): Promise<RestaurantOutput> {
     return this.restaurantService.updateRestaurantByAdmin(input)
@@ -229,9 +222,9 @@ export class RestaurantResolver {
   @Mutation(returns => CoreOutput)
   @Roles(UserRole.Vendor, UserRole.Admin)
   deleteRestaurant(
-    @GraphqlAuthUser() decodedIdToken: DecodedIdToken,
+    @GraphqlAuthUser() authUser: User,
     @Args() arg: IdArg,
   ): Promise<CoreOutput> {
-    return this.restaurantService.deleteRestaurant(decodedIdToken, arg.id)
+    return this.restaurantService.deleteRestaurant(authUser, arg.id)
   }
 }

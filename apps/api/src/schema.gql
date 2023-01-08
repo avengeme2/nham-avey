@@ -303,7 +303,6 @@ type Mutation {
   createOrder(input: CreateOrderInput!): CreateOrderOutput!
   createPayment(input: CreatePaymentInput!): CreatePaymentOutput!
   deleteRestaurant(id: Int!): CoreOutput!
-  driverSignUp(input: SignUpAccountInput!): SignUpAccountOutput!
   takeOrder(input: TakeOrderInput!): TakeOrderOutput!
   updateMe(input: UpdateProfileInput!): UpdateProfileOutput!
   updateOrder(input: EditOrderInput!): EditOrderOutput!

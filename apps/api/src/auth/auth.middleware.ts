@@ -1,5 +1,4 @@
 import {
-  Inject,
   Injectable,
   InternalServerErrorException,
   NestMiddleware,
@@ -10,20 +9,23 @@ import * as Sentry from '@sentry/node'
 import { NextFunction, Request, Response } from 'express'
 import { DecodedIdToken } from 'firebase-admin/auth'
 
-import { UserRole } from '../users/entities/user.entity'
+import { User, UserRole } from '../users/entities/user.entity'
+import { UserService } from '../users/user.service'
 
 export interface UserClaims extends DecodedIdToken {
   roles?: UserRole[]
 }
 
 export interface RequestWithUser extends Request {
-  user?: UserClaims
+  user?: User
 }
 
 @Injectable()
 export class AuthMiddleware implements NestMiddleware {
-  @Inject(FirebaseAuthenticationService)
-  private readonly firebaseAuthService: FirebaseAuthenticationService
+  constructor(
+    private readonly firebaseAuthService: FirebaseAuthenticationService,
+    private readonly userService: UserService,
+  ) {}
 
   public static validateAndGetToken(bearerToken: string): string {
     const match = bearerToken.match(/^Bearer (.*)$/)
@@ -48,11 +50,15 @@ export class AuthMiddleware implements NestMiddleware {
       const decodedIdToken = await this.firebaseAuthService.auth.verifyIdToken(
         accessToken,
       )
-      req.user = decodedIdToken
-      Sentry.setUser({
-        id: decodedIdToken.uid,
-        ...decodedIdToken, // TODO: align with https://docs.sentry.io/platforms/node/guides/express/enriching-events/identify-user/
-      })
+      const user = await this.userService.findUserById(decodedIdToken.uid)
+      if (!user) {
+        throw new UnauthorizedException('User not found')
+      }
+
+      req.user = user
+      Sentry.setUser(
+        user, // TODO: align with https://docs.sentry.io/platforms/node/guides/express/enriching-events/identify-user/
+      )
       next()
     } catch (err: any) {
       if (err?.code === 'auth/id-token-expired') {

@@ -1,6 +1,6 @@
 import { Injectable } from '@nestjs/common'
 import { InjectRepository } from '@nestjs/typeorm'
-import { DecodedIdToken, UserRecord } from 'firebase-admin/auth'
+import { UserRecord } from 'firebase-admin/auth'
 import { Any, In, Repository } from 'typeorm'
 
 import { CategoryRequest } from '../categories/category.interface'
@@ -10,7 +10,7 @@ import { CoreOutput } from '../common/dtos/output.dto'
 import { PaginationWithSearchArgs } from '../common/dtos/pagination.dto'
 import { createSlug } from '../common/utils/create-slug'
 import { ImageService } from '../images/image.service'
-import { UserRole } from '../users/entities/user.entity'
+import { User, UserRole } from '../users/entities/user.entity'
 import { UserService } from '../users/user.service'
 import {
   AdminCreateRestaurantInput,
@@ -155,7 +155,7 @@ export class RestaurantService {
   }
 
   async createRestaurantByAdmin(
-    admin: DecodedIdToken,
+    authUser: User,
     input: AdminCreateRestaurantInput,
   ): Promise<RestaurantOutput> {
     const { categories, vendorIds, coverImageUrls, ...restaurantPayload } =
@@ -278,7 +278,7 @@ export class RestaurantService {
   }
 
   async deleteRestaurant(
-    decodedIdToken: DecodedIdToken,
+    authUser: User,
     restaurantId: Restaurant['id'],
   ): Promise<CoreOutput> {
     const restaurant = await this.restaurantRepo.findOne({
@@ -293,8 +293,8 @@ export class RestaurantService {
 
     const vendorIds = restaurant.vendors.map(vendor => vendor.id)
     if (
-      !decodedIdToken.roles.includes(UserRole.Admin) ||
-      !vendorIds?.includes(decodedIdToken.uid)
+      !authUser.roles.includes(UserRole.Admin) ||
+      !vendorIds?.includes(authUser.id)
     ) {
       return {
         ok: false,

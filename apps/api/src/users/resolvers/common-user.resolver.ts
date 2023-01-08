@@ -1,6 +1,5 @@
 import { UseGuards } from '@nestjs/common'
 import { Args, Mutation, Query, Resolver } from '@nestjs/graphql'
-import { DecodedIdToken } from 'firebase-admin/auth'
 
 import { GraphqlAuthGuard } from '../../auth/graphql-auth-guard.service'
 import { GraphqlAuthUser } from '../../auth/graphql-auth-user.decorator'
@@ -16,8 +15,8 @@ export class CommonUserResolver {
   @Query(returns => User)
   @UseGuards(GraphqlAuthGuard)
   @AnyRoles()
-  me(@GraphqlAuthUser() authUser: DecodedIdToken): Promise<User | null> {
-    return this.userService.findUserById(authUser.uid)
+  me(@GraphqlAuthUser() authUser: User): Promise<User | null> {
+    return this.userService.findUserById(authUser.id)
   }
 
   @AnyRoles()

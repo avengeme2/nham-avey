@@ -1,11 +1,10 @@
 import { Args, Mutation, Resolver } from '@nestjs/graphql'
-import { DecodedIdToken } from 'firebase-admin/auth'
 
 import { GraphqlAuthUser } from '../auth/graphql-auth-user.decorator'
 import { Roles } from '../auth/role.decorator'
 import { IdArg } from '../common/dtos/id.dto'
 import { CoreOutput } from '../common/dtos/output.dto'
-import { UserRole } from '../users/entities/user.entity'
+import { User, UserRole } from '../users/entities/user.entity'
 import { DishService } from './dish.service'
 import { DishOutput, CreateDishInput, UpdateDishInput } from './dto'
 
@@ -16,54 +15,54 @@ export class DishResolver {
   @Mutation(() => DishOutput)
   @Roles(UserRole.Vendor)
   vendorCreateDish(
-    @GraphqlAuthUser() decodedIdToken: DecodedIdToken,
+    @GraphqlAuthUser() authUser: User,
     @Args('input') input: CreateDishInput,
   ): Promise<DishOutput> {
-    return this.dishService.createDishByVendor(decodedIdToken.uid, input)
+    return this.dishService.createDishByVendor(authUser.id, input)
   }
 
   @Mutation(() => DishOutput)
   @Roles(UserRole.Admin)
   adminCreateDish(
-    @GraphqlAuthUser() decodedIdToken: DecodedIdToken,
+    @GraphqlAuthUser() authUser: User,
     @Args('input') input: CreateDishInput,
   ): Promise<DishOutput> {
-    return this.dishService.createDishByAdmin(decodedIdToken.uid, input)
+    return this.dishService.createDishByAdmin(authUser.id, input)
   }
 
   @Mutation(() => DishOutput)
   @Roles(UserRole.Vendor)
   vendorUpdateDish(
-    @GraphqlAuthUser() decodedIdToken: DecodedIdToken,
+    @GraphqlAuthUser() authUser: User,
     @Args('input') input: UpdateDishInput,
   ): Promise<DishOutput> {
-    return this.dishService.updateDishByVendor(decodedIdToken.uid, input)
+    return this.dishService.updateDishByVendor(authUser.id, input)
   }
 
   @Mutation(() => DishOutput)
   @Roles(UserRole.Admin)
   adminUpdateDish(
-    @GraphqlAuthUser() decodedIdToken: DecodedIdToken,
+    @GraphqlAuthUser() authUser: User,
     @Args('input') input: UpdateDishInput,
   ): Promise<DishOutput> {
-    return this.dishService.updateDishByAdmin(decodedIdToken.uid, input)
+    return this.dishService.updateDishByAdmin(authUser.id, input)
   }
 
   @Mutation(() => CoreOutput)
   @Roles(UserRole.Vendor)
   vendorDeleteDish(
-    @GraphqlAuthUser() decodedIdToken: DecodedIdToken,
+    @GraphqlAuthUser() authUser: User,
     @Args() arg: IdArg,
   ): Promise<CoreOutput> {
-    return this.dishService.deleteDishByVendor(decodedIdToken.uid, arg.id)
+    return this.dishService.deleteDishByVendor(authUser.id, arg.id)
   }
 
   @Mutation(() => CoreOutput)
   @Roles(UserRole.Admin)
   adminDeleteDish(
-    @GraphqlAuthUser() decodedIdToken: DecodedIdToken,
+    @GraphqlAuthUser() authUser: User,
     @Args() arg: IdArg,
   ): Promise<CoreOutput> {
-    return this.dishService.deleteDishByAdmin(decodedIdToken.uid, arg.id)
+    return this.dishService.deleteDishByAdmin(authUser.id, arg.id)
   }
 }
