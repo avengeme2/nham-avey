@@ -9,7 +9,7 @@ import { ReactQueryDevtools } from '@tanstack/react-query-devtools'
 import { AppProps } from 'next/app'
 import Head from 'next/head'
 
-import { NextNProgress } from '@nham-avey/react-component'
+import { NextNProgress } from '@nham-avey/react-component/next'
 
 import { PRIMARY } from '../constants/colors-constants'
 import RestaurantPageStateContextProvider from '../context/restaurant-page-state-context'

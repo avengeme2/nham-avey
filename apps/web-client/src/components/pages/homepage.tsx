@@ -46,9 +46,11 @@ const HomePage = () => {
 
   useScrollPosition({ effect: handleScroll, wait: 800 })
 
+  const showLoading = useLoadingDelay(isLoadingRestaurant)
+
   // update scroll position when navigate back
   useEffect(() => {
-    if (isPreviousData) return
+    if (isPreviousData || showLoading) return
     if (restaurantData?.restaurants?.hasPrevious) {
       setLoadedRestaurants((prevState: any) => [
         ...prevState,
@@ -87,8 +89,6 @@ const HomePage = () => {
       }
     })
   }, [setPageState])
-
-  const showLoading = useLoadingDelay(isLoadingRestaurant)
 
   return (
     <AuthedLayout>
