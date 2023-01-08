@@ -48,9 +48,9 @@ const HomePage = () => {
 
   const showLoading = useLoadingDelay(isLoadingRestaurant)
 
-  // update scroll position when navigate back
+  // merge all page data and update scroll position when navigate back
   useEffect(() => {
-    if (isPreviousData || showLoading) return
+    if (isPreviousData) return
     if (restaurantData?.restaurants?.hasPrevious) {
       setLoadedRestaurants((prevState: any) => [
         ...prevState,
