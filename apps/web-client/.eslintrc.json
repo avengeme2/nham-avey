@@ -1,9 +1,9 @@
 {
   "extends": [
     "plugin:@nrwl/nx/react-typescript",
-    "../../.eslintrc.json",
     "next",
     "next/core-web-vitals",
+    "../../.eslintrc.json",
     "eslint:recommended",
     "plugin:react/recommended",
     "plugin:jsx-a11y/recommended",
@@ -45,6 +45,7 @@
     "jest": true
   },
   "rules": {
+    "@next/next/no-html-link-for-pages": "off",
     "no-console": "error",
     "eqeqeq": ["error", "always"],
     "prefer-const": "error",

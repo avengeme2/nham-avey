@@ -5,13 +5,7 @@
     "plugin:@typescript-eslint/recommended",
     "plugin:prettier/recommended"
   ],
-  "ignorePatterns": ["!**/*", "jest.config.ts"],
-  "parser": "@typescript-eslint/parser",
-  "parserOptions": {
-    "ecmaVersion": 2020,
-    "sourceType": "module",
-    "project": "./apps/api/tsconfig.app.json"
-  },
+  "ignorePatterns": ["!**/*"],
   "plugins": ["import", "@typescript-eslint/eslint-plugin", "deprecation"],
   "overrides": [
     {
@@ -20,50 +14,52 @@
     },
     {
       "files": ["*.ts", "*.tsx"],
-      "rules": {}
+      "parserOptions": {
+        "project": ["apps/api/tsconfig.*?.json"]
+      },
+      "rules": {
+        "curly": ["error", "all"],
+        "require-await": "error",
+        "no-empty": "off",
+        "no-console": "error",
+        "eqeqeq": ["error", "always"],
+        "prefer-const": "error",
+        "@typescript-eslint/no-unused-vars": [
+          "error",
+          {
+            "argsIgnorePattern": "^_|type|of|returns",
+            "varsIgnorePattern": "^_"
+          }
+        ],
+        "@typescript-eslint/no-explicit-any": "off",
+        "import/order": [
+          "error",
+          {
+            "groups": ["builtin", "external", "internal"],
+            "pathGroups": [
+              {
+                "pattern": "@nest/*",
+                "group": "external",
+                "position": "before"
+              }
+            ],
+            "pathGroupsExcludedImportTypes": ["@nest/*"],
+            "newlines-between": "always",
+            "alphabetize": {
+              "order": "asc",
+              "caseInsensitive": true
+            }
+          }
+        ],
+        "import/first": "error",
+        "import/newline-after-import": "error",
+        "import/no-duplicates": "error",
+        "deprecation/deprecation": "error"
+      }
     },
     {
       "files": ["*.js", "*.jsx"],
       "rules": {}
     }
-  ],
-  "rules": {
-    "curly": ["error", "all"],
-    "require-await": "error",
-    "no-empty": "off",
-    "no-console": "error",
-    "eqeqeq": ["error", "always"],
-    "prefer-const": "error",
-    "@typescript-eslint/no-unused-vars": [
-      "error",
-      {
-        "argsIgnorePattern": "^_|type|of|returns",
-        "varsIgnorePattern": "^_"
-      }
-    ],
-    "@typescript-eslint/no-explicit-any": "off",
-    "import/order": [
-      "error",
-      {
-        "groups": ["builtin", "external", "internal"],
-        "pathGroups": [
-          {
-            "pattern": "@nest/*",
-            "group": "external",
-            "position": "before"
-          }
-        ],
-        "pathGroupsExcludedImportTypes": ["@nest/*"],
-        "newlines-between": "always",
-        "alphabetize": {
-          "order": "asc",
-          "caseInsensitive": true
-        }
-      }
-    ],
-    "import/first": "error",
-    "import/newline-after-import": "error",
-    "import/no-duplicates": "error",
-    "deprecation/deprecation": "error"
-  }
+  ]
 }

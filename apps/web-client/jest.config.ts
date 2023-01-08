@@ -1,7 +1,7 @@
 /* eslint-disable */
-module.exports = {
+export default {
   displayName: 'web-client',
-  preset: '../../jest.preset.ts',
+  preset: '../../jest.preset.js',
   transform: {
     '^(?!.*\\.(js|jsx|ts|tsx|css|json)$)': '@nrwl/react/plugins/jest',
     '^.+\\.[tj]sx?$': ['babel-jest', { presets: ['@nrwl/next/babel'] }],
