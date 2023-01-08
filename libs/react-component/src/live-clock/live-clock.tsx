@@ -1,5 +1,5 @@
 import { useState, useEffect, ReactNode, useRef } from 'react'
-import Moment from 'react-moment'
+import Moment from '../react-moment/react-moment'
 import 'moment-timezone'
 
 export interface LiveClockProps {
